@@ -6,7 +6,7 @@ export default function Login() {
     return (
         <>
             <Header/>
-            <div className="flex justify-center items-center h-screen">
+            <div className="flex justify-center h-screen sm:flex sm:justify-center sm:items-center">
                 <Form/>
             </div>
         </>
