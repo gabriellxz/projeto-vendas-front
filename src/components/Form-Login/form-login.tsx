@@ -13,10 +13,10 @@ export default function FormLogin() {
                 <div>
                     <div className="flex flex-col gap-7">
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"email"} inputLabel={"Email"} />
+                            <Input typeInput={"email"} inputLabel={"Email"} styleWidth={"w-full"}/>
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"password"} inputLabel={"Senha"}/>
+                            <Input typeInput={"password"} inputLabel={"Senha"} styleWidth={"w-full"}/>
                             <div>
                                 <span>Esqueceu sua senha?</span>
                             </div>
