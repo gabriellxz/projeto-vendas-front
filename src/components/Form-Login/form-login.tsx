@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ButtonDark from "../Button-dark/button-dark";
 import ButtonLight from "../Button-light/button-light";
 import Input from "../Input/input";
@@ -29,9 +30,9 @@ export default function FormLogin() {
                             <div className="flex justify-center mb-3">
                                 <span>Não possui uma conta?</span>
                             </div>
-                            <div>
+                            <Link to={"/cadastro"}>
                                 <ButtonLight text={"Criar uma conta"}/>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>

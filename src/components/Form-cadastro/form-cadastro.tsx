@@ -3,6 +3,7 @@ import ButtonLight from "../Button-light/button-light";
 import Input from "../Input/input";
 import TitleForm from "../Title-form/title-form";
 import data from '../../ddd.json'
+import { Link } from "react-router-dom";
 
 export default function FormCadastro() {
 
@@ -63,9 +64,9 @@ export default function FormCadastro() {
                             <div className="flex justify-center mb-3">
                                 <span>Ja possui uma conta?</span>
                             </div>
-                            <div>
+                            <Link to={"/"}>
                                 <ButtonLight text={"Entrar"} />
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
