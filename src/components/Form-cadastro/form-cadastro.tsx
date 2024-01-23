@@ -7,11 +7,14 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../../config/config";
 import useInputChange from "../../hook/useInputChange";
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 export default function FormCadastro() {
 
     const navigate = useNavigate()
     const {
-        
+
         telefoneData,
         email,
         senha,
@@ -25,10 +28,10 @@ export default function FormCadastro() {
 
     } = useInputChange()
 
-    async function handleSubmit(e:any) {
+    async function handleSubmit(e: any) {
         e.preventDefault()
         const Telefone = telefoneData.ddd + telefoneData.Telefone
-        
+
         console.log(email)
         console.log(senha)
         console.log(Telefone)
@@ -44,11 +47,21 @@ export default function FormCadastro() {
             genero
         }
 
-        await api.post("/registrar", data, {headers: {
-            "Content-Type": "application/json"
-        }} ).then((response) => {
+        await api.post("/registrar", data, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((response) => {
             console.log(response)
-            navigate("/")
+
+            if (response.status === 201) {
+                setTimeout(() => {
+                    navigate("/")
+                }, 3000)
+                
+                toast.success("Usuário cadastrado com sucesso!")
+            }
+
         }).catch((error) => {
             console.log(error)
         })
@@ -63,10 +76,10 @@ export default function FormCadastro() {
                 <div>
                     <div className="flex flex-col gap-7">
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"email"} inputLabel={"Email"} styleWidth={"w-full"} name={"email"} value={email} onInputValue={handleEmailValue}/>
+                            <Input typeInput={"email"} inputLabel={"Email"} styleWidth={"w-full"} name={"email"} value={email} onInputValue={handleEmailValue} />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"password"} inputLabel={"Senha"} styleWidth={"w-full"} name={"senha"} value={senha} onInputValue={handleSenhaValue}/>
+                            <Input typeInput={"password"} inputLabel={"Senha"} styleWidth={"w-full"} name={"senha"} value={senha} onInputValue={handleSenhaValue} />
                         </div>
                         <div className="flex gap-5">
                             <div className="flex flex-col max-w-[108px] w-full">
@@ -81,11 +94,11 @@ export default function FormCadastro() {
                                 </select>
                             </div>
                             <div className="w-full">
-                                <Input typeInput={"tel"} inputLabel={"Telefone"} styleWidth={"w-full"} name={"Telefone"} value={telefoneData.Telefone} onInputValue={handleTelefoneValue}/>
+                                <Input typeInput={"tel"} inputLabel={"Telefone"} styleWidth={"w-full"} name={"Telefone"} value={telefoneData.Telefone} onInputValue={handleTelefoneValue} />
                             </div>
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"text"} inputLabel={"Nome completo"} styleWidth={"w-full"} name={"nome"} value={nome} onInputValue={handleNomeInput}/>
+                            <Input typeInput={"text"} inputLabel={"Nome completo"} styleWidth={"w-full"} name={"nome"} value={nome} onInputValue={handleNomeInput} />
                         </div>
                         <div className="flex flex-col mt-5">
                             <span className="text-xl">Sexo</span>
@@ -118,7 +131,9 @@ export default function FormCadastro() {
                         </div>
                     </div>
                 </div>
+
             </form>
+            <ToastContainer />
         </>
     )
 }
