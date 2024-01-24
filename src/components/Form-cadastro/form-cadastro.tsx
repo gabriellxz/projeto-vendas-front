@@ -9,6 +9,8 @@ import useInputChange from "../../hook/useInputChange";
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import useValidation from "../../hook/useValidation";
+import Loading from "../Loading/loading";
 
 export default function FormCadastro() {
 
@@ -27,8 +29,12 @@ export default function FormCadastro() {
         handleTelefoneValue
 
     } = useInputChange()
+    const { validation, setValidation } = useValidation()
 
     async function handleSubmit(e: any) {
+
+        setValidation({ ...validation, loading: true })
+
         e.preventDefault()
         const Telefone = telefoneData.ddd + telefoneData.Telefone
 
@@ -55,15 +61,82 @@ export default function FormCadastro() {
             console.log(response)
 
             if (response.status === 201) {
-                setTimeout(() => {
-                    navigate("/")
-                }, 3000)
-                
-                toast.success("Usuário cadastrado com sucesso!")
-            }
+                navigate("/")
 
+                toast.success("Usuário cadastrado com sucesso!", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+
+                setValidation({
+                    type: "sucess",
+                    message: "Usuário cadastrado com sucesso!",
+                    loading: false
+                })
+            }
         }).catch((error) => {
             console.log(error)
+            if (error.response.status === 400) {
+
+                setValidation({ ...validation, loading: false })
+
+                toast.error("Preencha os campos corretamente.", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+
+                if (senha.length < 6) {
+                    console.log(error.response.data.message[0])
+                    setValidation({
+                        type: "senha-length",
+                        message: "A senha deve conter no mínimo 6 caracteres.",
+                        loading: false
+                    })
+
+                    toast.error("A senha deve conter no mínimo 6 caracteres.", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
+
+                }
+            } else if (error.response.status === 404) {
+                toast.error("Este usuário já existe!", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+
+                setValidation({ ...validation, loading: false })
+            } else {
+                setValidation({
+                    type: "error",
+                    message: "Erro: tente mais tarde.",
+                    loading: false
+                })
+            }
         })
     }
 
@@ -76,15 +149,36 @@ export default function FormCadastro() {
                 <div>
                     <div className="flex flex-col gap-7">
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"email"} inputLabel={"Email"} styleWidth={"w-full"} name={"email"} value={email} onInputValue={handleEmailValue} />
+                            <Input
+                                typeInput={"email"}
+                                inputLabel={"Email"}
+                                styleWidth={"w-full"}
+                                name={"email"}
+                                value={email}
+                                onInputValue={handleEmailValue}
+                            />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"password"} inputLabel={"Senha"} styleWidth={"w-full"} name={"senha"} value={senha} onInputValue={handleSenhaValue} />
+                            <Input
+                                typeInput={"password"}
+                                inputLabel={"Senha"}
+                                styleWidth={"w-full"}
+                                name={"senha"}
+                                value={senha}
+                                onInputValue={handleSenhaValue}
+                            />
+                            {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
                         </div>
                         <div className="flex gap-5">
                             <div className="flex flex-col max-w-[108px] w-full">
                                 <span className="text-xl">DDD</span>
-                                <select name="ddd" id="" value={telefoneData.ddd} onChange={handleTelefoneValue} className="border border-1 border-black outline-none p-2 max-w-[108px] w-full">
+                                <select
+                                    name="ddd"
+                                    id=""
+                                    value={telefoneData.ddd}
+                                    onChange={handleTelefoneValue}
+                                    className="border border-1 border-black outline-none p-2 max-w-[108px] w-full"
+                                >
                                     <option>DDD</option>
                                     {
                                         data.dddsPorEstado.map((ddd: string) => (
@@ -94,11 +188,25 @@ export default function FormCadastro() {
                                 </select>
                             </div>
                             <div className="w-full">
-                                <Input typeInput={"tel"} inputLabel={"Telefone"} styleWidth={"w-full"} name={"Telefone"} value={telefoneData.Telefone} onInputValue={handleTelefoneValue} />
+                                <Input
+                                    typeInput={"tel"}
+                                    inputLabel={"Telefone"}
+                                    styleWidth={"w-full"}
+                                    name={"Telefone"}
+                                    value={telefoneData.Telefone}
+                                    onInputValue={handleTelefoneValue}
+                                />
                             </div>
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"text"} inputLabel={"Nome completo"} styleWidth={"w-full"} name={"nome"} value={nome} onInputValue={handleNomeInput} />
+                            <Input
+                                typeInput={"text"}
+                                inputLabel={"Nome completo"}
+                                styleWidth={"w-full"}
+                                name={"nome"}
+                                value={nome}
+                                onInputValue={handleNomeInput}
+                            />
                         </div>
                         <div className="flex flex-col mt-5">
                             <span className="text-xl">Sexo</span>
@@ -117,13 +225,17 @@ export default function FormCadastro() {
                                 </div>
                             </div>
                         </div>
-                        <div className="">
-                            <ButtonDark text={"cadastrar"} />
+                        <div className="text-center">
+                            {
+                                validation.loading ? <Loading />
+                                    :
+                                    <ButtonDark text={"cadastrar"} />       
+                            }
                             <div className="bg-zinc-400 p-[0.4px] w-full"></div>
                         </div>
                         <div>
                             <div className="flex justify-center mb-3">
-                                <span>Ja possui uma conta?</span>
+                                <span>Já possui uma conta?</span>
                             </div>
                             <Link to={"/"}>
                                 <ButtonLight text={"Entrar"} />
