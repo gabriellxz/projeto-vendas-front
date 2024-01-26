@@ -10,12 +10,16 @@ import useValidation from "../../hook/useValidation";
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from "../Loading/loading";
+import { useContext } from "react";
+import { UserAutenticado } from "../../context/authContext";
 
 export default function FormLogin() {
 
     const navigate = useNavigate()
     const { email, senha, handleEmailValue, handleSenhaValue } = useInputChange()
     const { validation, setValidation } = useValidation()
+
+    const {signIn} = useContext(UserAutenticado)
 
 
     async function handleSubmit(e: any) {
@@ -43,6 +47,8 @@ export default function FormLogin() {
                 })
                 navigate("/home")
                 localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
+
+                signIn(true)
             }
         }).catch((error) => {
             console.log(error)
@@ -50,7 +56,7 @@ export default function FormLogin() {
 
                 setValidation({ ...validation, loading: false })
 
-                toast.error("Preencha os campos corretamente.", {
+                toast.error(error.response.data.message, {
                     position: "bottom-center",
                     autoClose: 5000,
                     hideProgressBar: false,
