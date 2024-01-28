@@ -45,6 +45,6 @@ export default function useInputChange() {
         handleSenhaValue,
         handleTelefoneValue,
         handleNomeInput,
-        handleGeneroValue
+        handleGeneroValue,
     }
 }
