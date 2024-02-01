@@ -4,8 +4,6 @@ import Input from "../Input/input";
 import TitleForm from "../Title-form/title-form";
 import data from '../../ddd.json'
 import { Link } from "react-router-dom";
-import useInputChange from "../../hook/useInputChange";
-
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from "../Loading/loading";
@@ -14,19 +12,18 @@ import useCadastro from "../../hook/useCadastro";
 export default function FormCadastro() {
 
     const {
-
-        telefoneData,
-        email,
+        handleSubmit,
+        validation,
         senha,
+        email,
+        telefoneData,
         nome,
         handleEmailValue,
         handleGeneroValue,
         handleNomeInput,
         handleSenhaValue,
         handleTelefoneValue
-
-    } = useInputChange()
-    const {handleSubmit, validation} = useCadastro()
+    } = useCadastro()
 
     return (
         <>

@@ -1,16 +1,28 @@
 import { useNavigate } from "react-router-dom"
 import useValidation from "./useValidation"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { UserAutenticado } from "../context/authContext"
-import useInputChange from "./useInputChange"
+// import useInputChange from "./useInputChange"
 import api from "../config/config"
 import { toast } from "react-toastify"
 
 export default function useLogin() {
 
     const navigate = useNavigate()
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+
+
+    function handleEmailValue(e: any) {
+        setEmail(e.target.value)
+    }
+
+    function handleSenhaValue(e: any) {
+        setSenha(e.target.value)
+    }
+
     const { validation, setValidation } = useValidation()
-    const {email, senha} = useInputChange()
+    // const {email, senha} = useInputChange()
 
     const { signIn } = useContext(UserAutenticado)
 
@@ -105,6 +117,10 @@ export default function useLogin() {
 
     return {
         handleSubmit,
-        validation
+        validation,
+        handleEmailValue,
+        handleSenhaValue,
+        senha,
+        email
     }
 }

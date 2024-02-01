@@ -3,7 +3,7 @@ interface Props {
     inputLabel: string;
     styleWidth: string;
     name: string;
-    value: string;
+    value: string | number;
     onInputValue: (e:any) => void;
 }
 

@@ -3,7 +3,6 @@ import ButtonDark from "../Button-dark/button-dark";
 import ButtonLight from "../Button-light/button-light";
 import Input from "../Input/input";
 import TitleForm from "../Title-form/title-form";
-import useInputChange from "../../hook/useInputChange";
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -12,8 +11,15 @@ import useLogin from "../../hook/useLogin";
 
 export default function FormLogin() {
 
-    const { email, senha, handleEmailValue, handleSenhaValue } = useInputChange()
-    const {handleSubmit, validation}  = useLogin()
+    // const { email, senha, handleEmailValue, handleSenhaValue } = useInputChange()
+    const {
+        handleSubmit,
+        validation,
+        handleEmailValue,
+        handleSenhaValue,
+        senha,
+        email
+    } = useLogin()
 
     return (
         <>

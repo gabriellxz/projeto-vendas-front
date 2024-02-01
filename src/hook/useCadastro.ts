@@ -1,22 +1,47 @@
 import { toast } from "react-toastify"
 import api from "../config/config"
-import useInputChange from "./useInputChange"
 import useValidation from "./useValidation"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 export default function useCadastro() {
 
     const navigate = useNavigate()
-    const {
-
-        telefoneData,
-        email,
-        senha,
-        nome,
-        genero
-
-    } = useInputChange()
     const { validation, setValidation } = useValidation()
+
+    const [nome, setNome] = useState('')
+    const [telefoneData, setTelefoneData] = useState({
+        ddd: "",
+        Telefone: ""
+    })
+    const [genero, setGenero] = useState({
+        masculino: "",
+        feminino: "",
+        outro: ""
+    })
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+
+
+    function handleEmailValue(e: any) {
+        setEmail(e.target.value)
+    }
+
+    function handleSenhaValue(e: any) {
+        setSenha(e.target.value)
+    }
+
+    function handleTelefoneValue(e: any) {
+        setTelefoneData({ ...telefoneData, [e.target.name]: e.target.value })
+    }
+
+    function handleNomeInput(e: any) {
+        setNome(e.target.value)
+    }
+
+    function handleGeneroValue(e: any) {
+        setGenero(e.target.value)
+    }
 
     async function handleSubmit(e: any) {
 
@@ -129,6 +154,16 @@ export default function useCadastro() {
 
     return {
         handleSubmit,
-        validation
+        validation,
+        senha,
+        email,
+        telefoneData,
+        genero,
+        nome,
+        handleEmailValue,
+        handleGeneroValue,
+        handleNomeInput,
+        handleSenhaValue,
+        handleTelefoneValue
     }
 }
