@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import useValidation from "./useValidation"
-import { useContext, useState } from "react"
-import { UserAutenticado } from "../context/authContext"
+import { useState } from "react"
 // import useInputChange from "./useInputChange"
 import api from "../config/config"
 import { toast } from "react-toastify"
@@ -11,6 +10,7 @@ export default function useLogin() {
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    // const {token} = useContext(UserAutenticado)
 
 
     function handleEmailValue(e: any) {
@@ -24,7 +24,6 @@ export default function useLogin() {
     const { validation, setValidation } = useValidation()
     // const {email, senha} = useInputChange()
 
-    const { signIn } = useContext(UserAutenticado)
 
 
     async function handleSubmit(e: any) {
@@ -39,7 +38,8 @@ export default function useLogin() {
 
         await api.post("/login", data, {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                // "Authorization": `Bearer ${(token)}`
             }
         }).then((response) => {
             console.log(response)
@@ -53,7 +53,6 @@ export default function useLogin() {
                 navigate("/home")
                 localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
 
-                signIn(true)
             }
         }).catch((error) => {
             console.log(error)

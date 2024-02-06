@@ -3,8 +3,9 @@ import api from "../config/config";
 
 interface ContextType {
     autenticado: boolean;
-    signIn: (sit: boolean) => void;
-    token: string | null;
+    logout: () => void;
+    loading: boolean;
+    token: string | null
 }
 
 const UserAutenticado = createContext<ContextType>({} as ContextType)
@@ -12,34 +13,40 @@ const UserAutenticado = createContext<ContextType>({} as ContextType)
 
 function UserAutenticadoProvider({ children }: any) {
 
-    const tokenValidation = localStorage.getItem("tokenUser")
     const [autenticado, setAutenticado] = useState<boolean>(false)
-    const [token, setToken] = useState(tokenValidation)
+    const [loading, setLoading] = useState<boolean>(true)
+    const [token, setToken] = useState<string | null>(null)
 
     useEffect(() => {
-        function getLogin() {
-            const token = localStorage.getItem("tokenUser")
+        async function getlogin() {
+            try {
+                const token = localStorage.getItem("tokenUser")
 
-            if (token) {
-                api.defaults.headers.Authorization = `Bearer ${token}`
-                setToken(token)
-                setAutenticado(true)
-            } else {
-                setAutenticado(false)
+                if (token) {
+                    api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
+                    setAutenticado(true)
+                    setToken(token)
+                }
+            } catch (error) {
+                console.log(error)
+                setToken(null)
+            } finally {
+                setLoading(false)
             }
         }
 
-        getLogin()
+        getlogin()
     }, [])
 
-
-
-    function signIn(sit: boolean) {
-        setAutenticado(sit)
+    function logout() {
+        localStorage.removeItem("tokenUser")
+        api.defaults.headers.Authorization = null
+        setAutenticado(false)
+        setToken(null)
     }
 
     return (
-        <UserAutenticado.Provider value={{ autenticado, signIn, token }}>
+        <UserAutenticado.Provider value={{ autenticado, logout, loading, token }}>
             {children}
         </UserAutenticado.Provider>
     )

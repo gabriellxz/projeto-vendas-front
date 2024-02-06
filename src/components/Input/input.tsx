@@ -4,7 +4,7 @@ interface Props {
     styleWidth: string;
     name: string;
     value: string | number;
-    onInputValue: (e:any) => void;
+    onInputValue: (event:any) => void;
 }
 
 export default function Input(props: Props) {

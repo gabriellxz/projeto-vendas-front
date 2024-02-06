@@ -7,20 +7,26 @@ import CustomRoutes from "../utils/Custom-routes";
 import CadastroProdutos from "../Pages/CadastroProdutos/cadastro-produtos";
 
 export default function RoutesApp() {
+
+    
     return (
-        <UserAutenticadoProvider>
-            <BrowserRouter>
+        <BrowserRouter>
+            <UserAutenticadoProvider>
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="cadastro" element={<Cadastro />} />
                     <Route path="home" element={
                         <CustomRoutes>
-                            <Home/>
+                            <Home />
                         </CustomRoutes>
                     } />
-                    <Route path="cadastro-produtos" element={<CadastroProdutos />}/>
+                    <Route path="cadastro-produtos" element={
+                        <CustomRoutes>
+                            <CadastroProdutos />
+                        </CustomRoutes>
+                    } />
                 </Routes>
-            </BrowserRouter>
-        </UserAutenticadoProvider>
+            </UserAutenticadoProvider >
+        </BrowserRouter>
     )
 }

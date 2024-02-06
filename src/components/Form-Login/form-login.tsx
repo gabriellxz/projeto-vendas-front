@@ -21,6 +21,7 @@ export default function FormLogin() {
         email
     } = useLogin()
 
+
     return (
         <>
             <form className="max-w-[600px] w-full m-5" onSubmit={handleSubmit}>
@@ -43,7 +44,7 @@ export default function FormLogin() {
                             {
                                 validation.loading ? <Loading />
                                     :
-                                    <ButtonDark text={"sign in"} />
+                                    <ButtonDark text={"sign in"}/>
                             }
                             <div className="bg-zinc-400 p-[0.4px] w-full"></div>
                         </div>

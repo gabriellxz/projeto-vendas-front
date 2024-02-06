@@ -91,6 +91,8 @@ export default function useCadastro() {
                     message: "Usuário cadastrado com sucesso!",
                     loading: false
                 })
+
+                // localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
             }
         }).catch((error) => {
             console.log(error)
