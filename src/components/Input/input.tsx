@@ -1,10 +1,12 @@
+import { ChangeEvent } from "react";
+
 interface Props {
     typeInput: string;
     inputLabel: string;
     styleWidth: string;
     name: string;
     value: string | number;
-    onInputValue: (event:any) => void;
+    onInputValue: (event:ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input(props: Props) {

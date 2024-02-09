@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from "../Loading/loading";
 import useLogin from "../../hook/useLogin";
+import { useState } from "react";
 
 export default function FormLogin() {
 
@@ -21,7 +22,6 @@ export default function FormLogin() {
         email
     } = useLogin()
 
-
     return (
         <>
             <form className="max-w-[600px] w-full m-5" onSubmit={handleSubmit}>
@@ -34,7 +34,10 @@ export default function FormLogin() {
                             <Input typeInput={"email"} inputLabel={"Email"} styleWidth={"w-full"} name="email" value={email} onInputValue={handleEmailValue} />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Input typeInput={"password"} inputLabel={"Senha"} styleWidth={"w-full"} name="senha" value={senha} onInputValue={handleSenhaValue} />
+                            <div>
+                                <Input typeInput={"password"} inputLabel={"Senha"} styleWidth={"w-full"} name="senha" value={senha} onInputValue={handleSenhaValue} />
+                                
+                            </div>
                             {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
                             <div>
                                 <span>Esqueceu sua senha?</span>
@@ -44,7 +47,7 @@ export default function FormLogin() {
                             {
                                 validation.loading ? <Loading />
                                     :
-                                    <ButtonDark text={"sign in"}/>
+                                    <ButtonDark text={"sign in"} />
                             }
                             <div className="bg-zinc-400 p-[0.4px] w-full"></div>
                         </div>
