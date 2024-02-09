@@ -18,11 +18,13 @@ export default function FormCadastro() {
         email,
         telefoneData,
         nome,
+        CPF,
         handleEmailValue,
         handleGeneroValue,
         handleNomeInput,
         handleSenhaValue,
-        handleTelefoneValue
+        handleTelefoneValue,
+        handleCpfValue
     } = useCadastro()
 
     return (
@@ -51,6 +53,17 @@ export default function FormCadastro() {
                                 name={"senha"}
                                 value={senha}
                                 onInputValue={handleSenhaValue}
+                            />
+                            {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <Input
+                                typeInput={"text"}
+                                inputLabel={"CPF"}
+                                styleWidth={"w-full"}
+                                name={"CPF"}
+                                value={CPF}
+                                onInputValue={handleCpfValue}
                             />
                             {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
                         </div>

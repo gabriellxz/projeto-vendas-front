@@ -1,43 +1,50 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 // import Input from "../Input/input";
 import TitleForm from "../Title-form/title-form";
 import Input from "../Input/input";
-// import UploadImage from "../../svg/upload-image";
+import UploadImage from "../../svg/upload-image";
 import ButtonDark from "../Button-dark/button-dark";
-import { useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import api from "../../config/config";
+import Loading from "../Loading/loading";
+import { useNavigate } from "react-router-dom";
 
 export default function FormCadastroProdutos() {
 
     const [nome_produto, setNomeProduto] = useState<string>("")
-    const [preco, setPreco] = useState<number>(0)
+    const [preco, setPreco] = useState<number>()
     const [descricao, setDescricao] = useState<string>("")
-    const [estoque, setEstoque] = useState<number>(0)
+    const [estoque, setEstoque] = useState<number>()
 
-    function handleNomeProduct(event:any) {
+    const [loading, setLoading] = useState<boolean>(false)
+    const navigate = useNavigate()
+
+    function handleNomeProduct(event: ChangeEvent<HTMLInputElement>): void {
         setNomeProduto(event.target.value)
     }
 
-    function handlePreco(event:any) {
-        setPreco(event.target.value)
+    function handlePreco(event: ChangeEvent<HTMLInputElement>): void {
+        const precoProduct: number = parseFloat(event.target.value)
+        setPreco(precoProduct)
     }
 
-    function handleDescricao(event:any) {
+    function handleDescricao(event: ChangeEvent<HTMLTextAreaElement>): void {
         setDescricao(event.target.value)
     }
 
-    function handleEstoque(event:any) {
-        setEstoque(event.target.value)
+    function handleEstoque(event: ChangeEvent<HTMLInputElement>): void {
+        const numeroEstoque: number = parseFloat(event.target.value)
+        setEstoque(numeroEstoque)
     }
 
     const token = localStorage.getItem("tokenUser")
     // const { token } = useContext(UserAutenticado)
 
 
-    async function registerProduct(e: any) {
+    async function registerProduct(e: SyntheticEvent) {
         e.preventDefault()
         console.log("Token: ", token)
-        
+
         const data = {
             nome_produto,
             descricao,
@@ -45,24 +52,63 @@ export default function FormCadastroProdutos() {
             estoque
         }
 
+        setLoading(true)
+
         console.log(data)
-    
+
         try {
             if (token) {
-                await api.post("/Product/create", data, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${JSON.parse(token)}`
-                    }
-                })
-                console.log("Produto Cadastrado com sucesso!")
+                if (
+                    nome_produto === "" ||
+                    preco === undefined ||
+                    estoque === undefined ||
+                    descricao === ""
+                ) {
+                    toast.error("Preencha os campos corretamente!", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
+
+                    setLoading(false)
+                } else {
+                    await api.post("/Product/create", data, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${JSON.parse(token)}`
+                        }
+                    })
+                    console.log("Produto Cadastrado com sucesso!")
+
+                    toast.success("Produto cadastrado com sucesso!", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
+
+                    setTimeout(() => {
+                        navigate("/home")
+                    }, 3000)
+                    // window.location.reload()
+                    setLoading(false)
+                }
             } else {
                 console.error("Token não encontrado!")
             }
         } catch (error) {
             console.log(error)
         }
-        
+
     }
 
 
@@ -85,22 +131,16 @@ export default function FormCadastroProdutos() {
                             />
                         </div>
                         <div className="flex flex-col w-full">
-                            {/* <Input
-                                typeInput="number"
-                                inputLabel="Preço Vendido"
-                                styleWidth="max-w-[325px] w-full"
-                                value={preco}
-                                name="preco"
-                                onInputValue={handlePreco}
-                            /> */}
-                            <label className="text-xl">Preço Vendido</label>
-                            <input
-                                type="number"
-                                className="border border-1 border-black outline-none p-2 max-w-[325px] w-full"
-                                onChange={handlePreco}
-                                name="preco"
-                                value={preco}
-                            />
+                            <div>
+                                <label className="text-xl">Preço Vendido</label>
+                                <input
+                                    type="number"
+                                    className="border border-1 border-black outline-none p-2 max-w-[325px] w-full"
+                                    onChange={handlePreco}
+                                    name="preco"
+                                    value={preco}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="flex w-full gap-5">
@@ -114,14 +154,12 @@ export default function FormCadastroProdutos() {
                             </select>
                         </div> */}
                         <div className="flex flex-col w-full">
-                            {/* <Input
-                                typeInput="number"
-                                inputLabel="Preço de Compra"
-                                styleWidth="max-w-[325px] w-full"
-                                value={estoque}
-                                name="estoque"
-                                onInputValue={handleEstoque}
-                            /> */}
+                            <label className="text-xl">Categoria</label>
+                            <select name="" id="" className="border border-1 border-black outline-none p-2 max-w-[325px] w-full">
+                                <option>Selecione uma categoria</option>
+                            </select>
+                        </div>
+                        <div className="flex flex-col w-full">
                             <label className="text-xl">Preço de Compra</label>
                             <input
                                 type="number"
@@ -136,16 +174,17 @@ export default function FormCadastroProdutos() {
                         <label className="text-xl">Descrição do produto</label>
                         <textarea onChange={handleDescricao} name="descricao" id="" className="resize-none border border-1 border-black outline-none p-2 w-full h-[170px]"></textarea>
                     </div>
-                    {/* <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-full">
                         <label className="text-xl">Imagem</label>
                         <div className="flex flex-col justify-center items-center border border-1 border-black outline-none p-2 w-full h-[170px]">
                             <UploadImage />
                             <label htmlFor="fileInput" className="cursor-pointer">Upload image of item</label>
                             <input type="file" id="fileInput" name="" className="hidden" />
                         </div>
-                    </div> */}
+                    </div>
                     <div>
-                        <ButtonDark text="send" />
+                        {loading ? <Loading /> : <ButtonDark text="send" />}
+
                     </div>
                 </div>
 

@@ -21,6 +21,7 @@ export default function useCadastro() {
     })
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [CPF, setCpf] = useState('')
 
 
     function handleEmailValue(e: any) {
@@ -43,6 +44,10 @@ export default function useCadastro() {
         setGenero(e.target.value)
     }
 
+    function handleCpfValue(e: any) {
+        setCpf(e.target.value)
+    }
+
     async function handleSubmit(e: any) {
 
         setValidation({ ...validation, loading: true })
@@ -62,7 +67,8 @@ export default function useCadastro() {
             senha,
             nome,
             Telefone,
-            genero
+            genero,
+            CPF
         }
 
         await api.post("/registrar", data, {
@@ -162,10 +168,12 @@ export default function useCadastro() {
         telefoneData,
         genero,
         nome,
+        CPF,
         handleEmailValue,
         handleGeneroValue,
         handleNomeInput,
         handleSenhaValue,
-        handleTelefoneValue
+        handleTelefoneValue,
+        handleCpfValue
     }
 }
