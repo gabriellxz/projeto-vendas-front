@@ -1,18 +1,14 @@
-import { useContext } from "react"
-import { UserAutenticado } from "../../context/authContext"
-import { Link, Outlet } from "react-router-dom"
+import Header from "../../components/Header/header"
+import ListProduct from "../../components/List-products/list-products"
 
 export default function Home() {
 
-    const { logout } = useContext(UserAutenticado)
-    const token = localStorage.getItem("tokenUser")
+    
 
     return (
         <>
-            <h1>Home</h1>
-            <p>{token}</p>
-            <Link to={"/"} onClick={logout}>Sair</Link>
-            <Outlet/>
+            <Header/>
+            <ListProduct/>
         </>
     )
 }
