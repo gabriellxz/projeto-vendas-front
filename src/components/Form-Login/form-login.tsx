@@ -39,7 +39,7 @@ export default function FormLogin() {
                             </div>
                             {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
                             <div>
-                                <span>Esqueceu sua senha?</span>
+                                <span className="text-greenEco-100">Esqueceu sua senha?</span>
                             </div>
                         </div>
                         <div className="text-center">

@@ -7,7 +7,7 @@ interface Props {
 export default function ButtonDark(props:Props) {
     return (
         <>
-            <button className="uppercase bg-zinc-950 w-full text-white p-2 mb-10" onClick={props.handleLogin}>{props.text}</button>
+            <button className="uppercase bg-greenEco-200 w-full text-white p-2 mb-10" onClick={props.handleLogin}>{props.text}</button>
         </>
     )
 }

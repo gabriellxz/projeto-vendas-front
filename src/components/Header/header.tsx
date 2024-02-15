@@ -2,15 +2,15 @@ import BagIcon from "../../svg/bag-icon";
 import FavoriteIcon from "../../svg/favorite-icon";
 import SearchIcon from "../../svg/search-icon";
 import UserIcon from "../../svg/user-icon";
-
+import Logo_ecogreen from "../../../public/Cosméticos.svg"
 
 export default function Header() {
     return (
         <div>
-            <header className="flex items-center justify-end p-10">
+            <header className="flex items-center justify-end p-5">
                 <div className="flex justify-between max-w-[800px] w-full">
                     <div className="">
-                        <h1 className="font-jura text-2xl tracking-widest font-semibold uppercase">logo</h1>
+                        <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen"/>
                     </div>
                     <div className="flex items-center gap-5">
                         <SearchIcon />
