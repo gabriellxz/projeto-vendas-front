@@ -21,6 +21,7 @@ export default function ListProduct() {
                 try {
                     setProduct(response.data.Company)
                     console.log(response.data.Company)
+                    console.log(product)
                 } catch (error) {
                     console.log(error)
                 }
