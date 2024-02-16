@@ -3,8 +3,14 @@ import FavoriteIcon from "../../svg/favorite-icon";
 import SearchIcon from "../../svg/search-icon";
 import UserIcon from "../../svg/user-icon";
 import Logo_ecogreen from "../../../public/Cosméticos.svg"
+import { useContext } from "react";
+import { UserAutenticado } from "../../context/authContext";
+import ButtonLogout from "../../svg/button-logout";
 
 export default function Header() {
+
+    const token =  localStorage.getItem("tokenUser")
+
     return (
         <div>
             <header className="flex items-center justify-end p-5">
@@ -17,6 +23,7 @@ export default function Header() {
                         <UserIcon />
                         <FavoriteIcon />
                         <BagIcon />
+                        {token ? <ButtonLogout/> : ""}
                     </div>
                 </div>
             </header>
