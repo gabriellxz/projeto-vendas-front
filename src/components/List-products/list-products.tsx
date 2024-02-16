@@ -5,6 +5,7 @@ import imageHome1 from '../../../public/imagem-home-1.jpeg'
 import imageHome2 from '../../../public/imagem-home-2.jpeg'
 import imageHome3 from '../../../public/imagem-home-3.jpeg'
 import { Link } from "react-router-dom"
+import CardProduct from "../Card-Product/card-product"
 
 export default function ListProduct() {
 
@@ -17,7 +18,7 @@ export default function ListProduct() {
         imageHome3
     ]
 
-    useEffect(()  => {
+    useEffect(() => {
         const intervalId = setInterval(() => {
             setImageSlide((prevIndex) => (prevIndex + 1) % images.length)
         }, 5000)
@@ -75,6 +76,19 @@ export default function ListProduct() {
                         <Link to={""}>
                             Nossos Produtos
                         </Link>
+                    </div>
+                </div>
+                <div className="w-full p-10 flex justify-center">
+                    <div className="sm:grid sm:grid-cols-2 sm:gap-7 grid grid-cols-1 gap-5">
+                        {/* {
+                            product.map((product: ProdutosDTO) => (
+                                <CardProduct key={product.id_produto} iProduto={product}/>
+                            ))
+                        } */}
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
                     </div>
                 </div>
             </div>
