@@ -103,7 +103,7 @@ export default function ListProduct() {
                     flex flex-col
                 `}>
                     <div className={`
-                        flex flex-col items-center
+                        flex flex-col items-center justify-center
                         lg:flex lg:flex-row
                         w-full bg-whiteEco-200 p-10 gap-[100px] mt-7
                     `}>
