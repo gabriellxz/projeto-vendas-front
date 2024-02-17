@@ -1,15 +1,20 @@
 import produtoImg from '../../assets/produto.webp'
+import ProdutosDTO from '../../types/produto'
 
-export default function CardProduct() {
+interface PropsProduto {
+    iProduto: ProdutosDTO
+}
+
+export default function CardProduct(props:PropsProduto) {
     return (
         <div className="max-w-[630px] sm:w-full sm:h-[697px]">
             <div>
                 <img src={produtoImg} alt="" />
             </div>
             <div>
-                <h2 className="text-xl text-greenEco-300 font-bold">Produto 1</h2>
+                <h2 className="text-xl text-greenEco-300 font-bold">{props.iProduto.nome_produto}</h2>
                 <p className="text-greenEco-200">
-                    descrição do produto
+                    {props.iProduto.descricao}
                 </p>
             </div>
         </div>

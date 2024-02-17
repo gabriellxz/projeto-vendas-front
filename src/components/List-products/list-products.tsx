@@ -6,12 +6,19 @@ import imageHome2 from '../../../public/imagem-home-2.jpeg'
 import imageHome3 from '../../../public/imagem-home-3.jpeg'
 import { Link } from "react-router-dom"
 import CardProduct from "../Card-Product/card-product"
+import MiniCard from "../Mini-card/mini-card"
+import Loading from "../Loading/loading"
+// import Slider from 'react-slick'
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+
 
 export default function ListProduct() {
 
     const token = localStorage.getItem("tokenUser")
     const [product, setProduct] = useState<ProdutosDTO[]>([])
     const [imageSlide, setImageSlide] = useState(0)
+    const [loading, setLoading] = useState(false)
     const images = [
         imageHome1,
         imageHome2,
@@ -27,6 +34,8 @@ export default function ListProduct() {
     }, [])
 
     useEffect(() => {
+        setLoading(true)
+
         async function getProducts() {
             if (token) {
                 const response = await api.get("/Product", {
@@ -36,10 +45,10 @@ export default function ListProduct() {
                 })
                 try {
                     setProduct(response.data.Company)
-                    console.log(response.data.Company)
-                    console.log(product)
+                    setLoading(false)
                 } catch (error) {
                     console.log(error)
+                    setLoading(false)
                 }
             }
         }
@@ -52,16 +61,28 @@ export default function ListProduct() {
             {/* IMAGENS VISÍVEIS PARA TELAS GRANDES */}
             <div className={`
                 hidden mt-7
-                xl:flex xl:justify-center
+                lg:flex lg:justify-center
             `}>
-                <img src={imageHome1} alt="image-home" className="max-w-[489px] w-full" />
-                <img src={imageHome2} alt="image-home" className="max-w-[489px] w-full" />
-                <img src={imageHome3} alt="image-home" className="max-w-[489px] w-full" />
+                <img src={imageHome1} alt="image-home" className={`
+                    max-w-[489px] w-full
+                    lg:max-w-[350px] lg:w-full
+                    xl:max-w-[489px] xl:w-full
+                `} />
+                <img src={imageHome2} alt="image-home" className={`
+                    max-w-[489px] w-full
+                    lg:max-w-[350px] lg:w-full
+                    xl:max-w-[489px] xl:w-full
+                `} />
+                <img src={imageHome3} alt="image-home" className={`
+                    max-w-[489px] w-full
+                    lg:max-w-[350px] lg:w-full
+                    xl:max-w-[489px] xl:w-full
+                `} />
             </div>
 
             {/* IMAGENS VISÍVEIS PARA TELAS PEQUENAS */}
             <div className={`
-                xl:hidden mt-7
+                lg:hidden mt-7
                 flex justify-center
             `}>
                 <img src={images[imageSlide]} alt="image-home" className="max-w-[489px] w-full" />
@@ -78,17 +99,45 @@ export default function ListProduct() {
                         </Link>
                     </div>
                 </div>
-                <div className="w-full p-10 flex justify-center">
-                    <div className="sm:grid sm:grid-cols-2 sm:gap-7 grid grid-cols-1 gap-5">
-                        {/* {
-                            product.map((product: ProdutosDTO) => (
-                                <CardProduct key={product.id_produto} iProduto={product}/>
-                            ))
-                        } */}
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
+                <div className={`
+                    flex flex-col
+                `}>
+                    <div className={`
+                        flex flex-col items-center
+                        lg:flex lg:flex-row
+                        w-full bg-whiteEco-200 p-10 gap-[100px] mt-7
+                    `}>
+                        <div className="flex justify-center items-center flex-col max-w-[260px] gap-7">
+                            <div className="flex justify-center flex-col gap-2">
+                                <h1 className="text-5xl">Oferta!</h1>
+                                <p className="text-gray-400 text-justify">
+                                    Confira nosso incriveis kits para cabelos - a combinação perfeita de cuidados para realçar sua beleza.
+                                </p>
+                            </div>
+                            <div className="flex justify-start w-full">
+                                <button className="bg-greenEco-100 text-white max-w-[185px] w-full p-3">Ver mais</button>
+                            </div>
+                        </div>
+                        <div className={`
+                            grid grid-cols-1 gap-5
+                            sm:grid sm:grid-cols-2
+                            md:grid md:grid-cols-3
+                            lg:flex
+                        `}>
+                            <MiniCard />
+                            <MiniCard />
+                            <MiniCard />
+                            <MiniCard />
+                        </div>
+                    </div>
+                    <div className="flex justify-center">
+                        <div className="sm:grid sm:grid-cols-2 sm:gap-7 grid grid-cols-1 gap-5 mt-10 pt-10 p-10">
+                            {
+                                loading ? <Loading /> : product.map((product: ProdutosDTO) => (
+                                    <CardProduct key={product.id_produto} iProduto={product} />
+                                ))
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

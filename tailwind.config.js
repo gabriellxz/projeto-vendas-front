@@ -23,7 +23,8 @@ export default {
           300: "#142215"
         },
         whiteEco: {
-          100: "#c7c5c9"
+          100: "#c7c5c9",
+          200: "#faf8e7"
         }
       }
     }
