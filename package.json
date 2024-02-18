@@ -17,7 +17,8 @@
     "react-router-dom": "^6.21.3",
     "react-slick": "^0.30.1",
     "react-slugify": "^3.0.3",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.4",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
