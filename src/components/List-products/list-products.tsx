@@ -8,31 +8,18 @@ import { Link } from "react-router-dom"
 import CardProduct from "../Card-Product/card-product"
 import MiniCard from "../Mini-card/mini-card"
 import Loading from "../Loading/loading"
-// import Slider from 'react-slick'
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import NextArrow from "../NextArrow/next-arrow"
 
 
 export default function ListProduct() {
 
     const token = localStorage.getItem("tokenUser")
     const [product, setProduct] = useState<ProdutosDTO[]>([])
-    const [imageSlide, setImageSlide] = useState(0)
     const [loading, setLoading] = useState(false)
-    const images = [
-        imageHome1,
-        imageHome2,
-        imageHome3
-    ]
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setImageSlide((prevIndex) => (prevIndex + 1) % images.length)
-        }, 5000)
-
-        return () => clearInterval(intervalId)
-    }, [])
-
+    
     useEffect(() => {
         setLoading(true)
 
@@ -55,6 +42,72 @@ export default function ListProduct() {
 
         getProducts()
     }, [])
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        nextArrow: <NextArrow />,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+
+    const settings2 = {
+        className: "center",
+        centerMode: true,
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        nextArrow: <NextArrow />,
+        responsive: [
+            {
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 500,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+        ]
+    }
 
     return (
         <div>
@@ -83,9 +136,13 @@ export default function ListProduct() {
             {/* IMAGENS VISÍVEIS PARA TELAS PEQUENAS */}
             <div className={`
                 lg:hidden mt-7
-                flex justify-center
             `}>
-                <img src={images[imageSlide]} alt="image-home" className="max-w-[489px] w-full" />
+                <Slider {...settings}>
+                    <img src={imageHome1} alt="" className="max-w-[489px] w-full" />
+                    <img src={imageHome2} alt="" className="max-w-[489px] w-full" />
+                    <img src={imageHome3} alt="" className="max-w-[489px] w-full" />
+                </Slider>
+                {/* <img src={images[imageSlide]} alt="image-home" className="max-w-[489px] w-full" /> */}
             </div>
             <div>
                 <div className="m-10">
@@ -118,8 +175,22 @@ export default function ListProduct() {
                                 <button className="bg-greenEco-100 text-white max-w-[185px] w-full p-3">Ver mais</button>
                             </div>
                         </div>
+                        {/* TELAS PEQUENAS */}
                         <div className={`
                             grid grid-cols-1 gap-5
+                            sm:hidden
+                        `}>
+                            <Slider {...settings2}>
+                                <MiniCard />
+                                <MiniCard />
+                                <MiniCard />
+                                <MiniCard />
+                            </Slider>
+                        </div>
+
+                        {/* TELAS GRANDES */}
+                        <div className={`
+                            hidden gap-5
                             sm:grid sm:grid-cols-2
                             md:grid md:grid-cols-3
                             lg:flex
