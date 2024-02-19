@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
 import ProdutosDTO from "../../types/produto"
-import api from "../../config/config"
 import imageHome1 from '../../../public/imagem-home-1.jpeg'
 import imageHome2 from '../../../public/imagem-home-2.jpeg'
 import imageHome3 from '../../../public/imagem-home-3.jpeg'
@@ -13,36 +11,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import NextArrow from "../NextArrow/next-arrow"
 import PrevArrow from "../PrevArrow/prev-arrow"
+import useListProduct from "../../hook/useListProduct"
 
 
 export default function ListProduct() {
 
-    const token = localStorage.getItem("tokenUser")
-    const [product, setProduct] = useState<ProdutosDTO[]>([])
-    const [loading, setLoading] = useState(false)
-    
-    useEffect(() => {
-        setLoading(true)
-
-        async function getProducts() {
-            if (token) {
-                const response = await api.get("/Product", {
-                    headers: {
-                        "Authorization": `Bearer ${JSON.parse(token)}`
-                    }
-                })
-                try {
-                    setProduct(response.data.Company)
-                    setLoading(false)
-                } catch (error) {
-                    console.log(error)
-                    setLoading(false)
-                }
-            }
-        }
-
-        getProducts()
-    }, [])
+    const {product, loading} = useListProduct()
 
     const settings = {
         dots: true,

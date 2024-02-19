@@ -7,11 +7,17 @@ import ButtonLogout from "../../svg/button-logout";
 import NavBarIcon from "../../svg/navbar-icon";
 import { useState } from "react";
 import CloseNavBar from "../../svg/closeNavbar";
+import { useSpring, animated } from '@react-spring/web'
 
 export default function Header() {
 
     const token = localStorage.getItem("tokenUser")
     const [open, setOpen] = useState<boolean>(false)
+
+    const openMenu = useSpring({
+        transform: open ? 'translate3d(0,0,0)' : 'translate3d(50%, 0,0)',
+        config: { tension: 210, friction: 20 }
+    })
 
     return (
         <div>
@@ -43,19 +49,21 @@ export default function Header() {
                     <div className="">
                         <img src={Logo_ecogreen} className="w-[70px]" alt="logo_ecogreen" />
                     </div>
-                    {open ? <CloseNavBar handleNavBar={() => setOpen(!open)}/> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
-                    {
-                        open &&
-                        <div className={`
+                    <animated.div style={openMenu}>
+                        {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
+                        {
+                            open &&
+                            <div className={`
                             flex items-center gap-5
                         `}>
-                            <SearchIcon />
-                            <UserIcon />
-                            <FavoriteIcon />
-                            <BagIcon />
-                            {token ? <ButtonLogout /> : ""}
-                        </div>
-                    }
+                                <SearchIcon />
+                                <UserIcon />
+                                <FavoriteIcon />
+                                <BagIcon />
+                                {token ? <ButtonLogout /> : ""}
+                            </div>
+                        }
+                    </animated.div>
 
                 </div>
             </header>
