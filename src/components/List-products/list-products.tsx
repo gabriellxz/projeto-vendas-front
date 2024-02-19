@@ -2,7 +2,6 @@ import ProdutosDTO from "../../types/produto"
 import imageHome1 from '../../../public/imagem-home-1.jpeg'
 import imageHome2 from '../../../public/imagem-home-2.jpeg'
 import imageHome3 from '../../../public/imagem-home-3.jpeg'
-import { Link } from "react-router-dom"
 import CardProduct from "../Card-Product/card-product"
 import MiniCard from "../Mini-card/mini-card"
 import Loading from "../Loading/loading"
@@ -16,7 +15,7 @@ import useListProduct from "../../hook/useListProduct"
 
 export default function ListProduct() {
 
-    const {product, loading} = useListProduct()
+    const { product, loading } = useListProduct()
 
     const settings = {
         dots: true,
@@ -64,7 +63,7 @@ export default function ListProduct() {
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow/>,
+        prevArrow: <PrevArrow />,
         responsive: [
             {
                 breakpoint: 640,
@@ -129,9 +128,6 @@ export default function ListProduct() {
                         <p className="font-inter text-xl">
                             Descubra o Segredo para uma Beleza Autentica
                         </p>
-                        <Link to={""}>
-                            Nossos Produtos
-                        </Link>
                     </div>
                 </div>
                 <div className={`
@@ -159,10 +155,11 @@ export default function ListProduct() {
                             sm:hidden
                         `}>
                             <Slider {...settings2}>
-                                <MiniCard />
-                                <MiniCard />
-                                <MiniCard />
-                                <MiniCard />
+                                {
+                                    product.map((product: ProdutosDTO) => (
+                                        <MiniCard key={product.id_produto} iProduto={product} />
+                                    ))
+                                }
                             </Slider>
                         </div>
 
@@ -173,10 +170,11 @@ export default function ListProduct() {
                             md:grid md:grid-cols-3
                             lg:flex
                         `}>
-                            <MiniCard />
-                            <MiniCard />
-                            <MiniCard />
-                            <MiniCard />
+                            {
+                                product.map((product: ProdutosDTO) => (
+                                    <MiniCard key={product.id_produto} iProduto={product} />
+                                ))
+                            }
                         </div>
                     </div>
                     <div className="flex justify-center">
