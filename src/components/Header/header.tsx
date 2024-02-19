@@ -49,7 +49,7 @@ export default function Header() {
                     <div className="">
                         <img src={Logo_ecogreen} className="w-[70px]" alt="logo_ecogreen" />
                     </div>
-                    <animated.div style={openMenu}>
+                    <animated.div style={openMenu} className="flex items-center">
                         {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
                         {
                             open &&
