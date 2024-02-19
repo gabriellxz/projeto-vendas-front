@@ -12,6 +12,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import NextArrow from "../NextArrow/next-arrow"
+import PrevArrow from "../PrevArrow/prev-arrow"
 
 
 export default function ListProduct() {
@@ -49,6 +50,8 @@ export default function ListProduct() {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
         nextArrow: <NextArrow />,
         responsive: [
             {
@@ -87,6 +90,7 @@ export default function ListProduct() {
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow/>,
         responsive: [
             {
                 breakpoint: 640,
