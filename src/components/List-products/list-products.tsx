@@ -1,7 +1,4 @@
 import ProdutosDTO from "../../types/produto"
-import imageHome1 from '../../../public/imagem-home-1.jpeg'
-import imageHome2 from '../../../public/imagem-home-2.jpeg'
-import imageHome3 from '../../../public/imagem-home-3.jpeg'
 import CardProduct from "../Card-Product/card-product"
 import MiniCard from "../Mini-card/mini-card"
 import Loading from "../Loading/loading"
@@ -11,48 +8,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import NextArrow from "../NextArrow/next-arrow"
 import PrevArrow from "../PrevArrow/prev-arrow"
 import useListProduct from "../../hook/useListProduct"
+import SlidesHome from "../Slides-home/slides-home"
 
 
 export default function ListProduct() {
 
     const { product, loading } = useListProduct()
-
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        nextArrow: <NextArrow />,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
 
     const settings2 = {
         className: "center",
@@ -88,39 +49,7 @@ export default function ListProduct() {
 
     return (
         <div>
-            {/* IMAGENS VISÍVEIS PARA TELAS GRANDES */}
-            <div className={`
-                hidden mt-7
-                lg:flex lg:justify-center
-            `}>
-                <img src={imageHome1} alt="image-home" className={`
-                    max-w-[489px] w-full
-                    lg:max-w-[350px] lg:w-full
-                    xl:max-w-[489px] xl:w-full
-                `} />
-                <img src={imageHome2} alt="image-home" className={`
-                    max-w-[489px] w-full
-                    lg:max-w-[350px] lg:w-full
-                    xl:max-w-[489px] xl:w-full
-                `} />
-                <img src={imageHome3} alt="image-home" className={`
-                    max-w-[489px] w-full
-                    lg:max-w-[350px] lg:w-full
-                    xl:max-w-[489px] xl:w-full
-                `} />
-            </div>
-
-            {/* IMAGENS VISÍVEIS PARA TELAS PEQUENAS */}
-            <div className={`
-                lg:hidden mt-7
-            `}>
-                <Slider {...settings}>
-                    <img src={imageHome1} alt="" className="max-w-[489px] w-full" />
-                    <img src={imageHome2} alt="" className="max-w-[489px] w-full" />
-                    <img src={imageHome3} alt="" className="max-w-[489px] w-full" />
-                </Slider>
-                {/* <img src={images[imageSlide]} alt="image-home" className="max-w-[489px] w-full" /> */}
-            </div>
+            <SlidesHome />
             <div>
                 <div className="m-10">
                     <div className="text-center text-greenEco-200">
