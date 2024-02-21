@@ -8,6 +8,7 @@ import NavBarIcon from "../../svg/navbar-icon";
 import { useState } from "react";
 import CloseNavBar from "../../svg/closeNavbar";
 import { useSpring, animated } from '@react-spring/web'
+import { Link } from "react-router-dom";
 
 export default function Header() {
 
@@ -27,9 +28,9 @@ export default function Header() {
                 lg:flex lg:items-center lg:justify-end
             `}>
                 <div className="flex justify-between max-w-[800px] w-full">
-                    <div className="">
+                    <Link to={"/home"} className="">
                         <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
-                    </div>
+                    </Link>
                     <div className="flex items-center gap-5">
                         <SearchIcon />
                         <UserIcon />
