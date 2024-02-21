@@ -5,10 +5,11 @@ import Home from "../Pages/Home/home";
 import { UserAutenticadoProvider } from "../context/authContext";
 import CustomRoutes from "../utils/Custom-routes";
 import CadastroProdutos from "../Pages/CadastroProdutos/cadastro-produtos";
+import ListProduct from "../Pages/Home/List-products/list-products";
+import DetailsProduct from "../Pages/Details-product/details-product";
 
 export default function RoutesApp() {
 
-    
     return (
         <BrowserRouter>
             <UserAutenticadoProvider>
@@ -19,7 +20,11 @@ export default function RoutesApp() {
                         <CustomRoutes>
                             <Home />
                         </CustomRoutes>
-                    } />
+                    }>
+                        <Route index element={<ListProduct/>}/>
+                        <Route path="catalogo-produtos" element={<ListProduct/>}/>
+                        <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct/>}/>
+                    </Route>
                     <Route path="cadastro-produtos" element={
                         <CustomRoutes>
                             <CadastroProdutos />
