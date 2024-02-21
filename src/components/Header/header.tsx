@@ -47,9 +47,9 @@ export default function Header() {
                 lg:hidden
             `}>
                 <div className="flex items-center justify-between max-w-[800px] w-full">
-                    <div className="">
-                        <img src={Logo_ecogreen} className="w-[70px]" alt="logo_ecogreen" />
-                    </div>
+                    <Link to={"/home"} className="">
+                        <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
+                    </Link>
                     <animated.div style={openMenu} className="flex items-center">
                         {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
                         {
