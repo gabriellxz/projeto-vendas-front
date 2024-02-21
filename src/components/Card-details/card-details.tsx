@@ -24,8 +24,8 @@ export default function CardDetails(props: Props) {
                     md:flex md:flex-row md:w-full mr-20
                 `}>
                     <div className={`
-                        flex overflow-scroll gap-3
-                        md:flex md:flex-col md:overflow-hidden
+                        flex justify-center overflow-scroll gap-3
+                        md:flex md:flex-col md:overflow-hidden md:justify-normal
                     `}>
                         <img src={imgProduct} alt="" className="max-w-[100px] h-[137px] w-full mb-3" />
                         <img src={imgProduct} alt="" className="max-w-[100px] h-[137px] w-full mb-3" />
