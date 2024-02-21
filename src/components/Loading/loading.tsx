@@ -1,7 +1,14 @@
 import './style.css'
 
-export default function Loading() {
+interface Props {
+    styleLoading: string;
+}
+
+export default function Loading(props: Props) {
     return (
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div className={`
+            lds-ring
+            ${props.styleLoading}
+        `}><div></div><div></div><div></div><div></div></div>
     )
 }
