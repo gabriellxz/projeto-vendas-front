@@ -1,7 +1,7 @@
 import './style.css'
 
 interface Props {
-    styleLoading: string;
+    styleLoading?: string;
 }
 
 export default function Loading(props: Props) {
