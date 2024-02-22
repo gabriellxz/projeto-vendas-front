@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import * as productService from '../../service/produto-service'
 import { useEffect, useState } from "react";
 import ProdutosDTO from "../../types/produto";
-import CardDetails from "../../components/Card-details/card-details";
+import CardDetails from "../../components/Details-product/details-product";
 import Loading from "../../components/Loading/loading";
 
 export default function DetailsProduct() {
