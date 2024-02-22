@@ -15,6 +15,7 @@
     "axios": "^1.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.21.3",
     "react-slick": "^0.30.1",
     "react-slugify": "^3.0.3",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
+    "@types/react-modal": "^3.16.3",
     "@types/react-slick": "^0.23.13",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
