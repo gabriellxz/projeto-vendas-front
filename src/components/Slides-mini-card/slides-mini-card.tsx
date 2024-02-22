@@ -45,7 +45,6 @@ export default function SlidesMiniCard() {
         <>
             {/* TELAS PEQUENAS */}
             <div className={`
-                            grid grid-cols-1 gap-5
                             sm:hidden
                         `}>
                 <Slider {...settings2}>

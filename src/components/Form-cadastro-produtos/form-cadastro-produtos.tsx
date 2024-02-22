@@ -53,15 +53,6 @@ export default function FormCadastroProdutos() {
                         </div>
                     </div>
                     <div className="flex w-full gap-5">
-                        {/* <div className="flex flex-col w-full">
-                            <label className="text-xl">Linha</label>
-                            <select
-                                name="linha"
-                                className="border border-1 border-black outline-none p-2 max-w-[325px] w-full"
-                            >
-                                <option>Escolha uma linha</option>
-                            </select>
-                        </div> */}
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Categoria</label>
                             <select name="" id="" className="border border-1 border-black outline-none p-2 max-w-[325px] w-full">
