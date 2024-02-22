@@ -16,7 +16,7 @@ export default function CardDetails(props: Props) {
         `}>
             <p>{props.iProdutoDetails.nome_produto}</p>
             <div className={`
-                w-full flex flex-col mt-2 p-2
+                w-full flex flex-col mt-2 p-2 mb-[100px]
                 lg:flex lg:flex-row
             `}>
                 <div className={`
@@ -53,6 +53,41 @@ export default function CardDetails(props: Props) {
                     <div className="flex flex-col gap-3">
                         <ButtonDark text="Adicionar ao carrinho" />
                         <ButtonLight text="Favoritar" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div className="flex justify-center px-[58px] flex-col">
+                    <p className="uppercase text-xl">detalhes</p>
+                    <div className="bg-zinc-400 p-[0.5px] w-full">
+                        <div className="bg-greenEco-200 p-[1px] w-[90px] absolute"></div>
+                    </div>
+                </div>
+                <div className="flex m-10">
+                    <div className="mr-[200px]">
+                        <div>
+                            <h1 className="text-5xl font-semibold">{props.iProdutoDetails.nome_produto}</h1>
+                            <p className="text-zinc-500">Categoria Do Produto</p>
+                        </div>
+                        <div>
+                            <ul className="list-disc p-5">
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                                <li>Caracteristica</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="mt-4">
+                        <h1 className="font-bold">Composição</h1>
+                        <p className="text-zinc-500">100% vegano</p>
                     </div>
                 </div>
             </div>
