@@ -10,6 +10,7 @@ export default function useCreateProduct() {
     const [preco, setPreco] = useState<number>()
     const [descricao, setDescricao] = useState<string>("")
     const [estoque, setEstoque] = useState<number>()
+    const [image, setImage] = useState<File | null>(null)
 
     const [loading, setLoading] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -32,6 +33,12 @@ export default function useCreateProduct() {
         setEstoque(numeroEstoque)
     }
 
+    function handleImage(event: any) {
+        if (event.target.value && event.target.files.length > 0) {
+            setImage(event.target.value[0])
+        }
+    }
+
     const token = localStorage.getItem("tokenUser")
     // const { token } = useContext(UserAutenticado)
 
@@ -40,16 +47,22 @@ export default function useCreateProduct() {
         e.preventDefault()
         console.log("Token: ", token)
 
+        const formData = new FormData()
+        if (image) {
+            formData.append("file", image)
+        }
+
         const data = {
             nome_produto,
             descricao,
             preco,
-            estoque
+            estoque,
         }
 
         setLoading(true)
 
         console.log(data)
+
 
         try {
             if (token) {
@@ -57,6 +70,7 @@ export default function useCreateProduct() {
                     nome_produto === "" ||
                     preco === undefined ||
                     estoque === undefined ||
+                    image === null ||
                     descricao === ""
                 ) {
                     toast.error("Preencha os campos corretamente!", {
@@ -72,6 +86,18 @@ export default function useCreateProduct() {
 
                     setLoading(false)
                 } else {
+
+                    await api.post("/Product/Image", formData, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${JSON.parse(token)}`
+                        }
+                    }).then((response) => {
+                        console.log(response)
+                    }).catch((err) => {
+                        console.log(err)
+                    })
+
                     await api.post("/Product/create", data, {
                         headers: {
                             "Content-Type": "application/json",
@@ -96,6 +122,7 @@ export default function useCreateProduct() {
                     }, 3000)
                     // window.location.reload()
                     setLoading(false)
+
                 }
             } else {
                 console.error("Token não encontrado!")
@@ -110,10 +137,12 @@ export default function useCreateProduct() {
         nome_produto,
         preco,
         estoque,
+        image,
         handleDescricao,
         handleEstoque,
         handleNomeProduct,
         handlePreco,
+        handleImage,
         registerProduct,
         loading
     }

@@ -14,7 +14,9 @@ export default function FormCadastroProdutos() {
         handleEstoque,
         handleNomeProduct,
         handlePreco,
+        handleImage,
         preco,
+        image,
         nome_produto,
         estoque,
         registerProduct,
@@ -52,7 +54,7 @@ export default function FormCadastroProdutos() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex w-full gap-5">
+                    <div className="flex items-center w-full gap-5">
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Categoria</label>
                             <select name="" id="" className="border border-1 border-black outline-none p-2 max-w-[325px] w-full">
@@ -78,8 +80,8 @@ export default function FormCadastroProdutos() {
                         <label className="text-xl">Imagem</label>
                         <div className="flex flex-col justify-center items-center border border-1 border-black outline-none p-2 w-full h-[170px]">
                             <UploadImage />
-                            <label htmlFor="fileInput" className="cursor-pointer">Upload image of item</label>
-                            <input type="file" id="fileInput" name="" className="hidden" />
+                            <label htmlFor="fileInput" className="cursor-pointer">{image ? <p>deu certo</p> : <p>deu n</p>}</label>
+                            <input type="file" id="fileInput" name="" className="hidden" onChange={handleImage}/>
                         </div>
                     </div>
                     <div>
