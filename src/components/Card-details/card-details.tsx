@@ -56,15 +56,15 @@ export default function CardDetails(props: Props) {
                     </div>
                 </div>
             </div>
-            <div>
-                <div className="flex justify-center px-[58px] flex-col">
+            <div className="w-full">
+                <div className="flex justify-center px-[58px] flex-col w-full">
                     <p className="uppercase text-xl">detalhes</p>
                     <div className="bg-zinc-400 p-[0.5px] w-full">
                         <div className="bg-greenEco-200 p-[1px] w-[90px] absolute"></div>
                     </div>
                 </div>
                 <div className="flex m-10">
-                    <div className="mr-[200px]">
+                    <div className="mr-10 sm:mr-[200px]">
                         <div>
                             <h1 className="text-5xl font-semibold">{props.iProdutoDetails.nome_produto}</h1>
                             <p className="text-zinc-500">Categoria Do Produto</p>
