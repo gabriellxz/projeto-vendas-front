@@ -2,6 +2,7 @@ import { ChangeEvent, SyntheticEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import api from "../config/config"
+// import useCategory from "./useCategory"
 
 
 export default function useCreateProduct() {
@@ -11,8 +12,9 @@ export default function useCreateProduct() {
     const [descricao, setDescricao] = useState<string>("")
     const [estoque, setEstoque] = useState<number>()
     const [image, setImage] = useState<File | null>(null)
-
     const [loading, setLoading] = useState<boolean>(false)
+    const [categoryId, setCategoryId] = useState<number>()
+    // const {categoryId} = useCategory()
     const navigate = useNavigate()
 
     function handleNomeProduct(event: ChangeEvent<HTMLInputElement>): void {
@@ -33,6 +35,11 @@ export default function useCreateProduct() {
         setEstoque(numeroEstoque)
     }
 
+    function handleCategoria(event: ChangeEvent<HTMLSelectElement>): void {
+        const categoryId: number = parseInt(event.target.value)
+        setCategoryId(categoryId)
+    }
+
     function handleImage(event: any) {
         if (event.target.value && event.target.files.length > 0) {
             setImage(event.target.value[0])
@@ -47,21 +54,7 @@ export default function useCreateProduct() {
         e.preventDefault()
         console.log("Token: ", token)
 
-        const formData = new FormData()
-        if (image) {
-            formData.append("file", image)
-        }
-
-        const data = {
-            nome_produto,
-            descricao,
-            preco,
-            estoque,
-        }
-
         setLoading(true)
-
-        console.log(data)
 
 
         try {
@@ -86,6 +79,20 @@ export default function useCreateProduct() {
 
                     setLoading(false)
                 } else {
+
+                    const formData = new FormData()
+
+                    if (image) {
+                        formData.append("file", image)
+                    }
+
+                    const data = {
+                        nome_produto,
+                        descricao,
+                        preco,
+                        estoque,
+                        categoryId
+                    }
 
                     await api.post("/Product/Image", formData, {
                         headers: {
@@ -129,6 +136,7 @@ export default function useCreateProduct() {
             }
         } catch (error) {
             console.log(error)
+            setLoading(false)
         }
 
     }
@@ -143,6 +151,8 @@ export default function useCreateProduct() {
         handleNomeProduct,
         handlePreco,
         handleImage,
+        categoryId,
+        handleCategoria,
         registerProduct,
         loading
     }

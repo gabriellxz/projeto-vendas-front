@@ -6,6 +6,8 @@ import UploadImage from "../../svg/upload-image";
 import ButtonDark from "../Button-dark/button-dark";
 import useCreateProduct from "../../hook/useCreateProduct";
 import Loading from "../Loading/loading";
+import Category from "../../types/category";
+import useCategory from "../../hook/useCategory";
 
 export default function FormCadastroProdutos() {
 
@@ -19,9 +21,12 @@ export default function FormCadastroProdutos() {
         image,
         nome_produto,
         estoque,
+        categoryId,
+        handleCategoria,
         registerProduct,
         loading
     } = useCreateProduct()
+    const {categoria} = useCategory() 
 
     return (
         <>
@@ -57,8 +62,13 @@ export default function FormCadastroProdutos() {
                     <div className="flex items-center w-full gap-5">
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Categoria</label>
-                            <select name="" id="" className="border border-1 border-black outline-none p-2 max-w-[325px] w-full">
+                            <select value={categoryId} onChange={handleCategoria} name="categoryId" id="" className="border border-1 border-black outline-none p-2 max-w-[325px] w-full">
                                 <option>Selecione uma categoria</option>
+                                {
+                                    categoria.map((cat:Category) => (
+                                        <option value={cat.id} key={cat.id}>{cat.nome}</option>
+                                    ))
+                                }
                             </select>
                         </div>
                         <div className="flex flex-col w-full">
