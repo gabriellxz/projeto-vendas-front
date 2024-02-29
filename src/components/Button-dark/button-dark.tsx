@@ -2,6 +2,7 @@ interface Props {
     text: string;
     login?: () => void;
     handleLogin?: () => void;
+    filePost?: (produtoId:number) => void;
 }
 
 export default function ButtonDark(props:Props) {
