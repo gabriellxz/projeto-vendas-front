@@ -16,11 +16,13 @@ export default function FormCadastroProdutos() {
         handleEstoque,
         handleNomeProduct,
         handlePreco,
-        handleImage,
+        handleFile,
         preco,
-        image,
+        file,
         nome_produto,
         estoque,
+        produtoId,
+        filePost,
         categoryId,
         handleCategoria,
         registerProduct,
@@ -90,12 +92,12 @@ export default function FormCadastroProdutos() {
                         <label className="text-xl">Imagem</label>
                         <div className="flex flex-col justify-center items-center border border-1 border-black outline-none p-2 w-full h-[170px]">
                             <UploadImage />
-                            <label htmlFor="fileInput" className="cursor-pointer">{image ? <p>deu certo</p> : <p>deu n</p>}</label>
-                            <input type="file" id="fileInput" name="" className="hidden" onChange={handleImage}/>
+                            <label htmlFor="fileInput" className="cursor-pointer">{file ? <p>imagem exportada</p> : <p>importar imagem</p>}</label>
+                            <input type="file" id="fileInput" name="" className="hidden" onChange={handleFile}/>
                         </div>
                     </div>
                     <div>
-                        {loading ? <Loading /> : <ButtonDark text="send" />}
+                        {loading ? <Loading /> : <ButtonDark text="send" filePost={() => filePost(produtoId)}/>}
 
                     </div>
                 </div>

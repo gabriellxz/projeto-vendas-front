@@ -2,8 +2,8 @@ import { ChangeEvent, SyntheticEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import api from "../config/config"
+import { supabase } from '../utils/supabase'
 // import useCategory from "./useCategory"
-
 
 export default function useCreateProduct() {
 
@@ -11,7 +11,8 @@ export default function useCreateProduct() {
     const [preco, setPreco] = useState<number>()
     const [descricao, setDescricao] = useState<string>("")
     const [estoque, setEstoque] = useState<number>()
-    const [image, setImage] = useState<File | null>(null)
+    const [file, setFile] = useState<File | null>(null)
+    const [produtoId, setProdutoId] = useState<number>()
     const [loading, setLoading] = useState<boolean>(false)
     const [categoryId, setCategoryId] = useState<number>()
     // const {categoryId} = useCategory()
@@ -40,15 +41,26 @@ export default function useCreateProduct() {
         setCategoryId(categoryId)
     }
 
-    function handleImage(event: any) {
-        if (event.target.value && event.target.files.length > 0) {
-            setImage(event.target.value[0])
+    function handleFile(e: ChangeEvent<HTMLInputElement>) {
+        if (e.target.files && e.target.files.length > 0) {
+            return setFile(e.target.files[0])
+        }
+    }
+
+    async function filePost(produtoId?:number) {
+        const { data, error } = await supabase.storage
+            .from("Products")
+            .upload(`public/${produtoId}/` + file?.name, file as File)
+
+        if (data) {
+            console.log(data)
+        } else if (error) {
+            console.log(error)
         }
     }
 
     const token = localStorage.getItem("tokenUser")
-    // const { token } = useContext(UserAutenticado)
-
+    // const { product } = useListProduct()
 
     async function registerProduct(e: SyntheticEvent) {
         e.preventDefault()
@@ -63,8 +75,9 @@ export default function useCreateProduct() {
                     nome_produto === "" ||
                     preco === undefined ||
                     estoque === undefined ||
-                    image === null ||
-                    descricao === ""
+                    file === null ||
+                    descricao === "" ||
+                    categoryId === undefined
                 ) {
                     toast.error("Preencha os campos corretamente!", {
                         position: "bottom-center",
@@ -80,12 +93,6 @@ export default function useCreateProduct() {
                     setLoading(false)
                 } else {
 
-                    const formData = new FormData()
-
-                    if (image) {
-                        formData.append("file", image)
-                    }
-
                     const data = {
                         nome_produto,
                         descricao,
@@ -94,23 +101,16 @@ export default function useCreateProduct() {
                         categoryId
                     }
 
-                    await api.post("/Product/Image", formData, {
+                    const response = await api.post("/Product/create", data, {
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${JSON.parse(token)}`
                         }
-                    }).then((response) => {
-                        console.log(response)
-                    }).catch((err) => {
-                        console.log(err)
                     })
 
-                    await api.post("/Product/create", data, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${JSON.parse(token)}`
-                        }
-                    })
+                    setProdutoId(response.data.id_produto)
+                    filePost(response.data.id_produto)
+
                     console.log("Produto Cadastrado com sucesso!")
 
                     toast.success("Produto cadastrado com sucesso!", {
@@ -145,12 +145,14 @@ export default function useCreateProduct() {
         nome_produto,
         preco,
         estoque,
-        image,
+        file,
         handleDescricao,
         handleEstoque,
         handleNomeProduct,
         handlePreco,
-        handleImage,
+        produtoId,
+        handleFile,
+        filePost,
         categoryId,
         handleCategoria,
         registerProduct,
