@@ -6,15 +6,17 @@ export default function SlidesMiniCard() {
 
     const { product } = useListProduct()
 
+
+
     return (
         <>
             {/* TELAS PEQUENAS */}
             <div className={`
                             sm:hidden
                         `}>
-                <div className="overflow-scroll flex">
+                <div className="overflow-x-scroll flex gap-4">
                     {
-                        product.map((product: ProdutosDTO) => (
+                        product.slice(0, 2).map((product: ProdutosDTO) => (
                             <MiniCard key={product.id_produto} iProduto={product} />
                         ))
                     }
@@ -29,7 +31,7 @@ export default function SlidesMiniCard() {
                             lg:flex
                         `}>
                 {
-                    product.map((product: ProdutosDTO) => (
+                    product.slice(0, 4).map((product: ProdutosDTO) => (
                         <MiniCard key={product.id_produto} iProduto={product} />
                     ))
                 }
