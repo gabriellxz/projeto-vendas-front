@@ -29,7 +29,7 @@ export default function DetailsProductPage(props: Props) {
                     md:flex md:flex-row md:w-full mr-20
                 `}>
                     <div className={`
-                        flex justify-center overflow-scroll gap-3
+                        flex justify-center overflow-x-scroll gap-3
                         md:flex md:flex-col md:overflow-hidden md:justify-normal
                     `}>
                         <img src={imgProduct} alt="" className="max-w-[100px] h-[137px] w-full mb-3" />

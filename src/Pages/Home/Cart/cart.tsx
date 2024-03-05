@@ -6,13 +6,13 @@ export default function Cart() {
             <div>
                 <h1 className="uppercase mt-20 font-bold text-2xl ">carrinho</h1>
             </div>
-            <div className="flex w-full">
+            <div className="flex flex-col lg:flex lg:flex-row w-full">
                 <div className="w-full">
                     <CardCart />
                     <CardCart />
                     <CardCart />
                 </div>
-                <div className="max-w-[257px] w-full mr-[158px] ml-[33px] mt-5">
+                <div className="max-w-[257px] lg:mr-[100px] w-full mt-5">
                     <div className="mb-[67px]">
                         <span className="uppercase text-xl">sumário de compras</span>
                     </div>
