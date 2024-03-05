@@ -52,7 +52,6 @@ export default function useLogin() {
                 })
                 navigate("/home")
                 localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
-
             }
         }).catch((error) => {
             console.log(error)
