@@ -4,9 +4,7 @@ import SlidesHome from "../../../components/Slides-home/slides-home"
 import Catalog from "../../../components/Catalog/catalog"
 import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card";
 
-
 export default function ListProduct() {
-
     return (
         <div>
             <SlidesHome />
@@ -38,10 +36,10 @@ export default function ListProduct() {
                                 <button className="bg-greenEco-100 text-white max-w-[185px] w-full p-3">Ver mais</button>
                             </div>
                         </div>
-                        <SlidesMiniCard/>
+                        <SlidesMiniCard />
                     </div>
                     <div className="flex justify-center">
-                        <Catalog/>
+                        <Catalog />
                     </div>
                 </div>
             </div>
