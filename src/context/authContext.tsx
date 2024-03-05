@@ -1,11 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import api from "../config/config";
-
+    
 interface ContextType {
     autenticado: boolean;
     logout: () => void;
     loading: boolean;
-    token: string | null
+    token: string | null;
 }
 
 const UserAutenticado = createContext<ContextType>({} as ContextType)
