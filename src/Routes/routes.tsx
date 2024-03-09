@@ -9,8 +9,7 @@ import ListProduct from "../Pages/Home/List-products/list-products";
 import DetailsProduct from "../Pages/Details-product/details-product";
 import { DataUserProvider } from "../context/dataUser";
 import Cart from "../Pages/Home/Cart/cart";
-import { CartProvider } from "../context/cart";
-import { ProdutoProvider } from "../context/produtoContext";
+
 
 export default function RoutesApp() {
 
@@ -18,29 +17,25 @@ export default function RoutesApp() {
         <BrowserRouter>
             <UserAutenticadoProvider>
                 <DataUserProvider>
-                    <ProdutoProvider>
-                        <CartProvider>
-                            <Routes>
-                                <Route path="/" element={<Login />} />
-                                <Route path="cadastro" element={<Cadastro />} />
-                                <Route path="home" element={
-                                    <CustomRoutes>
-                                        <Home />
-                                    </CustomRoutes>
-                                }>
-                                    <Route index element={<ListProduct />} />
-                                    <Route path="catalogo-produtos" element={<ListProduct />} />
-                                    <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
-                                    <Route path="carrinho" element={<Cart />} />
-                                </Route>
-                                <Route path="cadastro-produtos" element={
-                                    <CustomRoutes>
-                                        <CadastroProdutos />
-                                    </CustomRoutes>
-                                } />
-                            </Routes>
-                        </CartProvider>
-                    </ProdutoProvider>
+                    <Routes>
+                        <Route path="/" element={<Login />} />
+                        <Route path="cadastro" element={<Cadastro />} />
+                        <Route path="home" element={
+                            <CustomRoutes>
+                                <Home />
+                            </CustomRoutes>
+                        }>
+                            <Route index element={<ListProduct />} />
+                            <Route path="catalogo-produtos" element={<ListProduct />} />
+                            <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
+                            <Route path="carrinho" element={<Cart />} />
+                        </Route>
+                        <Route path="cadastro-produtos" element={
+                            <CustomRoutes>
+                                <CadastroProdutos />
+                            </CustomRoutes>
+                        } />
+                    </Routes>
                 </DataUserProvider>
             </UserAutenticadoProvider >
         </BrowserRouter>
