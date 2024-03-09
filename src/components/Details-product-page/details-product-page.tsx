@@ -3,8 +3,6 @@ import imgProduct from '../../assets/produto.webp'
 import Moeda from "../../utils/moeda"
 import ButtonDark from "../Button-dark/button-dark"
 import ButtonLight from "../Button-light/button-light"
-import { useContext } from "react"
-import { CartContext } from "../../context/cart"
 
 interface Props {
     iProdutoDetails: ProdutosDTO
@@ -12,7 +10,6 @@ interface Props {
 
 export default function DetailsProductPage(props: Props) {
 
-    const { handleCart } = useContext(CartContext)
 
     return (
         <div className={`
@@ -56,7 +53,7 @@ export default function DetailsProductPage(props: Props) {
                         <p>Estoque: {props.iProdutoDetails.estoque}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <ButtonDark text="Adicionar ao carrinho" propsBtn={handleCart}/>
+                        <ButtonDark text="Adicionar ao carrinho"/>
                         <ButtonLight text="Favoritar" />
                     </div>
                 </div>

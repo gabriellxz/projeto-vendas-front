@@ -1,4 +1,3 @@
-import * as productService from '../service/produto-service'
 import { useEffect, useState } from "react";
 import ProdutosDTO from "../types/produto";
 import { useParams } from "react-router-dom"
@@ -9,7 +8,6 @@ export default function useProdutoId() {
 
     const params = useParams()
     const [produto, setProduto] = useState<ProdutosDTO>()
-    const [produtoId, setProdutoId] = useState<number>()
     const [loading, setLoading] = useState<boolean>(false)
     const token = localStorage.getItem("tokenUser")
 
@@ -43,6 +41,5 @@ export default function useProdutoId() {
     return {
         produto,
         loading,
-        produtoId
     }
 }
