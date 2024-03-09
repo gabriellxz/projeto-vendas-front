@@ -12,7 +12,7 @@ interface Props {
 
 export default function DetailsProductPage(props: Props) {
 
-    const { addCart } = useContext(CartContext)
+    const { handleCart } = useContext(CartContext)
 
     return (
         <div className={`
@@ -56,7 +56,7 @@ export default function DetailsProductPage(props: Props) {
                         <p>Estoque: {props.iProdutoDetails.estoque}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <ButtonDark text="Adicionar ao carrinho" propsBtn={addCart}/>
+                        <ButtonDark text="Adicionar ao carrinho" propsBtn={handleCart}/>
                         <ButtonLight text="Favoritar" />
                     </div>
                 </div>
