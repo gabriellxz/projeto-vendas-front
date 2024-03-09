@@ -6,7 +6,6 @@ export default function DetailsProduct() {
 
     const { loading, produto } = useProdutoId()
 
-
     return (
         <>
             {
