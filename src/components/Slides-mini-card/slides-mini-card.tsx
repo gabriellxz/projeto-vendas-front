@@ -6,8 +6,6 @@ export default function SlidesMiniCard() {
 
     const { product } = useListProduct()
 
-
-
     return (
         <>
             {/* TELAS PEQUENAS */}

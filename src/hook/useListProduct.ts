@@ -19,7 +19,7 @@ export default function useListProduct() {
                     }
                 })
                 try {
-                    setProduct(response.data.Company)
+                    setProduct(response.data.Produtos)
                     setLoading(false)
                 } catch (error) {
                     console.log(error)
