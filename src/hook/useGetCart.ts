@@ -7,6 +7,7 @@ export default function useGetCart() {
 
     const token = localStorage.getItem("tokenUser")
     const [cart, setCart] = useState<CartType[]>([])
+    const [cartData, setCartData] = useState<CartType>()
 
     useEffect(() => {
         async function getCart() {
@@ -19,6 +20,8 @@ export default function useGetCart() {
                     })
 
                     setCart(response.data.carrinho)
+                    setCartData(response.data.carrinho)
+                    console.log(response.data.carrinho)
                 }
             } catch (error) {
                 console.log(error)
@@ -29,6 +32,7 @@ export default function useGetCart() {
     }, [])
 
     return {
-        cart
+        cart,
+        cartData
     }
 }

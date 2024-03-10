@@ -5,6 +5,7 @@ export interface Cart {
 }
 
 export interface CartType {
+    amount: number | null
     produtos: {
         descricao: string;
         imagem: []
