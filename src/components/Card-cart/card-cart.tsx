@@ -4,10 +4,11 @@ import { CartType } from '../../types/cart'
 import Moeda from '../../utils/moeda'
 
 interface PropsCart {
-    iCart:CartType
+    iCart: CartType
 }
 
-export default function CardCart(props:PropsCart) {
+export default function CardCart(props: PropsCart) {
+
     return (
         <>
             <div className='flex mt-[40px] pt-[20px] border-solid border-t-2 border-black mr-[33px]'>
@@ -22,6 +23,11 @@ export default function CardCart(props:PropsCart) {
                         <span className='text-zinc-400'>{props.iCart.produtos.descricao}</span>
                     </div>
                     <div className='flex flex-col mt-[27px]'>
+                        <div className='flex gap-3'>
+                            <span className='cursor-pointer'>-</span>
+                            <span className='select-none'>{props.iCart.amount}</span>
+                            <span className='cursor-pointer'>+</span>
+                        </div>
                         {/* <span className='text-zinc-400'>300ml</span> */}
                         <span className='font-bold'>{Moeda.formatar(props.iCart.produtos.preco)}</span>
                     </div>
