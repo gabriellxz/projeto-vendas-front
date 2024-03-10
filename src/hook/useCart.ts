@@ -10,7 +10,7 @@ export default function useCart() {
 
     const navigate = useNavigate()
     const [cart, setCart] = useState<Cart>()
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loadingCart, setLoadingCart] = useState<boolean>(false)
     const token = localStorage.getItem("tokenUser")
     const { produto } = useProdutoId()
     const user = useContext(DataUser)
@@ -25,7 +25,7 @@ export default function useCart() {
 
         console.log(dataCart);
 
-        setLoading(true)
+        setLoadingCart(true)
         try {
             if (token) {
                 const response: AxiosResponse = await api.post("/cart/insert", dataCart, {
@@ -36,21 +36,40 @@ export default function useCart() {
 
                 setCart(response.data)
                 console.log(response.data)
-                setLoading(false)
+                setLoadingCart(false)
                 navigate("/home/carrinho")
             }
         } catch (error) {
             console.log(error)
-            setLoading(false)
+            setLoadingCart(false)
         }
 
     }
 
-    
+    async function clearCart() {
+
+        setLoadingCart(true)
+        
+        try {
+            if(token) {
+                const response:AxiosResponse = await api.delete("/cart/clear", {headers: {
+                    "Authorization": "Bearer " + JSON.parse(token)
+                }})
+                
+                setCart(response.data)
+                setLoadingCart(false)
+                window.location.reload()
+            }
+        } catch (err) {
+            console.log(err)
+            setLoadingCart(false)
+        }
+    }
 
     return {
         addCart,
         cart,
-        loading
+        loadingCart,
+        clearCart
     }
 }
