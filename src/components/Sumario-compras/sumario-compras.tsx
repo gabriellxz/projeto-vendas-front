@@ -7,7 +7,7 @@ export default function SumarioCompras() {
             <div className="w-full flex flex-col gap-[25px]">
                 <div className="w-full flex justify-between">
                     <span>Subtotal</span>
-                    <span>{ }</span>
+                    <span></span>
                 </div>
                 <div className="w-full flex justify-between">
                     <span>Frete</span>
