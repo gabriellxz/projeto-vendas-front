@@ -8,9 +8,13 @@ export default function useGetCart() {
     const token = localStorage.getItem("tokenUser")
     const [cart, setCart] = useState<CartType[]>([])
     const [cartData, setCartData] = useState<CartType>()
+    const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
         async function getCart() {
+
+            setLoading(true)
+
             try {
                 if (token) {
                     const response: AxiosResponse = await api.get("/cart/find", {
@@ -22,9 +26,11 @@ export default function useGetCart() {
                     setCart(response.data.carrinho)
                     setCartData(response.data.carrinho)
                     console.log(response.data.carrinho)
+                    setLoading(false)
                 }
             } catch (error) {
                 console.log(error)
+                setLoading(false)
             }
         }
 
@@ -33,6 +39,7 @@ export default function useGetCart() {
 
     return {
         cart,
-        cartData
+        cartData,
+        loading
     }
 }
