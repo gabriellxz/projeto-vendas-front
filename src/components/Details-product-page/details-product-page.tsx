@@ -4,6 +4,7 @@ import Moeda from "../../utils/moeda"
 import ButtonDark from "../Button-dark/button-dark"
 import ButtonLight from "../Button-light/button-light"
 import useCart from "../../hook/useCart"
+import Loading from "../Loading/loading"
 
 interface Props {
     iProdutoDetails: ProdutosDTO
@@ -11,7 +12,7 @@ interface Props {
 
 export default function DetailsProductPage(props: Props) {
 
-    const { addCart } = useCart()
+    const { addCart, loadingCart } = useCart()
 
     return (
         <div className={`
@@ -55,7 +56,7 @@ export default function DetailsProductPage(props: Props) {
                         <p>Estoque: {props.iProdutoDetails.estoque}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <ButtonDark text="Adicionar ao carrinho" propsBtn={addCart}/>
+                        {loadingCart ? <Loading/> : <ButtonDark text="Adicionar ao carrinho" propsBtn={addCart}/>}
                         <ButtonLight text="Favoritar" />
                     </div>
                 </div>
