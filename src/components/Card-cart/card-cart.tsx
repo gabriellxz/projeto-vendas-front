@@ -2,12 +2,16 @@ import imgproduto from '../../assets/produto.webp'
 import TrashIcon from '../../svg/trash-icon'
 import { CartType } from '../../types/cart'
 import Moeda from '../../utils/moeda'
+import useCart from '../../hook/useCart'
+import Loading from '../Loading/loading'
 
 interface PropsCart {
     iCart: CartType
 }
 
 export default function CardCart(props: PropsCart) {
+
+    const { deleteProdutoId, loadingCart } = useCart()
 
     return (
         <>
@@ -18,18 +22,18 @@ export default function CardCart(props: PropsCart) {
                 <div className='ml-[58px] w-full'>
                     <div className='flex flex-col'>
                         <span className='text-xl uppercase flex items-center justify-between'>
-                            {props.iCart.produtos.nome_produto} <TrashIcon />
+                            {props.iCart.produtos.nome_produto} {loadingCart ? <Loading /> : <span onClick={() => deleteProdutoId(props.iCart.produtoId)}><TrashIcon /></span>}
                         </span>
                         <span className='text-zinc-400'>{props.iCart.produtos.descricao}</span>
                     </div>
                     <div className='flex flex-col mt-[27px]'>
                         <div className='flex gap-3'>
-                            <span className='cursor-pointer'>-</span>
+                            <span className='cursor-pointer select-none'>-</span>
                             <span className='select-none'>{props.iCart.amount}</span>
-                            <span className='cursor-pointer'>+</span>
+                            <span className='cursor-pointer select-none'>+</span>
                         </div>
                         {/* <span className='text-zinc-400'>300ml</span> */}
-                        <span className='font-bold'>{Moeda.formatar(props.iCart.produtos.preco)}</span>
+                        <span className='font-bold select-none'>{Moeda.formatar(props.iCart.produtos.preco)}</span>
                     </div>
                 </div>
             </div>
