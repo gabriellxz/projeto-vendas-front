@@ -28,8 +28,8 @@ export default function CardCart(props: PropsCart) {
 
         try {
             const response = await api.patch("/cart/update", cartUpdate);
-            setAmount(updatedAmount); // Atualize o estado com o valor correto
-            console.log("amount: " + updatedAmount); // Registre o valor atualizado
+            setAmount(updatedAmount);
+            console.log("amount: " + updatedAmount);
             console.log(response.data)
         } catch (err) {
             console.log(err);
@@ -41,11 +41,15 @@ export default function CardCart(props: PropsCart) {
 
         setAmount(amount - 1)
 
+        if(updatedAmount < 1) {
+            deleteProdutoId(produtoId)
+        }
+        
         const cartUpdate = {
             amount: updatedAmount,
             produtoId: produtoId
         };
-
+        
         try {
             const response = await api.patch("/cart/update", cartUpdate);
             setAmount(updatedAmount);
@@ -55,7 +59,6 @@ export default function CardCart(props: PropsCart) {
             console.log(err);
         }
     }
-
 
     return (
         <>
