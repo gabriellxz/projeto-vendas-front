@@ -25,9 +25,9 @@ export default function useProdutoId() {
                     })
 
                     setLoading(false)
-                    console.log(response.data)
+                    // console.log(response.data)
                     setProduto(response.data)
-                    console.log("id do produto: "+ response.data.id_produto)
+                    // console.log("id do produto: "+ response.data.id_produto)
                 }
             } catch (error) {
                 setLoading(false)
