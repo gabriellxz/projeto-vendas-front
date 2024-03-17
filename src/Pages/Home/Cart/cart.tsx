@@ -30,7 +30,7 @@ export default function Cart() {
                                     }
                                 </div>
                                 <div className="max-w-[257px] lg:mr-[100px] w-full mt-5">
-                                    <SumarioCompras />
+                                    <SumarioCompras iCart={cart}/>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,25 @@
-export default function SumarioCompras() {
+import { useEffect, useState } from "react";
+import { CartType } from "../../types/cart"
+import Moeda from "../../utils/moeda";
+
+interface PropsSumario {
+    iCart: CartType[];
+}
+
+export default function SumarioCompras(props: PropsSumario) {
+
+    const [subTotal, setSubTotal] = useState(0)
+
+    useEffect(() => {
+        let total = 0 
+        
+        props.iCart.forEach((item:CartType) => {
+            total += item.amount * item.produtos.preco
+        })
+
+        setSubTotal(total)
+    },[props.iCart])
+
     return (
         <>
             <div className="mb-[67px]">
@@ -7,7 +28,7 @@ export default function SumarioCompras() {
             <div className="w-full flex flex-col gap-[25px]">
                 <div className="w-full flex justify-between">
                     <span>Subtotal</span>
-                    <span></span>
+                    <span>{Moeda.formatar(subTotal)}</span>
                 </div>
                 <div className="w-full flex justify-between">
                     <span>Frete</span>
