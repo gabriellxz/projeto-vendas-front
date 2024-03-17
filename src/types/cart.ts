@@ -1,14 +1,15 @@
 export interface Cart {
     produtoId: number | undefined;
-    amount: number | null;
-    usuarioId: number | undefined;
+    amount: number;
 }
 
 export interface CartType {
-    amount: number | null
+    amount: number;
+    cartId: number;
+    produtoId: number;
     produtos: {
         descricao: string;
-        imagem: []
+        imagem: [];
         nome_produto: string;
         preco: number;
     }
