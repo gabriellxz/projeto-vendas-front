@@ -4,6 +4,8 @@ import { CartType } from '../../types/cart'
 import Moeda from '../../utils/moeda'
 import useCart from '../../hook/useCart'
 import Loading from '../Loading/loading'
+import api from '../../config/config'
+import { useState } from 'react'
 
 interface PropsCart {
     iCart: CartType
@@ -12,6 +14,48 @@ interface PropsCart {
 export default function CardCart(props: PropsCart) {
 
     const { deleteProdutoId, loadingCart } = useCart()
+    const [amount, setAmount] = useState(props.iCart.amount);
+
+    async function incrementCart(produtoId: number) {
+        const updatedAmount = amount + 1; // Use o valor atualizado diretamente
+
+        setAmount(amount + 1)
+
+        const cartUpdate = {
+            amount: updatedAmount,
+            produtoId: produtoId
+        };
+
+        try {
+            const response = await api.patch("/cart/update", cartUpdate);
+            setAmount(updatedAmount); // Atualize o estado com o valor correto
+            console.log("amount: " + updatedAmount); // Registre o valor atualizado
+            console.log(response.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function decreaseCart(produtoId: number) {
+        const updatedAmount = amount - 1;
+
+        setAmount(amount - 1)
+
+        const cartUpdate = {
+            amount: updatedAmount,
+            produtoId: produtoId
+        };
+
+        try {
+            const response = await api.patch("/cart/update", cartUpdate);
+            setAmount(updatedAmount);
+            console.log("amount: " + updatedAmount);
+            console.log(response.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
 
     return (
         <>
@@ -28,9 +72,9 @@ export default function CardCart(props: PropsCart) {
                     </div>
                     <div className='flex flex-col mt-[27px]'>
                         <div className='flex gap-3'>
-                            <span className='cursor-pointer select-none'>-</span>
-                            <span className='select-none'>{props.iCart.amount}</span>
-                            <span className='cursor-pointer select-none'>+</span>
+                            <span className='cursor-pointer select-none' onClick={() => decreaseCart(props.iCart.produtoId)}>-</span>
+                            <span className='select-none'>{amount}</span>
+                            <span className='cursor-pointer select-none' onClick={() => incrementCart(props.iCart.produtoId)}>+</span>
                         </div>
                         {/* <span className='text-zinc-400'>300ml</span> */}
                         <span className='font-bold select-none'>{Moeda.formatar(props.iCart.produtos.preco)}</span>
