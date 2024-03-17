@@ -2,19 +2,17 @@ import CardCart from "../../../components/Card-cart/card-cart";
 import Loading from "../../../components/Loading/loading";
 import SumarioCompras from "../../../components/Sumario-compras/sumario-compras";
 import useCart from "../../../hook/useCart";
-import useGetCart from "../../../hook/useGetCart";
 import TrashIcon from "../../../svg/trash-icon";
 import { CartType } from "../../../types/cart";
 
 export default function Cart() {
 
-    const { cart, loading } = useGetCart()
-    const { clearCart, loadingCart } = useCart()
+    const { loadingCart, cart, clearCart } = useCart()
 
     return (
         <>
             {
-                loading ? <Loading styleLoading="absolute top-[50%] left-[50%] bottom-[50%] right-[50%]" /> : (
+                loadingCart ? <Loading styleLoading="absolute top-[50%] left-[50%] bottom-[50%] right-[50%]" /> : (
                     cart.length > 0 ? (
                         <div className="ml-[50px] mb-5">
                             <div>
@@ -27,7 +25,7 @@ export default function Cart() {
                                 <div className="w-full">
                                     {
                                         cart.map((cartItem: CartType) => (
-                                            <CardCart iCart={cartItem} />
+                                            <CardCart key={cartItem.cartId} iCart={cartItem} />
                                         ))
                                     }
                                 </div>
