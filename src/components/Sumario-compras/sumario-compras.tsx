@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CartType } from "../../types/cart"
 import Moeda from "../../utils/moeda";
+import ButtonDark from "../Button-dark/button-dark";
 
 interface PropsSumario {
     iCart: CartType[];
@@ -11,14 +12,14 @@ export default function SumarioCompras(props: PropsSumario) {
     const [subTotal, setSubTotal] = useState(0)
 
     useEffect(() => {
-        let total = 0 
-        
-        props.iCart.forEach((item:CartType) => {
+        let total = 0
+
+        props.iCart.forEach((item: CartType) => {
             total += item.amount * item.produtos.preco
         })
 
         setSubTotal(total)
-    },[props.iCart])
+    }, [props.iCart])
 
     return (
         <>
@@ -27,19 +28,12 @@ export default function SumarioCompras(props: PropsSumario) {
             </div>
             <div className="w-full flex flex-col gap-[25px]">
                 <div className="w-full flex justify-between">
-                    <span>Subtotal</span>
-                    <span>{Moeda.formatar(subTotal)}</span>
+                    <span>total</span>
+                    <span className="font-bold">{Moeda.formatar(subTotal)}</span>
                 </div>
-                <div className="w-full flex justify-between">
-                    <span>Frete</span>
-                    <span>$20</span>
-                </div>
+                <div className="bg-zinc-400 p-[0.5px] w-full"></div>
                 <div>
-                    <span>Calcular Frete</span>
-                    <div className="flex gap-[18px] mt-[10px]">
-                        <input type="text" className="max-w-[200px] h-[45px] w-full border-solid border border-black" />
-                        <button className="bg-greenEco-200 text-white max-w-[100px] w-full rounded-md">Calcular</button>
-                    </div>
+                    <ButtonDark text="Prosseguir com a compra"/>
                 </div>
             </div>
         </>
