@@ -1,7 +1,7 @@
 interface Props {
     text: string;
     login?: () => void;
-    propsBtn?: () => void;
+    propsBtn?: (e:any) => void;
     filePost?: (produtoId:number) => void;
 }
 
