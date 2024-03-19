@@ -19,7 +19,7 @@ export default function CardCart(props: PropsCart) {
     async function incrementCart(produtoId: number) {
         const updatedAmount = amount + 1; // Use o valor atualizado diretamente
 
-        setAmount(amount + 1)
+        // setAmount(amount + 1)
 
         const cartUpdate = {
             amount: updatedAmount,
@@ -39,7 +39,7 @@ export default function CardCart(props: PropsCart) {
     async function decreaseCart(produtoId: number) {
         const updatedAmount = amount - 1;
 
-        setAmount(amount - 1)
+        // setAmount(amount - 1)
 
         if(updatedAmount < 1) {
             deleteProdutoId(produtoId)
