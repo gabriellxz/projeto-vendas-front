@@ -44,8 +44,8 @@ export default function SumarioCompras(props: PropsSumario) {
                             :
                             <select className="border border-1 border-black outline-none p-2 w-full mb-5" required>
                                 {
-                                    endereco.map((item: Endereco) => (
-                                        <option key={item.endereco_id}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>
+                                    endereco.map((item: Endereco, index: number) => (
+                                        <option key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>
                                     ))
                                 }
                             </select>
