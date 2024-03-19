@@ -9,6 +9,7 @@ import ListProduct from "../Pages/Home/List-products/list-products";
 import DetailsProduct from "../Pages/Details-product/details-product";
 import { DataUserProvider } from "../context/dataUser";
 import Cart from "../Pages/Home/Cart/cart";
+import FormEndereco from "../Pages/Home/Form-endereco/form-enderco";
 
 
 export default function RoutesApp() {
@@ -29,6 +30,7 @@ export default function RoutesApp() {
                             <Route path="catalogo-produtos" element={<ListProduct />} />
                             <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
                             <Route path="carrinho" element={<Cart />} />
+                            <Route path="criar-endereço" element={<FormEndereco/>} />
                         </Route>
                         <Route path="cadastro-produtos" element={
                             <CustomRoutes>
