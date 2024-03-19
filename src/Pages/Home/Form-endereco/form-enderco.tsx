@@ -1,7 +1,9 @@
+import { useState } from "react";
 import ButtonDark from "../../../components/Button-dark/button-dark";
 import Input from "../../../components/Input/input";
 import data from '../../../ddd.json'
 import useEndereco from "../../../hook/useEndereco";
+import { ToastContainer, toast } from "react-toastify"
 
 export default function FormEndereco() {
 
@@ -26,6 +28,40 @@ export default function FormEndereco() {
         telefoneContato
     } = useEndereco()
 
+    const [cepValidation, setCepValidation] = useState("")
+    const [telValidation, setTelValidation] = useState("")
+
+    function enderecoValidation() {
+        if (
+            cep == "" ||
+            bairro == "" ||
+            complemento == "" ||
+            pontoDeReferencia == "" ||
+            numero == undefined ||
+            ddd == undefined ||
+            telefoneContato == ""
+        ) {
+            toast.error("Preencha os campos corretamente!", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        } 
+
+        if(cep.length !== 8) {
+            setCepValidation("CEP deve conter no máximo 8 caracteres")
+        }
+
+        if(telefoneContato.length < 11) {
+            setTelValidation("Telefone deve conter no mínimo 11 caracteres")
+        }
+    }
+
     return (
         <>
             <div className="flex justify-center p-5">
@@ -44,6 +80,7 @@ export default function FormEndereco() {
                                 typeInput="text"
                                 value={cep}
                             />
+                            <span className="text-red-600">{cepValidation}</span>
                             <ButtonDark text="Buscar CEP" propsBtn={getCep} />
                         </div>
                     </div>
@@ -117,7 +154,6 @@ export default function FormEndereco() {
                                 onChange={handleChangeDdd}
                                 className="border border-1 border-black outline-none p-2 w-full"
                             >
-                                <option>DDD</option>
                                 {
                                     data.dddsPorEstado.map((ddd: string) => (
                                         <option>{ddd}</option>
@@ -134,13 +170,15 @@ export default function FormEndereco() {
                                 typeInput="text"
                                 value={telefoneContato}
                             />
+                            <span className="text-red-600">{telValidation}</span>
                         </div>
                     </div>
                     <div className="mt-8">
-                        <ButtonDark text="Continue" />
+                        <ButtonDark text="Continue" propsBtn={enderecoValidation} />
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </>
     )
 }
