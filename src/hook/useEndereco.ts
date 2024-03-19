@@ -115,7 +115,7 @@ export default function useEndereco() {
             telefone_contato: ddd + telefoneContato,
             cidade: cidade,
             estado: estado,
-            endereco_id: user?.id
+            userId: user?.id
         }
 
         try {
