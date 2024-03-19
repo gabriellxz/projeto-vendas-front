@@ -25,7 +25,7 @@ export default function Cart() {
                                 <div className="w-full">
                                     {
                                         cart.map((cartItem: CartType) => (
-                                            <CardCart key={cartItem.cartId} iCart={cartItem} />
+                                            <CardCart key={cartItem.id} iCart={cartItem} />
                                         ))
                                     }
                                 </div>
