@@ -7,6 +7,7 @@ export interface CartType {
     amount: number;
     cartId: number;
     produtoId: number;
+    id: number;
     produtos: {
         descricao: string;
         imagem: [];
