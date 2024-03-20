@@ -13,6 +13,7 @@ interface PropsCart {
 
 export default function CardCart(props: PropsCart) {
 
+    const token = localStorage.getItem("tokenUser")
     const { deleteProdutoId, loadingCart } = useCart()
     const [amount, setAmount] = useState(props.iCart.amount);
 
@@ -27,10 +28,16 @@ export default function CardCart(props: PropsCart) {
         };
 
         try {
-            const response = await api.patch("/cart/update", cartUpdate);
-            setAmount(updatedAmount);
-            console.log("amount: " + updatedAmount);
-            console.log(response.data)
+            if (token) {
+                const response = await api.patch("/cart/update", cartUpdate, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                });
+                setAmount(updatedAmount);
+                console.log("amount: " + updatedAmount);
+                console.log(response.data)
+            }
         } catch (err) {
             console.log(err);
         }
@@ -41,20 +48,24 @@ export default function CardCart(props: PropsCart) {
 
         // setAmount(amount - 1)
 
-        if(updatedAmount < 1) {
+        if (updatedAmount < 1) {
             deleteProdutoId(produtoId)
         }
-        
+
         const cartUpdate = {
             amount: updatedAmount,
             produtoId: produtoId
         };
-        
+
         try {
-            const response = await api.patch("/cart/update", cartUpdate);
-            setAmount(updatedAmount);
-            console.log("amount: " + updatedAmount);
-            console.log(response.data)
+            if (token) {
+                const response = await api.patch("/cart/update", cartUpdate, {headers: {
+                    "Authorization": "Bearer " + JSON.parse(token)
+                }});
+                setAmount(updatedAmount);
+                console.log("amount: " + updatedAmount);
+                console.log(response.data)
+            }
         } catch (err) {
             console.log(err);
         }
