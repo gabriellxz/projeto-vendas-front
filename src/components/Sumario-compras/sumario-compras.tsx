@@ -5,6 +5,7 @@ import ButtonDark from "../Button-dark/button-dark";
 import useEndereco from "../../hook/useEndereco";
 import Endereco from "../../types/endereco";
 import { useNavigate } from "react-router-dom";
+import usePayment from "../../hook/usePayment";
 
 interface PropsSumario {
     iCart: CartType[];
@@ -14,6 +15,7 @@ export default function SumarioCompras(props: PropsSumario) {
 
     const navigate = useNavigate()
     const { endereco } = useEndereco()
+    const { make } = usePayment()
     const [subTotal, setSubTotal] = useState(0)
 
     useEffect(() => {
@@ -29,7 +31,7 @@ export default function SumarioCompras(props: PropsSumario) {
 
     return (
         <>
-            <div className="mb-[67px]">
+            <div className="md:mb-[67px]">
                 <span className="uppercase text-xl">sumário de compras</span>
             </div>
             <div className="w-full flex flex-col gap-[25px]">
@@ -39,19 +41,24 @@ export default function SumarioCompras(props: PropsSumario) {
                 </div>
                 <div className="bg-zinc-400 p-[0.5px] w-full"></div>
                 <form>
+                    <div className="text-center mb-1">
+                        {
+                            endereco.length < 1 ? <span className="text-red-600">Você não tem endereço</span>
+                                :
+                                <div>
+                                    <select className="border border-1 border-black outline-none p-2 w-full mb-5" required>
+                                        {
+                                            endereco.map((item: Endereco, index: number) => (
+                                                <option key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>
+                                            ))
+                                        }
+                                    </select>
+                                    <ButtonDark text="Novo endereço" propsBtn={() => {navigate("/home/criar-endereço")}}/>
+                                </div>
+                        }
+                    </div>
                     {
-                        endereco.length < 1 ? <span className="text-red-600">Você não tem endereço.</span>
-                            :
-                            <select className="border border-1 border-black outline-none p-2 w-full mb-5" required>
-                                {
-                                    endereco.map((item: Endereco, index: number) => (
-                                        <option key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>
-                                    ))
-                                }
-                            </select>
-                    }
-                    {
-                        endereco.length < 1 ? <ButtonDark text="Adicionar endereço" propsBtn={() => {navigate("/home/criar-endereço")}}/> : <ButtonDark text="Prosseguir com a compra"/>
+                        endereco.length < 1 ? <ButtonDark text="Adicionar endereço" propsBtn={() => { navigate("/home/criar-endereço") }} /> : <ButtonDark text="Prosseguir com a compra" propsBtn={make} />
                     }
                 </form>
             </div>
