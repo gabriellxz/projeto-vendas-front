@@ -21,7 +21,7 @@ export default function Cart() {
                                     <span className="cursor-pointer" onClick={clearCart}>{loadingCart ? <Loading /> : <TrashIcon />}</span>
                                 </h1>
                             </div>
-                            <div className="flex flex-col lg:flex lg:flex-row w-full">
+                            <div className="flex flex-col md:flex md:flex-row w-full">
                                 <div className="w-full">
                                     {
                                         cart.map((cartItem: CartType) => (
@@ -29,7 +29,7 @@ export default function Cart() {
                                         ))
                                     }
                                 </div>
-                                <div className="max-w-[257px] lg:mr-[100px] w-full mt-5">
+                                <div className="p-5 md:max-w-[257px] lg:mr-[100px] w-full mt-5">
                                     <SumarioCompras iCart={cart}/>
                                 </div>
                             </div>

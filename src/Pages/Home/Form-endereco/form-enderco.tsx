@@ -4,6 +4,7 @@ import Input from "../../../components/Input/input";
 import data from '../../../ddd.json'
 import useEndereco from "../../../hook/useEndereco";
 import { ToastContainer, toast } from "react-toastify"
+import usePayment from "../../../hook/usePayment";
 
 export default function FormEndereco() {
 
@@ -27,6 +28,7 @@ export default function FormEndereco() {
         pontoDeReferencia,
         telefoneContato
     } = useEndereco()
+    const { make } = usePayment()
 
     const [cepValidation, setCepValidation] = useState("")
     const [telValidation, setTelValidation] = useState("")
@@ -51,7 +53,9 @@ export default function FormEndereco() {
                 progress: undefined,
                 theme: "colored",
             })
-        } 
+        } else {
+            make()
+        }
 
         if(cep.length !== 8) {
             setCepValidation("CEP deve conter no máximo 8 caracteres")
@@ -76,7 +80,7 @@ export default function FormEndereco() {
                                 inputLabel="CEP"
                                 onInputValue={handleChangeCep}
                                 name="CEP"
-                                styleWidth=""
+                                styleWidth="mb-2"
                                 typeInput="text"
                                 value={cep}
                             />
@@ -84,7 +88,7 @@ export default function FormEndereco() {
                             <ButtonDark text="Buscar CEP" propsBtn={getCep} />
                         </div>
                     </div>
-                    <div className="flex w-full gap-[20px] mt-5">
+                    <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
                         <div className="flex flex-col w-full">
                             <Input
                                 inputLabel="Cidade"
@@ -106,7 +110,7 @@ export default function FormEndereco() {
                             />
                         </div>
                     </div>
-                    <div className="flex w-full gap-[20px] mt-5">
+                    <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
                         <div className="flex flex-col w-full">
                             <Input
                                 inputLabel="Bairro"
@@ -122,7 +126,7 @@ export default function FormEndereco() {
                             <input type="number" name="numero" value={numero ? numero : ""} onChange={handleChangeNumero} className="border border-1 border-black outline-none p-2" />
                         </div>
                     </div>
-                    <div className="flex w-full gap-[20px] mt-5">
+                    <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
                         <div className="flex flex-col w-full">
                             <Input
                                 inputLabel="Ponto de referência"
@@ -144,7 +148,7 @@ export default function FormEndereco() {
                             />
                         </div>
                     </div>
-                    <div className="flex w-full gap-[20px] mt-5">
+                    <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
                         <div className="flex flex-col w-full">
                             <span className="text-xl">DDD</span>
                             <select
