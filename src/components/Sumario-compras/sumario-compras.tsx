@@ -6,6 +6,7 @@ import useEndereco from "../../hook/useEndereco";
 import Endereco from "../../types/endereco";
 import { useNavigate } from "react-router-dom";
 import usePayment from "../../hook/usePayment";
+import Loading from "../Loading/loading";
 
 interface PropsSumario {
     iCart: CartType[];
@@ -15,7 +16,7 @@ export default function SumarioCompras(props: PropsSumario) {
 
     const navigate = useNavigate()
     const { endereco } = useEndereco()
-    const { make } = usePayment()
+    const { make, loading } = usePayment()
     const [subTotal, setSubTotal] = useState(0)
 
     useEffect(() => {
@@ -53,13 +54,15 @@ export default function SumarioCompras(props: PropsSumario) {
                                             ))
                                         }
                                     </select>
-                                    <ButtonDark text="Novo endereço" propsBtn={() => {navigate("/home/criar-endereço")}}/>
+                                    <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/home/criar-endereço") }} />
                                 </div>
                         }
                     </div>
-                    {
-                        endereco.length < 1 ? <ButtonDark text="Adicionar endereço" propsBtn={() => { navigate("/home/criar-endereço") }} /> : <ButtonDark text="Prosseguir com a compra" propsBtn={make} />
-                    }
+                    <div>
+                        {
+                            loading ? <Loading /> : <ButtonDark text="Prosseguir com a compra" propsBtn={make}/>
+                        }
+                    </div>
                 </form>
             </div>
         </>
