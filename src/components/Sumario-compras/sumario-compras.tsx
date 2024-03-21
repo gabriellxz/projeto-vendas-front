@@ -34,7 +34,7 @@ export default function SumarioCompras(props: PropsSumario) {
             <div className="md:mb-[67px]">
                 <span className="uppercase text-xl">sumário de compras</span>
             </div>
-            <div className="w-full flex flex-col gap-[25px]">
+            <div className="w-full flex flex-col gap-[25px]">j
                 <div className="w-full flex justify-between">
                     <span>total</span>
                     <span className="font-bold">{Moeda.formatar(subTotal)}</span>
