@@ -3,6 +3,7 @@ import Endereco from "../types/endereco"
 import api from "../config/config"
 import axios from "axios"
 import { DataUser } from "../context/dataUser";
+import { toast } from "react-toastify";
 
 interface CEP {
     localidade: string;
@@ -28,11 +29,13 @@ export default function useEndereco() {
                     }
                 })
 
-                console.log(response.data)
+                setLoading(false)
+                // console.log(response.data)
                 setEndereco(response.data)
             }
         } catch (err) {
             console.log(err)
+            setLoading(false)
         }
     }
 
@@ -57,7 +60,9 @@ export default function useEndereco() {
             console.log(response.data)
             setGetCep(response.data)
             preencherCamposCep(response.data)
+            setLoading(false)
         } catch (err) {
+            setLoading(false)
             console.log(err)
         }
 
@@ -126,11 +131,24 @@ export default function useEndereco() {
                     }
                 })
 
+                toast.success("Endereço cadastrado com sucesso!", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+
+                setLoading(false)
                 console.log(response.data)
 
             }
         } catch (err) {
             console.log(err)
+            setLoading(false)
         }
     }
 

@@ -5,6 +5,7 @@ import data from '../../../ddd.json'
 import useEndereco from "../../../hook/useEndereco";
 import { ToastContainer, toast } from "react-toastify"
 import usePayment from "../../../hook/usePayment";
+import Loading from "../../../components/Loading/loading";
 
 export default function FormEndereco() {
 
@@ -26,7 +27,8 @@ export default function FormEndereco() {
         numero,
         ddd,
         pontoDeReferencia,
-        telefoneContato
+        telefoneContato,
+        loading
     } = useEndereco()
     const { make } = usePayment()
 
@@ -57,11 +59,11 @@ export default function FormEndereco() {
             make()
         }
 
-        if(cep.length !== 8) {
+        if (cep.length !== 8) {
             setCepValidation("CEP deve conter no máximo 8 caracteres")
         }
 
-        if(telefoneContato.length < 11) {
+        if (telefoneContato.length < 11) {
             setTelValidation("Telefone deve conter no mínimo 11 caracteres")
         }
     }
@@ -85,7 +87,7 @@ export default function FormEndereco() {
                                 value={cep}
                             />
                             <span className="text-red-600">{cepValidation}</span>
-                            <ButtonDark text="Buscar CEP" propsBtn={getCep} />
+                            {loading ? <Loading /> : <ButtonDark text="Buscar CEP" propsBtn={getCep} />}
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
@@ -178,7 +180,7 @@ export default function FormEndereco() {
                         </div>
                     </div>
                     <div className="mt-8">
-                        <ButtonDark text="Continue" propsBtn={enderecoValidation} />
+                        {loading ? <Loading /> : <ButtonDark text="Continue" propsBtn={enderecoValidation} />}
                     </div>
                 </form>
             </div>

@@ -1,41 +1,40 @@
-import { loadStripe } from "@stripe/stripe-js"
-import useCart from "./useCart"
+import { loadStripe } from "@stripe/stripe-js";
+import useCart from "./useCart";
 
 export default function usePayment() {
-
-    const { cart } = useCart()
+    const { cart } = useCart();
 
     async function make() {
+        try {
+            const stripe = await loadStripe(String(process.env.KEY_STRIPE));
 
+            const body = {
+                products: cart
+            };
 
-        const stripe = await loadStripe(String(process.env.KEY_STRIPE))
+            const headers = {
+                "Content-Type": "application/json"
+            };
 
-        const body = {
-            products: cart
-        }
+            const response = await fetch("/payments/create-checkout-session", {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(body)
+            });
 
-        const headers = {
-            "Content-Type": "application/json"
-        }
+            const session = await response.json();
 
-        const response = await fetch("https://vendas-online-coral.vercel.app/payments/create-checkout-session", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(body)
-        })
+            // Redirecionar para o checkout do Stripe utilizando o Stripe SDK
+            await stripe?.redirectToCheckout({
+                sessionId: session.id
+            });
 
-        const session = await response.json()
-
-        const result = stripe?.redirectToCheckout({
-            sessionId: session.id
-        })
-
-        if((await result)?.error) {
-            console.log((await result)?.error)
+        } catch (error) {
+            console.error("Erro ao processar pagamento:", error);
         }
     }
 
     return {
         make
-    }
+    };
 }
