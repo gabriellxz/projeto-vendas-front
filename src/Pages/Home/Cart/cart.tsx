@@ -14,15 +14,15 @@ export default function Cart() {
             {
                 loadingCart ? <Loading styleLoading="absolute top-[50%] left-[50%] bottom-[50%] right-[50%]" /> : (
                     cart.length > 0 ? (
-                        <div className="ml-[50px] mb-5">
+                        <div className="mb-5">
                             <div>
-                                <h1 className="uppercase mt-20 font-bold text-2xl flex items-center gap-2">
+                                <h1 className="uppercase p-[10px] mt-20 font-bold text-2xl flex items-center gap-2">
                                     carrinho
                                     <span className="cursor-pointer" onClick={clearCart}>{loadingCart ? <Loading /> : <TrashIcon />}</span>
                                 </h1>
                             </div>
                             <div className="flex flex-col md:flex md:flex-row w-full">
-                                <div className="w-full">
+                                <div className="w-full p-[10px]">
                                     {
                                         cart.map((cartItem: CartType) => (
                                             <CardCart key={cartItem.id} iCart={cartItem} />
@@ -34,7 +34,7 @@ export default function Cart() {
                                 </div>
                             </div>
                         </div>
-                    ) : (<h1 className="text-4xl ml-[50px] font-bold text-zinc-500 mt-10">Seu carrinho está vazio...</h1>)
+                    ) : (<h1 className="text-4xl p-[10px] sm:ml-[50px] font-bold text-zinc-500 mt-10">Seu carrinho está vazio...</h1>)
                 )
             }
         </>

@@ -46,25 +46,31 @@ export default function Header() {
                 flex items-center justify-between p-5
                 lg:hidden
             `}>
-                <div className="flex items-center justify-between max-w-[800px] w-full">
-                    <Link to={"/home"} className="">
+                <div className="flex items-center w-full">
+                    <Link to={"/home"} className="w-full flex justify-center">
                         <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
                     </Link>
-                    <animated.div style={openMenu} className="flex items-center">
-                        {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
+                    <div className="flex justify-end">
                         {
-                            open &&
-                            <div className={`
+                            token ? (
+                                <animated.div style={openMenu}>
+                                    {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
+                                    {
+                                        open &&
+                                        <div className={`
                             flex items-center gap-5
                         `}>
-                                <SearchIcon />
-                                <UserIcon />
-                                <FavoriteIcon />
-                                <BagIcon />
-                                {token ? <ButtonLogout /> : ""}
-                            </div>
+                                            <SearchIcon />
+                                            <UserIcon />
+                                            <FavoriteIcon />
+                                            <BagIcon />
+                                            <ButtonLogout />
+                                        </div>
+                                    }
+                                </animated.div>
+                            ) : ""
                         }
-                    </animated.div>
+                    </div>
 
                 </div>
             </header>

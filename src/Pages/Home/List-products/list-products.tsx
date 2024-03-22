@@ -2,17 +2,17 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SlidesHome from "../../../components/Slides-home/slides-home"
 import Catalog from "../../../components/Catalog/catalog"
-import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card";
+// import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card";  
 
 export default function ListProduct() {
     return (
         <div>
             <SlidesHome />
             <div>
-                <div className="m-10">
+                <div className="mt-[56px] sm:m-10">
                     <div className="text-center text-greenEco-200">
-                        <h1 className="uppercase font-kaisei text-5xl">elevando sua rotina de cuidados diários</h1>
-                        <p className="font-inter text-xl">
+                        <h1 className="uppercase font-kaisei text-[13px] sm:text-5xl">elevando sua rotina de cuidados diários</h1>
+                        <p className="font-inter text-[12px] sm:text-xl">
                             Descubra o Segredo para uma Beleza Autentica
                         </p>
                     </div>
@@ -36,9 +36,12 @@ export default function ListProduct() {
                                 <button className="bg-greenEco-100 text-white max-w-[185px] w-full p-3">Ver mais</button>
                             </div>
                         </div>
-                        <SlidesMiniCard />
+                        {/* <SlidesMiniCard /> */}
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center flex-col">
+                        <div className='w-full text-center mt-[40px]'>
+                            <span className='uppercase text-2xl'>nossos produtos</span>
+                        </div>
                         <Catalog />
                     </div>
                 </div>

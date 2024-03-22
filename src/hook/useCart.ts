@@ -40,6 +40,8 @@ export default function useCart() {
     }
 
     async function getCart() {
+        // setLoadingCart(true)
+
         try {
             if (token) {
                 const response: AxiosResponse = await api.get("/cart/find", {
@@ -48,10 +50,12 @@ export default function useCart() {
                     }
                 })
 
+                // setLoadingCart(false)
                 setCart(response.data.carrinho)
                 // console.log(response.data)
             }
         } catch (err) {
+            // setLoadingCart(false)
             console.log(err)
         }
 

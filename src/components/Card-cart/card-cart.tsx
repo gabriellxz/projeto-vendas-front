@@ -73,7 +73,7 @@ export default function CardCart(props: PropsCart) {
 
     return (
         <>
-            <div className='flex mt-[40px] pt-[20px] border-solid border-t-2 border-black mr-[33px]'>
+            <div className='flex mt-[40px] pt-[20px] border-solid border-t-2 border-black'>
                 <div>
                     <img src={imgproduto} alt="img" className='max-w-[175px] h-[215px] w-full' />
                 </div>

@@ -47,7 +47,7 @@ export default function useCreateProduct() {
         }
     }
 
-    async function filePost(produtoId?:number) {
+    async function filePost(produtoId?: number) {
         const { data, error } = await supabase.storage
             .from("Products")
             .upload(`public/${produtoId}/` + file?.name, file as File)
@@ -64,7 +64,7 @@ export default function useCreateProduct() {
 
     async function registerProduct(e: SyntheticEvent) {
         e.preventDefault()
-        console.log("Token: ", token)
+        // console.log("Token: ", token)
 
         setLoading(true)
 
@@ -140,6 +140,7 @@ export default function useCreateProduct() {
         }
 
     }
+
 
     return {
         nome_produto,
