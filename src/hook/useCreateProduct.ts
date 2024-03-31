@@ -1,9 +1,11 @@
-import { ChangeEvent, SyntheticEvent, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-import api from "../config/config"
-import { supabase } from '../utils/supabase'
-// import useCategory from "./useCategory"
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from "../config/config";
+import AWS from 'aws-sdk'
+
+const ACCESS_KEY_AWS = "AKIAW3MEAWIHVZ2V445V"
+const SECRET_KEY_AWS = "B/W1CkcWbX+ZlihZ37GaYeiCveReQsg/NCJ+jQ" 
 
 export default function useCreateProduct() {
 
@@ -15,7 +17,6 @@ export default function useCreateProduct() {
     const [produtoId, setProdutoId] = useState<number>()
     const [loading, setLoading] = useState<boolean>(false)
     const [categoryId, setCategoryId] = useState<number>()
-    // const {categoryId} = useCategory()
     const navigate = useNavigate()
 
     function handleNomeProduct(event: ChangeEvent<HTMLInputElement>): void {
@@ -43,31 +44,53 @@ export default function useCreateProduct() {
 
     function handleFile(e: ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files.length > 0) {
-            return setFile(e.target.files[0])
-        }
-    }
-
-    async function filePost(produtoId?: number) {
-        const { data, error } = await supabase.storage
-            .from("Products")
-            .upload(`public/${produtoId}/` + file?.name, file as File)
-
-        if (data) {
-            console.log(data)
-        } else if (error) {
-            console.log(error)
+            setFile(e.target.files[0])
         }
     }
 
     const token = localStorage.getItem("tokenUser")
-    // const { product } = useListProduct()
+
+    async function filePost(file: File | null) {
+        if (!file) {
+            console.log("Nenhum arquivo fornecido...");
+            return;
+        }
+
+        const s3 = new AWS.S3({
+            accessKeyId: ACCESS_KEY_AWS,
+            secretAccessKey: SECRET_KEY_AWS,
+            region: "us-east-1"
+        });
+
+        const params = {
+            Bucket: "project-recogreen",
+            Key: file.name,
+            Body: file,
+            ACL: 'public-read'
+        };
+
+        try {
+            if (token) {
+                // const response = await api.post("/Product/Image", params, {
+                //     headers: {
+                //         "Authorization": "Bearer " + JSON.parse(token),
+                //         "Content-Type": "multipart/form-data"
+                //     }
+                // })
+
+                // console.log("Resposta backend: ", response)
+                const data = await s3.upload(params).promise();
+                console.log("Arquivo enviado com sucesso!: ", data);
+            }
+        } catch (err) {
+            console.log("erro: ", err);
+        }
+    }
 
     async function registerProduct(e: SyntheticEvent) {
         e.preventDefault()
-        // console.log("Token: ", token)
 
         setLoading(true)
-
 
         try {
             if (token) {
@@ -109,7 +132,7 @@ export default function useCreateProduct() {
                     })
 
                     setProdutoId(response.data.id_produto)
-                    filePost(response.data.id_produto)
+                    filePost(file)
 
                     console.log("Produto Cadastrado com sucesso!")
 
@@ -127,7 +150,6 @@ export default function useCreateProduct() {
                     setTimeout(() => {
                         navigate("/home")
                     }, 3000)
-                    // window.location.reload()
                     setLoading(false)
 
                 }
@@ -141,6 +163,7 @@ export default function useCreateProduct() {
 
     }
 
+    
 
     return {
         nome_produto,
