@@ -9,6 +9,7 @@ export default function Catalog() {
 
     return (
         <div className="sm:grid sm:grid-cols-3 sm:gap-7 grid grid-cols-2 gap-5 mt-5 pt-10 p-10">
+
             {loading ? (
                 <Loading />
             ) : (
