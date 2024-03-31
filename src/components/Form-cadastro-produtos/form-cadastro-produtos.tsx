@@ -23,7 +23,7 @@ export default function FormCadastroProdutos() {
         file,
         nome_produto,
         estoque,
-        filePost,
+        // filePost,
         categoryId,
         handleCategoria,
         registerProduct,
@@ -118,7 +118,7 @@ export default function FormCadastroProdutos() {
                         </div>
                     </div>
                     <div>
-                        {loading ? <Loading /> : <ButtonDark text="send" filePost={() => filePost(file)} />}
+                        {loading ? <Loading /> : <ButtonDark text="send" filePost={() => {}} />}
 
                     </div>
                 </div>
