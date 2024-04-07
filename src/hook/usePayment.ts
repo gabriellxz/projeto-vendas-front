@@ -3,6 +3,8 @@ import useCart from "./useCart";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+const KEY_STRIPE = import.meta.env.VITE_REACT_APP_KEY_STRIPE
+
 export default function usePayment() {
     const { cart } = useCart();
 
@@ -15,7 +17,7 @@ export default function usePayment() {
 
         try {
             if (token) {
-                const stripe = await loadStripe("pk_test_51OoR2AAeNy38u8Qr6ukpIdEo8ShzA06bq0B4z8kx4ONU8Ewy68rT0lehAbEkckCgMSlHzPz2KsYqc31zFpHvsPiH00DDqDdENB");
+                const stripe = await loadStripe(String(KEY_STRIPE));
                 setLoading(false)
 
                 const body = {

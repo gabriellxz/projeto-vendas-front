@@ -4,8 +4,10 @@ import { toast } from "react-toastify";
 import api from "../config/config";
 import AWS from 'aws-sdk'
 
-const ACCESS_KEY_AWS = "AKIAW3MEAWIHVZ2V445V"
-const SECRET_KEY_AWS = "B/W1CkcWbX+ZlihZ37GaYeiCveReQsg/NCJ+jQ" 
+const ACCESS_KEY_AWS = import.meta.env.VITE_REACT_APP_ACCESS_KEY_AWS
+const SECRET_KEY_AWS = import.meta.env.VITE_REACT_APP_SECRET_KEY_AWS
+const BUCKET_AWS = import.meta.env.VITE_REACT_APP_BUCKET_AWS
+const REGION_AWS = import.meta.env.VITE_REACT_APP_REGION_AWS
 
 export default function useCreateProduct() {
 
@@ -59,11 +61,11 @@ export default function useCreateProduct() {
         const s3 = new AWS.S3({
             accessKeyId: ACCESS_KEY_AWS,
             secretAccessKey: SECRET_KEY_AWS,
-            region: "us-east-1"
+            region: REGION_AWS
         });
 
         const params = {
-            Bucket: "project-recogreen",
+            Bucket: BUCKET_AWS || "",
             Key: file.name,
             Body: file,
             ContentType: "image/png"
@@ -170,7 +172,7 @@ export default function useCreateProduct() {
 
     }
 
-    
+
 
     return {
         nome_produto,
