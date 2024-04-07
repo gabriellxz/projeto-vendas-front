@@ -2,10 +2,10 @@ import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../config/config";
-// import AWS from 'aws-sdk'
+import AWS from 'aws-sdk'
 
-// const ACCESS_KEY_AWS = "AKIAW3MEAWIHVZ2V445V"
-// const SECRET_KEY_AWS = "B/W1CkcWbX+ZlihZ37GaYeiCveReQsg/NCJ+jQ" 
+const ACCESS_KEY_AWS = "AKIAW3MEAWIHVZ2V445V"
+const SECRET_KEY_AWS = "B/W1CkcWbX+ZlihZ37GaYeiCveReQsg/NCJ+jQ" 
 
 export default function useCreateProduct() {
 
@@ -50,42 +50,46 @@ export default function useCreateProduct() {
 
     const token = localStorage.getItem("tokenUser")
 
-    // async function filePost(file: File | null) {
-    //     if (!file) {
-    //         console.log("Nenhum arquivo fornecido...");
-    //         return;
-    //     }
+    async function filePost(file: File | null) {
+        if (!file) {
+            console.log("Nenhum arquivo fornecido...");
+            return;
+        }
 
-    //     const s3 = new AWS.S3({
-    //         accessKeyId: ACCESS_KEY_AWS,
-    //         secretAccessKey: SECRET_KEY_AWS,
-    //         region: "us-east-1"
-    //     });
+        const s3 = new AWS.S3({
+            accessKeyId: ACCESS_KEY_AWS,
+            secretAccessKey: SECRET_KEY_AWS,
+            region: "us-east-1"
+        });
 
-    //     const params = {
-    //         Bucket: "project-recogreen",
-    //         Key: file.name,
-    //         Body: file,
-    //         ACL: 'public-read'
-    //     };
+        const params = {
+            Bucket: "project-recogreen",
+            Key: file.name,
+            Body: file,
+            ContentType: "image/png"
+        };
 
-    //     try {
-    //         if (token) {
-    //             const response = await api.post("/Product/Image", params, {
-    //                 headers: {
-    //                     "Authorization": "Bearer " + JSON.parse(token),
-    //                     "Content-Type": "multipart/form-data"
-    //                 }
-    //             })
+        try {
+            if (token) {
 
-    //             console.log("Resposta backend: ", response)
-    //             const data = await s3.upload(params).promise();
-    //             console.log("Arquivo enviado com sucesso!: ", data);
-    //         }
-    //     } catch (err) {
-    //         console.log("erro: ", err);
-    //     }
-    // }
+                const formData = new FormData()
+                formData.append("file", file)
+
+                const response = await api.post("/Product/Image", formData, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token),
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+
+                console.log("Resposta backend: ", response)
+                const data = await s3.upload(params).promise();
+                console.log("Arquivo enviado com sucesso!: ", data);
+            }
+        } catch (err) {
+            console.log("erro: ", err);
+        }
+    }
 
     async function registerProduct(e: SyntheticEvent) {
         e.preventDefault()
@@ -116,12 +120,15 @@ export default function useCreateProduct() {
                     setLoading(false)
                 } else {
 
+                    const oferta = false
+
                     const data = {
                         nome_produto,
                         descricao,
                         preco,
                         estoque,
-                        categoryId
+                        categoryId,
+                        oferta
                     }
 
                     const response = await api.post("/Product/create", data, {
@@ -132,7 +139,7 @@ export default function useCreateProduct() {
                     })
 
                     setProdutoId(response.data.id_produto)
-                    // filePost(file)
+                    filePost(file)
 
                     console.log("Produto Cadastrado com sucesso!")
 
@@ -176,7 +183,7 @@ export default function useCreateProduct() {
         handlePreco,
         produtoId,
         handleFile,
-        // filePost,
+        filePost,
         categoryId,
         handleCategoria,
         registerProduct,

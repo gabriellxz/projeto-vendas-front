@@ -1,5 +1,4 @@
 import BagIcon from "../../svg/bag-icon";
-import FavoriteIcon from "../../svg/favorite-icon";
 import SearchIcon from "../../svg/search-icon";
 import UserIcon from "../../svg/user-icon";
 import Logo_ecogreen from "../../../public/Cosméticos.svg"
@@ -16,7 +15,7 @@ export default function Header() {
     const [open, setOpen] = useState<boolean>(false)
 
     const openMenu = useSpring({
-        width: open ? "100vw" : "0",
+        width: open ? "60vw" : "0",
     });
 
     return (
@@ -34,7 +33,6 @@ export default function Header() {
                         <div className="flex items-center gap-5">
                             <SearchIcon />
                             <UserIcon />
-                            <FavoriteIcon />
                             <BagIcon />
                             {token ? <ButtonLogout /> : ""}
                         </div>
@@ -63,10 +61,33 @@ export default function Header() {
                                             ) : ""}
                                             {open && (
                                                 <div className={`
-                                                flex flex-col items-end gap-5 mt-5
+                                                flex flex-col items-end gap-5 mt-5 px-[37px]
                                             `}>
-                                                    <ul className="flex flex-col items-end">
-                                                        
+                                                    <ul className="flex flex-col">
+                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                            <SearchIcon />
+                                                            <span className="flex justify-start w-full">
+                                                                pesquisar
+                                                            </span>
+                                                        </li>
+                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                            <UserIcon />
+                                                            <span className="flex justify-start w-full">
+                                                                usuário
+                                                            </span>
+                                                        </li>
+                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                            <BagIcon />
+                                                            <span className="flex justify-start w-full">
+                                                                carrinho
+                                                            </span>
+                                                        </li>
+                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                            <ButtonLogout />
+                                                            <span className="flex justify-start w-full">
+                                                                sair
+                                                            </span>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             )}
