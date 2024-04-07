@@ -4,13 +4,15 @@ import UserIcon from "../../svg/user-icon";
 import Logo_ecogreen from "../../../public/Cosméticos.svg"
 import ButtonLogout from "../../svg/button-logout";
 import NavBarIcon from "../../svg/navbar-icon";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CloseNavBar from "../../svg/closeNavbar";
 import { useSpring, animated } from '@react-spring/web'
 import { Link } from "react-router-dom";
+import { UserAutenticado } from "../../context/authContext";
 
 export default function Header() {
 
+    const { logout } = useContext(UserAutenticado)
     const token = localStorage.getItem("tokenUser")
     const [open, setOpen] = useState<boolean>(false)
 
@@ -34,7 +36,9 @@ export default function Header() {
                             <SearchIcon />
                             <UserIcon />
                             <BagIcon />
-                            {token ? <ButtonLogout /> : ""}
+                            <Link to={"/"} onClick={logout}>
+                                {token ? <ButtonLogout /> : ""}
+                            </Link>
                         </div>
                     </div>
                 </header>
@@ -78,16 +82,16 @@ export default function Header() {
                                                         </li>
                                                         <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                             <BagIcon />
-                                                            <span className="flex justify-start w-full">
+                                                            <Link to={"/home/carrinho"} className="flex justify-start w-full">
                                                                 carrinho
-                                                            </span>
+                                                            </Link>
                                                         </li>
-                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                        <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                             <ButtonLogout />
                                                             <span className="flex justify-start w-full">
                                                                 sair
                                                             </span>
-                                                        </li>
+                                                        </Link>
                                                     </ul>
                                                 </div>
                                             )}
