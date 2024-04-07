@@ -4,10 +4,10 @@ import { toast } from "react-toastify";
 import api from "../config/config";
 import AWS from 'aws-sdk'
 
-const ACCESS_KEY_AWS = import.meta.env.VITE_REACT_APP_ACCESS_KEY_AWS
-const SECRET_KEY_AWS = import.meta.env.VITE_REACT_APP_SECRET_KEY_AWS
-const BUCKET_AWS = import.meta.env.VITE_REACT_APP_BUCKET_AWS
-const REGION_AWS = import.meta.env.VITE_REACT_APP_REGION_AWS
+const ACCESS_KEY_AWS = import.meta.env.ACCESS_KEY_AWS
+const SECRET_KEY_AWS = import.meta.env.SECRET_KEY_AWS
+const BUCKET_AWS = import.meta.env.BUCKET_AWS
+const REGION_AWS = import.meta.env.REGION_AWS
 
 export default function useCreateProduct() {
 

@@ -3,7 +3,7 @@ import useCart from "./useCart";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const KEY_STRIPE = import.meta.env.VITE_REACT_APP_KEY_STRIPE
+const KEY_STRIPE = import.meta.env.KEY_STRIPE
 
 export default function usePayment() {
     const { cart } = useCart();
