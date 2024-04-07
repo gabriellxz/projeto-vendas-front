@@ -23,7 +23,7 @@ export default function FormCadastroProdutos() {
         file,
         nome_produto,
         estoque,
-        // filePost,
+        filePost,
         categoryId,
         handleCategoria,
         registerProduct,
@@ -69,6 +69,7 @@ export default function FormCadastroProdutos() {
                             <label className="text-xl">Categoria</label>
                             <div className="flex gap-2">
                                 <select value={categoryId} onChange={handleCategoria} name="categoryId" id="" className="border border-1 border-black outline-none p-2 sm:max-w-[325px] w-full">
+                                    <option>Selecione uma categoria</option>
                                     {
                                         categoria.map((cat: Category) => (
                                             <option value={cat.id} key={cat.id}>{cat.nome}</option>
@@ -90,7 +91,7 @@ export default function FormCadastroProdutos() {
                                         typeInput="text"
                                         value={categoriaNome}
                                     />
-                                    {loadingCategory ? <Loading /> : <ButtonDark text="Criar" propsBtn={createCategory}/>}
+                                    {loadingCategory ? <Loading /> : <ButtonDark text="Criar" propsBtn={createCategory} />}
                                 </div>
                             }
                         </div>
@@ -114,11 +115,11 @@ export default function FormCadastroProdutos() {
                         <div className="flex flex-col justify-center items-center border border-1 border-black outline-none p-2 w-full h-[170px]">
                             <UploadImage />
                             <label htmlFor="fileInput" className="cursor-pointer">{file ? <p>imagem exportada</p> : <p>importar imagem</p>}</label>
-                            <input type="file" id="fileInput" name="" className="hidden" onChange={handleFile} />
+                            <input type="file" id="fileInput" name="file" className="hidden" onChange={handleFile} />
                         </div>
                     </div>
                     <div>
-                        {loading ? <Loading /> : <ButtonDark text="send" filePost={() => {}} />}
+                        {loading ? <Loading /> : <ButtonDark text="send" filePost={() => filePost(file)} />}
 
                     </div>
                 </div>
