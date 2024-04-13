@@ -2,12 +2,12 @@ import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../config/config";
-import AWS from 'aws-sdk'
+// import AWS from 'aws-sdk'
 
-const ACCESS_KEY_AWS = import.meta.env.ACCESS_KEY_AWS
-const SECRET_KEY_AWS = import.meta.env.SECRET_KEY_AWS
-const BUCKET_AWS = import.meta.env.BUCKET_AWS
-const REGION_AWS = import.meta.env.REGION_AWS
+// const ACCESS_KEY_AWS = import.meta.env.ACCESS_KEY_AWS
+// const SECRET_KEY_AWS = import.meta.env.SECRET_KEY_AWS
+// const BUCKET_AWS = import.meta.env.BUCKET_AWS
+// const REGION_AWS = import.meta.env.REGION_AWS
 
 export default function useCreateProduct() {
 
@@ -51,47 +51,6 @@ export default function useCreateProduct() {
     }
 
     const token = localStorage.getItem("tokenUser")
-
-    async function filePost(file: File | null) {
-        if (!file) {
-            console.log("Nenhum arquivo fornecido...");
-            return;
-        }
-
-        const s3 = new AWS.S3({
-            accessKeyId: ACCESS_KEY_AWS,
-            secretAccessKey: SECRET_KEY_AWS,
-            region: REGION_AWS
-        });
-
-        const params = {
-            Bucket: BUCKET_AWS || "",
-            Key: file.name,
-            Body: file,
-            ContentType: "image/png"
-        };
-
-        try {
-            if (token) {
-
-                const formData = new FormData()
-                formData.append("file", file)
-
-                const response = await api.post("/Product/Image", formData, {
-                    headers: {
-                        "Authorization": "Bearer " + JSON.parse(token),
-                        "Content-Type": "multipart/form-data"
-                    }
-                });
-
-                console.log("Resposta backend: ", response)
-                const data = await s3.upload(params).promise();
-                console.log("Arquivo enviado com sucesso!: ", data);
-            }
-        } catch (err) {
-            console.log("erro: ", err);
-        }
-    }
 
     async function registerProduct(e: SyntheticEvent) {
         e.preventDefault()
@@ -172,7 +131,48 @@ export default function useCreateProduct() {
 
     }
 
+    async function filePost(file: File | null) {
+        // if (!file) {
+        //     console.log("Nenhum arquivo fornecido...");
+        //     return;
+        // }
 
+        // const s3 = new AWS.S3({
+        //     accessKeyId: ACCESS_KEY_AWS,
+        //     secretAccessKey: SECRET_KEY_AWS,
+        //     region: REGION_AWS
+        // });
+
+        // const params = {
+        //     Bucket: BUCKET_AWS || "",
+        //     Key: file.name,
+        //     Body: file,
+        //     ContentType: "image/png"
+        // };
+
+        try {
+            if (token) {
+
+                const formData = new FormData()
+                if (file) {
+                    formData.append("file", file)
+                }
+
+                const response = await api.post(`/Product/Image/${produtoId}`, formData, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token),
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+
+                console.log("Resposta backend: ", response)
+                // const data = await s3.upload(params).promise();
+                // console.log("Arquivo enviado com sucesso!: ", data);
+            }
+        } catch (err) {
+            console.log("erro: ", err);
+        }
+    }
 
     return {
         nome_produto,
