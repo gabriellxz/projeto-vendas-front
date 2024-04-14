@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import ProdutosDTO from '../../types/produto'
-import imgProduct from '../../assets/produto-1.webp'
+// import imgProduct from '../../assets/produto-1.webp'
 
 interface PropsProduto {
     iProduto: ProdutosDTO
@@ -12,7 +12,7 @@ export default function CardProduct(props: PropsProduto) {
         <Link to={`/home/detalhes-produtos/${props.iProduto.id_produto}`}>
             <div className=" sm:max-w-[630px] sm:w-full sm:h-[697px]">
                 <div>
-                    <img src={imgProduct} alt="" />
+                    <img src={props.iProduto.imagem && props.iProduto.imagem[0] && props.iProduto.imagem[0].url} alt="" />
                 </div>
                 <div>
                     <h2 className="text-xl text-greenEco-300 font-bold text-[15px]">{props.iProduto.nome_produto}</h2>

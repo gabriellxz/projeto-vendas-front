@@ -6,4 +6,10 @@ export default interface ProdutosDTO {
     estoque: number;
     createdAt: string;
     updatedAt: string;
+    imagem: [
+        {
+            url: string;
+            produtoId: number;
+        }
+    ]
 }

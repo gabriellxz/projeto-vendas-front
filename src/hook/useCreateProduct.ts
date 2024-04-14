@@ -100,7 +100,7 @@ export default function useCreateProduct() {
                     })
 
                     setProdutoId(response.data.id_produto)
-                    filePost(file)
+                    // filePost(file)
 
                     console.log("Produto Cadastrado com sucesso!")
 
@@ -114,6 +114,21 @@ export default function useCreateProduct() {
                         progress: undefined,
                         theme: "colored",
                     })
+
+                    //LÓGICA DE UPLOAD DE ARQUIVOS
+                    const formData = new FormData()
+                    if (file) {
+                        formData.append("file", file)
+                    }
+
+                    await api.post(`/Product/Image/${response.data.id_produto}`, formData, {
+                        headers: {
+                            "Authorization": "Bearer " + JSON.parse(token),
+                            "Content-Type": "multipart/form-data"
+                        }
+                    });
+
+                    console.log("Resposta backend: ", response)
 
                     setTimeout(() => {
                         navigate("/home")
@@ -131,48 +146,37 @@ export default function useCreateProduct() {
 
     }
 
-    async function filePost(file: File | null) {
-        // if (!file) {
-        //     console.log("Nenhum arquivo fornecido...");
-        //     return;
-        // }
+    // async function filePost(file: File | null) {
+    // if (!file) {
+    //     console.log("Nenhum arquivo fornecido...");
+    //     return;
+    // }
 
-        // const s3 = new AWS.S3({
-        //     accessKeyId: ACCESS_KEY_AWS,
-        //     secretAccessKey: SECRET_KEY_AWS,
-        //     region: REGION_AWS
-        // });
+    // const s3 = new AWS.S3({
+    //     accessKeyId: ACCESS_KEY_AWS,
+    //     secretAccessKey: SECRET_KEY_AWS,
+    //     region: REGION_AWS
+    // });
 
-        // const params = {
-        //     Bucket: BUCKET_AWS || "",
-        //     Key: file.name,
-        //     Body: file,
-        //     ContentType: "image/png"
-        // };
+    // const params = {
+    //     Bucket: BUCKET_AWS || "",
+    //     Key: file.name,
+    //     Body: file,
+    //     ContentType: "image/png"
+    // };
 
-        try {
-            if (token) {
+    // try {
+    //     if (token) {
 
-                const formData = new FormData()
-                if (file) {
-                    formData.append("file", file)
-                }
 
-                const response = await api.post(`/Product/Image/${produtoId}`, formData, {
-                    headers: {
-                        "Authorization": "Bearer " + JSON.parse(token),
-                        "Content-Type": "multipart/form-data"
-                    }
-                });
 
-                console.log("Resposta backend: ", response)
-                // const data = await s3.upload(params).promise();
-                // console.log("Arquivo enviado com sucesso!: ", data);
-            }
-        } catch (err) {
-            console.log("erro: ", err);
-        }
-    }
+    // const data = await s3.upload(params).promise();
+    // console.log("Arquivo enviado com sucesso!: ", data);
+    //     }
+    // } catch (err) {
+    //     console.log("erro: ", err);
+    // }
+    // }
 
     return {
         nome_produto,
@@ -185,7 +189,7 @@ export default function useCreateProduct() {
         handlePreco,
         produtoId,
         handleFile,
-        filePost,
+        // filePost,
         categoryId,
         handleCategoria,
         registerProduct,

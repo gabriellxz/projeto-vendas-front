@@ -23,11 +23,12 @@ export default function FormCadastroProdutos() {
         file,
         nome_produto,
         estoque,
-        filePost,
+        // filePost,
         categoryId,
         handleCategoria,
         registerProduct,
         loading,
+        // produtoId
     } = useCreateProduct()
     const { categoria, categoriaNome, createCategory, onChangeCategoria, loadingCategory } = useCategory()
 
@@ -119,7 +120,7 @@ export default function FormCadastroProdutos() {
                         </div>
                     </div>
                     <div>
-                        {loading ? <Loading /> : <ButtonDark text="send" filePost={() => filePost(file)} />}
+                        {loading ? <Loading /> : <ButtonDark text="send" />}
 
                     </div>
                 </div>
