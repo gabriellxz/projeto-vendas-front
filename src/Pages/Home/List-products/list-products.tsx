@@ -42,7 +42,9 @@ export default function ListProduct() {
                         <div className='w-full text-center mt-[40px]'>
                             <span className='uppercase text-2xl'>nossos produtos</span>
                         </div>
-                        <Catalog />
+                        <div className='flex justify-center'>
+                            <Catalog />
+                        </div>
                     </div>
                 </div>
             </div>

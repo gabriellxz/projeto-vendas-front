@@ -13,6 +13,7 @@ export default function DetailsProductPage(props: Props) {
 
     const { addCart, loadingCart } = useCart()
 
+
     return (
         <div className={`
             m-[30px]
@@ -55,7 +56,7 @@ export default function DetailsProductPage(props: Props) {
                         <p>Estoque: {props.iProdutoDetails.estoque}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        {loadingCart ? <Loading/> : <ButtonDark text="Adicionar ao carrinho" propsBtn={addCart}/>}
+                        {loadingCart ? <Loading /> : <ButtonDark text="Adicionar ao carrinho" propsBtn={addCart} />}
                     </div>
                 </div>
             </div>
