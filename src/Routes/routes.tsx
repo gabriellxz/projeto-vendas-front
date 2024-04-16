@@ -40,9 +40,11 @@ export default function RoutesApp() {
                     </Route>
                     <Route path="cadastro-produtos" element={
                         <CustomRoutes>
-                            <NivelAccess>
-                                <CadastroProdutos />
-                            </NivelAccess>
+                            <UserAutenticadoProvider>
+                                <NivelAccess>
+                                    <CadastroProdutos />
+                                </NivelAccess>
+                            </UserAutenticadoProvider>
                         </CustomRoutes>
                     } />
                     <Route path="acesso-negado" element={<PageError />} />
