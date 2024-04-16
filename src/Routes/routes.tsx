@@ -10,6 +10,8 @@ import DetailsProduct from "../Pages/Details-product/details-product";
 import { DataUserProvider } from "../context/dataUser";
 import Cart from "../Pages/Home/Cart/cart";
 import FormEndereco from "../Pages/Home/Form-endereco/form-enderco";
+import PageError from "../Pages/Access-block/access-block";
+import NivelAccess from "../utils/NivelAccess";
 
 
 export default function RoutesApp() {
@@ -18,29 +20,34 @@ export default function RoutesApp() {
     return (
         <BrowserRouter>
             <UserAutenticadoProvider>
-                <DataUserProvider>
-                    <Routes>
-                        <Route path="/" element={<Login />} />
-                        <Route path="cadastro" element={<Cadastro />} />
-                        <Route path="home" element={
-                            <CustomRoutes>
-                                <Home />
-                            </CustomRoutes>
-                        }>
-                            <Route index element={<ListProduct />} />
-                            <Route path="catalogo-produtos" element={<ListProduct />} />
-                            <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
-                            <Route path="carrinho" element={<Cart />} />
-                            <Route path="criar-endereço" element={<FormEndereco/>} />
-                        </Route>
-                        <Route path="cadastro-produtos" element={
-                            <CustomRoutes>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="cadastro" element={<Cadastro />} />
+                    <Route path="home" element={
+                        <CustomRoutes>
+                            <UserAutenticadoProvider>
+                                <DataUserProvider>
+                                    <Home />
+                                </DataUserProvider>
+                            </UserAutenticadoProvider>
+                        </CustomRoutes>
+                    }>
+                        <Route index element={<ListProduct />} />
+                        <Route path="catalogo-produtos" element={<ListProduct />} />
+                        <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
+                        <Route path="carrinho" element={<Cart />} />
+                        <Route path="criar-endereço" element={<FormEndereco />} />
+                    </Route>
+                    <Route path="cadastro-produtos" element={
+                        <CustomRoutes>
+                            <NivelAccess>
                                 <CadastroProdutos />
-                            </CustomRoutes>
-                        } />
-                    </Routes>
-                </DataUserProvider>
+                            </NivelAccess>
+                        </CustomRoutes>
+                    } />
+                    <Route path="acesso-negado" element={<PageError />} />
+                </Routes>
             </UserAutenticadoProvider >
-        </BrowserRouter>
+        </BrowserRouter >
     )
 }

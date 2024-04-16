@@ -9,11 +9,16 @@ import CloseNavBar from "../../svg/closeNavbar";
 import { useSpring, animated } from '@react-spring/web'
 import { Link } from "react-router-dom";
 import { UserAutenticado } from "../../context/authContext";
+import IconPlus from "../../svg/plus-icon";
+import { DataUser } from "../../context/dataUser";
+import IconHome from "../../svg/icon-home";
 
 export default function Header() {
 
     const { logout } = useContext(UserAutenticado)
-    const token = localStorage.getItem("tokenUser")
+    const user = useContext(DataUser)
+    // const token = localStorage.getItem("tokenUser")
+    const { token } = useContext(UserAutenticado)
     const [open, setOpen] = useState<boolean>(false)
 
     const openMenu = useSpring({
@@ -27,19 +32,28 @@ export default function Header() {
                 <header className={`
                 hidden p-5
                 lg:flex lg:items-center lg:justify-end
-            `}>
+                `}>
                     <div className="flex justify-between max-w-[800px] w-full">
                         <Link to={"/home"} className="">
                             <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
                         </Link>
-                        <div className="flex items-center gap-5">
-                            <SearchIcon />
-                            <UserIcon />
-                            <BagIcon />
-                            <Link to={"/"} onClick={logout}>
-                                {token ? <ButtonLogout /> : ""}
-                            </Link>
-                        </div>
+                        {
+                            token ?
+                                <div className="flex items-center gap-5">
+                                    <SearchIcon />
+                                    <UserIcon />
+                                    <BagIcon />
+                                    <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
+                                        <IconPlus />
+                                    </Link>
+                                    <Link to={"/home"}>
+                                        <IconHome />
+                                    </Link>
+                                    <Link to={"/"} onClick={logout}>
+                                        <ButtonLogout />
+                                    </Link>
+                                </div> : ""
+                        }
                     </div>
                 </header>
 

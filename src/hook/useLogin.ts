@@ -4,6 +4,7 @@ import { useState } from "react"
 // import useInputChange from "./useInputChange"
 import api from "../config/config"
 import { toast } from "react-toastify"
+import { jwtDecode } from "jwt-decode"
 
 export default function useLogin() {
 
@@ -50,8 +51,10 @@ export default function useLogin() {
                     message: "sucess",
                     loading: false
                 })
-                navigate("/home")
+
                 localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
+                navigate("/home")
+
             }
         }).catch((error) => {
             console.log(error)

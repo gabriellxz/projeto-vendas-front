@@ -2,15 +2,15 @@ import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
 
 interface UserDecoded {
-    id:number;
-    name:string;
-    email:string;
-    role:number;
+    id: number;
+    name: string;
+    email: string;
+    role: number | string;
 }
 
 const DataUser = createContext<UserDecoded | null>(null)
 
-function DataUserProvider({children}: any) {
+function DataUserProvider({ children }: any) {
 
     const [user, setUser] = useState<UserDecoded | null>(null)
 
@@ -18,8 +18,8 @@ function DataUserProvider({children}: any) {
         const token = localStorage.getItem('tokenUser')
 
         try {
-            if(token) {
-                const decoded:UserDecoded = jwtDecode(token)
+            if (token) {
+                const decoded: UserDecoded = jwtDecode(token)
                 setUser(decoded)
             }
         } catch (e) {
@@ -27,11 +27,11 @@ function DataUserProvider({children}: any) {
         }
     }, [])
 
-    return(
+    return (
         <DataUser.Provider value={user}>
             {children}
         </DataUser.Provider>
     )
 }
 
-export {DataUserProvider, DataUser}
+export { DataUserProvider, DataUser }
