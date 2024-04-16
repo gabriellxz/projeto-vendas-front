@@ -24,13 +24,13 @@ export default function RoutesApp() {
                     <Route path="/" element={<Login />} />
                     <Route path="cadastro" element={<Cadastro />} />
                     <Route path="home" element={
-                        <CustomRoutes>
-                            <UserAutenticadoProvider>
+                        <UserAutenticadoProvider>
+                            <CustomRoutes>
                                 <DataUserProvider>
                                     <Home />
                                 </DataUserProvider>
-                            </UserAutenticadoProvider>
-                        </CustomRoutes>
+                            </CustomRoutes>
+                        </UserAutenticadoProvider>  
                     }>
                         <Route index element={<ListProduct />} />
                         <Route path="catalogo-produtos" element={<ListProduct />} />

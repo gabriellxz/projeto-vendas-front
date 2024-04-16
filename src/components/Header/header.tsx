@@ -49,9 +49,12 @@ export default function Header() {
                                     <Link to={"/home"}>
                                         <IconHome />
                                     </Link>
-                                    <Link to={"/"} onClick={logout}>
-                                        <ButtonLogout />
-                                    </Link>
+                                    {
+                                        token ?
+                                            <Link to={"/"} onClick={logout}>
+                                                <ButtonLogout />
+                                            </Link> : ""
+                                    }
                                 </div> : ""
                         }
                     </div>
@@ -100,12 +103,27 @@ export default function Header() {
                                                                 carrinho
                                                             </Link>
                                                         </li>
-                                                        <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                            <ButtonLogout />
-                                                            <span className="flex justify-start w-full">
-                                                                sair
+                                                        <Link to={"/home"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                            <IconHome />
+                                                            <span>
+                                                                Início
                                                             </span>
                                                         </Link>
+                                                        <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
+                                                            <IconPlus />
+                                                            <span>
+                                                                Adicionar produto
+                                                            </span>
+                                                        </Link>
+                                                        {
+                                                            token ?
+                                                                <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                                    <ButtonLogout />
+                                                                    <span className="flex justify-start w-full">
+                                                                        sair
+                                                                    </span>
+                                                                </Link> : ""
+                                                        }
                                                     </ul>
                                                 </div>
                                             )}
