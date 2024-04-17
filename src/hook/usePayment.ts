@@ -48,7 +48,7 @@ export default function usePayment() {
         } catch (error) {
             setLoading(false)
             console.error("Erro ao processar pagamento:", error);
-            toast.success("Erro ao processar pagamento", {
+            toast.error("Erro ao processar pagamento", {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
