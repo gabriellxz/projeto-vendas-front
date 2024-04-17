@@ -44,7 +44,12 @@ export default function SumarioCompras(props: PropsSumario) {
                 <form>
                     <div className="text-center mb-1">
                         {
-                            endereco.length < 1 ? <span className="text-red-600">Você não tem endereço</span>
+                            endereco.length < 1 ? (
+                                <>
+                                    <span className="text-red-600">Você não tem endereço</span>
+                                    <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/home/criar-endereço") }} />
+                                </>
+                            )
                                 :
                                 <div>
                                     <select className="border border-1 border-black outline-none p-2 w-full mb-5" required>
@@ -58,9 +63,9 @@ export default function SumarioCompras(props: PropsSumario) {
                                 </div>
                         }
                     </div>
-                    <div>
+                    <div className={`${endereco.length < 1 ? "hidden" : "block"}`}>
                         {
-                            loading ? <Loading /> : <ButtonDark text="Prosseguir com a compra" propsBtn={make}/>
+                            loading ? <Loading /> : <ButtonDark text="Prosseguir com a compra" propsBtn={make} />
                         }
                     </div>
                 </form>

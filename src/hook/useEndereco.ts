@@ -4,6 +4,7 @@ import api from "../config/config"
 import axios from "axios"
 import { DataUser } from "../context/dataUser";
 import { toast } from "react-toastify";
+import usePayment from "./usePayment";
 
 interface CEP {
     localidade: string;
@@ -78,9 +79,11 @@ export default function useEndereco() {
     const [complemento, setComplemento] = useState<string>("")
     const [pontoDeReferencia, setPontoDeReferencia] = useState<string>("")
     const [bairro, setBairro] = useState<string>("")
+    const [rua, setRua] = useState<string>("")
     const [telefoneContato, setTelefoneContato] = useState<string>("")
     const [ddd, setDdd] = useState<string>("")
     const user = useContext(DataUser)
+    const { make } = usePayment()
 
     function handleChangeNumero(e: ChangeEvent<HTMLInputElement>) {
         const numero: number = parseInt(e.target.value)
@@ -97,6 +100,10 @@ export default function useEndereco() {
 
     function handleChangeBairro(e: ChangeEvent<HTMLInputElement>) {
         setBairro(e.target.value)
+    }
+
+    function handleChangeRua(e: ChangeEvent<HTMLInputElement>) {
+        setRua(e.target.value)
     }
 
     function handleChangeTelefone(e: ChangeEvent<HTMLInputElement>) {
@@ -117,6 +124,7 @@ export default function useEndereco() {
             complemento: complemento,
             ponto_de_referencia: pontoDeReferencia,
             bairro: bairro,
+            Rua: rua,
             telefone_contato: ddd + telefoneContato,
             cidade: cidade,
             estado: estado,
@@ -143,8 +151,11 @@ export default function useEndereco() {
                 })
 
                 setLoading(false)
-                console.log(response.data)
+                console.log(response)
 
+                if (response.status === 201) {
+                    make()
+                }
             }
         } catch (err) {
             console.log(err)
@@ -170,6 +181,7 @@ export default function useEndereco() {
         handlePostEndereco,
         numero,
         bairro,
+        rua,
         complemento,
         pontoDeReferencia,
         telefoneContato,
@@ -179,6 +191,7 @@ export default function useEndereco() {
         handleChangePontoRef,
         handleChangeBairro,
         handleChangeTelefone,
-        handleChangeDdd
+        handleChangeDdd,
+        handleChangeRua
     }
 }

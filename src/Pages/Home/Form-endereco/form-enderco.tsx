@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ButtonDark from "../../../components/Button-dark/button-dark";
 import Input from "../../../components/Input/input";
 import data from '../../../ddd.json'
@@ -16,6 +15,7 @@ export default function FormEndereco() {
         cidade,
         estado,
         bairro,
+        rua,
         complemento,
         handleChangeBairro,
         handleChangeComplemento,
@@ -24,16 +24,13 @@ export default function FormEndereco() {
         handleChangeTelefone,
         handlePostEndereco,
         handleChangeDdd,
+        handleChangeRua,
         numero,
         ddd,
         pontoDeReferencia,
         telefoneContato,
-        loading
+        loading,
     } = useEndereco()
-    const { make } = usePayment()
-
-    const [cepValidation, setCepValidation] = useState("")
-    const [telValidation, setTelValidation] = useState("")
 
     function enderecoValidation() {
         if (
@@ -55,17 +52,7 @@ export default function FormEndereco() {
                 progress: undefined,
                 theme: "colored",
             })
-        } else {
-            make()
-        }
-
-        if (cep.length !== 8) {
-            setCepValidation("CEP deve conter no máximo 8 caracteres")
-        }
-
-        if (telefoneContato.length < 11) {
-            setTelValidation("Telefone deve conter no mínimo 11 caracteres")
-        }
+        } 
     }
 
     return (
@@ -86,7 +73,6 @@ export default function FormEndereco() {
                                 typeInput="text"
                                 value={cep}
                             />
-                            <span className="text-red-600">{cepValidation}</span>
                             {loading ? <Loading /> : <ButtonDark text="Buscar CEP" propsBtn={getCep} />}
                         </div>
                     </div>
@@ -126,6 +112,18 @@ export default function FormEndereco() {
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Número</label>
                             <input type="number" name="numero" value={numero ? numero : ""} onChange={handleChangeNumero} className="border border-1 border-black outline-none p-2" />
+                        </div>
+                    </div>
+                    <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
+                        <div className="flex flex-col w-full">
+                            <Input
+                                inputLabel="Rua"
+                                onInputValue={handleChangeRua}
+                                name="Rua"
+                                styleWidth=""
+                                typeInput="text"
+                                value={rua}
+                            />
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
@@ -176,7 +174,6 @@ export default function FormEndereco() {
                                 typeInput="text"
                                 value={telefoneContato}
                             />
-                            <span className="text-red-600">{telValidation}</span>
                         </div>
                     </div>
                     <div className="mt-8">
