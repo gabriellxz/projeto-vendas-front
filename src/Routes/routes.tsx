@@ -30,7 +30,7 @@ export default function RoutesApp() {
                                     <Home />
                                 </DataUserProvider>
                             </CustomRoutes>
-                        </UserAutenticadoProvider>  
+                        </UserAutenticadoProvider>
                     }>
                         <Route index element={<ListProduct />} />
                         <Route path="catalogo-produtos" element={<ListProduct />} />
@@ -39,13 +39,13 @@ export default function RoutesApp() {
                         <Route path="criar-endereço" element={<FormEndereco />} />
                     </Route>
                     <Route path="cadastro-produtos" element={
-                        <CustomRoutes>
-                            <UserAutenticadoProvider>
+                        <UserAutenticadoProvider>
+                            <CustomRoutes>
                                 <NivelAccess>
                                     <CadastroProdutos />
                                 </NivelAccess>
-                            </UserAutenticadoProvider>
-                        </CustomRoutes>
+                            </CustomRoutes>
+                        </UserAutenticadoProvider>
                     } />
                     <Route path="acesso-negado" element={<PageError />} />
                 </Routes>

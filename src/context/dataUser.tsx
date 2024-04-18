@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { UserAutenticado } from "./authContext";
 
 interface UserDecoded {
     id: number;
@@ -13,9 +14,9 @@ const DataUser = createContext<UserDecoded | null>(null)
 function DataUserProvider({ children }: any) {
 
     const [user, setUser] = useState<UserDecoded | null>(null)
+    const {token} = useContext(UserAutenticado)
 
     useEffect(() => {
-        const token = localStorage.getItem('tokenUser')
 
         try {
             if (token) {

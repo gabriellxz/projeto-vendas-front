@@ -37,26 +37,20 @@ export default function Header() {
                         <Link to={"/home"} className="">
                             <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
                         </Link>
-                        {
-                            token ?
-                                <div className="flex items-center gap-5">
-                                    <SearchIcon />
-                                    <UserIcon />
-                                    <BagIcon />
-                                    <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
-                                        <IconPlus />
-                                    </Link>
-                                    <Link to={"/home"}>
-                                        <IconHome />
-                                    </Link>
-                                    {
-                                        token ?
-                                            <Link to={"/"} onClick={logout}>
-                                                <ButtonLogout />
-                                            </Link> : ""
-                                    }
-                                </div> : ""
-                        }
+                        <div className={`${token ? "flex items-center gap-5" : "hidden"}`}>
+                            <SearchIcon />
+                            <UserIcon />
+                            <BagIcon />
+                            <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
+                                <IconPlus />
+                            </Link>
+                            <Link to={"/home"}>
+                                <IconHome />
+                            </Link>
+                            <Link to={"/"} onClick={logout}>
+                                <ButtonLogout />
+                            </Link>
+                        </div>
                     </div>
                 </header>
 
@@ -69,69 +63,63 @@ export default function Header() {
                         <Link to={"/home"} className="w-full flex justify-center">
                             <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
                         </Link>
-                        <div className="flex justify-end">
-                            {
-                                token ? (
-                                    <>
-                                        <button>
-                                            <NavBarIcon handleNavBar={() => setOpen(!open)} />
-                                        </button>
-                                        <animated.div style={{ ...openMenu, position: "fixed", top: 0, right: 0, height: "100vh", zIndex: "1", backgroundColor: "white" }}>
-                                            {open ? (
-                                                <CloseNavBar handleNavBar={() => setOpen(!open)} />
-                                            ) : ""}
-                                            {open && (
-                                                <div className={`
+                        <div className={`${token ? "flex justify-end" : "hidden"}`}>
+                            <>
+                                <button>
+                                    <NavBarIcon handleNavBar={() => setOpen(!open)} />
+                                </button>
+                                <animated.div style={{ ...openMenu, position: "fixed", top: 0, right: 0, height: "100vh", zIndex: "1", backgroundColor: "white" }}>
+                                    {open ? (
+                                        <CloseNavBar handleNavBar={() => setOpen(!open)} />
+                                    ) : ""}
+                                    {open && (
+                                        <div className={`
                                                 flex flex-col items-end gap-5 mt-5 px-[37px]
                                             `}>
-                                                    <ul className="flex flex-col">
-                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                            <SearchIcon />
-                                                            <span className="flex justify-start w-full">
-                                                                pesquisar
-                                                            </span>
-                                                        </li>
-                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                            <UserIcon />
-                                                            <span className="flex justify-start w-full">
-                                                                usuário
-                                                            </span>
-                                                        </li>
-                                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                            <BagIcon />
-                                                            <Link to={"/home/carrinho"} className="flex justify-start w-full">
-                                                                carrinho
-                                                            </Link>
-                                                        </li>
-                                                        <Link to={"/home"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                            <IconHome />
-                                                            <span>
-                                                                Início
-                                                            </span>
-                                                        </Link>
-                                                        <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
-                                                            <IconPlus />
-                                                            <span>
-                                                                Adicionar produto
-                                                            </span>
-                                                        </Link>
-                                                        {
-                                                            token ?
-                                                                <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                                    <ButtonLogout />
-                                                                    <span className="flex justify-start w-full">
-                                                                        sair
-                                                                    </span>
-                                                                </Link> : ""
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            )}
-                                        </animated.div>
-                                    </>
+                                            <ul className="flex flex-col">
+                                                <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                    <SearchIcon />
+                                                    <span className="flex justify-start w-full">
+                                                        pesquisar
+                                                    </span>
+                                                </li>
+                                                <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                    <UserIcon />
+                                                    <span className="flex justify-start w-full">
+                                                        usuário
+                                                    </span>
+                                                </li>
+                                                <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                    <BagIcon />
+                                                    <Link to={"/home/carrinho"} className="flex justify-start w-full">
+                                                        carrinho
+                                                    </Link>
+                                                </li>
+                                                <Link to={"/home"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                    <IconHome />
+                                                    <span>
+                                                        Início
+                                                    </span>
+                                                </Link>
+                                                <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
+                                                    <IconPlus />
+                                                    <span>
+                                                        Adicionar produto
+                                                    </span>
+                                                </Link>
+                                                <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                    <ButtonLogout />
+                                                    <span className="flex justify-start w-full">
+                                                        sair
+                                                    </span>
+                                                </Link>
+                                            </ul>
+                                        </div>
+                                    )}
+                                </animated.div>
+                            </>
 
-                                ) : ""
-                            }
+
                         </div>
 
                     </div>

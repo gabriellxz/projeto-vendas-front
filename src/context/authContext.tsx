@@ -40,6 +40,7 @@ function UserAutenticadoProvider({ children }: any) {
         localStorage.removeItem("tokenUser")
         api.defaults.headers.Authorization = ""
         setAutenticado(false)
+        setToken(null)
     }
 
     return (
