@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ProdutosDTO from "../types/produto"
 import api from "../config/config"
+import { UserAutenticado } from "../context/authContext"
 
 export default function useListProduct() {
 
-    const token = localStorage.getItem("tokenUser")
+    // const token = localStorage.getItem("tokenUser")
+    const { token } = useContext(UserAutenticado)
     const [product, setProduct] = useState<ProdutosDTO[]>([])
     const [loading, setLoading] = useState(false)
 
@@ -22,7 +24,7 @@ export default function useListProduct() {
                     setProduct(response.data.Produtos)
                     setLoading(false)
                 } catch (error) {
-                    console.log(error)
+                    // console.log(error)
                     setLoading(false)
                 }
             }

@@ -5,6 +5,7 @@ import axios from "axios"
 import { DataUser } from "../context/dataUser";
 import { toast } from "react-toastify";
 import usePayment from "./usePayment";
+import { UserAutenticado } from "../context/authContext";
 
 interface CEP {
     localidade: string;
@@ -13,7 +14,8 @@ interface CEP {
 
 export default function useEndereco() {
 
-    const token = localStorage.getItem("tokenUser")
+    // const token = localStorage.getItem("tokenUser")
+    const { token } = useContext(UserAutenticado)
 
     //FUNÇÃO PARA LISTAR ENDEREÇOS DO USUÁRIO
     const [endereco, setEndereco] = useState<Endereco[]>([])
@@ -35,7 +37,7 @@ export default function useEndereco() {
                 setEndereco(response.data)
             }
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             setLoading(false)
         }
     }
@@ -58,13 +60,13 @@ export default function useEndereco() {
         try {
             const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
 
-            console.log(response.data)
+            // console.log(response.data)
             setGetCep(response.data)
             preencherCamposCep(response.data)
             setLoading(false)
         } catch (err) {
             setLoading(false)
-            console.log(err)
+            // console.log(err)
         }
 
     }
@@ -151,14 +153,14 @@ export default function useEndereco() {
                 })
 
                 setLoading(false)
-                console.log(response)
+                // console.log(response)
 
                 if (response.status === 201) {
                     make()
                 }
             }
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             setLoading(false)
         }
     }

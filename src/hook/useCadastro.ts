@@ -55,11 +55,11 @@ export default function useCadastro() {
         e.preventDefault()
         const Telefone = telefoneData.ddd + telefoneData.Telefone
 
-        console.log(email)
-        console.log(senha)
-        console.log(Telefone)
-        console.log(nome)
-        console.log(genero)
+        // console.log(email)
+        // console.log(senha)
+        // console.log(Telefone)
+        // console.log(nome)
+        // console.log(genero)
 
 
         const data = {
@@ -76,7 +76,7 @@ export default function useCadastro() {
                 "Content-Type": "application/json"
             }
         }).then((response) => {
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 201) {
                 navigate("/")
@@ -118,7 +118,7 @@ export default function useCadastro() {
                 })
 
                 if (senha.length < 6) {
-                    console.log(error.response.data.message[0])
+                    // console.log(error.response.data.message[0])
                     setValidation({
                         type: "senha-length",
                         message: "A senha deve conter no mínimo 6 caracteres.",

@@ -1,16 +1,17 @@
 import { useNavigate } from "react-router-dom"
 import useValidation from "./useValidation"
-import { useState } from "react"
+import { useContext, useState } from "react"
 // import useInputChange from "./useInputChange"
 import api from "../config/config"
 import { toast } from "react-toastify"
+import { UserAutenticado } from "../context/authContext"
 
 export default function useLogin() {
 
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
-    // const {token} = useContext(UserAutenticado)
+    const { login } = useContext(UserAutenticado)
 
 
     function handleEmailValue(e: any) {
@@ -42,7 +43,7 @@ export default function useLogin() {
                 // "Authorization": `Bearer ${(token)}`
             }
         }).then((response) => {
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 201) {
                 setValidation({
@@ -51,12 +52,14 @@ export default function useLogin() {
                     loading: false
                 })
 
-                localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
+                const token = response.data.accessToken
+                login(token)
+
                 navigate("/home")
 
             }
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
             if (error.response.status === 400) {
 
                 setValidation({ ...validation, loading: false })
@@ -73,7 +76,7 @@ export default function useLogin() {
                 })
 
                 if (senha.length < 6) {
-                    console.log(error.response.data.message[0])
+                    // console.log(error.response.data.message[0])
                     setValidation({
                         type: "senha-length",
                         message: "A senha deve conter no mínimo 6 caracteres.",

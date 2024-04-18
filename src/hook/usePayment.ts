@@ -1,7 +1,8 @@
 import { loadStripe } from "@stripe/stripe-js";
 import useCart from "./useCart";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { UserAutenticado } from "../context/authContext";
 
 const KEY_STRIPE = import.meta.env.KEY_STRIPE
 
@@ -9,7 +10,8 @@ export default function usePayment() {
     const { cart } = useCart();
 
     const [loading, setLoading] = useState<boolean>(false)
-    const token = localStorage.getItem("tokenUser")
+    // const token = localStorage.getItem("tokenUser")
+    const { token } = useContext(UserAutenticado)
 
     async function make() {
 
@@ -47,7 +49,7 @@ export default function usePayment() {
 
         } catch (error) {
             setLoading(false)
-            console.error("Erro ao processar pagamento:", error);
+            // console.error("Erro ao processar pagamento:", error);
             toast.error("Erro ao processar pagamento", {
                 position: "bottom-center",
                 autoClose: 5000,

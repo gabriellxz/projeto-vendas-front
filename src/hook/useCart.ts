@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Cart, CartType } from "../types/cart"
 import api from "../config/config"
 import { AxiosResponse } from "axios"
 import useProdutoId from "./useProdutoId"
 import { useNavigate } from "react-router-dom"
+import { UserAutenticado } from "../context/authContext"
 
 export default function useCart() {
 
-    const token = localStorage.getItem("tokenUser")
+    // const token = localStorage.getItem("tokenUser")
+    const {token} = useContext(UserAutenticado)
     const navigate = useNavigate()
     const [cart, setCart] = useState<CartType[]>([])
     const [loadingCart, setLoadingCart] = useState<boolean>(false)

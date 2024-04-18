@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import { Navigate } from "react-router-dom"
+import { UserAutenticado } from "../context/authContext"
 
 interface Props {
     children: JSX.Element
@@ -6,8 +8,8 @@ interface Props {
 
 export default function CustomRoutes({ children }: Props) {
 
-    // const { tokenAccess } = useContext(UserAutenticado)
-    const token = localStorage.getItem("tokenUser")
+    const { token } = useContext(UserAutenticado)
+    // const token = localStorage.getItem("tokenUser")
     if (!token) {
         return <Navigate to={"/"} />
     }

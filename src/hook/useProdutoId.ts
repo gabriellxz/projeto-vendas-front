@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProdutosDTO from "../types/produto";
 import { useParams } from "react-router-dom"
 import { AxiosResponse } from 'axios';
 import api from '../config/config';
+import { UserAutenticado } from "../context/authContext";
 
 export default function useProdutoId() {
 
     const params = useParams()
     const [produto, setProduto] = useState<ProdutosDTO>()
     const [loading, setLoading] = useState<boolean>(false)
-    const token = localStorage.getItem("tokenUser")
+    // const token = localStorage.getItem("tokenUser")
+    const {token} = useContext(UserAutenticado)
 
     useEffect(() => {
         async function produtoById() {
@@ -31,7 +33,7 @@ export default function useProdutoId() {
                 }
             } catch (error) {
                 setLoading(false)
-                console.log(error)
+                // console.log(error)
             }
         }
 

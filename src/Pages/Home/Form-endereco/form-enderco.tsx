@@ -3,7 +3,7 @@ import Input from "../../../components/Input/input";
 import data from '../../../ddd.json'
 import useEndereco from "../../../hook/useEndereco";
 import { ToastContainer, toast } from "react-toastify"
-import usePayment from "../../../hook/usePayment";
+// import usePayment from "../../../hook/usePayment";
 import Loading from "../../../components/Loading/loading";
 
 export default function FormEndereco() {

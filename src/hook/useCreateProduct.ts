@@ -1,7 +1,8 @@
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../config/config";
+import { UserAutenticado } from "../context/authContext";
 // import AWS from 'aws-sdk'
 
 // const ACCESS_KEY_AWS = import.meta.env.ACCESS_KEY_AWS
@@ -50,7 +51,8 @@ export default function useCreateProduct() {
         }
     }
 
-    const token = localStorage.getItem("tokenUser")
+    // const token = localStorage.getItem("tokenUser")
+    const { token } = useContext(UserAutenticado)
 
     async function registerProduct(e: SyntheticEvent) {
         e.preventDefault()
@@ -128,7 +130,7 @@ export default function useCreateProduct() {
                         }
                     });
 
-                    console.log("Resposta backend: ", response)
+                    // console.log("Resposta backend: ", response)
 
                     setTimeout(() => {
                         navigate("/home")
@@ -137,10 +139,10 @@ export default function useCreateProduct() {
 
                 }
             } else {
-                console.error("Token não encontrado!")
+                // console.error("Token não encontrado!")
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             setLoading(false)
         }
 

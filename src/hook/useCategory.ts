@@ -1,8 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useContext, useEffect, useState } from "react"
 import api from "../config/config"
 import { AxiosResponse } from "axios"
 import Category from "../types/category"
 import { toast } from "react-toastify"
+import { UserAutenticado } from "../context/authContext"
 
 export default function useCategory() {
 
@@ -14,7 +15,8 @@ export default function useCategory() {
         setCategoriaNome(event.target.value)
     }
 
-    const token = localStorage.getItem("tokenUser")
+    // const token = localStorage.getItem("tokenUser")
+    const { token } = useContext(UserAutenticado)
 
     async function createCategory(e: any) {
         e.preventDefault()
@@ -49,7 +51,7 @@ export default function useCategory() {
             }
         } catch (err) {
             setLoading(false)
-            console.log(err)
+            // console.log(err)
         }
     }
 

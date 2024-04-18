@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext,  useState } from "react";
 import api from "../config/config";
     
 interface ContextType {
@@ -6,6 +6,7 @@ interface ContextType {
     logout: () => void;
     loading: boolean;
     token: string | null;
+    login: (token: string | null) => void;
 }
 
 const UserAutenticado = createContext<ContextType>({} as ContextType)
@@ -15,37 +16,34 @@ function UserAutenticadoProvider({ children }: any) {
 
     const [autenticado, setAutenticado] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true)
-    const [token, setToken] = useState<string | null>(null)
+    const [token, setToken] = useState<string | null>(localStorage.getItem("tokenUser"))
 
-    useEffect(() => {
-        async function getlogin() {
-            try {
-                const token = localStorage.getItem("tokenUser")
+    async function login(token: string | null) {
+        setLoading(true)
 
-                if (token) {
-                    api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
-                    setAutenticado(true)
-                    setToken(token)
-                }
-            } catch (error) {
-                console.log(error)
-                setToken(null)
-            } finally {
-                setLoading(false)
+        try {
+            setLoading(false)
+            setAutenticado(true)
+            localStorage.setItem("tokenUser", JSON.stringify(token))
+            setToken(token)
+
+            if(token) {
+                api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
             }
+        } catch(error) {
+            setToken(null)
+            setLoading(false)
         }
-
-        getlogin()
-    }, [])
+    }
 
     function logout() {
         localStorage.removeItem("tokenUser")
-        api.defaults.headers.Authorization = null
+        api.defaults.headers.Authorization = ""
         setAutenticado(false)
     }
 
     return (
-        <UserAutenticado.Provider value={{ autenticado, logout, loading, token }}>
+        <UserAutenticado.Provider value={{ autenticado, logout, loading, token, login }}>
             {children}
         </UserAutenticado.Provider>
     )
