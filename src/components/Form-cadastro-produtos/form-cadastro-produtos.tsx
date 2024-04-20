@@ -97,7 +97,7 @@ export default function FormCadastroProdutos() {
                             }
                         </div>
                         <div className="flex flex-col w-full">
-                            <label className="text-xl">Preço de Compra</label>
+                            <label className="text-xl">Estoque</label>
                             <input
                                 type="number"
                                 className="border border-1 border-black outline-none p-2 sm:max-w-[325px] w-full"
