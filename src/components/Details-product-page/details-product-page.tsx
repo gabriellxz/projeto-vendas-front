@@ -38,7 +38,7 @@ export default function DetailsProductPage(props: Props) {
                         <img src={imgProduct} alt="" className="max-w-[100px] h-[137px] w-full mb-3" />
                     </div>
                     <div>
-                        <img src={imgProduct} alt="" className={`
+                        <img src={props.iProdutoDetails.imagem && props.iProdutoDetails.imagem[0] && props.iProdutoDetails.imagem[0].url} alt="" className={`
                             w-full h-[870px]
                             md:w-full
                         `} />

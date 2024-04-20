@@ -1,4 +1,4 @@
-import imgproduto from '../../assets/produto.webp'
+// import imgproduto from '../../assets/produto.webp'
 import TrashIcon from '../../svg/trash-icon'
 import { CartType } from '../../types/cart'
 import Moeda from '../../utils/moeda'
@@ -75,7 +75,7 @@ export default function CardCart(props: PropsCart) {
         <>
             <div className='flex mt-[40px] pt-[20px] border-solid border-t-2 border-black'>
                 <div>
-                    <img src={imgproduto} alt="img" className='max-w-[175px] h-[215px] w-full' />
+                    <img src={props.iCart.produtos.imagem && props.iCart.produtos.imagem[0] && props.iCart.produtos.imagem[0].url} alt="img" className='max-w-[175px] h-[215px] w-full' />
                 </div>
                 <div className='ml-[58px] w-full'>
                     <div className='flex flex-col'>

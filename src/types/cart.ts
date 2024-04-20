@@ -10,7 +10,11 @@ export interface CartType {
     id: number;
     produtos: {
         descricao: string;
-        imagem: [];
+        imagem: [
+            {
+                url:string
+            }
+        ];
         nome_produto: string;
         preco: number;
     }
