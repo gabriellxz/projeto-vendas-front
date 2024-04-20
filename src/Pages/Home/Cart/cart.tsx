@@ -1,4 +1,5 @@
 import CardCart from "../../../components/Card-cart/card-cart";
+import Catalog from "../../../components/Catalog/catalog";
 import Loading from "../../../components/Loading/loading";
 import SumarioCompras from "../../../components/Sumario-compras/sumario-compras";
 import useCart from "../../../hook/useCart";
@@ -37,6 +38,12 @@ export default function Cart() {
                     ) : (<h1 className="text-4xl p-[10px] sm:ml-[50px] font-bold text-zinc-500 mt-10">Seu carrinho está vazio...</h1>)
                 )
             }
+            <div className="mt-[200px]">
+                <div  className="pl-10">
+                    <span className="uppercase text-2xl">Recomendado para você</span>
+                </div>
+                <Catalog/>
+            </div>
         </>
 
     )

@@ -4,6 +4,7 @@ import Moeda from "../../utils/moeda"
 import ButtonDark from "../Button-dark/button-dark"
 import useCart from "../../hook/useCart"
 import Loading from "../Loading/loading"
+import Catalog from "../Catalog/catalog"
 
 interface Props {
     iProdutoDetails: ProdutosDTO
@@ -60,7 +61,7 @@ export default function DetailsProductPage(props: Props) {
                     </div>
                 </div>
             </div>
-            <div className="w-full">
+            {/* <div className="w-full">
                 <div className="flex justify-center px-[5px] flex-col w-full">
                     <p className="uppercase text-xl">detalhes</p>
                     <div className="bg-zinc-400 p-[0.5px] w-full">
@@ -94,6 +95,12 @@ export default function DetailsProductPage(props: Props) {
                         <p className="text-zinc-500">100% vegano</p>
                     </div>
                 </div>
+            </div> */}
+            <div className="mt-[200px]">
+                <div className="pl-10">
+                    <span className="uppercase text-2xl">Recomendado para você</span>
+                </div>
+                <Catalog />
             </div>
         </div>
     )
