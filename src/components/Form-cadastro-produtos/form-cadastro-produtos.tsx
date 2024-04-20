@@ -28,7 +28,7 @@ export default function FormCadastroProdutos() {
         handleCategoria,
         registerProduct,
         loading,
-        // produtoId
+        handleOferta
     } = useCreateProduct()
     const { categoria, categoriaNome, createCategory, onChangeCategoria, loadingCategory } = useCategory()
 
@@ -117,6 +117,19 @@ export default function FormCadastroProdutos() {
                             <UploadImage />
                             <label htmlFor="fileInput" className="cursor-pointer">{file ? <p>imagem exportada</p> : <p>importar imagem</p>}</label>
                             <input type="file" id="fileInput" name="file" className="hidden" onChange={handleFile} />
+                        </div>
+                    </div>
+                    <div>
+                        <span className="text-2xl">Produto em oferta:</span>
+                        <div className="flex gap-[30px] py-5">
+                            <div className="flex items-center gap-1">
+                                <span className="text-xl">Sim</span>
+                                <input type="radio" name="oferta" value={"true"} onChange={handleOferta} className="w-5 h-5 cursor-pointer"/>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <span className="text-xl">Não</span>
+                                <input type="radio" name="oferta" value={"false"} onChange={handleOferta} className="w-5 h-5 cursor-pointer"/>
+                            </div>
                         </div>
                     </div>
                     <div>

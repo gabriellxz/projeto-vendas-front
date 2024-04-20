@@ -20,6 +20,7 @@ export default function useCreateProduct() {
     const [produtoId, setProdutoId] = useState<number>()
     const [loading, setLoading] = useState<boolean>(false)
     const [categoryId, setCategoryId] = useState<number>()
+    const [ofertaProduct, setOfertaProduct] = useState<string>("")
     const navigate = useNavigate()
 
     function handleNomeProduct(event: ChangeEvent<HTMLInputElement>): void {
@@ -49,6 +50,12 @@ export default function useCreateProduct() {
         if (e.target.files && e.target.files.length > 0) {
             setFile(e.target.files[0])
         }
+    }
+
+    function handleOferta(e: any): void {
+        setOfertaProduct(e.target.value)
+        // const oferta = ofertaProduct == "true" ? false : true
+        // console.log(oferta)
     }
 
     // const token = localStorage.getItem("tokenUser")
@@ -83,7 +90,7 @@ export default function useCreateProduct() {
                     setLoading(false)
                 } else {
 
-                    const oferta = false
+                    const oferta = ofertaProduct == "true" ? true : false
 
                     const data = {
                         nome_produto,
@@ -116,7 +123,7 @@ export default function useCreateProduct() {
                         progress: undefined,
                         theme: "colored",
                     })
-                    
+
                     setTimeout(() => {
                         navigate("/home")
                     }, 3000)
@@ -196,6 +203,8 @@ export default function useCreateProduct() {
         categoryId,
         handleCategoria,
         registerProduct,
-        loading
+        loading,
+        handleOferta,
+        ofertaProduct
     }
 }

@@ -6,6 +6,10 @@ export default function SlidesMiniCard() {
 
     const { product } = useListProduct()
 
+    // const produtosOferta = product.filter((product: ProdutosDTO) => {
+    //     product.oferta === true
+    // })
+
     return (
         <>
             {/* TELAS PEQUENAS */}
@@ -14,7 +18,7 @@ export default function SlidesMiniCard() {
                         `}>
                 <div className="overflow-x-scroll flex gap-4">
                     {
-                        product.slice(0, 2).map((product: ProdutosDTO) => (
+                        product.slice(0, 4).filter((product: ProdutosDTO) => product.oferta == true).map((product: ProdutosDTO) => (
                             <MiniCard key={product.id_produto} iProduto={product} />
                         ))
                     }
@@ -29,7 +33,7 @@ export default function SlidesMiniCard() {
                             lg:flex
                         `}>
                 {
-                    product.slice(0, 4).map((product: ProdutosDTO) => (
+                    product.filter((product: ProdutosDTO) => product.oferta == true).map((product: ProdutosDTO) => (
                         <MiniCard key={product.id_produto} iProduto={product} />
                     ))
                 }

@@ -2,6 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SlidesHome from "../../../components/Slides-home/slides-home"
 import Catalog from "../../../components/Catalog/catalog"
+import SlidesMiniCard from '../../../components/Slides-mini-card/slides-mini-card';
 // import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card";  
 
 export default function ListProduct() {
@@ -36,7 +37,7 @@ export default function ListProduct() {
                                 <button className="bg-greenEco-100 text-white max-w-[185px] w-full p-3">Ver mais</button>
                             </div>
                         </div>
-                        {/* <SlidesMiniCard /> */}
+                        <SlidesMiniCard />
                     </div>
                     <div className="flex justify-center flex-col">
                         <div className='w-full text-center mt-[40px]'>
