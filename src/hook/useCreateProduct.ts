@@ -116,6 +116,11 @@ export default function useCreateProduct() {
                         progress: undefined,
                         theme: "colored",
                     })
+                    
+                    setTimeout(() => {
+                        navigate("/home")
+                    }, 3000)
+                    setLoading(false)
 
                     //LÓGICA DE UPLOAD DE ARQUIVOS
                     const formData = new FormData()
@@ -132,10 +137,6 @@ export default function useCreateProduct() {
 
                     // console.log("Resposta backend: ", response)
 
-                    setTimeout(() => {
-                        navigate("/home")
-                    }, 3000)
-                    setLoading(false)
 
                 }
             } else {
