@@ -52,7 +52,7 @@ export default function FormEndereco() {
                 progress: undefined,
                 theme: "colored",
             })
-        } 
+        }
     }
 
     return (
@@ -111,7 +111,7 @@ export default function FormEndereco() {
                         </div>
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Número</label>
-                            <input type="number" name="numero" value={numero ? numero : ""} onChange={handleChangeNumero} className="border border-1 border-black outline-none p-2" />
+                            <input type="number" name="numero" value={numero ? numero : ""} onChange={handleChangeNumero} className="appearance-none border border-1 border-black outline-none p-2"/>
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
