@@ -11,7 +11,7 @@ export default function useProdutoId() {
     const [produto, setProduto] = useState<ProdutosDTO>()
     const [loading, setLoading] = useState<boolean>(false)
     // const token = localStorage.getItem("tokenUser")
-    const {token} = useContext(UserAutenticado)
+    const { token } = useContext(UserAutenticado)
 
     useEffect(() => {
         async function produtoById() {

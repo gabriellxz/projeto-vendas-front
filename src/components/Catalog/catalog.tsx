@@ -3,7 +3,11 @@ import ProdutosDTO from "../../types/produto"
 import CardProduct from "../Card-Product/card-product"
 import Loading from "../Loading/loading"
 
-export default function Catalog() {
+interface Props {
+    reload: () => void;
+}
+
+export default function Catalog(props:Props) {
 
     const { product, loading } = useListProduct()
 
@@ -15,7 +19,7 @@ export default function Catalog() {
             ) : (
                 product.length > 0 ? (
                     product.map((product: ProdutosDTO) => (
-                        <CardProduct key={product.id_produto} iProduto={product} />
+                        <CardProduct key={product.id_produto} iProduto={product} reload={props.reload}/>
                     ))
                 ) : (
                     <p>Não existem produtos...</p>

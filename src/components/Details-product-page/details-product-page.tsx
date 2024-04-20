@@ -13,7 +13,11 @@ interface Props {
 export default function DetailsProductPage(props: Props) {
 
     const { addCart, loadingCart } = useCart()
-
+    function reloadPage() {
+        setTimeout(() => {
+            window.location.reload()
+        }, 1000)
+    }
 
     return (
         <div className={`
@@ -100,7 +104,7 @@ export default function DetailsProductPage(props: Props) {
                 <div className="pl-10">
                     <span className="uppercase text-2xl">Recomendado para você</span>
                 </div>
-                <Catalog />
+                <Catalog reload={reloadPage} />
             </div>
         </div>
     )
