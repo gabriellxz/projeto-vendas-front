@@ -42,7 +42,7 @@ export default function Cart() {
                 <div  className="pl-10">
                     <span className="uppercase text-2xl">Recomendado para você</span>
                 </div>
-                <Catalog reload={() => {}}/>
+                <Catalog reload={() => {}} />
             </div>
         </>
 

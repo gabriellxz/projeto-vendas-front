@@ -44,7 +44,7 @@ export default function ListProduct() {
                             <span className='uppercase text-2xl'>nossos produtos</span>
                         </div>
                         <div className='flex justify-center'>
-                            <Catalog reload={() => {}}/>
+                            <Catalog reload={() => {}} />
                         </div>
                     </div>
                 </div>
