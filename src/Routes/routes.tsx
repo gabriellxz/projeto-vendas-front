@@ -12,6 +12,7 @@ import Cart from "../Pages/Home/Cart/cart";
 import FormEndereco from "../Pages/Home/Form-endereco/form-enderco";
 import PageError from "../Pages/Access-block/access-block";
 import NivelAccess from "../utils/NivelAccess";
+import Forget from "../Pages/Forget/forget";
 
 
 export default function RoutesApp() {
@@ -47,6 +48,7 @@ export default function RoutesApp() {
                             </CustomRoutes>
                         </UserAutenticadoProvider>
                     } />
+                    <Route path="forget" element={<Forget />} />
                     <Route path="acesso-negado" element={<PageError />} />
                 </Routes>
             </UserAutenticadoProvider >
