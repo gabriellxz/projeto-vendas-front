@@ -1,10 +1,11 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import ButtonDark from "../../components/Button-dark/button-dark";
 import Input from "../../components/Input/input";
 import api from "../../config/config";
 import { AxiosError, AxiosResponse } from "axios";
 import Loading from "../../components/Loading/loading";
 import { ToastContainer, toast } from "react-toastify";
+import { UserAutenticado } from "../../context/authContext";
 
 export default function Forget() {
 
@@ -14,13 +15,10 @@ export default function Forget() {
         message: "",
     })
     const [loading, setLoading] = useState<boolean>(false)
+    const {login} = useContext(UserAutenticado)
 
     function changeEmail(e: ChangeEvent<HTMLInputElement>) {
         setEmail(e.target.value)
-    }
-
-    function validation() {
-
     }
 
     async function forget(e: any) {
@@ -57,6 +55,9 @@ export default function Forget() {
                             progress: undefined,
                             theme: "colored",
                         })
+
+                        const token = response.data.acess.token
+                        login(token)
 
                         setLoading(false)
                     }).catch((error: AxiosError) => {
@@ -111,7 +112,7 @@ export default function Forget() {
                                 <p>
                                     {status.type === "error" ? <p className="text-red-600">{status.message}</p> : <p className="hidden first-letter:text-red-600">{status.message}</p>}
                                 </p>
-                                {loading ? <Loading /> : <ButtonDark text="Enviar" propsBtn={validation} />}
+                                {loading ? <Loading /> : <ButtonDark text="Enviar"/>}
                                 <p className="text-red-600">
                                     É importante que o e-mail seja válido e existente.
                                 </p>

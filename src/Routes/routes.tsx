@@ -13,6 +13,7 @@ import FormEndereco from "../Pages/Home/Form-endereco/form-enderco";
 import PageError from "../Pages/Access-block/access-block";
 import NivelAccess from "../utils/NivelAccess";
 import Forget from "../Pages/Forget/forget";
+import ChangePass from "../Pages/Change-pass/change-pass";
 
 
 export default function RoutesApp() {
@@ -49,6 +50,13 @@ export default function RoutesApp() {
                         </UserAutenticadoProvider>
                     } />
                     <Route path="forget" element={<Forget />} />
+                    <Route path="changePass" element={
+                        <UserAutenticadoProvider>
+                            <CustomRoutes>
+                                <ChangePass />
+                            </CustomRoutes>
+                        </UserAutenticadoProvider>
+                    } />
                     <Route path="acesso-negado" element={<PageError />} />
                 </Routes>
             </UserAutenticadoProvider >
