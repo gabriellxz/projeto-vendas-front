@@ -97,24 +97,31 @@ export default function Forget() {
         <>
             <div className="flex justify-center items-center h-screen">
                 <form className="flex flex-col shadow-lg shadow-zinc-700 p-5 max-w-[400px] w-full gap-4 rounded-md m-2" onSubmit={forget}>
-                    <Input
-                        inputLabel="Confirme seu e-mail"
-                        name="email"
-                        onInputValue={changeEmail}
-                        styleWidth=""
-                        typeInput="text"
-                        value={email}
-                    />
-                    <p>
-                        {status.type === "error" ? <p className="text-red-600">{status.message}</p> : <p className="hidden first-letter:text-red-600">{status.message}</p>}
-                    </p>
-                    {loading ? <Loading /> : <ButtonDark text="Enviar" propsBtn={validation} />}
-                    <p className="text-red-600">
-                        É importante que o e-mail seja válido e existente.
-                    </p>
+                    {
+                        status.type === "success" ? <p>E-mail enviado!</p> : (
+                            <>
+                                <Input
+                                    inputLabel="Confirme seu e-mail"
+                                    name="email"
+                                    onInputValue={changeEmail}
+                                    styleWidth=""
+                                    typeInput="text"
+                                    value={email}
+                                />
+                                <p>
+                                    {status.type === "error" ? <p className="text-red-600">{status.message}</p> : <p className="hidden first-letter:text-red-600">{status.message}</p>}
+                                </p>
+                                {loading ? <Loading /> : <ButtonDark text="Enviar" propsBtn={validation} />}
+                                <p className="text-red-600">
+                                    É importante que o e-mail seja válido e existente.
+                                </p>
+                            </>
+                        )
+                    }
+
                 </form>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </>
     )
 }
