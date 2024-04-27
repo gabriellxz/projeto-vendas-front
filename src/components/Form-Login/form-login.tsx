@@ -45,7 +45,7 @@ export default function FormLogin() {
                             {
                                 validation.loading ? <Loading />
                                     :
-                                    <ButtonDark text={"sign in"} />
+                                    <ButtonDark text={"entrar"} />
                             }
                             <div className="bg-zinc-400 p-[0.4px] w-full"></div>
                         </div>
