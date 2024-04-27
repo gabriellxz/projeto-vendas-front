@@ -2,11 +2,18 @@ import ButtonDark from "../../../components/Button-dark/button-dark";
 import Input from "../../../components/Input/input";
 import data from '../../../ddd.json'
 import useEndereco from "../../../hook/useEndereco";
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 // import usePayment from "../../../hook/usePayment";
 import Loading from "../../../components/Loading/loading";
+import '../../../global.css'
 
 export default function FormEndereco() {
+
+    function hanldeKeyDown(event: any) {
+        if(event.key === "KeyUp" || event.key === "KeyDown") {
+            event.preventDefault();
+        }
+    }
 
     const {
         getCep,
@@ -31,29 +38,6 @@ export default function FormEndereco() {
         telefoneContato,
         loading,
     } = useEndereco()
-
-    function enderecoValidation() {
-        if (
-            cep == "" ||
-            bairro == "" ||
-            complemento == "" ||
-            pontoDeReferencia == "" ||
-            numero == undefined ||
-            ddd == undefined ||
-            telefoneContato == ""
-        ) {
-            toast.error("Preencha os campos corretamente!", {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            })
-        }
-    }
 
     return (
         <>
@@ -111,7 +95,7 @@ export default function FormEndereco() {
                         </div>
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Número</label>
-                            <input type="number" name="numero" value={numero ? numero : ""} onChange={handleChangeNumero} className="appearance-none border border-1 border-black outline-none p-2"/>
+                            <input type="number" name="numero" value={numero ? numero : ""} onKeyDown={hanldeKeyDown} onChange={handleChangeNumero} className="input border border-1 border-black outline-none p-2"/>
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
@@ -158,6 +142,7 @@ export default function FormEndereco() {
                                 onChange={handleChangeDdd}
                                 className="border border-1 border-black outline-none p-2 w-full"
                             >
+                                <option>DDD</option>
                                 {
                                     data.dddsPorEstado.map((ddd: string) => (
                                         <option>{ddd}</option>
@@ -177,7 +162,7 @@ export default function FormEndereco() {
                         </div>
                     </div>
                     <div className="mt-8">
-                        {loading ? <Loading /> : <ButtonDark text="Continue" propsBtn={enderecoValidation} />}
+                        {loading ? <Loading /> : <ButtonDark text="Continue" />}
                     </div>
                 </form>
             </div>
