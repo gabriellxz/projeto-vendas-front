@@ -36,11 +36,11 @@ export default function useLogin() {
             email,
             senha
         }
-        try {
-            if(
-                email!== null ||
-                senha!== null
-            ) {
+        if (
+            email !== "" &&
+            senha !== ""
+        ) {
+            try {
                 await api.post("/login", data, {
                     headers: {
                         "Content-Type": "application/json",
@@ -48,16 +48,16 @@ export default function useLogin() {
                     }
                 }).then((response) => {
                     // console.log(response)
-        
+
                     setValidation({
                         type: "success",
                         message: "sucess",
                         loading: false
                     })
-    
+
                     const token = response.data.accessToken
                     login(token)
-    
+
                     navigate("/home")
                 }).catch((error) => {
                     //console.log(error)
@@ -68,30 +68,8 @@ export default function useLogin() {
                         loading: false
                     })
 
-                    if(
-                        email == "" ||
-                        senha == ""
-                    ) {
-                        
-                        setValidation({
-                            type: "error",
-                            message: "error",
-                            loading: false
-                        })
 
-                        toast.error("Preencha os campos corretamente.", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        })
-                    } 
-
-                    if(senha.length <  6) {
+                    if (senha.length < 6) {
                         setValidation({
                             type: "error",
                             message: "error",
@@ -110,7 +88,7 @@ export default function useLogin() {
                         })
                     }
 
-                    if(error.response.status === 401) {
+                    if (error.response.status === 401) {
                         setValidation({
                             type: "error",
                             message: "error",
@@ -128,18 +106,46 @@ export default function useLogin() {
                             theme: "colored",
                         })
                     }
-                           
+
+                })
+            } catch (err) {
+                console.log(err)
+                setValidation({
+                    type: "error",
+                    message: "error",
+                    loading: false
+                })
+
+                toast.error(`Ocorreu um erro ao entrar. Por favor, tente novamente.`, {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
                 })
             }
-            
-        } catch (err) {
-            console.log(err)
+        } else {
             setValidation({
                 type: "error",
                 message: "error",
                 loading: false
             })
+
+            toast.error("Preencha os campos corretamente.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
         }
+
     }
 
     return {

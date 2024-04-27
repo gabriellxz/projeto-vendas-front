@@ -10,8 +10,15 @@ import Category from "../../types/category";
 import useCategory from "../../hook/useCategory";
 import { useState } from "react";
 import CloseNavBar from "../../svg/closeNavbar";
+import '../../global.css'
 
 export default function FormCadastroProdutos() {
+
+    function handleKeyDown(e:any) {
+        if(e.key === "ArrowUp" || e.key === "ArrowDown") {
+            e.preventDefault()
+        }
+    }
 
     const {
         handleDescricao,
@@ -57,10 +64,11 @@ export default function FormCadastroProdutos() {
                                 <label className="text-xl">Preço Vendido</label>
                                 <input
                                     type="number"
-                                    className="border border-1 border-black outline-none p-2 max-w-[325px] w-full"
+                                    className="input border border-1 border-black outline-none p-2 max-w-[325px] w-full"
                                     onChange={handlePreco}
                                     name="preco"
                                     value={preco}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                         </div>
@@ -100,10 +108,11 @@ export default function FormCadastroProdutos() {
                             <label className="text-xl">Estoque</label>
                             <input
                                 type="number"
-                                className="border border-1 border-black outline-none p-2 sm:max-w-[325px] w-full"
+                                className="input border border-1 border-black outline-none p-2 sm:max-w-[325px] w-full"
                                 onChange={handleEstoque}
                                 name="estoque"
                                 value={estoque}
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                     </div>

@@ -71,42 +71,42 @@ export default function useCadastro() {
             CPF
         }
 
-       try {
-            if(
-                email!== null ||
-                senha!== null ||
-                nome!== null ||
-                telefoneData!== null ||
-                genero!== null ||
-                CPF!== null
-            ) {
+        if (
+            email !== "" &&
+            senha !== "" &&
+            nome !== "" &&
+            telefoneData !== undefined &&
+            genero !== undefined &&
+            CPF !== ""
+        ) {
+            try {
                 await api.post("/registrar", data, {
                     headers: {
                         "Content-Type": "application/json"
                     }
                 }).then((response) => {
                     console.log(response)
-        
-                        navigate("/")
-        
-                        toast.success("Usuário cadastrado com sucesso!", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        })
-        
-                        setValidation({
-                            type: "sucess",
-                            message: "Usuário cadastrado com sucesso!",
-                            loading: false
-                        })
-        
-                        // localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
+
+                    navigate("/")
+
+                    toast.success("Usuário cadastrado com sucesso!", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
+
+                    setValidation({
+                        type: "sucess",
+                        message: "Usuário cadastrado com sucesso!",
+                        loading: false
+                    })
+
+                    // localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
                 }).catch((error) => {
                     console.log(error)
 
@@ -116,34 +116,7 @@ export default function useCadastro() {
                         loading: false
                     })
 
-                    if(
-                        email == "" ||
-                        senha == "" ||
-                        nome == "" ||
-                        telefoneData.Telefone == "" ||
-                        telefoneData.ddd == "" ||
-                        genero == null ||
-                        CPF == ""
-                    ) {
-                        setValidation({
-                            type: "error",
-                            message: "error",
-                            loading: false
-                        })
-
-                        toast.error("Preencha os campos corretamente.", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        })
-                    }
-
-                    if(senha.length < 6) {
+                    if (senha.length < 6) {
                         setValidation({
                             type: "error",
                             message: "error",
@@ -162,7 +135,7 @@ export default function useCadastro() {
                         })
                     }
 
-                    if(CPF.length !== 11) {
+                    if (CPF.length !== 11) {
                         setValidation({
                             type: "error-cpf",
                             message: "Digite o número do CPF sem caracteres especiais e com exatamente 11 dígitos.",
@@ -181,7 +154,7 @@ export default function useCadastro() {
                         })
                     }
 
-                    if(Telefone.length !== 11) {
+                    if (Telefone.length !== 11) {
                         setValidation({
                             type: "error-telefone",
                             message: "error",
@@ -200,7 +173,7 @@ export default function useCadastro() {
                         })
                     }
 
-                    if(error.response.status === 404) {
+                    if (error.response.status === 404) {
                         setValidation({
                             type: "error-user-existing",
                             message: "error",
@@ -218,17 +191,34 @@ export default function useCadastro() {
                             theme: "colored",
                         })
                     }
-                    
+
+                })
+            } catch (error) {
+                console.log(error)
+                setValidation({
+                    type: "error",
+                    message: "error",
+                    loading: false
                 })
             }
-       } catch (error) {
-            console.log(error)
+        } else {
             setValidation({
                 type: "error",
                 message: "error",
                 loading: false
             })
-       }
+
+            toast.error("Preencha os campos corretamente.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        }
     }
 
     return {

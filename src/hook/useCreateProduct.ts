@@ -46,7 +46,7 @@ export default function useCreateProduct() {
         setCategoryId(categoryId)
     }
 
-    function handleFile(e: ChangeEvent<HTMLInputElement>) {
+    function handleFile(e: ChangeEvent<HTMLInputElement>): void {
         if (e.target.files && e.target.files.length > 0) {
             setFile(e.target.files[0])
         }
@@ -62,57 +62,41 @@ export default function useCreateProduct() {
     const { token } = useContext(UserAutenticado)
 
     async function registerProduct(e: SyntheticEvent) {
-        e.preventDefault()
-
-        setLoading(true)
-
-        try {
-            if (token) {
-                if (
-                    nome_produto === "" ||
-                    preco === undefined ||
-                    estoque === undefined ||
-                    file === null ||
-                    descricao === "" ||
-                    categoryId === undefined
-                ) {
-                    toast.error("Preencha os campos corretamente!", {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
-
-                    setLoading(false)
-                } else {
-
-                    const oferta = ofertaProduct == "true" ? true : false
-
-                    const data = {
-                        nome_produto,
-                        descricao,
-                        preco,
-                        estoque,
-                        categoryId,
-                        oferta
-                    }
-
+        e.preventDefault();
+    
+        setLoading(true);
+    
+        const oferta = ofertaProduct === "true";
+    
+        if (
+            nome_produto !== "" &&
+            descricao !== "" &&
+            preco !== undefined &&
+            estoque !== undefined &&
+            categoryId !== undefined &&
+            file !== null
+        ) {
+            const data = {
+                nome_produto,
+                descricao,
+                preco,
+                estoque,
+                categoryId,
+                oferta
+            };
+    
+            try {
+                if (token) {
                     const response = await api.post("/Product/create", data, {
                         headers: {
                             "Content-Type": "application/json",
-                            "Authorization": `Bearer ${JSON.parse(token)}`
+                            Authorization: `Bearer ${JSON.parse(token)}`
                         }
-                    })
-
-                    setProdutoId(response.data.id_produto)
-                    // filePost(file)
-
-                    console.log("Produto Cadastrado com sucesso!")
-
+                    });
+    
+                    setLoading(false);
+                    setProdutoId(response.data.id_produto);
+    
                     toast.success("Produto cadastrado com sucesso!", {
                         position: "bottom-center",
                         autoClose: 5000,
@@ -121,40 +105,56 @@ export default function useCreateProduct() {
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        theme: "colored",
-                    })
-
-                    setTimeout(() => {
-                        navigate("/home")
-                    }, 3000)
-                    setLoading(false)
-
-                    //LÓGICA DE UPLOAD DE ARQUIVOS
-                    const formData = new FormData()
+                        theme: "colored"
+                    });
+    
+                    const formData = new FormData();
                     if (file) {
-                        formData.append("file", file)
+                        formData.append("file", file);
                     }
-
-                    await api.post(`/Product/Image/${response.data.id_produto}`, formData, {
+    
+                    api.post(`/Product/Image/${response.data.id_produto}`, formData, {
                         headers: {
-                            "Authorization": "Bearer " + JSON.parse(token),
+                            Authorization: `Bearer ${JSON.parse(token)}`,
                             "Content-Type": "multipart/form-data"
                         }
                     });
-
-                    // console.log("Resposta backend: ", response)
-
-
+    
+                    setTimeout(() => {
+                        navigate("/home");
+                    }, 3000);
                 }
-            } else {
-                // console.error("Token não encontrado!")
+            } catch (error) {
+                console.log(error);
+                setLoading(false);
+    
+                toast.error("Ocorreu um erro ao cadastrar o produto. Por favor, tente novamente.", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored"
+                });
             }
-        } catch (error) {
-            // console.log(error)
-            setLoading(false)
+        } else {
+            setLoading(false);
+            toast.error("Preencha todos os campos corretamente.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+            });
         }
-
     }
+    
+
 
     // async function filePost(file: File | null) {
     // if (!file) {
