@@ -37,7 +37,6 @@ export default function FormLogin() {
                                 <Input typeInput={"password"} inputLabel={"Senha"} styleWidth={"w-full"} name="senha" value={senha} onInputValue={handleSenhaValue} />
                                 
                             </div>
-                            {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
                             <div>
                                 <Link to={"/forget"} className="text-greenEco-100">Esqueceu sua senha?</Link>
                             </div>

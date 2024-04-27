@@ -36,86 +36,110 @@ export default function useLogin() {
             email,
             senha
         }
-
-        await api.post("/login", data, {
-            headers: {
-                "Content-Type": "application/json",
-                // "Authorization": `Bearer ${(token)}`
-            }
-        }).then((response) => {
-            // console.log(response)
-
-            if (response.status === 201) {
-                setValidation({
-                    type: "success",
-                    message: "sucess",
-                    loading: false
-                })
-
-                const token = response.data.accessToken
-                login(token)
-
-                navigate("/home")
-
-            }
-        }).catch((error) => {
-            // console.log(error)
-            if (error.response.status === 400) {
-
-                setValidation({ ...validation, loading: false })
-
-                toast.error(error.response.data.message, {
-                    position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
-
-                if (senha.length < 6) {
-                    // console.log(error.response.data.message[0])
+        try {
+            if(
+                email!== null ||
+                senha!== null
+            ) {
+                await api.post("/login", data, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        // "Authorization": `Bearer ${(token)}`
+                    }
+                }).then((response) => {
+                    // console.log(response)
+        
                     setValidation({
-                        type: "senha-length",
-                        message: "A senha deve conter no mínimo 6 caracteres.",
+                        type: "success",
+                        message: "sucess",
+                        loading: false
+                    })
+    
+                    const token = response.data.accessToken
+                    login(token)
+    
+                    navigate("/home")
+                }).catch((error) => {
+                    //console.log(error)
+
+                    setValidation({
+                        type: "error",
+                        message: "error",
                         loading: false
                     })
 
-                    toast.error("A senha deve conter no mínimo 6 caracteres.", {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
+                    if(
+                        email == "" ||
+                        senha == ""
+                    ) {
+                        
+                        setValidation({
+                            type: "error",
+                            message: "error",
+                            loading: false
+                        })
 
-                }
-            } else if (error.response.status === 401) {
-                toast.error("Email ou senha incorretos.", {
-                    position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
+                        toast.error("Preencha os campos corretamente.", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    } 
 
-                setValidation({ ...validation, loading: false })
-            } else {
-                setValidation({
-                    type: "error",
-                    message: "Erro: tente mais tarde.",
-                    loading: false
+                    if(senha.length <  6) {
+                        setValidation({
+                            type: "error",
+                            message: "error",
+                            loading: false
+                        })
+
+                        toast.error("A senha deve conter no mínimo 6 caracteres.", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    }
+
+                    if(error.response.status === 401) {
+                        setValidation({
+                            type: "error",
+                            message: "error",
+                            loading: false
+                        })
+
+                        toast.error(`${error.response.data.message}.`, {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    }
+                           
                 })
             }
-        })
+            
+        } catch (err) {
+            console.log(err)
+            setValidation({
+                type: "error",
+                message: "error",
+                loading: false
+            })
+        }
     }
 
     return {
