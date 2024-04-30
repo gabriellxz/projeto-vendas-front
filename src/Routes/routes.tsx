@@ -14,6 +14,7 @@ import PageError from "../Pages/Access-block/access-block";
 import NivelAccess from "../utils/NivelAccess";
 import Forget from "../Pages/Forget/forget";
 import ChangePass from "../Pages/Change-pass/change-pass";
+import HeaderDashboard from "../Pages/Dashboard/header-dashboard";
 
 
 export default function RoutesApp() {
@@ -57,6 +58,13 @@ export default function RoutesApp() {
                             </CustomRoutes>
                         </UserAutenticadoProvider>
                     } />
+                    <Route path="dashboard" element={
+                        <UserAutenticadoProvider>
+                            <CustomRoutes>
+                                <HeaderDashboard />
+                            </CustomRoutes>
+                        </UserAutenticadoProvider>
+                    }/>
                     <Route path="acesso-negado" element={<PageError />} />
                 </Routes>
             </UserAutenticadoProvider >

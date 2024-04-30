@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ChangePass() {
 
-    const { token, login } = useContext(UserAutenticado)
+    const { token } = useContext(UserAutenticado)
     const navigate = useNavigate()
     const [newSenha, setNewSenha] = useState<string>("")
     const [confirmSenha, setConfirmSenha] = useState<string>("")
@@ -79,7 +79,7 @@ export default function ChangePass() {
                             setTimeout(() => {
                                 navigate("/home")
                             }, 5000)
-                            login(token)
+                            // login(token)
                             setLoading(false)
                         }).catch((error: AxiosError) => {
                             console.log(error)

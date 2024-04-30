@@ -17,6 +17,7 @@ function UserAutenticadoProvider({ children }: any) {
     const [autenticado, setAutenticado] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true)
     const [token, setToken] = useState<string | null>(localStorage.getItem("tokenUser"))
+    
 
     async function login(token: string | null) {
         setLoading(true)
