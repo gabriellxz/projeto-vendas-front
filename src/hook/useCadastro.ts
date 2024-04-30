@@ -71,61 +71,25 @@ export default function useCadastro() {
             CPF
         }
 
-        await api.post("/registrar", data, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((response) => {
-            // console.log(response)
+        if (
+            email !== "" &&
+            senha !== "" &&
+            nome !== "" &&
+            telefoneData !== undefined &&
+            genero !== undefined &&
+            CPF !== ""
+        ) {
+            try {
+                await api.post("/registrar", data, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then((response) => {
+                    console.log(response)
 
-            if (response.status === 201) {
-                navigate("/")
+                    navigate("/")
 
-                toast.success("Usuário cadastrado com sucesso!", {
-                    position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
-
-                setValidation({
-                    type: "sucess",
-                    message: "Usuário cadastrado com sucesso!",
-                    loading: false
-                })
-
-                // localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
-            }
-        }).catch((error) => {
-            console.log(error)
-            if (error.response.status === 400) {
-
-                setValidation({ ...validation, loading: false })
-
-                toast.error("Preencha os campos corretamente.", {
-                    position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
-
-                if (senha.length < 6) {
-                    // console.log(error.response.data.message[0])
-                    setValidation({
-                        type: "senha-length",
-                        message: "A senha deve conter no mínimo 6 caracteres.",
-                        loading: false
-                    })
-
-                    toast.error("A senha deve conter no mínimo 6 caracteres.", {
+                    toast.success("Usuário cadastrado com sucesso!", {
                         position: "bottom-center",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -136,28 +100,125 @@ export default function useCadastro() {
                         theme: "colored",
                     })
 
-                }
-            } else if (error.response.status === 404) {
-                toast.error("Este usuário já existe!", {
-                    position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
+                    setValidation({
+                        type: "sucess",
+                        message: "Usuário cadastrado com sucesso!",
+                        loading: false
+                    })
 
-                setValidation({ ...validation, loading: false })
-            } else {
+                    // localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
+                }).catch((error) => {
+                    console.log(error)
+
+                    setValidation({
+                        type: "error",
+                        message: "error",
+                        loading: false
+                    })
+
+                    if (senha.length < 6) {
+                        setValidation({
+                            type: "error",
+                            message: "error",
+                            loading: false
+                        })
+
+                        toast.error("Senha deve conter no mínimo 6 caracteres.", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    }
+
+                    if (CPF.length !== 11) {
+                        setValidation({
+                            type: "error-cpf",
+                            message: "Digite o número do CPF sem caracteres especiais e com exatamente 11 dígitos.",
+                            loading: false
+                        })
+
+                        toast.error("CPF inválido.", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    }
+
+                    if (Telefone.length !== 11) {
+                        setValidation({
+                            type: "error-telefone",
+                            message: "error",
+                            loading: false
+                        })
+
+                        toast.error(`Telefone inválido.`, {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    }
+
+                    if (error.response.status === 404) {
+                        setValidation({
+                            type: "error-user-existing",
+                            message: "error",
+                            loading: false
+                        })
+
+                        toast.error(`${error.response.data.message}.`, {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    }
+
+                })
+            } catch (error) {
+                console.log(error)
                 setValidation({
                     type: "error",
-                    message: "Erro: tente mais tarde.",
+                    message: "error",
                     loading: false
                 })
             }
-        })
+        } else {
+            setValidation({
+                type: "error",
+                message: "error",
+                loading: false
+            })
+
+            toast.error("Preencha os campos corretamente.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        }
     }
 
     return {

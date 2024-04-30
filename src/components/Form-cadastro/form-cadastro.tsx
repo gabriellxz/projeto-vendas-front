@@ -54,7 +54,6 @@ export default function FormCadastro() {
                                 value={senha}
                                 onInputValue={handleSenhaValue}
                             />
-                            {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
                         </div>
                         <div className="flex flex-col gap-2">
                             <Input
@@ -65,7 +64,9 @@ export default function FormCadastro() {
                                 value={CPF}
                                 onInputValue={handleCpfValue}
                             />
-                            {senha.length < 6 ? <span className="text-red-600">{validation.message}</span> : ""}
+                            <p>
+                                {validation.type === "error-cpf" ? <p className="text-red-600">{validation.message}</p> : <p className="text-red-600 hidden">{validation.message}</p>}
+                            </p>
                         </div>
                         <div className="flex gap-5">
                             <div className="flex flex-col max-w-[108px] w-full">

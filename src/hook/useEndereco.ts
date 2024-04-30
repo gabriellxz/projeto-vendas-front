@@ -1,7 +1,7 @@
 import { ChangeEvent, SyntheticEvent, useContext, useEffect, useState } from "react"
 import Endereco from "../types/endereco"
 import api from "../config/config"
-import axios from "axios"
+import axios, { AxiosError, AxiosResponse } from "axios"
 import { DataUser } from "../context/dataUser";
 import { toast } from "react-toastify";
 import usePayment from "./usePayment";
@@ -77,7 +77,7 @@ export default function useEndereco() {
     }
 
     //ENVIAR ENDEREÇO
-    const [numero, setNumero] = useState<number | null>()
+    const [numero, setNumero] = useState<number | null>(0)
     const [complemento, setComplemento] = useState<string>("")
     const [pontoDeReferencia, setPontoDeReferencia] = useState<string>("")
     const [bairro, setBairro] = useState<string>("")
@@ -133,15 +133,69 @@ export default function useEndereco() {
             userId: user?.id
         }
 
-        try {
-            if (token) {
-                const response = await api.post("/Endereco", data, {
-                    headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
-                    }
-                })
+        if (
+            cep !== "" &&
+            numero !== undefined &&
+            complemento !== "" &&
+            pontoDeReferencia !== "" &&
+            bairro !== "" &&
+            rua !== "" &&
+            ddd !== "" &&
+            telefoneContato !== "" &&
+            ddd !== "" &&
+            estado !== "" &&
+            cidade !== ""
+        ) {
+            try {
+                if (token) {
+                    await api.post("/Endereco", data, {
+                        headers: {
+                            "Authorization": "Bearer " + JSON.parse(token)
+                        }
+                    }).then((response: AxiosResponse) => {
+                        toast.success("Endereço cadastrado com sucesso!", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
 
-                toast.success("Endereço cadastrado com sucesso!", {
+                        setLoading(false)
+                        // console.log(response)
+
+                        if (response.status === 201) {
+                            make()
+                        }
+                    }).catch((error: AxiosError) => {
+                        setLoading(false)
+                        console.log(error)
+                        if(data.telefone_contato.length!= 11) {
+                            setLoading(false)
+                            
+                            toast.error("Telefone inválido.", {
+                                position: "bottom-center",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "colored",
+                            })
+                        }
+                    })
+
+
+                }
+            } catch (err) {
+                // console.log(err)
+                setLoading(false)
+
+                toast.error("Ocorreu um erro ao cadastrar o endereço. Por favor, tente novamente.", {
                     position: "bottom-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -152,15 +206,19 @@ export default function useEndereco() {
                     theme: "colored",
                 })
 
-                setLoading(false)
-                // console.log(response)
-
-                if (response.status === 201) {
-                    make()
-                }
             }
-        } catch (err) {
-            // console.log(err)
+        } else {
+            toast.error("Preencha os campos corretamente.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+
             setLoading(false)
         }
     }
