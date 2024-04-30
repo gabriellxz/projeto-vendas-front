@@ -31,7 +31,7 @@ export default function Forget() {
         setLoading(true)
 
         try {
-            if (email !== null) {
+            if (email !== "") {
                 await api.post("/forget", data, {
                     headers: {
                         "Content-Type": "application/json"
@@ -56,7 +56,7 @@ export default function Forget() {
                             theme: "colored",
                         })
 
-                        const token = response.data.acess.token
+                        const token = response.data.acess
                         login(token)
 
                         setLoading(false)
