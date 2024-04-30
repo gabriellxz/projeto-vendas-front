@@ -76,7 +76,9 @@ export default function ChangePass() {
                                 theme: "colored",
                             })
 
-                            navigate("/home")
+                            setTimeout(() => {
+                                navigate("/home")
+                            }, 5000)
                             login(token)
                             setLoading(false)
                         }).catch((error: AxiosError) => {
