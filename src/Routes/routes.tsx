@@ -15,6 +15,7 @@ import NivelAccess from "../utils/NivelAccess";
 import Forget from "../Pages/Forget/forget";
 import ChangePass from "../Pages/Change-pass/change-pass";
 import HeaderDashboard from "../Pages/Dashboard/header-dashboard";
+import RegistroDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Resgistros-de-pedidos";
 
 
 export default function RoutesApp() {
@@ -64,7 +65,10 @@ export default function RoutesApp() {
                                 <HeaderDashboard />
                             </CustomRoutes>
                         </UserAutenticadoProvider>
-                    }/>
+                    }>
+                        <Route index element={<RegistroDePedidos/>}/>
+                        <Route path="registro-de-pedidos" element={<RegistroDePedidos/>}/>
+                    </Route>
                     <Route path="acesso-negado" element={<PageError />} />
                 </Routes>
             </UserAutenticadoProvider >
