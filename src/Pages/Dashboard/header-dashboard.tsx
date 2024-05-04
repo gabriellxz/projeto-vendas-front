@@ -74,7 +74,7 @@ export default function HeaderDashboard() {
                         </svg>
                     </div>
                 </div>
-                <div className="bg-slate-200 w-full rounded-tl-3xl px-[19px] py-[47px]">
+                <div className="bg-slate-200 w-full rounded-tl-3xl px-[19px] py-[47px] overflow-y-scroll">
                     <Outlet/>
                 </div>
             </div>

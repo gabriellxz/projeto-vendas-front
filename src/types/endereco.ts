@@ -8,4 +8,5 @@ export default interface Endereco {
     cidade: string;
     telefone_contato: string;
     endereco_id: number;
+    Rua: string;
 }
