@@ -1,34 +1,19 @@
-import { useContext, useEffect, useState } from "react";
 import FilterIcon from "../../svg/filter-icon";
-import api from "../../config/config";
-import { UserAutenticado } from "../../context/authContext";
 import Pedidos from "../../types/pedidos";
+import Loading from "../Loading/loading";
+import usePedidos from "../../hook/usePedidos"
 
 export default function LayoutPedidos() {
 
-    const { token } = useContext(UserAutenticado)
-    const [orderUser, setOrderUser] = useState<Pedidos[]>([])
+    const { loading, orderUser } = usePedidos()
 
-    async function getOrderUser() {
-        if (token) {
-            try {
-                const response = await api.get("/Order", {
-                    headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
-                    }
-                })
+    orderUser.filter((order: Pedidos) => {
+        const data = new Date(order.createdAt)
 
-                setOrderUser(response.data)
-                console.log(response)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-    }
-
-    useEffect(() => {
-        getOrderUser()
-    }, [])
+        const dia = String(data.getDate()).padStart(2, "0")
+        const mes = String(data.getMonth() + 1).padStart(2, "0")
+        const ano = data.getFullYear()
+    })
 
     return (
         <>
@@ -53,74 +38,25 @@ export default function LayoutPedidos() {
                         <tbody className="w-full font-bold">
                             <div className="overflow-y-scroll h-[500px]">
                                 {
-                                    orderUser.map((order: Pedidos) => (
-                                        <tr className="w-full flex justify-between items-center mt-5">
-                                            <td className="w-full text-left">{order.users.nome}</td>
-                                            <td className="w-full text-center">{order.updatedAt}</td>
-                                            <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                        </tr>
-                                    ))
+                                    loading ? <Loading /> :
+                                        orderUser.map((order: Pedidos) => {
+                                            const data = new Date(order.createdAt)
+
+                                            const dia = String(data.getDate()).padStart(2, "0")
+                                            const mes = String(data.getMonth() + 1).padStart(2, "0")
+                                            const ano = data.getFullYear()
+
+                                            return (
+                                                <tr className="w-full flex justify-between items-center mt-5">
+                                                    <td className="w-full text-left">{order.users.nome}</td>
+                                                    <td className="w-full text-center">{`${dia}-${mes}-${ano}`}</td>
+                                                    {
+                                                        order.Delivered !== false ? <td className="w-full text-center bg-green-600 text-white rounded-2xl py-2">Entregue</td> : <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
+                                                    }
+                                                </tr>
+                                            )
+                                        })
                                 }
-                                {/* <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr>
-                                <tr className="w-full flex justify-between items-center mt-5">
-                                    <td className="w-full text-left">Nome sobrenome</td>
-                                    <td className="w-full text-center">30-04-2024</td>
-                                    <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                </tr> */}
                             </div>
                         </tbody>
                     </table>

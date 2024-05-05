@@ -2,6 +2,9 @@ import CardDashboard from "../../../components/Cards-dashboard/cards-dashboard";
 import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos";
 
 export default function RegistroDePedidos() {
+
+    
+
     return (
         <>
             <div>

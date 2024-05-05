@@ -1,4 +1,9 @@
+import usePedidos from "../../hook/usePedidos"
+
 export default function CardDashboard() {
+
+    const { orderUser } = usePedidos()
+
     return (
         <>
             <div className="flex max-w-[380px] w-full bg-white px-3 py-5 gap-[13px] rounded-[20px]">
@@ -9,7 +14,7 @@ export default function CardDashboard() {
                 </div>
                 <div className="font-bold flex flex-col gap-2">
                     <span className="text-xl">Novos pedidos</span>
-                    <span className="text-4xl">32</span>
+                    <span className="text-4xl">{orderUser.length}</span>
                 </div>
             </div>
             <div className="flex max-w-[380px] w-full bg-white px-3 py-5 gap-[13px] rounded-[20px]">
@@ -20,7 +25,7 @@ export default function CardDashboard() {
                 </div>
                 <div className="font-bold flex flex-col gap-2">
                     <span className="text-xl">Clientes</span>
-                    <span className="text-4xl">32</span>
+                    <span className="text-4xl">{orderUser.length}</span>
                 </div>
             </div>
             <div className="flex max-w-[380px] w-full bg-white px-3 py-5 gap-[13px] rounded-[20px]">
