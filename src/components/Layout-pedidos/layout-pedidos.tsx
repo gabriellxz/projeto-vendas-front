@@ -7,14 +7,6 @@ export default function LayoutPedidos() {
 
     const { loading, orderUser } = usePedidos()
 
-    orderUser.filter((order: Pedidos) => {
-        const data = new Date(order.createdAt)
-
-        const dia = String(data.getDate()).padStart(2, "0")
-        const mes = String(data.getMonth() + 1).padStart(2, "0")
-        const ano = data.getFullYear()
-    })
-
     return (
         <>
             <div className="max-w-[840px] w-full bg-white mt-[30px] px-4 pt-5 py-3 rounded-[20px] h-[650px]">
