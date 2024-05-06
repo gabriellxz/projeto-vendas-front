@@ -2,9 +2,6 @@ import CardDashboard from "../../../components/Cards-dashboard/cards-dashboard";
 import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos";
 
 export default function RegistroDePedidos() {
-
-    
-
     return (
         <>
             <div>
@@ -17,7 +14,7 @@ export default function RegistroDePedidos() {
                 <div className="flex gap-[28px]">
                     <LayoutPedidos />
                     <div className="flex flex-col gap-[75px] mt-[30px] max-w-[380px] w-full">
-                        <CardDashboard/>
+                        <CardDashboard />
                     </div>
                 </div>
             </div>

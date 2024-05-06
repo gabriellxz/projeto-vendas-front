@@ -2,10 +2,12 @@ import FilterIcon from "../../svg/filter-icon";
 import Pedidos from "../../types/pedidos";
 import Loading from "../Loading/loading";
 import usePedidos from "../../hook/usePedidos"
+import { useState } from "react"
 
 export default function LayoutPedidos() {
 
     const { loading, orderUser } = usePedidos()
+    const [openModal, setOpenModal] = useState<boolean>(false)
 
     return (
         <>
@@ -14,11 +16,37 @@ export default function LayoutPedidos() {
                     <div>
                         <span className="font-bold text-lg">Pedidos</span>
                     </div>
-                    <div>
+                    <div onClick={() => setOpenModal(!openModal)}>
                         <FilterIcon />
                     </div>
                 </div>
-                <div className="mt-6">
+                <div className="mt-6 relative w-full">
+                    {
+                        openModal &&
+                        <div className="bg-gray-100 absolute max-w-[604px] w-full p-4 rounded-[16px] shadow-md mx-auto">
+                            <div className="mb-[26px]">
+                                <span className="text-xl">Selecione o status</span>
+                            </div>
+                            <div className="w-full flex gap-[16px] mb-[59px]">
+                                <span className="border border-orange-500 w-full p-2 text-center rounded-[8px] font-semibold bg-white">
+                                    Envio pendente
+                                </span>
+                                <span className="border border-green-600 w-full p-2 text-center rounded-[8px] font-semibold bg-white">
+                                    Entregue
+                                </span>
+                            </div>
+                            <div>
+                                <div className="mb-[26px]">
+                                    <span className="text-xl">Ordem</span>
+                                </div>
+                                <div>
+                                    <select name="" id="" className="w-full font-bold px-3 py-2 rounded-[8px] border border-zinc-500">
+                                        <option value="">Ordem de A-Z</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     <table className="w-full">
                         <thead className="w-full border-b border-gray-500">
                             <tr className="w-full flex justify-between pb-3">
