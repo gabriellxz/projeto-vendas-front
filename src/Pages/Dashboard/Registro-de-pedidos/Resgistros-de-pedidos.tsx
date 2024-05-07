@@ -1,19 +1,18 @@
 import CardDashboard from "../../../components/Cards-dashboard/cards-dashboard";
 import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos";
+import TopDashboard from "../../../components/Top-dashboard/top-dashboard"
 
 export default function RegistroDePedidos() {
+
+    
+
     return (
         <>
             <div>
-                <div>
-                    <h1 className="text-3xl font-bold">Registro de pedidos</h1>
-                    <span className="flex gap-5">
-                        <span>Registro de pedidos</span> &gt;
-                    </span>
-                </div>
-                <div className="flex gap-[28px]">
-                    <LayoutPedidos />
-                    <div className="flex flex-col gap-[75px] mt-[30px] max-w-[380px] w-full">
+                <TopDashboard title={"Registro de pedidos"} titleRoute={"Registro de pedidos"} />
+                <div className="flex gap-[28px] select-none">
+                    <LayoutPedidos/>
+                    <div className="flex flex-col gap-[20px] mt-[30px] max-w-[380px] w-full">
                         <CardDashboard />
                     </div>
                 </div>

@@ -18,7 +18,6 @@ import HeaderDashboard from "../Pages/Dashboard/header-dashboard";
 import RegistroDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Resgistros-de-pedidos";
 import ProdutoEstoque from "../Pages/Dashboard/Produtos-estoque/produtos-estoque";
 
-
 export default function RoutesApp() {
 
 
@@ -70,7 +69,7 @@ export default function RoutesApp() {
                         </UserAutenticadoProvider>
                     }>
                         <Route index element={<RegistroDePedidos />} />
-                        <Route path="registro-de-pedidos" element={<RegistroDePedidos />} />
+                        <Route path="registro-de-pedidos" element={<RegistroDePedidos />}/>
                         <Route path="produto-e-estoque" element={<ProdutoEstoque />} />
                     </Route>
                     <Route path="acesso-negado" element={<PageError />} />

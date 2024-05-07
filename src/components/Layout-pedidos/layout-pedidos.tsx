@@ -3,6 +3,7 @@ import Pedidos from "../../types/pedidos";
 import Loading from "../Loading/loading";
 import usePedidos from "../../hook/usePedidos"
 import { useState } from "react"
+// import { Link } from "react-router-dom";
 
 export default function LayoutPedidos() {
 
@@ -11,7 +12,7 @@ export default function LayoutPedidos() {
 
     return (
         <>
-            <div className="max-w-[840px] w-full bg-white mt-[30px] px-4 pt-5 py-3 rounded-[20px] h-[650px]">
+            <div className="max-w-[840px] w-full bg-white mt-[30px] px-4 pt-5 py-3 rounded-[20px] h-[460px]">
                 <div className="flex justify-between">
                     <div>
                         <span className="font-bold text-lg">Pedidos</span>
@@ -56,7 +57,7 @@ export default function LayoutPedidos() {
                             </tr>
                         </thead>
                         <tbody className="w-full font-bold">
-                            <div className="overflow-y-scroll h-[500px]">
+                            <div className="overflow-y-scroll h-[300px]">
                                 {
                                     loading ? <Loading /> :
                                         orderUser.map((order: Pedidos) => {
@@ -67,7 +68,7 @@ export default function LayoutPedidos() {
                                             const ano = data.getFullYear()
 
                                             return (
-                                                <tr className="w-full flex justify-between items-center mt-5">
+                                                <tr className="w-full flex justify-between items-center mt-5" key={order.id}>
                                                     <td className="w-full text-left">{order.users.nome}</td>
                                                     <td className="w-full text-center">{`${dia}-${mes}-${ano}`}</td>
                                                     {
