@@ -17,10 +17,9 @@ import ChangePass from "../Pages/Change-pass/change-pass";
 import HeaderDashboard from "../Pages/Dashboard/header-dashboard";
 import RegistroDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Resgistros-de-pedidos";
 import ProdutoEstoque from "../Pages/Dashboard/Produtos-estoque/produtos-estoque";
+import DetalhesDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Detalhes-de-pedidos/detalhes-de-pedidos";
 
 export default function RoutesApp() {
-
-
     return (
         <BrowserRouter>
             <UserAutenticadoProvider>
@@ -70,6 +69,7 @@ export default function RoutesApp() {
                     }>
                         <Route index element={<RegistroDePedidos />} />
                         <Route path="registro-de-pedidos" element={<RegistroDePedidos />}/>
+                        <Route path="detalhes-de-pedidos/:userId" element={<DetalhesDePedidos />} />
                         <Route path="produto-e-estoque" element={<ProdutoEstoque />} />
                     </Route>
                     <Route path="acesso-negado" element={<PageError />} />

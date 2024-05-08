@@ -3,7 +3,7 @@ import Pedidos from "../../types/pedidos";
 import Loading from "../Loading/loading";
 import usePedidos from "../../hook/usePedidos"
 import { useState } from "react"
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function LayoutPedidos() {
 
@@ -68,13 +68,15 @@ export default function LayoutPedidos() {
                                             const ano = data.getFullYear()
 
                                             return (
-                                                <tr className="w-full flex justify-between items-center mt-5" key={order.id}>
-                                                    <td className="w-full text-left">{order.users.nome}</td>
-                                                    <td className="w-full text-center">{`${dia}-${mes}-${ano}`}</td>
-                                                    {
-                                                        order.Delivered !== false ? <td className="w-full text-center bg-green-600 text-white rounded-2xl py-2">Entregue</td> : <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
-                                                    }
-                                                </tr>
+                                                <Link to={`/dashboard/detalhes-de-pedidos/${order.userId}`}>
+                                                    <tr className="w-full flex justify-between items-center mt-5" key={order.id}>
+                                                        <td className="w-full text-left">{order.users.nome}</td>
+                                                        <td className="w-full text-center">{`${dia}-${mes}-${ano}`}</td>
+                                                        {
+                                                            order.Delivered !== false ? <td className="w-full text-center bg-green-600 text-white rounded-2xl py-2">Entregue</td> : <td className="w-full text-center bg-orange-400 text-white rounded-2xl py-2">Envio pendente</td>
+                                                        }
+                                                    </tr>
+                                                </Link>
                                             )
                                         })
                                 }
