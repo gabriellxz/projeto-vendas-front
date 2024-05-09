@@ -5,12 +5,14 @@ import { useParams } from "react-router-dom"
 import { UserAutenticado } from "../../../../context/authContext"
 import api from "../../../../config/config"
 import Pedidos from "../../../../types/pedidos"
+import InforProduct from "../../../../components/Infor-product/infor-product"
 
 export default function DetalhesDePedidos() {
 
     const params = useParams()
     const { token } = useContext(UserAutenticado)
     const [openClient, setOpenClient] = useState<boolean>(false)
+    const [openProduct, setOpenProduct] = useState<boolean>(false)
     const [detailsUser, setDetailsUser] = useState<Pedidos>()
 
     useEffect(() => {
@@ -35,7 +37,7 @@ export default function DetalhesDePedidos() {
     }, [])
 
     return (
-        <div>
+        <div className="select-none">
             <TopDashboard title="Detalhes de pedidos" titleRoute="Detalhes do pedido" />
             <div className="flex flex-col gap-[36px] mt-[30px]">
                 <div className="bg-white px-8 py-2 rounded-[8px] shadow-md shadow-zinc-600">
@@ -65,12 +67,26 @@ export default function DetalhesDePedidos() {
                 <div className="bg-white px-8 py-2 rounded-[8px] shadow-md shadow-zinc-600">
                     <div className="flex justify-between items-center">
                         <span className="text-xl">Informações do pedido</span>
-                        <span className="border-l border-zinc-400 pl-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[40px] h-[40px]">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                            </svg>
+                        <span className="border-l border-zinc-400 pl-5" onClick={() => setOpenProduct(!openProduct)}>
+                            {
+                                openProduct !== false ?
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[40px] h-[40px]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+
+                                    :
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[40px] h-[40px]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
+                            }
                         </span>
                     </div>
+                    {
+                        openProduct &&
+                        <div>
+                            <InforProduct details={detailsUser}/>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

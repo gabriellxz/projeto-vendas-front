@@ -1,11 +1,11 @@
-import { Cart } from "./cart";
+import { CartType } from "./cart";
 import Endereco from "./endereco";
 
 export default interface Pedidos {
     Delivered: boolean;
     adress: Endereco;
     adressId: number;
-    carrinho: Cart;
+    carrinho: CartType;
     cartId: number;
     id: number;
     trackingCode: string;

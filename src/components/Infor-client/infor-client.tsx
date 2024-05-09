@@ -16,10 +16,7 @@ export default function InforClient(props: PropsDetails) {
                     </div>
                     <div className="flex items-center gap-5 w-full">
                         <span className="font-semibold">Telefone</span>
-                        <span className="w-full flex gap-3">
-                            <span className="border border-zinc-500 rounded-md max-w-[70px] w-full p-2 text-center">(82)</span>
-                            <span className="border border-zinc-500 rounded-md w-full p-2">{props.details?.adress.telefone_contato}</span>
-                        </span>
+                        <span className="border border-zinc-500 rounded-md w-full p-2">{props.details?.adress.telefone_contato}</span>
                     </div>
                 </div>
                 <div className="flex w-full gap-8 border-b border-zinc-500 pb-9">
