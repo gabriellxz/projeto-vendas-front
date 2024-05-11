@@ -18,6 +18,7 @@ import HeaderDashboard from "../Pages/Dashboard/header-dashboard";
 import RegistroDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Resgistros-de-pedidos";
 import ProdutoEstoque from "../Pages/Dashboard/Produtos-estoque/produtos-estoque";
 import DetalhesDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Detalhes-de-pedidos/detalhes-de-pedidos";
+import PainelAdministrativo from "../Pages/Dashboard/Painel-administrativo/painel-administrativo";
 
 export default function RoutesApp() {
     return (
@@ -71,6 +72,7 @@ export default function RoutesApp() {
                         <Route path="registro-de-pedidos" element={<RegistroDePedidos />}/>
                         <Route path="detalhes-de-pedidos/:userId" element={<DetalhesDePedidos />} />
                         <Route path="produto-e-estoque" element={<ProdutoEstoque />} />
+                        <Route path="painel-administrativo" element={<PainelAdministrativo />} />
                     </Route>
                     <Route path="acesso-negado" element={<PageError />} />
                 </Routes>
