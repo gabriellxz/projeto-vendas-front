@@ -26,7 +26,7 @@ export default function InforClient(props: PropsDetails) {
                     </div>
                     <div className="flex items-center gap-5 w-full">
                         <span className="font-semibold">CPF/CNPJ</span>
-                        <span className="border border-zinc-500 rounded-md w-full p-2">1234-1234</span>
+                        <span className="border border-zinc-500 rounded-md w-full p-2">{props.details?.users.CPF}</span>
                     </div>
                 </div>
                 <div className="flex w-full gap-8">
@@ -46,7 +46,7 @@ export default function InforClient(props: PropsDetails) {
                 <div className="flex w-full gap-8">
                     <div className="flex w-full gap-5 items-center">
                         <span className="font-semibold">Endereço</span>
-                        <span className="border border-zinc-500 rounded-md w-full p-2">{props.details?.adress.complemento}</span>
+                        <span className="border border-zinc-500 rounded-md w-full p-2">{props.details?.adress.Rua}</span>
                     </div>
                     <div className="flex w-full gap-5 items-center">
                         <span className="font-semibold">Número</span>
