@@ -15,5 +15,6 @@ export default interface Pedidos {
     users: {
         nome: string;
         email: string;
+        CPF: string;
     }
 }
