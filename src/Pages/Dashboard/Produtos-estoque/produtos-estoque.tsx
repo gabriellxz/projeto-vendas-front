@@ -1,10 +1,25 @@
 import CardDashboard from "../../../components/Cards-dashboard/cards-dashboard"
 import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos"
 import TopDashboard from "../../../components/Top-dashboard/top-dashboard"
+import useListProduct from "../../../hook/useListProduct"
+import ProdutosDTO from "../../../types/produto"
 
 export default function ProdutoEstoque() {
-
     
+    const { product } = useListProduct()
+
+
+    function TableEstoque() {
+        return (
+            product.map((p: ProdutosDTO) => (
+                <tr className={`w-full flex justify-between items-center mt-5`} key={p.id_produto}>
+                    <td className="w-full text-left">{p.nome_produto}</td>
+                    <td className="w-full text-center">linha 1</td>
+                    <td className="w-full text-center">{p.estoque}</td>
+                </tr>
+            ))
+        )
+    }
 
     return (
         <div>
@@ -24,6 +39,7 @@ export default function ProdutoEstoque() {
                     th2={"Linha"}
                     th3={"Qtd"}
                     styleTable={""}
+                    component={<TableEstoque/>}
                 />
             </div>
         </div>
