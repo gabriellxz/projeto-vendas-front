@@ -113,8 +113,8 @@ export default function InforProduct(props: PropsProduct) {
                                 (
                                     loading ? <Loading /> : 
                                     <>
-                                        <input type="text" className="outline-none p-1" />
-                                        <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md">Enviar</button>
+                                        <input type="text" className="outline-none p-1" onChange={onChangeCode}/>
+                                        <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
                                     </>
                                 )
                         }
