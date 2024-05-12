@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CartType } from "../../types/cart"
+import { CartOrderUser } from "../../types/cart"
 import Moeda from "../../utils/moeda";
 import ButtonDark from "../Button-dark/button-dark";
 import useEndereco from "../../hook/useEndereco";
@@ -9,7 +9,7 @@ import usePayment from "../../hook/usePayment";
 import Loading from "../Loading/loading";
 
 interface PropsSumario {
-    iCart: CartType[];
+    iCart: CartOrderUser[];
 }
 
 export default function SumarioCompras(props: PropsSumario) {
@@ -22,7 +22,7 @@ export default function SumarioCompras(props: PropsSumario) {
     useEffect(() => {
         let total = 0
 
-        props.iCart.forEach((item: CartType) => {
+        props.iCart.forEach((item: CartOrderUser) => {
             total += item.amount * item.produtos.preco
         })
 

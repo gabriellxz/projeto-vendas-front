@@ -1,6 +1,6 @@
 // import imgproduto from '../../assets/produto.webp'
 import TrashIcon from '../../svg/trash-icon'
-import { CartType } from '../../types/cart'
+import { CartOrderUser } from '../../types/cart'
 import Moeda from '../../utils/moeda'
 import useCart from '../../hook/useCart'
 import Loading from '../Loading/loading'
@@ -8,7 +8,7 @@ import api from '../../config/config'
 import { useState } from 'react'
 
 interface PropsCart {
-    iCart: CartType
+    iCart: CartOrderUser
 }
 
 export default function CardCart(props: PropsCart) {

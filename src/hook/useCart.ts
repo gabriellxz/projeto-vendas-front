@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Cart, CartType } from "../types/cart"
+import { Cart, CartOrderUser } from "../types/cart"
 import api from "../config/config"
 import { AxiosResponse } from "axios"
 import useProdutoId from "./useProdutoId"
@@ -11,7 +11,7 @@ export default function useCart() {
     // const token = localStorage.getItem("tokenUser")
     const {token} = useContext(UserAutenticado)
     const navigate = useNavigate()
-    const [cart, setCart] = useState<CartType[]>([])
+    const [cart, setCart] = useState<CartOrderUser[]>([])
     const [loadingCart, setLoadingCart] = useState<boolean>(false)
     const { produto } = useProdutoId()
 
@@ -75,7 +75,7 @@ export default function useCart() {
                 })
 
                 // console.log(response)
-                setCart(cart.filter((c:CartType) => c.produtoId !== produtoId))
+                setCart(cart.filter((c:CartOrderUser) => c.produtoId !== produtoId))
                 setLoadingCart(false)
             }
         } catch (err) {

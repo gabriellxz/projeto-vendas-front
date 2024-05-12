@@ -4,7 +4,7 @@ import Loading from "../../../components/Loading/loading";
 import SumarioCompras from "../../../components/Sumario-compras/sumario-compras";
 import useCart from "../../../hook/useCart";
 import TrashIcon from "../../../svg/trash-icon";
-import { CartType } from "../../../types/cart";
+import { CartOrderUser } from "../../../types/cart";
 
 export default function Cart() {
 
@@ -25,7 +25,7 @@ export default function Cart() {
                             <div className="flex flex-col md:flex md:flex-row w-full">
                                 <div className="w-full p-[10px]">
                                     {
-                                        cart.map((cartItem: CartType) => (
+                                        cart.map((cartItem: CartOrderUser) => (
                                             <CardCart key={cartItem.id} iCart={cartItem} />
                                         ))
                                     }
