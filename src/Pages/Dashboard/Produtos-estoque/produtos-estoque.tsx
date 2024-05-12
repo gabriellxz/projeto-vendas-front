@@ -3,10 +3,12 @@ import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos"
 import TopDashboard from "../../../components/Top-dashboard/top-dashboard"
 import useListProduct from "../../../hook/useListProduct"
 import ProdutosDTO from "../../../types/produto"
+import { useNavigate } from "react-router-dom"
 
 export default function ProdutoEstoque() {
-    
+
     const { product } = useListProduct()
+    const navigate = useNavigate()
 
 
     function TableEstoque() {
@@ -21,6 +23,10 @@ export default function ProdutoEstoque() {
         )
     }
 
+    function linkNavigate() {
+        navigate("/cadastro-produtos")
+    }
+
     return (
         <div>
             <TopDashboard title="Produtos e estoque" titleRoute="Produtos e estoque" />
@@ -31,6 +37,7 @@ export default function ProdutoEstoque() {
                         titleCard2={"Cadastrar produto"}
                         titleCard3={"Produtos em falta"}
                         styleCard={"items-center"}
+                        link={linkNavigate}
                     />
                 </div>
                 <LayoutPedidos
@@ -39,7 +46,7 @@ export default function ProdutoEstoque() {
                     th2={"Linha"}
                     th3={"Qtd"}
                     styleTable={""}
-                    component={<TableEstoque/>}
+                    component={<TableEstoque />}
                 />
             </div>
         </div>

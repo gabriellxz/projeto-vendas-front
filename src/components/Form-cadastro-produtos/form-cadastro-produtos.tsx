@@ -14,8 +14,8 @@ import '../../global.css'
 
 export default function FormCadastroProdutos() {
 
-    function handleKeyDown(e:any) {
-        if(e.key === "ArrowUp" || e.key === "ArrowDown") {
+    function handleKeyDown(e: any) {
+        if (e.key === "ArrowUp" || e.key === "ArrowDown") {
             e.preventDefault()
         }
     }
@@ -87,22 +87,6 @@ export default function FormCadastroProdutos() {
                                 </select>
                                 <span className="flex text-center select-none uppercase bg-greenEco-200 w-full text-white p-2 cursor-pointer" onClick={() => { setOpen(!open) }}>+ Categoria</span>
                             </div>
-                            {open &&
-                                <div className="flex gap-2 absolute top-[380px] bg-white max-w-[325px] w-full border border-greenEco-100 p-5 items-center">
-                                    <span className="cursor-pointer">
-                                        <CloseNavBar handleNavBar={() => { setOpen(!open) }} />
-                                    </span>
-                                    <Input
-                                        inputLabel=""
-                                        name="nome"
-                                        onInputValue={onChangeCategoria}
-                                        styleWidth="max-w-[325px] w-full"
-                                        typeInput="text"
-                                        value={categoriaNome}
-                                    />
-                                    {loadingCategory ? <Loading /> : <ButtonDark text="Criar" propsBtn={createCategory} />}
-                                </div>
-                            }
                         </div>
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Estoque</label>
@@ -133,11 +117,11 @@ export default function FormCadastroProdutos() {
                         <div className="flex gap-[30px] py-5">
                             <div className="flex items-center gap-1">
                                 <span className="text-xl">Sim</span>
-                                <input type="radio" name="oferta" value={"true"} onChange={handleOferta} className="w-5 h-5 cursor-pointer"/>
+                                <input type="radio" name="oferta" value={"true"} onChange={handleOferta} className="w-5 h-5 cursor-pointer" />
                             </div>
                             <div className="flex items-center gap-1">
                                 <span className="text-xl">Não</span>
-                                <input type="radio" name="oferta" value={"false"} onChange={handleOferta} className="w-5 h-5 cursor-pointer"/>
+                                <input type="radio" name="oferta" value={"false"} onChange={handleOferta} className="w-5 h-5 cursor-pointer" />
                             </div>
                         </div>
                     </div>
@@ -146,6 +130,24 @@ export default function FormCadastroProdutos() {
 
                     </div>
                 </div>
+                {open &&
+                    <div className="flex flex-col gap-2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white max-w-[325px] w-full rounded-xl shadow-md shadow-zinc-600 p-6 items-center mx-auto">
+                        <span className="text-right w-full cursor-pointer">
+                            <CloseNavBar handleNavBar={() => { setOpen(!open) }} />
+                        </span>
+                        <div>
+                            <Input
+                                inputLabel="Nome da linha"
+                                name="nome"
+                                onInputValue={onChangeCategoria}
+                                styleWidth="max-w-[325px] w-full"
+                                typeInput="text"
+                                value={categoriaNome}
+                            />
+                        </div>
+                        {loadingCategory ? <Loading /> : <ButtonDark text="Criar" propsBtn={createCategory} />}
+                    </div>
+                }
 
                 <ToastContainer />
             </form>

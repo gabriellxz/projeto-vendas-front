@@ -31,7 +31,7 @@ export default function LayoutPedidos(props: PropsLayout) {
                 <div className="mt-6 relative w-full">
                     {
                         openModal &&
-                        <div className="bg-gray-100 absolute max-w-[604px] w-full p-4 rounded-[16px] shadow-md mx-auto">
+                        <div className="bg-gray-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[604px] w-full p-4 rounded-[16px] shadow-md mx-auto">
                             <div className="mb-[26px]">
                                 <span className="text-xl">Selecione o status</span>
                             </div>
