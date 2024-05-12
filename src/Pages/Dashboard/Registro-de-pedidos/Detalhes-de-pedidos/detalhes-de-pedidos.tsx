@@ -64,8 +64,8 @@ export default function DetalhesDePedidos() {
                         </div>
                     }
                 </div>
-                <div className="bg-white px-8 py-2 rounded-[8px] shadow-md shadow-zinc-600">
-                    <div className="flex justify-between items-center">
+                <div className="bg-white py-2 rounded-[8px] shadow-md shadow-zinc-600">
+                    <div className="flex justify-between items-center px-8">
                         <span className="text-xl">Informações do pedido</span>
                         <span className="border-l border-zinc-400 pl-5" onClick={() => setOpenProduct(!openProduct)}>
                             {

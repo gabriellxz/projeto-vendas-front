@@ -6,6 +6,7 @@ export default interface Pedidos {
     adress: Endereco;
     adressId: number;
     carrinho: CartType;
+    id_order: number;
     cartId: number;
     id: number;
     trackingCode: string;

@@ -4,6 +4,30 @@ export interface Cart {
 }
 
 export interface CartType {
+    carrinho: {
+        carrinho: [
+            {
+                amount: number;
+                cartId: number;
+                produtoId: number;
+                id: number;
+                produtos: {
+                    descricao: string;
+                    imagem: [
+                        {
+                            url: string;
+                            produtoId: number;
+                        }
+                    ];
+                    nome_produto: string;
+                    preco: number;
+                }
+            }
+        ]
+    }
+}
+
+export interface CartOrderUser {
     amount: number;
     cartId: number;
     produtoId: number;
@@ -12,7 +36,8 @@ export interface CartType {
         descricao: string;
         imagem: [
             {
-                url:string
+                url: string;
+                produtoId: number;
             }
         ];
         nome_produto: string;
