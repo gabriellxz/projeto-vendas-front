@@ -1,10 +1,13 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import logo_dash from '../../assets/logo-dash.png'
 import './style.css'
+import { useContext } from "react"
+import { UserAutenticado } from "../../context/authContext"
 
 export default function HeaderDashboard() {
 
     const location = useLocation()
+    const { logout } = useContext(UserAutenticado)
 
     return (
         <>
@@ -69,11 +72,13 @@ export default function HeaderDashboard() {
                         </ul>
                     </div>
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" className="w-[55px] h-[55px] text-red-600">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-                        </svg>
+                        <Link to={"/"} onClick={logout}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" className="w-[55px] h-[55px] text-red-600">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                            </svg>
+                        </Link>
                     </div>
                 </div>
                 <div className="bg-slate-200 w-full rounded-tl-3xl px-[19px] py-[47px] overflow-y-scroll">

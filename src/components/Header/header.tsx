@@ -41,7 +41,7 @@ export default function Header() {
                             <SearchIcon />
                             <UserIcon />
                             <BagIcon />
-                            <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
+                            <Link to={"/dashboard"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
                                 <IconPlus />
                             </Link>
                             <Link to={"/home"}>

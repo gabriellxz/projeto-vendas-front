@@ -1,6 +1,12 @@
+import api from "../../config/config"
 import { CartOrderUser } from "../../types/cart"
 import Pedidos from "../../types/pedidos"
 import Moeda from "../../utils/moeda"
+import { useState, ChangeEvent, SyntheticEvent, useContext } from "react"
+import { UserAutenticado } from "../../context/authContext"
+import { AxiosResponse, AxiosError } from "axios"
+import { toast, ToastContainer } from "react-toastify"
+import Loading from "../Loading/loading"
 
 
 interface PropsProduct {
@@ -15,6 +21,83 @@ export default function InforProduct(props: PropsProduct) {
     const totalAmount = items?.reduce((total, item) => total + item.amount, 0)
     const precoTotal = items?.reduce((total, item) => total + (item.amount * item.produtos.preco), 0)
 
+    const [codeTracking, setCodeTracking] = useState<string>("")
+    const [loading, setLoading] = useState<boolean>(false)
+    const { token } = useContext(UserAutenticado)
+
+    function onChangeCode(e: ChangeEvent<HTMLInputElement>) {
+        setCodeTracking(e.target.value)
+    }
+
+    async function putCode(e: SyntheticEvent) {
+        e.preventDefault()
+
+        setLoading(true)
+
+        const data = {
+            trackingCode: codeTracking
+        }
+
+        if (codeTracking !== "") {
+            if (token) {
+                try {
+                    await api.put(`/Order/send-code/${props.details?.userId}`, data, {
+                        headers: {
+                            "Authorization": "Bearer " + JSON.parse(token)
+                        }
+                    }).then((response: AxiosResponse) => {
+                        console.log(response)
+
+                        setLoading(false)
+                        location.reload()
+
+                        toast.success("Código de rastreio enviado com sucesso!", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    }).catch((error: AxiosError) => {
+                        console.log(error)
+
+                        setLoading(false)
+
+                        toast.error("Não foi possivel enviar o código", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                    })
+
+                } catch (error) {
+                    console.log(error)
+                    setLoading(false)
+                }
+            }
+        } else {
+            setLoading(false)
+            toast.error("Preecha o campo!", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        }
+    }
+
     return (
         <>
             <div className="flex justify-between bg-green-300 px-7 py-7">
@@ -25,8 +108,16 @@ export default function InforProduct(props: PropsProduct) {
                 <div>
                     <span className="flex gap-4 items-center">
                         Nº de rastreamento:
-                        <input type="text" className="outline-none p-1" />
-                        <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md">Enviar</button>
+                        {
+                            props.details?.trackingCode !== null ? <span>{props.details?.trackingCode}</span> :
+                                (
+                                    loading ? <Loading /> : 
+                                    <>
+                                        <input type="text" className="outline-none p-1" />
+                                        <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md">Enviar</button>
+                                    </>
+                                )
+                        }
                     </span>
                 </div>
             </div>
@@ -63,6 +154,7 @@ export default function InforProduct(props: PropsProduct) {
                     ))
                 }
             </div>
+            <ToastContainer />
         </>
     )
 }
