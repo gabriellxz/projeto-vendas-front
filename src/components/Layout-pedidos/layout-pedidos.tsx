@@ -1,6 +1,5 @@
 import FilterIcon from "../../svg/filter-icon";
 import usePedidos from "../../hook/usePedidos"
-import { useState } from "react"
 import Loading from "../Loading/loading";
 
 interface PropsLayout {
@@ -10,12 +9,13 @@ interface PropsLayout {
     th3?: string;
     styleTable: string;
     component?: any;
+    buttonModalFilter?: () => void;
+    modalFilterState?: boolean;
 }
 
 export default function LayoutPedidos(props: PropsLayout) {
 
     const { loading } = usePedidos()
-    const [openModal, setOpenModal] = useState<boolean>(false)
 
     return (
         <>
@@ -24,13 +24,13 @@ export default function LayoutPedidos(props: PropsLayout) {
                     <div>
                         <span className="font-bold text-lg">{props.titleLayout}</span>
                     </div>
-                    <div onClick={() => setOpenModal(!openModal)}>
+                    <div onClick={props.buttonModalFilter}>
                         <FilterIcon />
                     </div>
                 </div>
                 <div className="mt-6 relative w-full">
                     {
-                        openModal &&
+                        props.modalFilterState &&
                         <div className="bg-gray-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[604px] w-full p-4 rounded-[16px] shadow-md mx-auto">
                             <div className="mb-[26px]">
                                 <span className="text-xl">Selecione o status</span>
