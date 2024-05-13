@@ -33,7 +33,7 @@ export default function DetailsProductPage(props: Props) {
                     flex flex-col-reverse gap-5 w-full
                     md:flex md:flex-row md:w-full md:mr-20
                 `}>
-                    <div className={`
+                    {/* <div className={`
                         flex justify-center overflow-x-scroll gap-3
                         md:flex md:flex-col md:overflow-hidden md:justify-normal
                     `}>
@@ -41,7 +41,7 @@ export default function DetailsProductPage(props: Props) {
                         <img src={imgProduct} alt="" className="max-w-[100px] h-[137px] w-full mb-3" />
                         <img src={imgProduct} alt="" className="max-w-[100px] h-[137px] w-full mb-3" />
                         <img src={imgProduct} alt="" className="max-w-[100px] h-[137px] w-full mb-3" />
-                    </div>
+                    </div> */}
                     <div>
                         <img src={props.iProdutoDetails.imagem && props.iProdutoDetails.imagem[0] && props.iProdutoDetails.imagem[0].url} alt="" className={`
                             w-full h-[870px]
