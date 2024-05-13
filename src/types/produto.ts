@@ -7,6 +7,7 @@ export default interface ProdutosDTO {
     linha: string;
     estoque: number;
     createdAt: string;
+    categoryId: number;
     updatedAt: string;
     imagem: [
         {

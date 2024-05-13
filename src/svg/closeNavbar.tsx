@@ -1,5 +1,5 @@
 interface Props {
-    handleNavBar: () => void
+    handleNavBar?: () => void
 }
 
 export default function CloseNavBar(props: Props) {

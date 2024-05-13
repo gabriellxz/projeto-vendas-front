@@ -4,11 +4,18 @@ import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos";
 import TopDashboard from "../../../components/Top-dashboard/top-dashboard";
 import usePedidos from "../../../hook/usePedidos";
 import Pedidos from "../../../types/pedidos";
+import { useState } from "react";
 
 
 export default function RegistroDePedidos() {
 
     const { orderUser } = usePedidos()
+    const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
+
+
+    function handleOpenModalFilter() {
+        setOpenModalFilter(!openModalFilter)
+    }
 
     function TableOrder() {
         return (
@@ -45,7 +52,9 @@ export default function RegistroDePedidos() {
                         th2={"Data"}
                         th3={"Status"}
                         styleTable={""}
-                        component={<TableOrder/>}
+                        component={<TableOrder />}
+                        buttonModalFilter={handleOpenModalFilter}
+                        modalFilterState={openModalFilter}
                     />
                     <div className="flex flex-col gap-[20px] mt-[30px] max-w-[380px] w-full">
                         <CardDashboard

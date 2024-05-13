@@ -121,7 +121,7 @@ export default function useCreateProduct() {
                     });
     
                     setTimeout(() => {
-                        navigate("/home");
+                        navigate("/dashboard/produto-e-estoque");
                     }, 3000);
                 }
             } catch (error) {
