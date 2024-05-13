@@ -54,7 +54,7 @@ export default function PainelAdministrativo() {
     return (
         <div>
             <TopDashboard title={"Painel administrativo"} titleRoute={"Painel administrativo"} />
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-[30px]">
                 <CardDashboard
                     titleCard1={"Novos pedidos"}
                     titleCard2={"Clientes"}
