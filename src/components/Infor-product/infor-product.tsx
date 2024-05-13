@@ -23,6 +23,7 @@ export default function InforProduct(props: PropsProduct) {
 
     const [codeTracking, setCodeTracking] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
+    const [openEditCode, setOpenEditCode] = useState<boolean>(false)
     const { token } = useContext(UserAutenticado)
 
     function onChangeCode(e: ChangeEvent<HTMLInputElement>) {
@@ -111,13 +112,21 @@ export default function InforProduct(props: PropsProduct) {
                         {
                             props.details?.trackingCode !== null ? <span>{props.details?.trackingCode}</span> :
                                 (
-                                    loading ? <Loading /> : 
-                                    <>
-                                        <input type="text" className="outline-none p-1" onChange={onChangeCode}/>
-                                        <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
-                                    </>
+                                    loading ? <Loading /> :
+                                        <>
+                                            <input type="text" className="outline-none p-1" onChange={onChangeCode} />
+                                            <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
+                                        </>
                                 )
                         }
+                        {
+                            openEditCode && 
+                            <div className="flex gap-4">
+                                <input type="text" className="outline-none p-1" onChange={onChangeCode} />
+                                <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
+                            </div>
+                        }
+                        <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={() => setOpenEditCode(!openEditCode)}>{openEditCode ? "Fechar" : "Editar"}</button>
                     </span>
                 </div>
             </div>
