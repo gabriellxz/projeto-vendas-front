@@ -1,5 +1,5 @@
 import ProdutosDTO from "../../types/produto"
-import imgProduct from '../../assets/produto.webp'
+// import imgProduct from '../../assets/produto.webp'
 import Moeda from "../../utils/moeda"
 import ButtonDark from "../Button-dark/button-dark"
 import useCart from "../../hook/useCart"
