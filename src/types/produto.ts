@@ -4,7 +4,6 @@ export default interface ProdutosDTO {
     preco: number;
     oferta: boolean;
     descricao: string;
-    linha: string;
     estoque: number;
     createdAt: string;
     categoryId: number;

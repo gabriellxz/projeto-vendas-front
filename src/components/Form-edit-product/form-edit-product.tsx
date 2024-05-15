@@ -29,7 +29,7 @@ export default function FormEditProduct(props: PropsForm) {
     function onChangeNomeProduto(e: ChangeEvent<HTMLInputElement>) {
         setNomeProduto(e.target.value)
     }
-
+    
     function onChangePrecoEstoque(e: ChangeEvent<HTMLInputElement>) {
         const precoEstoque: number = parseFloat(e.target.value)
         setEstoqueProduto(precoEstoque)
@@ -61,6 +61,7 @@ export default function FormEditProduct(props: PropsForm) {
         const oferta = ofertaProduto === "true";
 
         const data = {
+            id_produto: props.iProduct?.id_produto,
             nome_produto: nomeProduto,
             preco: precoProduto,
             descricao: descricaoProduto,
@@ -68,6 +69,8 @@ export default function FormEditProduct(props: PropsForm) {
             oferta: oferta,
             categoryId: categoryProduto
         }
+
+        console.log(data)
 
         if (
             nomeProduto !== "" &&
