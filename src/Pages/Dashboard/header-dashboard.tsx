@@ -13,7 +13,9 @@ export default function HeaderDashboard() {
         <>
             <div className="flex items-center bg-white h-[126px]">
                 <div className="mx-[10px]">
-                    <img src={logo_dash} alt="" className="max-w-[110px] w-full" />
+                    <Link to={"/home"}>
+                        <img src={logo_dash} alt="" className="max-w-[110px] w-full" />
+                    </Link>
                 </div>
                 <div className="flex items-center w-full">
                     <div className="mx-[25px] flex items-center">
