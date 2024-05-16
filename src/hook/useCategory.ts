@@ -76,6 +76,7 @@ export default function useCategory() {
         createCategory,
         categoriaNome,
         onChangeCategoria,
-        loadingCategory
+        loadingCategory,
+        setCategoria
     }
 }

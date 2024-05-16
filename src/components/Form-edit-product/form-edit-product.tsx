@@ -77,8 +77,7 @@ export default function FormEditProduct(props: PropsForm) {
             precoProduto !== undefined &&
             estoqueProduto !== undefined &&
             descricaoProduto !== "" &&
-            ofertaProduto !== undefined &&
-            categoryProduto !== undefined
+            ofertaProduto !== undefined 
         ) {
             if (token) {
                 try {
@@ -93,7 +92,7 @@ export default function FormEditProduct(props: PropsForm) {
 
                         toast.success("Alterações feitas com sucesso!", {
                             position: "bottom-center",
-                            autoClose: 5000,
+                            autoClose: 2000,
                             hideProgressBar: false,
                             closeOnClick: true,
                             pauseOnHover: true,
@@ -102,12 +101,13 @@ export default function FormEditProduct(props: PropsForm) {
                             theme: "colored"
                         });
 
+
                         setTimeout(() => {
-                            location.reload()
                             if (response.status === 200) {
+                                location.reload()
                                 props.closeModal(false)
                             }
-                        }, 5000)
+                        }, 2000)
                     }).catch((error: AxiosError) => {
                         setLoading(false)
                         console.log(error)
@@ -145,6 +145,7 @@ export default function FormEditProduct(props: PropsForm) {
         }
     }
 
+    
 
     return (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md shadow-zinc-500 max-w-[700px] w-full p-5 rounded-xl">
