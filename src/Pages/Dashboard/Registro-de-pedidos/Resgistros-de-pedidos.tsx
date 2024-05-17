@@ -45,7 +45,7 @@ export default function RegistroDePedidos() {
         <>
             <div>
                 <TopDashboard title={"Registro de pedidos"} titleRoute={"Registro de pedidos"} />
-                <div className="flex gap-[28px] select-none">
+                <div className="sm:flex gap-[28px] select-none">
                     <LayoutPedidos
                         titleLayout="Pedidos"
                         th1={"Cliente"}
