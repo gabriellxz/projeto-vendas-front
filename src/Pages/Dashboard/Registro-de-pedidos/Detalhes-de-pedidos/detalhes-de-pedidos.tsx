@@ -40,7 +40,7 @@ export default function DetalhesDePedidos() {
         <div className="select-none">
             <TopDashboard title="Detalhes de pedidos" titleRoute="Detalhes do pedido" />
             <div className="flex flex-col gap-[36px] mt-[30px]">
-                <div className="bg-white px-8 py-2 rounded-[8px] shadow-md shadow-zinc-600">
+                <div className="bg-white w-full px-8 py-2 rounded-[8px] shadow-md shadow-zinc-600">
                     <div className="flex justify-between items-center">
                         <span className="text-xl">Informações do cliente</span>
                         <span className="border-l border-zinc-400 pl-5" onClick={() => setOpenClient(!openClient)}>
@@ -64,7 +64,7 @@ export default function DetalhesDePedidos() {
                         </div>
                     }
                 </div>
-                <div className="bg-white py-2 rounded-[8px] shadow-md shadow-zinc-600">
+                <div className="bg-white w-full py-2 rounded-[8px] shadow-md shadow-zinc-600">
                     <div className="flex justify-between items-center px-8">
                         <span className="text-xl">Informações do pedido</span>
                         <span className="border-l border-zinc-400 pl-5" onClick={() => setOpenProduct(!openProduct)}>

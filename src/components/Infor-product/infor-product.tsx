@@ -101,13 +101,13 @@ export default function InforProduct(props: PropsProduct) {
 
     return (
         <>
-            <div className="flex justify-between bg-green-300 px-7 py-7">
+            <div className="flex flex-col w-full sm:flex sm:flex-row gap-5 justify-between bg-green-300 px-7 py-7">
                 <div className="flex flex-col">
                     <span>Quantidade de produtos: {totalAmount}</span>
                     <span className="font-bold">Total: {Moeda.formatar(precoTotal ? precoTotal : 0)}</span>
                 </div>
                 <div>
-                    <span className="flex gap-4 items-center">
+                    <span className="flex flex-col sm:flex sm:flex-row gap-4 sm:items-center">
                         Nº de rastreamento:
                         {
                             props.details?.trackingCode !== null ? <span>{props.details?.trackingCode}</span> :
@@ -144,7 +144,7 @@ export default function InforProduct(props: PropsProduct) {
                                         <span className="border border-zinc-500 rounded-md w-full p-2">{p.produtos.nome_produto}</span>
                                     </div>
                                 </div>
-                                <div className="flex gap-5">
+                                <div className="flex flex-col md:flex md:flex-row gap-5">
                                     <div className="flex flex-col items-start w-full">
                                         <span>Quantidade</span>
                                         <span className="border border-zinc-500 rounded-md w-full p-2">{p.amount}</span>
