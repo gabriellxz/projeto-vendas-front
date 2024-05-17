@@ -56,7 +56,7 @@ export default function RegistroDePedidos() {
                         buttonModalFilter={handleOpenModalFilter}
                         modalFilterState={openModalFilter}
                     />
-                    <div className="flex flex-col gap-[20px] mt-[30px] max-w-[380px] w-full">
+                    <div className="flex flex-col gap-[20px] mt-[30px] sm:max-w-[380px] w-full">
                         <CardDashboard
                             titleCard1={"Pedidos"}
                             titleCard2={"Clientes"}
