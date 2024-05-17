@@ -101,10 +101,10 @@ export default function Header() {
                                                         Início
                                                     </span>
                                                 </Link>
-                                                <Link to={"/cadastro-produtos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
+                                                <Link to={"/dashboard/registro-de-pedidos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
                                                     <IconPlus />
                                                     <span>
-                                                        Adicionar produto
+                                                        Dashboard
                                                     </span>
                                                 </Link>
                                                 <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
