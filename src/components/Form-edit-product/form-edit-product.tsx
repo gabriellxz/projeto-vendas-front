@@ -160,7 +160,7 @@ export default function FormEditProduct(props: PropsForm) {
                     <span>Nome do produto</span>
                     <input type="text" name="nome_produto" onChange={onChangeNomeProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={nomeProduto} />
                 </div>
-                <div className="flex gap-8">
+                <div className="flex flex-col sm:flex sm:flex-row gap-8">
                     <div>
                         <span>Valor do produto</span>
                         <input type="number" name="preco" onChange={onChangePrecoProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={precoProduto} />
