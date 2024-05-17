@@ -148,7 +148,7 @@ export default function FormEditProduct(props: PropsForm) {
     
 
     return (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md shadow-zinc-500 max-w-[700px] w-full p-5 rounded-xl">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md shadow-zinc-500 sm:max-w-[700px] w-full p-5 rounded-xl">
             <div>
                 <span className="text-3xl font-bold">Editar produto</span>
             </div>
