@@ -54,16 +54,16 @@ export default function PainelAdministrativo() {
     return (
         <div>
             <TopDashboard title={"Painel administrativo"} titleRoute={"Painel administrativo"} />
-            <div className="flex justify-between mt-[30px]">
+            <div className="flex flex-col sm:flex sm:flex-row gap-[20px] justify-between mt-[30px] w-full">
                 <CardDashboard
                     titleCard1={"Novos pedidos"}
                     titleCard2={"Clientes"}
                     titleCard3={"Lucro total"}
-                    styleCard={"font-bold flex flex-col justify-center gap-2"}
+                    styleCard={"font-bold flex flex-col justify-center gap-2 w-full"}
                     orderUserLength={orderUser.length}
                 />
             </div>
-            <div className="flex gap-[28px] select-none">
+            <div className="flex flex-col md:flex md:flex-row gap-[28px] select-none">
                 <LayoutPedidos
                     titleLayout="Pedidos"
                     th1={"Cliente"}
