@@ -48,8 +48,9 @@ export default function ListProduct() {
                     scrollTrigger: {
                         trigger: ".box-text-title",
                         scrub: true,
-                        end: "bottom 600px",
-                        start: "top 80px"
+                        // markers: true,
+                        end: "bottom 100px",
+                        start: "top 90px"
                     }
                 })
                     .fromTo("#text-1", {
