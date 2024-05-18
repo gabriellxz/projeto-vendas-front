@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^2.39.7",
     "aws-sdk": "^2.1588.0",
     "axios": "^1.6.5",
+    "gsap": "^3.12.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-aws-s3": "^1.5.0",
