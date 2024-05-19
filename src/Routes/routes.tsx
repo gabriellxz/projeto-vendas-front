@@ -19,6 +19,7 @@ import RegistroDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Resgistros
 import ProdutoEstoque from "../Pages/Dashboard/Produtos-estoque/produtos-estoque";
 import DetalhesDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Detalhes-de-pedidos/detalhes-de-pedidos";
 import PainelAdministrativo from "../Pages/Dashboard/Painel-administrativo/painel-administrativo";
+import Perfil from "../Pages/Home/Perfil/perfil";
 
 export default function RoutesApp() {
     return (
@@ -41,6 +42,7 @@ export default function RoutesApp() {
                         <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
                         <Route path="carrinho" element={<Cart />} />
                         <Route path="criar-endereço" element={<FormEndereco />} />
+                        <Route path="perfil" element={<Perfil />} />
                     </Route>
                     <Route path="cadastro-produtos" element={
                         <UserAutenticadoProvider>
