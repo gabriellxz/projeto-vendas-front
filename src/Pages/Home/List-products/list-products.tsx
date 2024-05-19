@@ -80,35 +80,35 @@ export default function ListProduct() {
 
     }, [])
 
-    useLayoutEffect(() => {
-        gsap.registerPlugin(ScrollTrigger)
-        const mm = gsap.matchMedia();
+    // useLayoutEffect(() => {
+    //     gsap.registerPlugin(ScrollTrigger)
+    //     const mm = gsap.matchMedia();
 
-        mm.add("(min-width: 768px)", () => {
-            gsap.to(".slides", {
-                x: 0,
-                scrollTrigger: {
-                    scrub: true,
-                }
-            })
-        });
+    //     mm.add("(min-width: 768px)", () => {
+    //         gsap.to(".slides", {
+    //             x: 0,
+    //             scrollTrigger: {
+    //                 scrub: true,
+    //             }
+    //         })
+    //     });
 
-        mm.add("(max-width: 767px)", () => {
-            gsap.to(".slides", {
-                x: 0,
-                scrollTrigger: {
-                    scrub: true,
-                    end: "bottom 2000px",
-                }
-            })
-        });
+    //     mm.add("(max-width: 767px)", () => {
+    //         gsap.to(".slides", {
+    //             x: 0,
+    //             scrollTrigger: {
+    //                 scrub: true,
+    //                 end: "bottom 2000px",
+    //             }
+    //         })
+    //     });
 
-        return () => {
-            mm.revert();
-            gsap.killTweensOf(".slides")
-        }
+    //     return () => {
+    //         mm.revert();
+    //         gsap.killTweensOf(".slides")
+    //     }
 
-    }, [])
+    // }, [])
 
     return (
         <div>
@@ -129,8 +129,6 @@ export default function ListProduct() {
                         flex flex-col items-center justify-center
                         lg:flex lg:flex-row
                         w-full bg-whiteEco-200 p-10 gap-[100px] mt-7
-                        translate-x-[-100%]
-                        slides
                     `}>
                         <div className="flex justify-center items-center flex-col max-w-[260px] gap-7">
                             <div className="flex justify-center flex-col gap-2">
