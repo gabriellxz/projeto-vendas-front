@@ -1,14 +1,50 @@
 import ButtonDark from "../../../components/Button-dark/button-dark";
+import { useContext } from "react";
+import { DataUser } from "../../../context/dataUser";
+import IconEdit from "../../../svg/icon-edit";
 
 export default function Perfil() {
+
+    const user = useContext(DataUser);
+
     return (
-        <>
-            <div className="flex items-center justify-between px-[55px] pt-[30px]">
+        <div className="px-[55px] pt-[30px]">
+            <div className="flex items-center justify-between">
                 <span className="text-3xl uppercase font-bold">Minha conta</span>
                 <button>
-                    <ButtonDark text="Verificar meus pedidos"/>
+                    <ButtonDark text="Verificar meus pedidos" />
                 </button>
             </div>
-        </>
+            <div className="mt-[50px] border border-zinc-500 rounded-[10px] shadow-md shadow-zinc-300">
+                <div className="flex items-center justify-between border border-b-zinc-500 px-[50px] py-2">
+                    <span className="uppercase text-2xl">Dados pessoais</span>
+                    <button className="bg-greenEco-200 p-2 rounded-[5px]">
+                        <IconEdit style="text-white w-[30px] h-[30px]" />
+                    </button>
+                </div>
+                <div className="px-[40px] py-8">
+                    <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
+                            <span>Nome</span>
+                            <input type="text" value={user?.name} className="border border-zinc-500 rounded-md w-full p-2" />
+                        </div>
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
+                            <span>Telefone</span>
+                            <input type="text" value={user?.Telefone} className="border border-zinc-500 rounded-md w-full p-2" />
+                        </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
+                            <span>Email</span>
+                            <input type="text" value={user?.email} className="border border-zinc-500 rounded-md w-full p-2"/>
+                        </div>
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
+                            <span>CPF/CNPJ</span>
+                            <input type="text" value={user?.CPF} className="border border-zinc-500 rounded-md w-full p-2"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }

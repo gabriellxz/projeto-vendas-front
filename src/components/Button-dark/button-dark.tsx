@@ -1,5 +1,5 @@
 interface Props {
-    text: string;
+    text?: string;
     login?: () => void;
     propsBtn?: (e:any) => void;
     filePost?: (produtoId:number) => void;

@@ -6,6 +6,8 @@ interface UserDecoded {
     id: number;
     name: string;
     email: string;
+    Telefone: string;
+    CPF: string;
     role: number | string;
 }
 

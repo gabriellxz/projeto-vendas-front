@@ -50,7 +50,7 @@ export default function ProdutoEstoque() {
                         <td className="px-1 cursor-pointer">{
                             openButton &&
                             <span className="flex">
-                                <span><IconEdit onClickEdit={() => handleOpenModalEdit(product)} /></span>
+                                <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(product)} /></span>
                                 <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>
                             </span>
                         }</td>
