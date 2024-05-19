@@ -1,5 +1,5 @@
 interface Props {
-    onClickTrash: () => void;
+    onClickTrash?: () => void;
 }
 
 export default function TrashIcon(props:Props) {
