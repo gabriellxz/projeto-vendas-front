@@ -82,7 +82,7 @@ export default function ProdutoEstoque() {
     return (
         <div>
             <TopDashboard title="Produtos e estoque" titleRoute="Produtos e estoque" />
-            <div className="flex flex-col gap-[28px] select-none">
+            <div className="flex flex-col sm:flex-row gap-[28px] select-none">
                 <div className="flex flex-col gap-[20px] mt-[30px] sm:max-w-[380px] w-full">
                     <CardDashboard
                         titleCard1={"Modificar estoque"}
