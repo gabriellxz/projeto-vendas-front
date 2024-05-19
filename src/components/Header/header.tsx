@@ -85,9 +85,9 @@ export default function Header() {
                                                 </li>
                                                 <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                     <UserIcon />
-                                                    <span className="flex justify-start w-full">
+                                                    <Link to={"/home/perfil"} className="flex justify-start w-full">
                                                         usuário
-                                                    </span>
+                                                    </Link>
                                                 </li>
                                                 <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                     <BagIcon />
