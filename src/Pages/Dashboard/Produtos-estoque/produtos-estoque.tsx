@@ -13,6 +13,7 @@ import useCategory from "../../../hook/useCategory"
 import api from "../../../config/config"
 import { AxiosError, AxiosResponse } from "axios"
 import TrashIcon from "../../../svg/trash-icon"
+import { toast } from "react-toastify"
 
 export default function ProdutoEstoque() {
 
@@ -47,8 +48,10 @@ export default function ProdutoEstoque() {
                         <td className="w-full text-center">{p.nome}</td>
                         <td className="w-full text-center">{product.estoque}</td>
                         <td className="px-1 cursor-pointer">{
-                            openButton && <span className="flex">
-                                <span onClick={() => handleOpenModalEdit(product)}><IconEdit /></span> <span onClick={() => deleteProduct(product.id_produto)}><TrashIcon/></span>
+                            openButton &&
+                            <span className="flex">
+                                <span><IconEdit onClickEdit={() => handleOpenModalEdit(product)} /></span>
+                                <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>
                             </span>
                         }</td>
                     </tr>
@@ -60,16 +63,49 @@ export default function ProdutoEstoque() {
     async function deleteProduct(id: number) {
         if (token) {
             try {
-                await api.delete(`/Product/${id}`, {headers:{
-                    "Authorization": "Bearer " + JSON.parse(token)
-                }})
-                    .then((response: AxiosResponse) => {
-                        console.log(response)
-                        setCategoria(categoria.filter((c: Category) => c.id_produto !== id))
-                    }).catch((error: AxiosError) => {
-                        console.log(error)
+                await api.delete(`/Product/${id}`, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                }).then((response: AxiosResponse) => {
+                    console.log(response)
+
+                    toast.success("Produto excluido com sucesso com sucesso!", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
                     })
+
+                    setCategoria(categoria.filter((c: Category) => c.id_produto !== id))
+                }).catch((error: AxiosError) => {
+                    toast.error("Não foi possivel excluir o produto.", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
+                    console.log(error)
+                })
             } catch (error) {
+                toast.error("Não foi possivel excluir o produto.", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
                 console.log(error)
             }
         }
