@@ -18,7 +18,7 @@ export default function SlidesMiniCard() {
                         `}>
                 <div className="overflow-x-scroll flex gap-4">
                     {
-                        product.slice(0, 4).filter((product: ProdutosDTO) => product.oferta == true).map((product: ProdutosDTO) => (
+                        product.slice(0, 2).filter((product: ProdutosDTO) => product.oferta == true).map((product: ProdutosDTO) => (
                             <MiniCard key={product.id_produto} iProduto={product} />
                         ))
                     }
