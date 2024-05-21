@@ -34,7 +34,7 @@ export default function Header() {
                 hidden p-5
                 lg:flex lg:items-center lg:justify-end
                 `}>
-                    <div className="flex justify-between max-w-[800px] w-full">
+                    <div className="flex justify-between max-w-[55%] w-full">
                         <Link to={"/home"} className="">
                             <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
                         </Link>
