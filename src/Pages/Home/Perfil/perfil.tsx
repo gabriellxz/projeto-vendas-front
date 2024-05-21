@@ -34,7 +34,7 @@ export default function Perfil() {
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
                             <span>Telefone</span>
-                            <input type="text" value={user?.Telefone} className="border border-zinc-500 rounded-md w-full p-2" />
+                            <input type="text" value={user?.telefone} className="border border-zinc-500 rounded-md w-full p-2" />
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
