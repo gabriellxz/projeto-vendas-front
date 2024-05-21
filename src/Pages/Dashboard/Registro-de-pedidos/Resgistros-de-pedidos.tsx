@@ -5,7 +5,7 @@ import TopDashboard from "../../../components/Top-dashboard/top-dashboard";
 import usePedidos from "../../../hook/usePedidos";
 import Pedidos from "../../../types/pedidos";
 import { useState } from "react";
-
+import { motion } from "framer-motion"
 
 export default function RegistroDePedidos() {
 
@@ -45,7 +45,16 @@ export default function RegistroDePedidos() {
         <>
             <div>
                 <TopDashboard title={"Registro de pedidos"} titleRoute={"Registro de pedidos"} />
-                <div className="sm:flex gap-[28px] select-none">
+                <motion.div className="sm:flex gap-[28px] select-none"
+                    initial={{
+                        opacity: 0,
+                        translateX: 160
+                    }}
+                    animate={{
+                        opacity: 1,
+                        translateX: 0
+                    }}
+                >
                     <LayoutPedidos
                         titleLayout="Pedidos"
                         th1={"Cliente"}
@@ -63,9 +72,10 @@ export default function RegistroDePedidos() {
                             titleCard3={"Histórico de pedidos"}
                             orderUserLength={orderUser.length}
                             styleCard={"font-bold flex flex-col justify-center gap-2"}
+
                         />
                     </div>
-                </div>
+                </motion.div>
             </div>
         </>
     )

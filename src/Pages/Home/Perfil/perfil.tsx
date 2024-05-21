@@ -2,13 +2,17 @@ import ButtonDark from "../../../components/Button-dark/button-dark";
 import { useContext } from "react";
 import { DataUser } from "../../../context/dataUser";
 import IconEdit from "../../../svg/icon-edit";
+import { motion } from "framer-motion"
 
 export default function Perfil() {
 
     const user = useContext(DataUser);
 
     return (
-        <div className="px-[55px] pt-[30px]">
+        <motion.div className="px-[55px] pt-[30px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+        >
             <div className="flex items-center justify-between">
                 <span className="text-3xl uppercase font-bold">Minha conta</span>
                 <button>
@@ -36,15 +40,15 @@ export default function Perfil() {
                     <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
                             <span>Email</span>
-                            <input type="text" value={user?.email} className="border border-zinc-500 rounded-md w-full p-2"/>
+                            <input type="text" value={user?.email} className="border border-zinc-500 rounded-md w-full p-2" />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
                             <span>CPF/CNPJ</span>
-                            <input type="text" value={user?.CPF} className="border border-zinc-500 rounded-md w-full p-2"/>
+                            <input type="text" value={user?.CPF} className="border border-zinc-500 rounded-md w-full p-2" />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

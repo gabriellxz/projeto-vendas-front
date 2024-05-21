@@ -20,65 +20,68 @@ import ProdutoEstoque from "../Pages/Dashboard/Produtos-estoque/produtos-estoque
 import DetalhesDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Detalhes-de-pedidos/detalhes-de-pedidos";
 import PainelAdministrativo from "../Pages/Dashboard/Painel-administrativo/painel-administrativo";
 import Perfil from "../Pages/Home/Perfil/perfil";
+import { AnimatePresence } from "framer-motion";
 
 export default function RoutesApp() {
     return (
-        <BrowserRouter>
-            <UserAutenticadoProvider>
-                <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="cadastro" element={<Cadastro />} />
-                    <Route path="home" element={
-                        <UserAutenticadoProvider>
-                            <CustomRoutes>
-                                <DataUserProvider>
-                                    <Home />
-                                </DataUserProvider>
-                            </CustomRoutes>
-                        </UserAutenticadoProvider>
-                    }>
-                        <Route index element={<ListProduct />} />
-                        <Route path="catalogo-produtos" element={<ListProduct />} />
-                        <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
-                        <Route path="carrinho" element={<Cart />} />
-                        <Route path="criar-endereço" element={<FormEndereco />} />
-                        <Route path="perfil" element={<Perfil />} />
-                    </Route>
-                    <Route path="cadastro-produtos" element={
-                        <UserAutenticadoProvider>
-                            <CustomRoutes>
-                                <NivelAccess>
-                                    <CadastroProdutos />
-                                </NivelAccess>
-                            </CustomRoutes>
-                        </UserAutenticadoProvider>
-                    } />
-                    <Route path="forget" element={<Forget />} />
-                    <Route path="changePass" element={
-                        <UserAutenticadoProvider>
-                            <CustomRoutes>
-                                <ChangePass />
-                            </CustomRoutes>
-                        </UserAutenticadoProvider>
-                    } />
-                    <Route path="dashboard" element={
-                        <UserAutenticadoProvider>
-                            <CustomRoutes>
-                                <NivelAccess>
-                                    <HeaderDashboard />
-                                </NivelAccess>
-                            </CustomRoutes>
-                        </UserAutenticadoProvider>
-                    }>
-                        <Route index element={<RegistroDePedidos />} />
-                        <Route path="registro-de-pedidos" element={<RegistroDePedidos />}/>
-                        <Route path="detalhes-de-pedidos/:userId" element={<DetalhesDePedidos />} />
-                        <Route path="produto-e-estoque" element={<ProdutoEstoque />} />
-                        <Route path="painel-administrativo" element={<PainelAdministrativo />} />
-                    </Route>
-                    <Route path="acesso-negado" element={<PageError />} />
-                </Routes>
-            </UserAutenticadoProvider >
-        </BrowserRouter >
+        <AnimatePresence>
+            <BrowserRouter>
+                <UserAutenticadoProvider>
+                    <Routes>
+                        <Route path="/" element={<Login />} />
+                        <Route path="cadastro" element={<Cadastro />} />
+                        <Route path="home" element={
+                            <UserAutenticadoProvider>
+                                <CustomRoutes>
+                                    <DataUserProvider>
+                                        <Home />
+                                    </DataUserProvider>
+                                </CustomRoutes>
+                            </UserAutenticadoProvider>
+                        }>
+                            <Route index element={<ListProduct />} />
+                            <Route path="catalogo-produtos" element={<ListProduct />} />
+                            <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
+                            <Route path="carrinho" element={<Cart />} />
+                            <Route path="criar-endereço" element={<FormEndereco />} />
+                            <Route path="perfil" element={<Perfil />} />
+                        </Route>
+                        <Route path="cadastro-produtos" element={
+                            <UserAutenticadoProvider>
+                                <CustomRoutes>
+                                    <NivelAccess>
+                                        <CadastroProdutos />
+                                    </NivelAccess>
+                                </CustomRoutes>
+                            </UserAutenticadoProvider>
+                        } />
+                        <Route path="forget" element={<Forget />} />
+                        <Route path="changePass" element={
+                            <UserAutenticadoProvider>
+                                <CustomRoutes>
+                                    <ChangePass />
+                                </CustomRoutes>
+                            </UserAutenticadoProvider>
+                        } />
+                        <Route path="dashboard" element={
+                            <UserAutenticadoProvider>
+                                <CustomRoutes>
+                                    <NivelAccess>
+                                        <HeaderDashboard />
+                                    </NivelAccess>
+                                </CustomRoutes>
+                            </UserAutenticadoProvider>
+                        }>
+                            <Route index element={<RegistroDePedidos />} />
+                            <Route path="registro-de-pedidos" element={<RegistroDePedidos />} />
+                            <Route path="detalhes-de-pedidos/:userId" element={<DetalhesDePedidos />} />
+                            <Route path="produto-e-estoque" element={<ProdutoEstoque />} />
+                            <Route path="painel-administrativo" element={<PainelAdministrativo />} />
+                        </Route>
+                        <Route path="acesso-negado" element={<PageError />} />
+                    </Routes>
+                </UserAutenticadoProvider >
+            </BrowserRouter>
+        </AnimatePresence>
     )
 }

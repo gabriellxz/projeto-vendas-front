@@ -5,13 +5,17 @@ import SumarioCompras from "../../../components/Sumario-compras/sumario-compras"
 import useCart from "../../../hook/useCart";
 import TrashIcon from "../../../svg/trash-icon";
 import { CartOrderUser } from "../../../types/cart";
+import { motion } from "framer-motion"
 
 export default function Cart() {
 
     const { loadingCart, cart, clearCart } = useCart()
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1}}
+        >
             {
                 loadingCart ? <Loading styleLoading="absolute top-[50%] left-[50%] bottom-[50%] right-[50%]" /> : (
                     cart.length > 0 ? (
@@ -31,7 +35,7 @@ export default function Cart() {
                                     }
                                 </div>
                                 <div className="p-5 md:max-w-[257px] lg:mr-[100px] w-full mt-5">
-                                    <SumarioCompras iCart={cart}/>
+                                    <SumarioCompras iCart={cart} />
                                 </div>
                             </div>
                         </div>
@@ -39,12 +43,12 @@ export default function Cart() {
                 )
             }
             <div className="mt-[200px]">
-                <div  className="pl-10">
+                <div className="pl-10">
                     <span className="uppercase text-2xl">Recomendado para você</span>
                 </div>
-                <Catalog reload={() => {}} />
+                <Catalog reload={() => { }} />
             </div>
-        </>
+        </motion.div>
 
     )
 }

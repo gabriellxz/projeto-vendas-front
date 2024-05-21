@@ -6,11 +6,12 @@ import { ToastContainer } from "react-toastify"
 // import usePayment from "../../../hook/usePayment";
 import Loading from "../../../components/Loading/loading";
 import '../../../global.css'
+import { motion } from "framer-motion"
 
 export default function FormEndereco() {
 
     function hanldeKeyDown(event: any) {
-        if(event.key === "KeyUp" || event.key === "KeyDown") {
+        if (event.key === "KeyUp" || event.key === "KeyDown") {
             event.preventDefault();
         }
     }
@@ -41,7 +42,16 @@ export default function FormEndereco() {
 
     return (
         <>
-            <div className="flex justify-center p-5">
+            <motion.div className="flex justify-center p-5"
+                initial={{
+                    opacity: 0,
+                    translateY: 160
+                }}
+                animate={{
+                    opacity: 1,
+                    translateY: 0
+                }}
+            >
                 <form className="max-w-[670px] w-full mt-5" onSubmit={handlePostEndereco}>
                     <div>
                         <h1 className="text-xl font-bold mb-2">Informações para entrega</h1>
@@ -95,7 +105,7 @@ export default function FormEndereco() {
                         </div>
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Número</label>
-                            <input type="number" name="numero" value={numero ? numero : ""} onKeyDown={hanldeKeyDown} onChange={handleChangeNumero} className="input border border-1 border-black outline-none p-2"/>
+                            <input type="number" name="numero" value={numero ? numero : ""} onKeyDown={hanldeKeyDown} onChange={handleChangeNumero} className="input border border-1 border-black outline-none p-2" />
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
@@ -165,7 +175,7 @@ export default function FormEndereco() {
                         {loading ? <Loading /> : <ButtonDark text="Continue" />}
                     </div>
                 </form>
-            </div>
+            </motion.div>
             <ToastContainer />
         </>
     )

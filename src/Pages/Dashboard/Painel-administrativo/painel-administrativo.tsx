@@ -6,6 +6,7 @@ import usePedidos from "../../../hook/usePedidos";
 import Pedidos from "../../../types/pedidos";
 import useListProduct from "../../../hook/useListProduct";
 import ProdutosDTO from "../../../types/produto";
+import { motion } from "framer-motion"
 
 export default function PainelAdministrativo() {
 
@@ -54,30 +55,41 @@ export default function PainelAdministrativo() {
     return (
         <div>
             <TopDashboard title={"Painel administrativo"} titleRoute={"Painel administrativo"} />
-            <div className="flex flex-col sm:flex sm:flex-row gap-[20px] justify-between mt-[30px] w-full">
-                <CardDashboard
-                    titleCard1={"Novos pedidos"}
-                    titleCard2={"Clientes"}
-                    titleCard3={"Lucro total"}
-                    styleCard={"font-bold flex flex-col justify-center gap-2 w-full"}
-                    orderUserLength={orderUser.length}
-                />
-            </div>
-            <div className="flex flex-col md:flex md:flex-row gap-[28px] select-none">
-                <LayoutPedidos
-                    titleLayout="Pedidos"
-                    th1={"Cliente"}
-                    th2={"Data"}
-                    th3={"Status"}
-                    styleTable={""}
-                    component={<TableOrder />}
-                />
-                <LayoutPedidos
-                    titleLayout="Estoque"
-                    styleTable={""}
-                    component={<TableEstoque/>}
-                />
-            </div>
+            <motion.div
+                initial={{
+                    opacity: 0,
+                    translateX: 160
+                }}
+                animate={{
+                    opacity: 1,
+                    translateX: 0
+                }}
+            >
+                <div className="flex flex-col sm:flex sm:flex-row gap-[20px] justify-between mt-[30px] w-full">
+                    <CardDashboard
+                        titleCard1={"Novos pedidos"}
+                        titleCard2={"Clientes"}
+                        titleCard3={"Lucro total"}
+                        styleCard={"font-bold flex flex-col justify-center gap-2 w-full"}
+                        orderUserLength={orderUser.length}
+                    />
+                </div>
+                <div className="flex flex-col md:flex md:flex-row gap-[28px] select-none">
+                    <LayoutPedidos
+                        titleLayout="Pedidos"
+                        th1={"Cliente"}
+                        th2={"Data"}
+                        th3={"Status"}
+                        styleTable={""}
+                        component={<TableOrder />}
+                    />
+                    <LayoutPedidos
+                        titleLayout="Estoque"
+                        styleTable={""}
+                        component={<TableEstoque />}
+                    />
+                </div>
+            </motion.div>
         </div>
     )
 }

@@ -6,6 +6,9 @@ interface PropsCard {
     styleCard?: string;
     link?: () => void;
     editProductFunction?: () => void;
+    // svg1?: any;
+    // svg2?: any;
+    // svg3?: any;
 }
 
 export default function CardDashboard(props:PropsCard) {

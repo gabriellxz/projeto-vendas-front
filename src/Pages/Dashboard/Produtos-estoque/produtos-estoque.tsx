@@ -14,6 +14,7 @@ import api from "../../../config/config"
 import { AxiosError, AxiosResponse } from "axios"
 import TrashIcon from "../../../svg/trash-icon"
 import { toast } from "react-toastify"
+import { motion } from "framer-motion"
 
 export default function ProdutoEstoque() {
 
@@ -118,7 +119,16 @@ export default function ProdutoEstoque() {
     return (
         <div>
             <TopDashboard title="Produtos e estoque" titleRoute="Produtos e estoque" />
-            <div className="flex flex-col sm:flex-row gap-[28px] select-none">
+            <motion.div className="flex flex-col sm:flex-row gap-[28px] select-none"
+                initial={{
+                    opacity: 0,
+                    translateX: 160
+                }}
+                animate={{
+                    opacity: 1,
+                    translateX: 0
+                }}
+            >
                 <div className="flex flex-col gap-[20px] mt-[30px] sm:max-w-[380px] w-full">
                     <CardDashboard
                         titleCard1={"Modificar estoque"}
@@ -137,7 +147,7 @@ export default function ProdutoEstoque() {
                     styleTable={""}
                     component={<TableEstoque />}
                 />
-            </div>
+            </motion.div>
             {openModalEdit && <FormEditProduct iProduct={selectedProduct} closeModal={closeModalEdit} />}
         </div>
     )

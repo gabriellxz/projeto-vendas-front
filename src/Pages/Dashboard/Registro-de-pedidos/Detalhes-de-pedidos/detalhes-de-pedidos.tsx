@@ -6,6 +6,7 @@ import { UserAutenticado } from "../../../../context/authContext"
 import api from "../../../../config/config"
 import Pedidos from "../../../../types/pedidos"
 import InforProduct from "../../../../components/Infor-product/infor-product"
+import { motion } from "framer-motion"
 
 export default function DetalhesDePedidos() {
 
@@ -39,7 +40,16 @@ export default function DetalhesDePedidos() {
     return (
         <div className="select-none">
             <TopDashboard title="Detalhes de pedidos" titleRoute="Detalhes do pedido" />
-            <div className="flex flex-col gap-[36px] mt-[30px]">
+            <motion.div className="flex flex-col gap-[36px] mt-[30px]"
+                initial={{
+                    opacity: 0,
+                    translateX: 160
+                }}
+                animate={{
+                    opacity: 1,
+                    translateX: 0
+                }}
+            >
                 <div className="bg-white w-full px-8 py-2 rounded-[8px] shadow-md shadow-zinc-600">
                     <div className="flex justify-between items-center">
                         <span className="text-xl">Informações do cliente</span>
@@ -84,11 +94,11 @@ export default function DetalhesDePedidos() {
                     {
                         openProduct &&
                         <div>
-                            <InforProduct details={detailsUser}/>
+                            <InforProduct details={detailsUser} />
                         </div>
                     }
                 </div>
-            </div>
+            </motion.div>
         </div>
     )
 }
