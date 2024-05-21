@@ -12,6 +12,7 @@ import { UserAutenticado } from "../../context/authContext";
 import IconPlus from "../../svg/plus-icon";
 import { DataUser } from "../../context/dataUser";
 import IconHome from "../../svg/icon-home";
+import { AnimatePresence, motion } from "framer-motion"
 
 export default function Header() {
 
@@ -37,19 +38,34 @@ export default function Header() {
                         <Link to={"/home"} className="">
                             <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
                         </Link>
-                        <div className={`${token ? "flex items-center gap-5" : "hidden"}`}>
-                            <SearchIcon />
-                            <UserIcon />
-                            <BagIcon />
-                            <Link to={"/dashboard"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
-                                <IconPlus />
-                            </Link>
-                            <Link to={"/home"}>
-                                <IconHome />
-                            </Link>
-                            <Link to={"/"} onClick={logout}>
-                                <ButtonLogout />
-                            </Link>
+                        <div className="flex items-center gap-5">
+                            <AnimatePresence>
+                                {
+                                    open &&
+                                    <motion.div className={`${token ? "flex items-center gap-5" : "hidden"}`}
+                                        initial={{ opacity: 0, translateX: 50 }}
+                                        animate={{ opacity: 1, translateX: 0 }}
+                                        exit={{ opacity: 0, translateX: 50 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <SearchIcon />
+                                        <UserIcon />
+                                        <BagIcon />
+                                        <Link to={"/dashboard"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
+                                            <IconPlus />
+                                        </Link>
+                                        <Link to={"/home"}>
+                                            <IconHome />
+                                        </Link>
+                                        <Link to={"/"} onClick={logout}>
+                                            <ButtonLogout />
+                                        </Link>
+                                    </motion.div>
+                                }
+                            </AnimatePresence>
+                            <div>
+                                {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
+                            </div>
                         </div>
                     </div>
                 </header>
