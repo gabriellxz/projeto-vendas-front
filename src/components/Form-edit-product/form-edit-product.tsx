@@ -1,5 +1,5 @@
 import { useState, useContext, ChangeEvent, SyntheticEvent } from "react";
-import { UserAutenticado } from "../../context/authContext"
+import { UserAutenticado } from "../../context/authContext";
 import ProdutosDTO from "../../types/produto";
 import api from "../../config/config";
 import useCategory from "../../hook/useCategory";
@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { AxiosError, AxiosResponse } from "axios";
 import Loading from "../Loading/loading";
 import CloseNavBar from "../../svg/closeNavbar";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface PropsForm {
     iProduct: ProdutosDTO | null;
@@ -29,7 +30,7 @@ export default function FormEditProduct(props: PropsForm) {
     function onChangeNomeProduto(e: ChangeEvent<HTMLInputElement>) {
         setNomeProduto(e.target.value)
     }
-    
+
     function onChangePrecoEstoque(e: ChangeEvent<HTMLInputElement>) {
         const precoEstoque: number = parseFloat(e.target.value)
         setEstoqueProduto(precoEstoque)
@@ -77,7 +78,7 @@ export default function FormEditProduct(props: PropsForm) {
             precoProduto !== undefined &&
             estoqueProduto !== undefined &&
             descricaoProduto !== "" &&
-            ofertaProduto !== undefined 
+            ofertaProduto !== undefined
         ) {
             if (token) {
                 try {
@@ -145,67 +146,82 @@ export default function FormEditProduct(props: PropsForm) {
         }
     }
 
-    
+
 
     return (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md shadow-zinc-500 sm:max-w-[700px] w-full p-5 rounded-xl">
-            <div>
-                <span className="text-3xl font-bold">Editar produto</span>
-            </div>
-            <form className="flex flex-col gap-6 p-4" onSubmit={putProducts}>
+        <AnimatePresence>
+            <motion.div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md shadow-zinc-500 sm:max-w-[700px] w-full p-5 rounded-xl"
+                initial={{
+                    opacity: 0,
+                }}
+                animate={{
+                    opacity: 1,
+                }}
+                transition={{
+                    duration: 0.5
+                }}
+                exit={{
+                    opacity: 0,
+                }}
+            >
                 <div>
-                    <span onClick={() => props.closeModal(false)}><CloseNavBar /></span>
+                    <span className="text-3xl font-bold">Editar produto</span>
                 </div>
-                <div>
-                    <span>Nome do produto</span>
-                    <input type="text" name="nome_produto" onChange={onChangeNomeProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={nomeProduto} />
-                </div>
-                <div className="flex flex-col sm:flex sm:flex-row gap-8">
+                <form className="flex flex-col gap-6 p-4" onSubmit={putProducts}>
                     <div>
-                        <span>Valor do produto</span>
-                        <input type="number" name="preco" onChange={onChangePrecoProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={precoProduto} />
+                        <span onClick={() => props.closeModal(false)}><CloseNavBar /></span>
                     </div>
                     <div>
-                        <span>Quantidade em estoque</span>
-                        <input type="number" name="estoque" onChange={onChangePrecoEstoque} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={estoqueProduto} />
+                        <span>Nome do produto</span>
+                        <input type="text" name="nome_produto" onChange={onChangeNomeProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={nomeProduto} />
                     </div>
-                    <div>
-                        <span>Categoria</span>
-                        <select name="categoryId" value={categoryProduto} onChange={onChangeCategoriaProduto} id="" className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200">
-                            {
-                                categoria.map((c: Category) => (
-                                    <option value={c.id}>{c.nome}</option>
-                                ))
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <span>Descrição</span>
-                    <textarea name="descricao" onChange={onChangeDescricaoProduto} id="" value={descricaoProduto} className="resize-none w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200"></textarea>
-                </div>
-                <div>
-                    <span className="text-2xl">Produto em oferta: {props.iProduct?.oferta === true ? "Sim" : "Não"}</span>
-                    <div className="flex gap-[30px] py-5">
-                        <div className="flex items-center gap-1">
-                            <span className="text-xl">Sim</span>
-                            <input type="radio" name="oferta" value={"true"} onChange={onChangeOfertaProduto} className="w-5 h-5 cursor-pointer" />
+                    <div className="flex flex-col sm:flex sm:flex-row gap-8">
+                        <div>
+                            <span>Valor do produto</span>
+                            <input type="number" name="preco" onChange={onChangePrecoProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={precoProduto} />
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-xl">Não</span>
-                            <input type="radio" name="oferta" value={"false"} onChange={onChangeOfertaProduto} className="w-5 h-5 cursor-pointer" />
+                        <div>
+                            <span>Quantidade em estoque</span>
+                            <input type="number" name="estoque" onChange={onChangePrecoEstoque} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={estoqueProduto} />
+                        </div>
+                        <div>
+                            <span>Categoria</span>
+                            <select name="categoryId" value={categoryProduto} onChange={onChangeCategoriaProduto} id="" className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200">
+                                {
+                                    categoria.map((c: Category) => (
+                                        <option value={c.id}>{c.nome}</option>
+                                    ))
+                                }
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div className="w-full flex justify-center">
-                    {
-                        loading ? <Loading />
-                            :
-                            <button className="p-3 bg-green-300 text-green-800 font-bold max-w-[400px] w-full rounded-md text-xl">Salvar alterações</button>
-                    }
-                </div>
-            </form>
-            <ToastContainer />
-        </div>
+                    <div>
+                        <span>Descrição</span>
+                        <textarea name="descricao" onChange={onChangeDescricaoProduto} id="" value={descricaoProduto} className="resize-none w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200"></textarea>
+                    </div>
+                    <div>
+                        <span className="text-2xl">Produto em oferta: {props.iProduct?.oferta === true ? "Sim" : "Não"}</span>
+                        <div className="flex gap-[30px] py-5">
+                            <div className="flex items-center gap-1">
+                                <span className="text-xl">Sim</span>
+                                <input type="radio" name="oferta" value={"true"} onChange={onChangeOfertaProduto} className="w-5 h-5 cursor-pointer" />
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <span className="text-xl">Não</span>
+                                <input type="radio" name="oferta" value={"false"} onChange={onChangeOfertaProduto} className="w-5 h-5 cursor-pointer" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full flex justify-center">
+                        {
+                            loading ? <Loading />
+                                :
+                                <button className="p-3 bg-green-300 text-green-800 font-bold max-w-[400px] w-full rounded-md text-xl">Salvar alterações</button>
+                        }
+                    </div>
+                </form>
+                <ToastContainer />
+            </motion.div>
+        </AnimatePresence>
     )
 }
