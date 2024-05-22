@@ -59,7 +59,9 @@ export default function FormEditProduct(props: PropsForm) {
         e.preventDefault()
         setLoading(true)
 
-        const oferta = ofertaProduto === "true";
+        const oferta = ofertaProduto === "true" ? true : false;
+
+        console.log("boolean: ", oferta)
 
         const data = {
             id_produto: props.iProduct?.id_produto,
@@ -105,7 +107,7 @@ export default function FormEditProduct(props: PropsForm) {
 
                         setTimeout(() => {
                             if (response.status === 200) {
-                                location.reload()
+                                // location.reload()
                                 props.closeModal(false)
                             }
                         }, 2000)
