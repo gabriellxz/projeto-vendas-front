@@ -101,17 +101,17 @@ export default function Header() {
                                                 </li>
                                                 <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                     <UserIcon />
-                                                    <Link to={"/home/perfil"} className="flex justify-start w-full">
+                                                    <Link to={"/home/perfil"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
                                                         usuário
                                                     </Link>
                                                 </li>
                                                 <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                     <BagIcon />
-                                                    <Link to={"/home/carrinho"} className="flex justify-start w-full">
+                                                    <Link to={"/home/carrinho"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
                                                         carrinho
                                                     </Link>
                                                 </li>
-                                                <Link to={"/home"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                                <Link to={"/home"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" onClick={() => setOpen(!open)}>
                                                     <IconHome />
                                                     <span>
                                                         Início

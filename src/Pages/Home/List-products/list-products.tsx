@@ -4,81 +4,71 @@ import SlidesHome from "../../../components/Slides-home/slides-home"
 import Catalog from "../../../components/Catalog/catalog"
 import SlidesMiniCard from '../../../components/Slides-mini-card/slides-mini-card';
 // import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card"; 
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { useLayoutEffect, useRef } from 'react';
 
 export default function ListProduct() {
 
-    const el: any = useRef()
-    const tl: any = useRef()
+    // const el: any = useRef()
+    // const tl: any = useRef()
 
-    useLayoutEffect(() => {
-        gsap.registerPlugin(ScrollTrigger)
-        gsap.context(() => {
-            const mm = gsap.matchMedia();
+    // useLayoutEffect(() => {
+    //     gsap.registerPlugin(ScrollTrigger)
+    //     gsap.context(() => {
+    //         const mm = gsap.matchMedia();
 
-            mm.add("(min-width: 768px)", () => {
-                tl.current = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: ".box-text-title",
-                        scrub: true,
-                        end: "bottom 800px",
-                        start: "top 100px"
-                    }
-                })
-                    .fromTo("#text-1", {
-                        opacity: 0,
-                        y: 160
-                    }, {
-                        opacity: 1,
-                        y: 0
-                    })
-                    .fromTo("#text-2", {
-                        opacity: 0,
-                        y: 160
-                    }, {
-                        opacity: 1,
-                        y: 0
-                    })
-            });
+    //         mm.add("(min-width: 768px)", () => {
+    //             tl.current = gsap.timeline({
+    //                 scrollTrigger: {
+    //                     trigger: ".box-text-title",
+    //                     scrub: true,
+    //                     end: "bottom 800px",
+    //                     start: "top 100px"
+    //                 }
+    //             })
+    //                 .fromTo("#text-1", {
+    //                     opacity: 0,
+    //                     y: 160
+    //                 }, {
+    //                     opacity: 1,
+    //                     y: 0
+    //                 })
+    //                 .fromTo("#text-2", {
+    //                     opacity: 0,
+    //                     y: 160
+    //                 }, {
+    //                     opacity: 1,
+    //                     y: 0
+    //                 })
+    //         });
 
-            mm.add("(max-width: 767px)", () => {
-                tl.current = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: ".box-text-title",
-                        scrub: true,
-                        // markers: true,
-                        end: "bottom 100px",
-                        start: "top 90px"
-                    }
-                })
-                    .fromTo("#text-1", {
-                        opacity: 0,
-                        y: 100
-                    }, {
-                        opacity: 1,
-                        y: 0
-                    })
-                    .fromTo("#text-2", {
-                        opacity: 0,
-                        y: 100
-                    }, {
-                        opacity: 1,
-                        y: 0
-                    })
-            });
+    //         mm.add("(max-width: 767px)", () => {
+    //             tl.current = gsap.timeline({
+    //                 scrollTrigger: {
+    //                     trigger: ".box-text-title",
+    //                     scrub: true,
+    //                     // markers: true,
+    //                     end: "bottom 100px",
+    //                     start: "top 90px"
+    //                 }
+    //             })
+    //                 .fromTo("#text-1", {
+    //                     opacity: 0,
+    //                     y: 100
+    //                 }, {
+    //                     opacity: 1,
+    //                     y: 0
+    //                 })
+    //         });
 
-            return () => {
-                mm.revert();
-            };
-        }, el)
+    //         return () => {
+    //             mm.revert();
+    //         };
+    //     }, el)
 
-        return () => {
-            gsap.killTweensOf(".box-text-title")
-        }
+    //     return () => {
+    //         gsap.killTweensOf(".box-text-title")
+    //     }
 
-    }, [])
+    // }, [])
 
     // useLayoutEffect(() => {
     //     gsap.registerPlugin(ScrollTrigger)
@@ -115,7 +105,7 @@ export default function ListProduct() {
             <SlidesHome />
             <div>
                 <div className="mt-[56px] sm:m-10 box-text-title">
-                    <div className="text-center text-greenEco-200" ref={el}>
+                    <div className="text-center text-greenEco-200">
                         <p className="uppercase font-kaisei text-[13px] sm:text-5xl" id="text-1">elevando sua rotina de cuidados diários</p>
                         <p className="font-inter text-[12px] sm:text-xl" id="text-2">
                             Descubra o Segredo para uma Beleza Autentica
