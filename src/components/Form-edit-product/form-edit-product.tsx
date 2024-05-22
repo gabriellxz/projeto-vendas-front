@@ -107,7 +107,7 @@ export default function FormEditProduct(props: PropsForm) {
 
                         setTimeout(() => {
                             if (response.status === 200) {
-                                // location.reload()
+                                location.reload()
                                 props.closeModal(false)
                             }
                         }, 2000)
