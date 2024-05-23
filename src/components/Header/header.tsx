@@ -1,5 +1,4 @@
 import BagIcon from "../../svg/bag-icon";
-import SearchIcon from "../../svg/search-icon";
 import UserIcon from "../../svg/user-icon";
 import Logo_ecogreen from "../../../public/Cosméticos.svg"
 import ButtonLogout from "../../svg/button-logout";
