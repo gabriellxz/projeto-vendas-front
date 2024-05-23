@@ -7,6 +7,7 @@ import { UserAutenticado } from "../../context/authContext"
 import { AxiosResponse, AxiosError } from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import Loading from "../Loading/loading"
+import { DataUser } from "../../context/dataUser"
 
 
 interface PropsProduct {
@@ -25,6 +26,7 @@ export default function InforProduct(props: PropsProduct) {
     const [loading, setLoading] = useState<boolean>(false)
     const [openEditCode, setOpenEditCode] = useState<boolean>(false)
     const { token } = useContext(UserAutenticado)
+    const user = useContext(DataUser)
 
     function onChangeCode(e: ChangeEvent<HTMLInputElement>) {
         setCodeTracking(e.target.value)
@@ -106,29 +108,31 @@ export default function InforProduct(props: PropsProduct) {
                     <span>Quantidade de produtos: {totalAmount}</span>
                     <span className="font-bold">Total: {Moeda.formatar(precoTotal ? precoTotal : 0)}</span>
                 </div>
-                <div>
-                    <span className="flex flex-col sm:flex sm:flex-row gap-4 sm:items-center">
-                        Nº de rastreamento:
-                        {
-                            props.details?.trackingCode !== null ? <span>{props.details?.trackingCode}</span> :
-                                (
-                                    loading ? <Loading /> :
-                                        <>
-                                            <input type="text" className="outline-none p-1" onChange={onChangeCode} />
-                                            <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
-                                        </>
-                                )
-                        }
-                        {
-                            openEditCode && 
-                            <div className="flex gap-4">
-                                <input type="text" className="outline-none p-1" onChange={onChangeCode} />
-                                <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
-                            </div>
-                        }
-                        <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={() => setOpenEditCode(!openEditCode)}>{openEditCode ? "Fechar" : "Editar"}</button>
-                    </span>
-                </div>
+                {user?.role === 2 ? (
+                    <div>
+                        <span className="flex flex-col sm:flex sm:flex-row gap-4 sm:items-center">
+                            Nº de rastreamento:
+                            {
+                                props.details?.trackingCode !== null ? <span>{props.details?.trackingCode}</span> :
+                                    (
+                                        loading ? <Loading /> :
+                                            <>
+                                                <input type="text" className="outline-none p-1" onChange={onChangeCode} />
+                                                <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
+                                            </>
+                                    )
+                            }
+                            {
+                                openEditCode &&
+                                <div className="flex gap-4">
+                                    <input type="text" className="outline-none p-1" onChange={onChangeCode} />
+                                    <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={putCode}>Enviar</button>
+                                </div>
+                            }
+                            <button className="font-semibold text-white bg-greenEco-100 px-3 py-1 rounded-md" onClick={() => setOpenEditCode(!openEditCode)}>{openEditCode ? "Fechar" : "Editar"}</button>
+                        </span>
+                    </div>
+                ): ""}
             </div>
             <div className="mt-8 flex flex-col gap-[70px] py-5 p-8">
                 {

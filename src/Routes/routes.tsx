@@ -21,6 +21,7 @@ import DetalhesDePedidos from "../Pages/Dashboard/Registro-de-pedidos/Detalhes-d
 import PainelAdministrativo from "../Pages/Dashboard/Painel-administrativo/painel-administrativo";
 import Perfil from "../Pages/Home/Perfil/perfil";
 import { AnimatePresence } from "framer-motion";
+import OrderUser from "../Pages/Home/Order-user/order-user";
 
 export default function RoutesApp() {
     return (
@@ -45,6 +46,7 @@ export default function RoutesApp() {
                             <Route path="carrinho" element={<Cart />} />
                             <Route path="criar-endereço" element={<FormEndereco />} />
                             <Route path="perfil" element={<Perfil />} />
+                            <Route path="meus-pedidos" element={<OrderUser />} />
                         </Route>
                         <Route path="cadastro-produtos" element={
                             <UserAutenticadoProvider>

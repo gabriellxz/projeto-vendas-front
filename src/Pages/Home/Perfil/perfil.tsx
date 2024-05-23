@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { DataUser } from "../../../context/dataUser";
 import IconEdit from "../../../svg/icon-edit";
 import { motion } from "framer-motion"
+import { Link } from "react-router-dom";
 
 export default function Perfil() {
 
@@ -15,9 +16,9 @@ export default function Perfil() {
         >
             <div className="flex items-center justify-between">
                 <span className="text-3xl uppercase font-bold">Minha conta</span>
-                <button>
+                <Link to={"/home/meus-pedidos"}>
                     <ButtonDark text="Verificar meus pedidos" />
-                </button>
+                </Link>
             </div>
             <div className="mt-[50px] border border-zinc-500 rounded-[10px] shadow-md shadow-zinc-300">
                 <div className="flex items-center justify-between border border-b-zinc-500 px-[50px] py-2">
