@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 interface Props {
     reload: () => void;
+    searchItem: string;
 }
 
 export default function Catalog(props: Props) {
@@ -21,20 +22,20 @@ export default function Catalog(props: Props) {
         gsap.registerPlugin(ScrollTrigger)
         gsap.context(() => {
             tl.current = gsap.timeline({
-                scrollTrigger:{
+                scrollTrigger: {
                     trigger: ".card-item",
                     scrub: true,
                     // markers: true,
                     end: "bottom 400px"
                 }
             })
-            .fromTo(".card-item", {
-                opacity: 0,
-                y: 160
-            }, {
-                opacity: 1,
-                y: 0
-            })
+                .fromTo(".card-item", {
+                    opacity: 0,
+                    y: 160
+                }, {
+                    opacity: 1,
+                    y: 0
+                })
         }, el)
 
         return () => {
@@ -42,6 +43,10 @@ export default function Catalog(props: Props) {
         }
 
     }, [])
+
+    const filterProduct = product.filter((product: ProdutosDTO) =>
+        product.nome_produto.toLocaleLowerCase().includes(props.searchItem.toLowerCase())
+    )
 
     return (
         <div ref={el}>
@@ -51,13 +56,14 @@ export default function Catalog(props: Props) {
                     <Loading />
                 ) : (
                     product.length > 0 ? (
-                        product.map((product: ProdutosDTO) => (
+                        filterProduct.map((product) => (
                             <CardProduct key={product.id_produto} iProduto={product} reload={props.reload} />
                         ))
                     ) : (
                         <p>Não existem produtos...</p>
                     )
                 )}
+
             </div>
         </div>
     )

@@ -34,9 +34,9 @@ export default function Header() {
                 hidden p-5
                 lg:flex lg:items-center lg:justify-end
                 `}>
-                    <div className="flex justify-between max-w-[55%] w-full">
+                    <div className="flex items-center justify-between max-w-[100%] w-full">
                         <Link to={"/home"} className="">
-                            <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
+                            <img src={Logo_ecogreen} className="max-w-[100px] w-full" alt="logo_ecogreen" />
                         </Link>
                         <div className="flex items-center gap-5">
                             <AnimatePresence>
@@ -48,7 +48,6 @@ export default function Header() {
                                         exit={{ opacity: 0, translateX: 50 }}
                                         transition={{ duration: 0.5 }}
                                     >
-                                        <SearchIcon />
                                         <UserIcon />
                                         <BagIcon />
                                         <Link to={"/dashboard"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
@@ -93,12 +92,6 @@ export default function Header() {
                                                 flex flex-col items-end gap-5 mt-5 px-[37px]
                                             `}>
                                             <ul className="flex flex-col">
-                                                <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                    <SearchIcon />
-                                                    <span className="flex justify-start w-full">
-                                                        pesquisar
-                                                    </span>
-                                                </li>
                                                 <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                     <UserIcon />
                                                     <Link to={"/home/perfil"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>

@@ -3,102 +3,17 @@ import 'slick-carousel/slick/slick-theme.css';
 import SlidesHome from "../../../components/Slides-home/slides-home"
 import Catalog from "../../../components/Catalog/catalog"
 import SlidesMiniCard from '../../../components/Slides-mini-card/slides-mini-card';
+import { useState, ChangeEvent } from 'react';
+import { motion, AnimatePresence } from "framer-motion"
 // import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card"; 
 
 export default function ListProduct() {
 
-    // const el: any = useRef()
-    // const tl: any = useRef()
+    const [search, setSearch] = useState<string>("")
 
-    // useLayoutEffect(() => {
-    //     gsap.registerPlugin(ScrollTrigger)
-    //     gsap.context(() => {
-    //         const mm = gsap.matchMedia();
-
-    //         mm.add("(min-width: 768px)", () => {
-    //             tl.current = gsap.timeline({
-    //                 scrollTrigger: {
-    //                     trigger: ".box-text-title",
-    //                     scrub: true,
-    //                     end: "bottom 800px",
-    //                     start: "top 100px"
-    //                 }
-    //             })
-    //                 .fromTo("#text-1", {
-    //                     opacity: 0,
-    //                     y: 160
-    //                 }, {
-    //                     opacity: 1,
-    //                     y: 0
-    //                 })
-    //                 .fromTo("#text-2", {
-    //                     opacity: 0,
-    //                     y: 160
-    //                 }, {
-    //                     opacity: 1,
-    //                     y: 0
-    //                 })
-    //         });
-
-    //         mm.add("(max-width: 767px)", () => {
-    //             tl.current = gsap.timeline({
-    //                 scrollTrigger: {
-    //                     trigger: ".box-text-title",
-    //                     scrub: true,
-    //                     // markers: true,
-    //                     end: "bottom 100px",
-    //                     start: "top 90px"
-    //                 }
-    //             })
-    //                 .fromTo("#text-1", {
-    //                     opacity: 0,
-    //                     y: 100
-    //                 }, {
-    //                     opacity: 1,
-    //                     y: 0
-    //                 })
-    //         });
-
-    //         return () => {
-    //             mm.revert();
-    //         };
-    //     }, el)
-
-    //     return () => {
-    //         gsap.killTweensOf(".box-text-title")
-    //     }
-
-    // }, [])
-
-    // useLayoutEffect(() => {
-    //     gsap.registerPlugin(ScrollTrigger)
-    //     const mm = gsap.matchMedia();
-
-    //     mm.add("(min-width: 768px)", () => {
-    //         gsap.to(".slides", {
-    //             x: 0,
-    //             scrollTrigger: {
-    //                 scrub: true,
-    //             }
-    //         })
-    //     });
-
-    //     mm.add("(max-width: 767px)", () => {
-    //         gsap.to(".slides", {
-    //             x: 0,
-    //             scrollTrigger: {
-    //                 scrub: true,
-    //                 end: "bottom 2000px",
-    //             }
-    //         })
-    //     });
-
-    //     return () => {
-    //         mm.revert();
-    //         gsap.killTweensOf(".slides")
-    //     }
-
-    // }, [])
+    function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+        setSearch(e.target.value)
+    }
 
     return (
         <div>
@@ -137,8 +52,30 @@ export default function ListProduct() {
                         <div className='w-full text-center mt-[40px]'>
                             <span className='uppercase text-2xl'>nossos produtos</span>
                         </div>
+                        <div className="flex justify-center w-full pt-5">
+                            <AnimatePresence>
+                                <motion.div className="flex justify-center w-full px-5"
+                                    initial={{
+                                        opacity: 0,
+                                        translateX: 50
+                                    }}
+
+                                    animate={{
+                                        opacity: 1,
+                                        translateX: 0
+                                    }}
+
+                                    exit={{
+                                        opacity: 0,
+                                        translateX: 50
+                                    }}
+                                >
+                                    <input type="text" className="border border-black outline-none max-w-[600px] w-full p-1" placeholder="Buscar por..." onChange={handleSearch} />
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
                         <div className='flex justify-center'>
-                            <Catalog reload={() => { }} />
+                            <Catalog searchItem={search} reload={() => { }} />
                         </div>
                     </div>
                 </div>
