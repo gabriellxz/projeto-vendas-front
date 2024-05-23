@@ -1,7 +1,7 @@
 import CardDashboard from "../../../components/Cards-dashboard/cards-dashboard"
 import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos"
 import TopDashboard from "../../../components/Top-dashboard/top-dashboard"
-import useListProduct from "../../../hook/useListProduct"
+// import useListProduct from "../../../hook/useListProduct"
 import ProdutosDTO from "../../../types/produto"
 import { useNavigate } from "react-router-dom"
 import { useState, useContext } from "react"
@@ -18,7 +18,7 @@ import { motion } from "framer-motion"
 
 export default function ProdutoEstoque() {
 
-    const { product } = useListProduct()
+    // const { product } = useListProduct()
     const { categoria, setCategoria } = useCategory()
     const { token } = useContext(UserAutenticado)
     const navigate = useNavigate()
@@ -43,22 +43,20 @@ export default function ProdutoEstoque() {
 
     function TableEstoque() {
         return (
-            product.map((pdto: ProdutosDTO) => (
-                categoria.map((p: Category) => (
-                    p.Produtos.map((product: ProdutosDTO) => (
-                        <tr className={`w-full flex justify-between items-center mt-5`} key={product.id_produto}>
-                            <td className="w-full text-left">{pdto.nome_produto}</td>
-                            <td className="w-full text-center">{p.nome}</td>
-                            <td className="w-full text-center">{pdto.estoque}</td>
-                            <td className="px-1 cursor-pointer">{
-                                openButton &&
-                                <span className="flex">
-                                    <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(pdto)} /></span>
-                                    <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>
-                                </span>
-                            }</td>
-                        </tr>
-                    ))
+            categoria.map((p: Category) => (
+                p.Produtos.map((product: ProdutosDTO) => (
+                    <tr className={`w-full flex justify-between items-center mt-5`} key={product.id_produto}>
+                        <td className="w-full text-left">{product.nome_produto}</td>
+                        <td className="w-full text-center">{p.nome}</td>
+                        <td className="w-full text-center">{product.estoque}</td>
+                        <td className="px-1 cursor-pointer">{
+                            openButton &&
+                            <span className="flex">
+                                <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(product)} /></span>
+                                <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>
+                            </span>
+                        }</td>
+                    </tr>
                 ))
             ))
         )
