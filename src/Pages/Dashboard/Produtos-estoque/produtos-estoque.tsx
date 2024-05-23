@@ -25,6 +25,7 @@ export default function ProdutoEstoque() {
     const [openButton, setOpenButton] = useState<boolean>(false)
     const [openModalEdit, setModalEdit] = useState<boolean>(false)
     const [selectedProduct, setSelectedProduct] = useState<ProdutosDTO | null>(null)
+    const [nomeCategory, setNomeCategory] = useState<string>("")
 
     function openButtonsEdit() {
         setOpenButton(!openButton)
@@ -34,8 +35,9 @@ export default function ProdutoEstoque() {
         setModalEdit(status)
     }
 
-    function handleOpenModalEdit(p: ProdutosDTO) {
+    function handleOpenModalEdit(p: ProdutosDTO, nome: string) {
         setSelectedProduct(p)
+        setNomeCategory(nome)
         setModalEdit(true)
         console.log(p)
     }
@@ -52,7 +54,7 @@ export default function ProdutoEstoque() {
                         <td className="px-1 cursor-pointer">{
                             openButton &&
                             <span className="flex">
-                                <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(product)} /></span>
+                                <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(product, p.nome)} /></span>
                                 <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>
                             </span>
                         }</td>
@@ -149,7 +151,7 @@ export default function ProdutoEstoque() {
                     component={<TableEstoque />}
                 />
             </motion.div>
-            {openModalEdit && <FormEditProduct iProduct={selectedProduct} closeModal={closeModalEdit} />}
+            {openModalEdit && <FormEditProduct nomeCategory={nomeCategory} iProduct={selectedProduct} closeModal={closeModalEdit} />}
         </div>
     )
 }

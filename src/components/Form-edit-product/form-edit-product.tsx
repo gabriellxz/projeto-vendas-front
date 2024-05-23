@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface PropsForm {
     iProduct: ProdutosDTO | null;
     closeModal: (status: boolean) => void;
+    nomeCategory: string | undefined;
 }
 
 export default function FormEditProduct(props: PropsForm) {
@@ -24,6 +25,7 @@ export default function FormEditProduct(props: PropsForm) {
     const [estoqueProduto, setEstoqueProduto] = useState<number | undefined>(props.iProduct?.estoque)
     const [descricaoProduto, setDescricaoProduto] = useState<string | undefined>(props.iProduct?.descricao)
     const [ofertaProduto, setOfertaProduto] = useState<string>("")
+    // const [nomeCategory, setNomeCategory] = useState<string | undefined>(props.nomeCategory)
     const [categoryProduto, setCategoryProduto] = useState<number | undefined>(props.iProduct?.categoryId)
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -191,7 +193,7 @@ export default function FormEditProduct(props: PropsForm) {
                             <select name="categoryId" value={categoryProduto} onChange={onChangeCategoriaProduto} id="" className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200">
                                 {
                                     categoria.map((c: Category) => (
-                                        <option value={c.id}>{c.nome}</option>
+                                        <option value={c.id}>{props.nomeCategory}</option>
                                     ))
                                 }
                             </select>
