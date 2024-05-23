@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 interface Props {
     reload: () => void;
-    searchItem: string;
+    searchItem?: string;
 }
 
 export default function Catalog(props: Props) {
@@ -45,7 +45,7 @@ export default function Catalog(props: Props) {
     }, [])
 
     const filterProduct = product.filter((product: ProdutosDTO) =>
-        product.nome_produto.toLocaleLowerCase().includes(props.searchItem.toLowerCase())
+        product.nome_produto.toLocaleLowerCase().includes(props.searchItem ? props.searchItem.toLowerCase() : "")
     )
 
     return (
