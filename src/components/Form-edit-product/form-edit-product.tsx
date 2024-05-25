@@ -14,6 +14,7 @@ interface PropsForm {
     iProduct: ProdutosDTO | null;
     closeModal: (status: boolean) => void;
     nomeCategory: string | undefined;
+    categoryId: number | undefined;
 }
 
 export default function FormEditProduct(props: PropsForm) {
@@ -189,11 +190,12 @@ export default function FormEditProduct(props: PropsForm) {
                             <input type="number" name="estoque" onChange={onChangePrecoEstoque} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={estoqueProduto} />
                         </div>
                         <div>
-                            <span>Categoria</span>
+                            <span>Categoria: {props.nomeCategory}</span>
                             <select name="categoryId" value={categoryProduto} onChange={onChangeCategoriaProduto} id="" className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200">
+                                <option>Selecione uma categoria</option>
                                 {
                                     categoria.map((c: Category) => (
-                                        <option value={c.id}>{props.nomeCategory}</option>
+                                        <option value={c.id}>{c.nome}</option>
                                     ))
                                 }
                             </select>

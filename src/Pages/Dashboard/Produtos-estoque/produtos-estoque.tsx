@@ -26,6 +26,7 @@ export default function ProdutoEstoque() {
     const [openModalEdit, setModalEdit] = useState<boolean>(false)
     const [selectedProduct, setSelectedProduct] = useState<ProdutosDTO | null>(null)
     const [nomeCategory, setNomeCategory] = useState<string>("")
+    const [categoryId, setCategoryId] = useState<number>()
 
     function openButtonsEdit() {
         setOpenButton(!openButton)
@@ -35,9 +36,10 @@ export default function ProdutoEstoque() {
         setModalEdit(status)
     }
 
-    function handleOpenModalEdit(p: ProdutosDTO, nome: string) {
+    function handleOpenModalEdit(p: ProdutosDTO, nomeCategory: string, categoryId: number) {
         setSelectedProduct(p)
-        setNomeCategory(nome)
+        setNomeCategory(nomeCategory)
+        setCategoryId(categoryId)
         setModalEdit(true)
         console.log(p)
     }
@@ -54,7 +56,7 @@ export default function ProdutoEstoque() {
                         <td className="px-1 cursor-pointer">{
                             openButton &&
                             <span className="flex">
-                                <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(product, p.nome)} /></span>
+                                <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(product, p.nome, p.categoryId)} /></span>
                                 <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>
                             </span>
                         }</td>
@@ -151,7 +153,7 @@ export default function ProdutoEstoque() {
                     component={<TableEstoque />}
                 />
             </motion.div>
-            {openModalEdit && <FormEditProduct nomeCategory={nomeCategory} iProduct={selectedProduct} closeModal={closeModalEdit} />}
+            {openModalEdit && <FormEditProduct categoryId={categoryId} nomeCategory={nomeCategory} iProduct={selectedProduct} closeModal={closeModalEdit} />}
         </div>
     )
 }
