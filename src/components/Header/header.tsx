@@ -62,7 +62,7 @@ export default function Header() {
                                 }
                             </AnimatePresence>
                             <div>
-                                {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
+                                {token ? (open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />) : ""}
                             </div>
                         </div>
                     </div>
