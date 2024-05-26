@@ -55,7 +55,7 @@ function UserAutenticadoProvider({ children }: any) {
         } else {
             setAutenticado(false)
         }
-    }, [])
+    }, [token])
 
     function login(token: string | null) {
         localStorage.setItem("tokenUser", JSON.stringify(token))

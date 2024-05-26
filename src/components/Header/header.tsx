@@ -14,10 +14,9 @@ import { AnimatePresence, motion } from "framer-motion"
 
 export default function Header() {
 
-    const { logout } = useContext(UserAutenticado)
-    const { user } = useContext(UserAutenticado)
+    const { user, logout } = useContext(UserAutenticado)
+    const token = localStorage.getItem('tokenUser')
     // const token = localStorage.getItem("tokenUser")
-    const { token } = useContext(UserAutenticado)
     const [open, setOpen] = useState<boolean>(false)
 
     const openMenu = useSpring({
@@ -61,7 +60,15 @@ export default function Header() {
                                 }
                             </AnimatePresence>
                             <div>
-                                {token ? (open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />) : ""}
+                                {token ? (
+                                    <div className="">
+                                        {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
+                                    </div>
+                                ) : (
+                                    <div className="hidden">
+                                        {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
