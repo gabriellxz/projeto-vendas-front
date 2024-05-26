@@ -1,13 +1,13 @@
 import ButtonDark from "../../../components/Button-dark/button-dark";
 import { useContext } from "react";
-import { DataUser } from "../../../context/dataUser";
+import { UserAutenticado } from "../../../context/authContext";
 import IconEdit from "../../../svg/icon-edit";
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom";
 
 export default function Perfil() {
 
-    const user = useContext(DataUser);
+    const { user } = useContext(UserAutenticado);
 
     return (
         <motion.div className="px-[55px] pt-[30px]"

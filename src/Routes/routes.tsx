@@ -7,7 +7,6 @@ import CustomRoutes from "../utils/Custom-routes";
 import CadastroProdutos from "../Pages/CadastroProdutos/cadastro-produtos";
 import ListProduct from "../Pages/Home/List-products/list-products";
 import DetailsProduct from "../Pages/Details-product/details-product";
-import { DataUserProvider } from "../context/dataUser";
 import Cart from "../Pages/Home/Cart/cart";
 import FormEndereco from "../Pages/Home/Form-endereco/form-enderco";
 import PageError from "../Pages/Access-block/access-block";
@@ -34,9 +33,7 @@ export default function RoutesApp() {
                         <Route path="home" element={
                             <UserAutenticadoProvider>
                                 <CustomRoutes>
-                                    <DataUserProvider>
-                                        <Home />
-                                    </DataUserProvider>
+                                    <Home />
                                 </CustomRoutes>
                             </UserAutenticadoProvider>
                         }>

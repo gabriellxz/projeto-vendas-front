@@ -2,7 +2,6 @@ import { ChangeEvent, SyntheticEvent, useContext, useEffect, useState } from "re
 import Endereco from "../types/endereco"
 import api from "../config/config"
 import axios, { AxiosError, AxiosResponse } from "axios"
-import { DataUser } from "../context/dataUser";
 import { toast } from "react-toastify";
 import usePayment from "./usePayment";
 import { UserAutenticado } from "../context/authContext";
@@ -15,7 +14,7 @@ interface CEP {
 export default function useEndereco() {
 
     // const token = localStorage.getItem("tokenUser")
-    const { token } = useContext(UserAutenticado)
+    const { token, user } = useContext(UserAutenticado)
 
     //FUNÇÃO PARA LISTAR ENDEREÇOS DO USUÁRIO
     const [endereco, setEndereco] = useState<Endereco[]>([])
@@ -84,7 +83,6 @@ export default function useEndereco() {
     const [rua, setRua] = useState<string>("")
     const [telefoneContato, setTelefoneContato] = useState<string>("")
     const [ddd, setDdd] = useState<string>("")
-    const user = useContext(DataUser)
     const { make } = usePayment()
 
     function handleChangeNumero(e: ChangeEvent<HTMLInputElement>) {

@@ -1,7 +1,6 @@
 // import InforProduct from "../../../components/Infor-product/infor-product";
 import { useContext, useEffect, useState } from "react";
 import { UserAutenticado } from "../../../context/authContext";
-import { DataUser } from "../../../context/dataUser"
 import api from "../../../config/config";
 import Pedidos from "../../../types/pedidos";
 import { CartOrderUser } from "../../../types/cart";
@@ -10,8 +9,7 @@ import Loading from "../../../components/Loading/loading";
 
 export default function OrderUser() {
 
-    const { token } = useContext(UserAutenticado)
-    const user = useContext(DataUser)
+    const { token, user } = useContext(UserAutenticado)
     const [orderUser, setOrderUser] = useState<Pedidos[]>([])
     const [loading, setLoading] = useState<boolean>(false)
 

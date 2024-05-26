@@ -3,20 +3,19 @@ import UserIcon from "../../svg/user-icon";
 import Logo_ecogreen from "../../../public/Cosméticos.svg"
 import ButtonLogout from "../../svg/button-logout";
 import NavBarIcon from "../../svg/navbar-icon";
-import { useContext, useState } from "react";
 import CloseNavBar from "../../svg/closeNavbar";
 import { useSpring, animated } from '@react-spring/web'
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
 import { UserAutenticado } from "../../context/authContext";
 import IconPlus from "../../svg/plus-icon";
-import { DataUser } from "../../context/dataUser";
 import IconHome from "../../svg/icon-home";
 import { AnimatePresence, motion } from "framer-motion"
 
 export default function Header() {
 
     const { logout } = useContext(UserAutenticado)
-    const user = useContext(DataUser)
+    const { user } = useContext(UserAutenticado)
     // const token = localStorage.getItem("tokenUser")
     const { token } = useContext(UserAutenticado)
     const [open, setOpen] = useState<boolean>(false)

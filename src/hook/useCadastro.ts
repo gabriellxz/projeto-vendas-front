@@ -2,12 +2,14 @@ import { toast } from "react-toastify"
 import api from "../config/config"
 import useValidation from "./useValidation"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { UserAutenticado } from "../context/authContext"
 
 export default function useCadastro() {
 
     const navigate = useNavigate()
     const { validation, setValidation } = useValidation()
+    const { cadastro } = useContext(UserAutenticado)
 
     const [nome, setNome] = useState('')
     const [telefoneData, setTelefoneData] = useState({
@@ -87,7 +89,7 @@ export default function useCadastro() {
                 }).then((response) => {
                     console.log(response)
 
-                    navigate("/")
+                    navigate("/home")
 
                     toast.success("Usuário cadastrado com sucesso!", {
                         position: "bottom-center",
@@ -106,6 +108,8 @@ export default function useCadastro() {
                         loading: false
                     })
 
+                    const token = response.data.accessToken
+                    cadastro(token)
                     // localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
                 }).catch((error) => {
                     console.log(error)
