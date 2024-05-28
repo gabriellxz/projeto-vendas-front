@@ -7,11 +7,13 @@ import Pedidos from "../../../types/pedidos";
 import useListProduct from "../../../hook/useListProduct";
 import ProdutosDTO from "../../../types/produto";
 import { motion } from "framer-motion"
+import useGetUsers from "../../../hook/useGetUsers";
 
 export default function PainelAdministrativo() {
 
     const { orderUser } = usePedidos()
     const { product } = useListProduct()
+    const { users } = useGetUsers()
 
     function TableOrder() {
         return (
@@ -72,6 +74,7 @@ export default function PainelAdministrativo() {
                         titleCard3={"Lucro total"}
                         styleCard={"font-bold flex flex-col justify-center gap-2 w-full"}
                         orderUserLength={orderUser.length}
+                        countUsers={users.length}
                     />
                 </div>
                 <div className="flex flex-col md:flex md:flex-row gap-[28px] select-none">
