@@ -6,6 +6,7 @@ interface PropsCard {
     styleCard?: string;
     link?: () => void;
     editProductFunction?: () => void;
+    countUsers?: number;
     // svg1?: any;
     // svg2?: any;
     // svg3?: any;
@@ -34,7 +35,8 @@ export default function CardDashboard(props:PropsCard) {
                 </div>
                 <div className={`font-bold flex ${props.styleCard}`}>
                     <span className="text-xl">{props.titleCard2}</span>
-                    <span className="text-4xl">{props.orderUserLength}</span>
+                    {/* <span className="text-4xl">{props.orderUserLength}</span> */}
+                    <span className="text-4xl">{props.countUsers}</span>
                 </div>
             </div>
             <div className="flex sm:max-w-[380px] w-full bg-white px-3 py-5 gap-[13px] rounded-[20px]">
