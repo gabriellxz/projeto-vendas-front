@@ -4,22 +4,45 @@ import LayoutPedidos from "../../../components/Layout-pedidos/layout-pedidos";
 import TopDashboard from "../../../components/Top-dashboard/top-dashboard";
 import usePedidos from "../../../hook/usePedidos";
 import Pedidos from "../../../types/pedidos";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion"
+import useGetUsers from "../../../hook/useGetUsers";
+import CloseNavBar from "../../../svg/closeNavbar";
 
 export default function RegistroDePedidos() {
 
     const { orderUser } = usePedidos()
     const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
-
+    const { users } = useGetUsers()
+    const [filteredOrder, setFilteredOrder] = useState<Pedidos[]>(orderUser)
 
     function handleOpenModalFilter() {
         setOpenModalFilter(!openModalFilter)
     }
 
+    useEffect(() => {
+        setFilteredOrder(orderUser)
+    }, [orderUser])
+
+
+    function filterPendentes() {
+        setFilteredOrder(orderUser.filter((p: Pedidos) => p.Delivered !== true))
+        setOpenModalFilter(!openModalFilter)
+    }
+
+    function filterEntregues() {
+        setFilteredOrder(orderUser.filter((p: Pedidos) => p.Delivered === true))
+        setOpenModalFilter(!openModalFilter)
+    }
+
+    function filterTodos() {
+        setFilteredOrder(orderUser)
+        setOpenModalFilter(!openModalFilter)
+    }
+
     function TableOrder() {
         return (
-            orderUser.map((order: Pedidos) => {
+            filteredOrder.map((order: Pedidos) => {
                 const data = new Date(order.createdAt)
 
                 const dia = String(data.getDate()).padStart(2, "0")
@@ -40,6 +63,7 @@ export default function RegistroDePedidos() {
             })
         )
     }
+
 
     return (
         <>
@@ -63,16 +87,49 @@ export default function RegistroDePedidos() {
                         styleTable={""}
                         component={<TableOrder />}
                         buttonModalFilter={handleOpenModalFilter}
-                        modalFilterState={openModalFilter}
+                    // modalFilterState={openModalFilter}
                     />
+                    {openModalFilter &&
+                        <>
+                            <div className="bg-gray-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[604px] w-full p-4 rounded-[16px] shadow-md mx-auto">
+                                <div className="mb-[26px] flex items-center justify-between" onClick={() => setOpenModalFilter(!openModalFilter)}>
+                                    <span className="text-xl">Selecione o status</span>
+                                    <span >
+                                        <CloseNavBar />
+                                    </span>
+                                </div>
+                                <div className="w-full flex gap-[16px] mb-[59px]">
+                                    <button onClick={filterPendentes} className="border border-orange-500 w-full p-2 text-center rounded-[8px] font-semibold bg-white">
+                                        Envio pendente
+                                    </button>
+                                    <button onClick={filterEntregues} className="border border-green-600 w-full p-2 text-center rounded-[8px] font-semibold bg-white">
+                                        Entregue
+                                    </button>
+                                    <button onClick={filterTodos} className="border border-red-600 w-full p-2 text-center rounded-[8px] font-semibold bg-white">
+                                        Todos
+                                    </button>
+                                </div>
+                                <div>
+                                    <div className="mb-[26px]">
+                                        <span className="text-xl">Ordem</span>
+                                    </div>
+                                    <div>
+                                        <select name="" id="" className="w-full font-bold px-3 py-2 rounded-[8px] border border-zinc-500">
+                                            <option value="">Ordem de A-Z</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    }
                     <div className="flex flex-col gap-[20px] mt-[30px] sm:max-w-[380px] w-full">
                         <CardDashboard
                             titleCard1={"Pedidos"}
                             titleCard2={"Clientes"}
                             titleCard3={"Histórico de pedidos"}
                             orderUserLength={orderUser.length}
+                            countUsers={users.length}
                             styleCard={"font-bold flex flex-col justify-center gap-2"}
-
                         />
                     </div>
                 </motion.div>

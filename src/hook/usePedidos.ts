@@ -40,5 +40,6 @@ export default function usePedidos() {
     return {
         orderUser,
         loading,
+        setOrderUser
     }
 }
