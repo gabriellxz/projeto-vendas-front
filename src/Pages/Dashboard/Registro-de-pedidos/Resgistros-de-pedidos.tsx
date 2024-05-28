@@ -51,7 +51,7 @@ export default function RegistroDePedidos() {
 
                 return (
                     <Link to={`/dashboard/detalhes-de-pedidos/${order.userId}`}>
-                        <tr className="w-full flex justify-between items-center mt-5" key={order.id}>
+                        <tr className="w-full flex justify-between items-center mt-5 hover:bg-zinc-100 p-1 rounded-md" key={order.id}>
                             <td className="w-full text-left">{order.users.nome}</td>
                             <td className="w-full text-center">{`${dia}-${mes}-${ano}`}</td>
                             {
