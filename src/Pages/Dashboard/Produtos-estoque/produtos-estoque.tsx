@@ -15,6 +15,7 @@ import { AxiosError, AxiosResponse } from "axios"
 import TrashIcon from "../../../svg/trash-icon"
 import { toast } from "react-toastify"
 import { motion } from "framer-motion"
+import Loading from "../../../components/Loading/loading"
 
 export default function ProdutoEstoque() {
 
@@ -27,6 +28,7 @@ export default function ProdutoEstoque() {
     const [selectedProduct, setSelectedProduct] = useState<ProdutosDTO | null>(null)
     const [nomeCategory, setNomeCategory] = useState<string>("")
     const [categoryId, setCategoryId] = useState<number>()
+    const [loading, setLoading] = useState<boolean>(false)
 
     function openButtonsEdit() {
         setOpenButton(!openButton)
@@ -57,7 +59,7 @@ export default function ProdutoEstoque() {
                             openButton &&
                             <span className="flex">
                                 <span><IconEdit style="w-[45px] h-[45px] text-blue-600" onClickEdit={() => handleOpenModalEdit(product, p.nome, p.categoryId)} /></span>
-                                <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>
+                                {loading ? <Loading /> : <span><TrashIcon onClickTrash={() => deleteProduct(product.id_produto)} /></span>}
                             </span>
                         }</td>
                     </tr>
@@ -67,6 +69,9 @@ export default function ProdutoEstoque() {
     }
 
     async function deleteProduct(id: number) {
+
+        setLoading(true)
+
         if (token) {
             try {
                 await api.delete(`/Product/${id}`, {
@@ -87,6 +92,7 @@ export default function ProdutoEstoque() {
                         theme: "colored",
                     })
 
+                    setLoading(false)
                     setCategoria(categoria.filter((c: Category) => c.id_produto !== id))
                 }).catch((error: AxiosError) => {
                     toast.error("Não foi possivel excluir o produto.", {
@@ -99,6 +105,8 @@ export default function ProdutoEstoque() {
                         progress: undefined,
                         theme: "colored",
                     })
+
+                    setLoading(false)
                     console.log(error)
                 })
             } catch (error) {
@@ -112,6 +120,8 @@ export default function ProdutoEstoque() {
                     progress: undefined,
                     theme: "colored",
                 })
+
+                setLoading(false)
                 console.log(error)
             }
         }
