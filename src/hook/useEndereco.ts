@@ -89,7 +89,7 @@ export default function useEndereco() {
     }
 
     //ENVIAR ENDEREÇO
-    const [numero, setNumero] = useState<number | null>(0)
+    const [numero, setNumero] = useState<number | null>(null)
     const [complemento, setComplemento] = useState<string>("")
     const [pontoDeReferencia, setPontoDeReferencia] = useState<string>("")
     const [bairro, setBairro] = useState<string>("")

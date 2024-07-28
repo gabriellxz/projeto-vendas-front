@@ -23,7 +23,7 @@ export default function usePayment() {
                 setLoading(false)
 
                 const body = {
-                    products: cart
+                    products: cart,
                 };
 
                 const headers = {

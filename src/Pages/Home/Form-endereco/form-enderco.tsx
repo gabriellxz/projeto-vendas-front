@@ -66,6 +66,7 @@ export default function FormEndereco() {
                                 styleWidth="mb-2"
                                 typeInput="text"
                                 value={cep}
+                                placeholder="Obs: Não use caracteres especiais (- . , _ / ( ) [ ] { })"
                             />
                             {loading ? <Loading /> : <ButtonDark text="Buscar CEP" propsBtn={getCep} />}
                         </div>
@@ -105,7 +106,7 @@ export default function FormEndereco() {
                         </div>
                         <div className="flex flex-col w-full">
                             <label className="text-xl">Número</label>
-                            <input type="number" name="numero" value={numero ? numero : ""} onKeyDown={hanldeKeyDown} onChange={handleChangeNumero} className="input border border-1 border-black outline-none p-2" />
+                            <input placeholder="Obs: se não houver número, coloque zero" type="number" name="numero" value={numero ? numero : ""} onKeyDown={hanldeKeyDown} onChange={handleChangeNumero} className="input border border-1 border-black outline-none p-2" />
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
@@ -139,6 +140,7 @@ export default function FormEndereco() {
                                 styleWidth=""
                                 typeInput="text"
                                 value={complemento}
+                                placeholder="Ex: Andar, Bloco, Unidade"
                             />
                         </div>
                     </div>
@@ -168,6 +170,7 @@ export default function FormEndereco() {
                                 styleWidth=""
                                 typeInput="text"
                                 value={telefoneContato}
+                                placeholder="Obs: Não use caracteres especiais (- . , _ / ( ) [ ] { })"
                             />
                         </div>
                     </div>
