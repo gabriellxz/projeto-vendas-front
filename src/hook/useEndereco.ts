@@ -11,6 +11,19 @@ interface CEP {
     uf: string;
 }
 
+interface EnderecoData {
+    CEP: string;
+    numero: number | null;
+    complemento: string;
+    ponto_de_referencia: string;
+    bairro: string;
+    Rua: string;
+    telefone_contato: string;
+    cidade: string;
+    estado: string;
+    userId: number | undefined;
+}
+
 export default function useEndereco() {
 
     // const token = localStorage.getItem("tokenUser")
@@ -118,7 +131,7 @@ export default function useEndereco() {
         e.preventDefault()
         setLoading(true)
 
-        const data = {
+        const data:EnderecoData = {
             CEP: cep,
             numero: numero,
             complemento: complemento,
@@ -163,7 +176,7 @@ export default function useEndereco() {
                         })
 
                         setLoading(false)
-                        // console.log(response)
+                        console.log(response)
 
                         if (response.status === 201) {
                             make()
@@ -171,9 +184,9 @@ export default function useEndereco() {
                     }).catch((error: AxiosError) => {
                         setLoading(false)
                         console.log(error)
-                        if(data.telefone_contato.length!= 11) {
+                        if (data.telefone_contato.length != 11) {
                             setLoading(false)
-                            
+
                             toast.error("Telefone inválido.", {
                                 position: "bottom-center",
                                 autoClose: 5000,
@@ -250,6 +263,6 @@ export default function useEndereco() {
         handleChangeBairro,
         handleChangeTelefone,
         handleChangeDdd,
-        handleChangeRua
+        handleChangeRua,
     }
 }
