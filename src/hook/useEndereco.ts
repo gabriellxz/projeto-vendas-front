@@ -13,7 +13,7 @@ interface CEP {
 
 interface EnderecoData {
     CEP: string;
-    numero: number | null;
+    numero: string;
     complemento: string;
     ponto_de_referencia: string;
     bairro: string;
@@ -89,7 +89,7 @@ export default function useEndereco() {
     }
 
     //ENVIAR ENDEREÇO
-    const [numero, setNumero] = useState<number | null>(null)
+    const [numero, setNumero] = useState<string>("")
     const [complemento, setComplemento] = useState<string>("")
     const [pontoDeReferencia, setPontoDeReferencia] = useState<string>("")
     const [bairro, setBairro] = useState<string>("")
@@ -99,8 +99,7 @@ export default function useEndereco() {
     const { make } = usePayment()
 
     function handleChangeNumero(e: ChangeEvent<HTMLInputElement>) {
-        const numero: number = parseInt(e.target.value)
-        setNumero(numero)
+        setNumero(e.target.value)
     }
 
     function handleChangeComplemento(e: ChangeEvent<HTMLInputElement>) {
