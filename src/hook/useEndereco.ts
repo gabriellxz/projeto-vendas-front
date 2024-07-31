@@ -3,8 +3,9 @@ import Endereco from "../types/endereco"
 import api from "../config/config"
 import axios, { AxiosError, AxiosResponse } from "axios"
 import { toast } from "react-toastify";
-import usePayment from "./usePayment";
+// import usePayment from "./usePayment";
 import { UserAutenticado } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 interface CEP {
     localidade: string;
@@ -25,6 +26,8 @@ interface EnderecoData {
 }
 
 export default function useEndereco() {
+
+    const navigate = useNavigate()
 
     // const token = localStorage.getItem("tokenUser")
     const { token, user } = useContext(UserAutenticado)
@@ -96,7 +99,7 @@ export default function useEndereco() {
     const [rua, setRua] = useState<string>("")
     const [telefoneContato, setTelefoneContato] = useState<string>("")
     const [ddd, setDdd] = useState<string>("")
-    const { make } = usePayment()
+    // const { make } = usePayment()
 
     function handleChangeNumero(e: ChangeEvent<HTMLInputElement>) {
         setNumero(e.target.value)
@@ -178,7 +181,7 @@ export default function useEndereco() {
                         console.log(response)
 
                         if (response.status === 201) {
-                            make()
+                            navigate("/home/carrinho")
                         }
                     }).catch((error: AxiosError) => {
                         setLoading(false)
