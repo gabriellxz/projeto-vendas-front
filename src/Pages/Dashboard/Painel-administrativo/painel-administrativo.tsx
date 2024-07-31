@@ -8,12 +8,14 @@ import useListProduct from "../../../hook/useListProduct";
 import ProdutosDTO from "../../../types/produto";
 import { motion } from "framer-motion"
 import useGetUsers from "../../../hook/useGetUsers";
+import useGetProfitTotal from "../../../hook/useGetProfitTotal";
 
 export default function PainelAdministrativo() {
 
     const { orderUser } = usePedidos()
     const { product } = useListProduct()
     const { users } = useGetUsers()
+    const { profitTotal } = useGetProfitTotal()
 
     function TableOrder() {
         return (
@@ -72,6 +74,7 @@ export default function PainelAdministrativo() {
                         titleCard1={"Novos pedidos"}
                         titleCard2={"Clientes"}
                         titleCard3={"Lucro total"}
+                        profitTotal={profitTotal}
                         styleCard={"font-bold flex flex-col justify-center gap-2 w-full"}
                         orderUserLength={orderUser.length}
                         countUsers={users.length}

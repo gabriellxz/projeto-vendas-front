@@ -1,3 +1,5 @@
+import Moeda from "../../utils/moeda";
+
 interface PropsCard {
     titleCard1: string;
     titleCard2: string;
@@ -7,6 +9,7 @@ interface PropsCard {
     link?: () => void;
     editProductFunction?: () => void;
     countUsers?: number;
+    profitTotal?: number | null;
     // svg1?: any;
     // svg2?: any;
     // svg3?: any;
@@ -47,6 +50,7 @@ export default function CardDashboard(props:PropsCard) {
                 </div>
                 <div className="font-bold flex flex-col justify-center gap-2">
                     <span className="text-xl">{props.titleCard3}</span>
+                    <span className="text-4xl">{Moeda.formatar(props.profitTotal ? props.profitTotal : 0)}</span>
                 </div>
             </div>
         </>
