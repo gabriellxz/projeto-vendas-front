@@ -137,7 +137,7 @@ export default function OrderUser() {
             }
             <div className="w-full">
                 {
-                    delivered !== false ? <span className="uppercase bg-greenEco-200 w-full text-white p-2">
+                    delivered === true ? <span className="uppercase bg-greenEco-200 w-full text-white p-2">
                         {/* <ButtonDark text="Confirmar entrega" propsBtn={confirmedOrder} /> */}
                         Seu pedido foi entregue
                     </span> : <ButtonDark text="Confirmar entrega" propsBtn={confirmedOrder} />
