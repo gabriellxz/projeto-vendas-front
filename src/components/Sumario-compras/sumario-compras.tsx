@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import usePayment from "../../hook/usePayment";
 import Loading from "../Loading/loading";
 import { useDispatch } from "react-redux";
+import { changeValue } from "../../features/selectEndereco";
 
 interface PropsSumario {
     iCart: CartOrderUser[];
@@ -19,15 +20,15 @@ export default function SumarioCompras(props: PropsSumario) {
     const { endereco, getLoadingEnd } = useEndereco()
     const { make, loading } = usePayment()
     const [subTotal, setSubTotal] = useState(0)
-    const [enderecoValue, setEnderecoValue] = useState<string>("");
+    const [selectedEndereco, setSelectedEndereco] = useState<string>("")
 
-    //const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    function changeEndereco(e: ChangeEvent<HTMLSelectElement>) {
-        e.preventDefault();
-        setEnderecoValue(e.target.value);
-        //alert(enderecoValue);
-        console.log(enderecoValue);
+    function changeEndereco(e:ChangeEvent<HTMLSelectElement>) {
+        const selectedValue = e.target.value
+        setSelectedEndereco(selectedValue)
+        // console.log(selectedValue)
+        dispatch(changeValue(selectedValue))
     }
 
     useEffect(() => {
@@ -65,7 +66,8 @@ export default function SumarioCompras(props: PropsSumario) {
                                 <div>
                                     {
                                         getLoadingEnd ? <Loading /> : (
-                                            <select value={enderecoValue} onChange={changeEndereco} className="border border-1 border-black outline-none p-2 w-full mb-5" required>
+                                            <select value={selectedEndereco} onChange={changeEndereco} className="border border-1 border-black outline-none p-2 w-full mb-5" required>
+                                                <option>Selecione um endereço</option>
                                                 {
                                                     endereco.map((item: Endereco, index: number) => (
                                                         <option key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>

@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit"; 
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface State {
     endereco: string;
@@ -12,7 +12,8 @@ export const sliceEndereco = createSlice({
     name: "endereço",
     initialState,
     reducers: {
-        changeValue(state:State, action: PayloadAction<string>) {
+        changeValue(state: State, action: PayloadAction<string>) {
+            console.log(action)
             return {
                 ...state,
                 endereco: action.payload
@@ -21,5 +22,5 @@ export const sliceEndereco = createSlice({
     }
 });
 
-export const {} = sliceEndereco.actions;
+export const { changeValue } = sliceEndereco.actions;
 export const enderecoReducer = sliceEndereco.reducer;

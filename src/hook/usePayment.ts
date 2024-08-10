@@ -3,6 +3,8 @@ import useCart from "./useCart";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { UserAutenticado } from "../context/authContext";
+import { useSelector } from "react-redux";
+import { TypeReducer } from "../features/store";
 
 const KEY_STRIPE = import.meta.env.KEY_STRIPE
 
@@ -12,6 +14,8 @@ export default function usePayment() {
     const [loading, setLoading] = useState<boolean>(false)
     // const token = localStorage.getItem("tokenUser")
     const { token } = useContext(UserAutenticado)
+
+    const selectedAdressId = useSelector((state:TypeReducer) => state.endereco)
 
     async function make() {
 
@@ -24,6 +28,7 @@ export default function usePayment() {
 
                 const body = {
                     products: cart,
+                    adressId: selectedAdressId
                 };
 
                 const headers = {
@@ -31,7 +36,7 @@ export default function usePayment() {
                     "Authorization": "Bearer " + JSON.parse(token)
                 };
 
-                const response = await fetch("https://vendas-online-coral.vercel.app/payments/create-checkout-session", {
+                const response = await fetch("https://vendas-online-ruddy.vercel.app/payments/create-checkout-session", {
                     method: "POST",
                     headers: headers,
                     body: JSON.stringify(body)
