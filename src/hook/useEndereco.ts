@@ -35,9 +35,10 @@ export default function useEndereco() {
     //FUNÇÃO PARA LISTAR ENDEREÇOS DO USUÁRIO
     const [endereco, setEndereco] = useState<Endereco[]>([])
     const [loading, setLoading] = useState<boolean>(false)
+    const [getLoadingEnd, setLoadingEnd] = useState<boolean>(true)
 
     async function getEnderecos() {
-        setLoading(true)
+        setLoadingEnd(true)
 
         try {
             if (token) {
@@ -47,13 +48,13 @@ export default function useEndereco() {
                     }
                 })
 
-                setLoading(false)
+                setLoadingEnd(false)
                 // console.log(response.data)
                 setEndereco(response.data)
             }
         } catch (err) {
             // console.log(err)
-            setLoading(false)
+            setLoadingEnd(false)
         }
     }
 
@@ -266,5 +267,6 @@ export default function useEndereco() {
         handleChangeTelefone,
         handleChangeDdd,
         handleChangeRua,
+        getLoadingEnd
     }
 }

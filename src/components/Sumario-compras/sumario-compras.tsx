@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { CartOrderUser } from "../../types/cart"
 import Moeda from "../../utils/moeda";
 import ButtonDark from "../Button-dark/button-dark";
@@ -7,6 +7,7 @@ import Endereco from "../../types/endereco";
 import { useNavigate } from "react-router-dom";
 import usePayment from "../../hook/usePayment";
 import Loading from "../Loading/loading";
+import { useDispatch } from "react-redux";
 
 interface PropsSumario {
     iCart: CartOrderUser[];
@@ -15,9 +16,19 @@ interface PropsSumario {
 export default function SumarioCompras(props: PropsSumario) {
 
     const navigate = useNavigate()
-    const { endereco } = useEndereco()
+    const { endereco, getLoadingEnd } = useEndereco()
     const { make, loading } = usePayment()
     const [subTotal, setSubTotal] = useState(0)
+    const [enderecoValue, setEnderecoValue] = useState<string>("");
+
+    //const dispatch = useDispatch();
+
+    function changeEndereco(e: ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault();
+        setEnderecoValue(e.target.value);
+        //alert(enderecoValue);
+        console.log(enderecoValue);
+    }
 
     useEffect(() => {
         let total = 0
@@ -52,13 +63,17 @@ export default function SumarioCompras(props: PropsSumario) {
                             )
                                 :
                                 <div>
-                                    <select className="border border-1 border-black outline-none p-2 w-full mb-5" required>
-                                        {
-                                            endereco.map((item: Endereco, index: number) => (
-                                                <option key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>
-                                            ))
-                                        }
-                                    </select>
+                                    {
+                                        getLoadingEnd ? <Loading /> : (
+                                            <select value={enderecoValue} onChange={changeEndereco} className="border border-1 border-black outline-none p-2 w-full mb-5" required>
+                                                {
+                                                    endereco.map((item: Endereco, index: number) => (
+                                                        <option key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        )
+                                    }
                                     <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/home/criar-endereço") }} />
                                 </div>
                         }

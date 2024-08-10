@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@react-spring/web": "^9.7.3",
+    "@reduxjs/toolkit": "^2.2.7",
     "@stripe/react-stripe-js": "^2.6.2",
     "@supabase/supabase-js": "^2.39.7",
     "aws-sdk": "^2.1588.0",
