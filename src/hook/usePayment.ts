@@ -15,7 +15,7 @@ export default function usePayment() {
     // const token = localStorage.getItem("tokenUser")
     const { token } = useContext(UserAutenticado)
 
-    const selectedAdressId = useSelector((state:TypeReducer) => state.endereco)
+    const selectedAdressId = useSelector((state:TypeReducer) => state.endereco.adressId)
 
     async function make() {
 
@@ -27,8 +27,7 @@ export default function usePayment() {
                 setLoading(false)
 
                 const body = {
-                    products: cart,
-                    adressId: selectedAdressId
+                    products: cart
                 };
 
                 const headers = {
@@ -36,7 +35,7 @@ export default function usePayment() {
                     "Authorization": "Bearer " + JSON.parse(token)
                 };
 
-                const response = await fetch("https://vendas-online-ruddy.vercel.app/payments/create-checkout-session", {
+                const response = await fetch(`https://vendas-online-ruddy.vercel.app/payments/create-checkout-session/${selectedAdressId}`, {
                     method: "POST",
                     headers: headers,
                     body: JSON.stringify(body)
@@ -44,6 +43,8 @@ export default function usePayment() {
 
 
                 const session = await response.json();
+                console.log(session)
+                console.log(selectedAdressId)
                 window.location.href = session.url
 
                 // Redirecionar para o checkout do Stripe utilizando o Stripe SDK

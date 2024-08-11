@@ -1,4 +1,5 @@
 export default interface Endereco {
+    id: number;
     CEP: string;
     numero: number;
     complemento: string;

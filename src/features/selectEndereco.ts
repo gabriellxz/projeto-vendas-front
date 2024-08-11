@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface State {
-    endereco: string;
+    adressId: string;
 }
 
 const initialState: State = {
-    endereco: "",
+    adressId: ""
 }
 
 export const sliceEndereco = createSlice({
@@ -16,7 +16,7 @@ export const sliceEndereco = createSlice({
             console.log(action)
             return {
                 ...state,
-                endereco: action.payload
+                adressId: action.payload
             }
         }
     }
