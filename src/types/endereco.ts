@@ -8,6 +8,5 @@ export default interface Endereco {
     estado: string;
     cidade: string;
     telefone_contato: string;
-    endereco_id: number;
     Rua: string;
 }

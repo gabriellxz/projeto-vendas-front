@@ -3,7 +3,6 @@ import Endereco from "./endereco";
 
 export default interface Pedidos {
     Delivered: boolean;
-    adress: Endereco;
     adressId: number;
     carrinho: CartType;
     id_order: number;
@@ -18,4 +17,5 @@ export default interface Pedidos {
         email: string;
         CPF: string;
     }
+    adress: Endereco;
 }

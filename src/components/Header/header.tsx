@@ -1,6 +1,6 @@
 import BagIcon from "../../svg/bag-icon";
 import UserIcon from "../../svg/user-icon";
-import Logo_ecogreen from "../../../public/Cosméticos.svg"
+import Logo_yeshua from "../../assets/yeshuá.svg"
 import ButtonLogout from "../../svg/button-logout";
 import NavBarIcon from "../../svg/navbar-icon";
 import CloseNavBar from "../../svg/closeNavbar";
@@ -33,7 +33,7 @@ export default function Header() {
                 `}>
                     <div className="flex items-center justify-between max-w-[100%] w-full">
                         <Link to={"/home"} className="">
-                            <img src={Logo_ecogreen} className="max-w-[100px] w-full" alt="logo_ecogreen" />
+                            <img src={Logo_yeshua} className="max-w-[100px] w-full" alt="logo_yeshuá" />
                         </Link>
                         <div className="flex items-center gap-5">
                             <AnimatePresence>
@@ -81,7 +81,7 @@ export default function Header() {
             `}>
                     <div className="flex items-center w-full">
                         <Link to={"/home"} className="w-full flex justify-center">
-                            <img src={Logo_ecogreen} className="w-[100px]" alt="logo_ecogreen" />
+                            <img src={Logo_yeshua} className="w-[100px]" alt="logo_yeshuá" />
                         </Link>
                         <div className={`${token ? "flex justify-end" : "hidden"}`}>
                             <>
