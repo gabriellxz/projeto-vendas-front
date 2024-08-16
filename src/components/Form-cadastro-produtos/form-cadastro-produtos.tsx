@@ -11,6 +11,7 @@ import useCategory from "../../hook/useCategory";
 import { useState } from "react";
 import CloseNavBar from "../../svg/closeNavbar";
 import '../../global.css'
+import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/16/solid"
 
 export default function FormCadastroProdutos() {
 
@@ -35,11 +36,22 @@ export default function FormCadastroProdutos() {
         handleCategoria,
         registerProduct,
         loading,
-        handleOferta
+        handleOferta,
+        handleAltura,
+        handleDiametro,
+        handleLargura,
+        handlePeso,
+        handleQuantity,
+        altura,
+        diametro,
+        largura,
+        peso,
+        quant
     } = useCreateProduct()
     const { categoria, categoriaNome, createCategory, onChangeCategoria, loadingCategory } = useCategory()
 
     const [open, setOpen] = useState<boolean>(false)
+    const [openCampos, setOpenCampos] = useState<boolean>(false)
 
     return (
         <>
@@ -104,6 +116,78 @@ export default function FormCadastroProdutos() {
                         <label className="text-xl">Descrição do produto</label>
                         <textarea onChange={handleDescricao} name="descricao" id="" className="resize-none border border-1 border-black outline-none p-2 w-full h-[170px]"></textarea>
                     </div>
+                    <div>
+                        <span className="flex justify-end cursor-pointer gap-2" onClick={() => setOpenCampos(!openCampos)}>
+                            Mais
+                            {
+                                openCampos == false ? <ArrowDownIcon className="w-5" /> : <ArrowUpIcon className="w-5" />
+                            }
+                        </span>
+                    </div>
+                    {
+                        openCampos &&
+                        <div className="w-full flex flex-col gap-5">
+                            <div className="flex flex-col w-full">
+                                <label className="text-xl">Quantidade</label>
+                                <input
+                                    type="number"
+                                    className="input border border-1 border-black outline-none p-2 w-full"
+                                    onChange={handleQuantity}
+                                    name="length"
+                                    value={quant}
+                                    onKeyDown={handleKeyDown}
+                                />
+                            </div>
+                            <div className="flex gap-5">
+                                <div className="flex flex-col w-full">
+                                    <label className="text-xl">Altura</label>
+                                    <input
+                                        type="number"
+                                        className="input border border-1 border-black outline-none p-2 w-full"
+                                        onChange={handleAltura}
+                                        name="height"
+                                        value={altura}
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full">
+                                    <label className="text-xl">Largura</label>
+                                    <input
+                                        type="number"
+                                        className="input border border-1 border-black outline-none p-2 w-full"
+                                        onChange={handleLargura}
+                                        name="height"
+                                        value={largura}
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex gap-5">
+                                <div className="flex flex-col w-full">
+                                    <label className="text-xl">Peso</label>
+                                    <input
+                                        type="number"
+                                        className="input border border-1 border-black outline-none p-2 w-full"
+                                        onChange={handlePeso}
+                                        name="weight"
+                                        value={peso}
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full">
+                                    <label className="text-xl">Diametro</label>
+                                    <input
+                                        type="number"
+                                        className="input border border-1 border-black outline-none p-2 w-full"
+                                        onChange={handleDiametro}
+                                        name="diameter"
+                                        value={diametro}
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    }
                     <div className="flex flex-col w-full">
                         <label className="text-xl">Imagem</label>
                         <div className="flex flex-col justify-center items-center border border-1 border-black outline-none p-2 w-full h-[170px]">

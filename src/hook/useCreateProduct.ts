@@ -250,6 +250,11 @@ export default function useCreateProduct() {
         handlePeso,
         handleLargura,
         handleQuantity,
-        handleDiametro
+        handleDiametro,
+        diametro,
+        quant,
+        largura,
+        peso,
+        altura
     }
 }
