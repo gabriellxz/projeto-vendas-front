@@ -21,6 +21,11 @@ export default function useCreateProduct() {
     const [loading, setLoading] = useState<boolean>(false)
     const [categoryId, setCategoryId] = useState<number>()
     const [ofertaProduct, setOfertaProduct] = useState<string>("")
+    const [largura, setLargura] = useState<number>()
+    const [peso, setPeso] = useState<number>()
+    const [altura, setAltura] = useState<number>()
+    const [diametro, setDiametro] = useState<number>()
+    const [quant, setQuant] = useState<number>()
     const navigate = useNavigate()
 
     function handleNomeProduct(event: ChangeEvent<HTMLInputElement>): void {
@@ -58,6 +63,31 @@ export default function useCreateProduct() {
         // console.log(oferta)
     }
 
+    function handleLargura(e:ChangeEvent<HTMLInputElement>) {
+        const larguraValue: number = parseInt(e.target.value)
+        setLargura(larguraValue)
+    }
+
+    function handlePeso(e:ChangeEvent<HTMLInputElement>) {
+        const pesoValue: number = parseInt(e.target.value)
+        setPeso(pesoValue)
+    }
+
+    function handleAltura(e:ChangeEvent<HTMLInputElement>) {
+        const alturaValue: number = parseInt(e.target.value)
+        setAltura(alturaValue)
+    }
+
+    function handleQuantity(e:ChangeEvent<HTMLInputElement>) {
+        const quantityValue: number = parseInt(e.target.value)
+        setQuant(quantityValue)
+    }
+
+    function handleDiametro(e:ChangeEvent<HTMLInputElement>) {
+        const diameterValue: number = parseInt(e.target.value)
+        setDiametro(diameterValue)
+    }
+
     // const token = localStorage.getItem("tokenUser")
     const { token } = useContext(UserAutenticado)
 
@@ -74,7 +104,12 @@ export default function useCreateProduct() {
             preco !== undefined &&
             estoque !== undefined &&
             categoryId !== undefined &&
-            file !== null
+            file !== null &&
+            diametro !== null &&
+            peso !== null &&
+            altura !== null &&
+            largura !== null &&
+            quant !== null
         ) {
             const data = {
                 nome_produto,
@@ -82,7 +117,12 @@ export default function useCreateProduct() {
                 preco,
                 estoque,
                 categoryId,
-                oferta
+                oferta,
+                diametro,
+                peso,
+                altura,
+                largura,
+                quant
             };
     
             try {
@@ -205,6 +245,11 @@ export default function useCreateProduct() {
         registerProduct,
         loading,
         handleOferta,
-        ofertaProduct
+        ofertaProduct,
+        handleAltura,
+        handlePeso,
+        handleLargura,
+        handleQuantity,
+        handleDiametro
     }
 }
