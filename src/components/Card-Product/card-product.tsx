@@ -16,8 +16,12 @@ export default function CardProduct(props: PropsProduto) {
                     <img src={props.iProduto.imagem && props.iProduto.imagem[0] && props.iProduto.imagem[0].url} alt="" className='w-[200px] h-[200px] sm:w-[630px] sm:h-[630px]' />
                 </div>
                 <div>
-                    <h2 className="text-xl text-greenEco-300 font-bold text-[15px]">{props.iProduto.nome_produto}</h2>
-                    <p className="text-greenEco-200 text-[12px]">
+                    <h2 className="text-xl text-greenEco-300 font-bold text-[15px]"
+                        style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    >{props.iProduto.nome_produto}</h2>
+                    <p className="text-greenEco-200 text-[12px]"
+                        style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    >
                         {props.iProduto.descricao}
                     </p>
                 </div>
