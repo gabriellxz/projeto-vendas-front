@@ -38,7 +38,7 @@ export default function ListProduct() {
                         <div className="flex justify-center items-center flex-col max-w-[260px] gap-7">
                             <div className="flex justify-center flex-col gap-2">
                                 <h1 className="text-5xl">Oferta!</h1>
-                                <p className="text-gray-400 text-justify">
+                                <p className="text-whiteEco-100 text-justify">
                                     Confira nosso incriveis kits para cabelos - a combinação perfeita de cuidados para realçar sua beleza.
                                 </p>
                             </div>

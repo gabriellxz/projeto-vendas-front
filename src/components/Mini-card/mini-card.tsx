@@ -15,7 +15,7 @@ export default function MiniCard(props: Props) {
                         <img src={props.iProduto.imagem && props.iProduto.imagem[0] && props.iProduto.imagem[0].url} alt="" className='w-[224px] h-[200px]' />
                     </div>
                     <div className='text-xl text-center flex justify-center items-center'>
-                        <h1 className='text-ellipsis'>{props.iProduto.nome_produto}</h1>
+                        <h1 className='text-clip whitespace-nowrap overflow-hidden'>{props.iProduto.nome_produto}</h1>
                     </div>
                 </div>
             </Link>
