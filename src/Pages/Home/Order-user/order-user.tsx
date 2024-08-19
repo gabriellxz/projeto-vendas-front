@@ -51,9 +51,12 @@ export default function OrderUser() {
             Delivered: true
         }
 
+        const id_order = orderUser.map((p:Pedidos) => p.id_order)
+        console.log("id_order: ", id_order)
+
         if (token) {
             try {
-                const response = await api.patch(`/Order/${user?.id}`, data, {
+                const response = await api.patch(`/Order/${id_order}`, data, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
