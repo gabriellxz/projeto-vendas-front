@@ -9,7 +9,9 @@ import usePayment from "../../hook/usePayment";
 import Loading from "../Loading/loading";
 import { useDispatch, useSelector } from "react-redux";
 import { changeValue } from "../../features/selectEndereco";
-import {TypeReducer} from "../../features/store";
+import { TypeReducer } from "../../features/store";
+import Input from "../Input/input";
+import useCalculateDelivered from "../../hook/useCalculateDelivered";
 
 interface PropsSumario {
     iCart: CartOrderUser[];
@@ -18,14 +20,15 @@ interface PropsSumario {
 export default function SumarioCompras(props: PropsSumario) {
 
     const navigate = useNavigate()
+    const { calculateDelivered, LoadingFrete, setCep, cep } = useCalculateDelivered();
     const { endereco, getLoadingEnd } = useEndereco()
     const { make, loading } = usePayment()
     const [subTotal, setSubTotal] = useState(0)
 
     const dispatch = useDispatch()
-    const enderecoState = useSelector((state:TypeReducer) => state.endereco.adressId)
+    const enderecoState = useSelector((state: TypeReducer) => state.endereco.adressId)
 
-    function changeEndereco(e:ChangeEvent<HTMLSelectElement>) {
+    function changeEndereco(e: ChangeEvent<HTMLSelectElement>) {
         const adressId = e.target.value
         console.log(adressId)
         dispatch(changeValue(adressId))
@@ -51,6 +54,19 @@ export default function SumarioCompras(props: PropsSumario) {
                 <div className="w-full flex justify-between">
                     <span>total</span>
                     <span className="font-bold">{Moeda.formatar(subTotal)}</span>
+                </div>
+                <div>
+                    <Input
+                        inputLabel="Calcular frete"
+                        name="cep"
+                        onInputValue={(e: ChangeEvent<HTMLInputElement>) => setCep(e.target.value)}
+                        styleWidth="w-full mb-3"
+                        typeInput="text"
+                        value={cep}
+                        placeholder="CEP"
+                    />
+                    {LoadingFrete ? <Loading /> : <ButtonDark text="Calcular frete" propsBtn={calculateDelivered} />}
+                    {/* <span>{frete}</span> */}
                 </div>
                 <div className="bg-zinc-400 p-[0.5px] w-full"></div>
                 <form>

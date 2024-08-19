@@ -9,10 +9,11 @@ import { UserAutenticado } from "../context/authContext"
 export default function useCart() {
 
     // const token = localStorage.getItem("tokenUser")
-    const {token} = useContext(UserAutenticado)
+    const { token } = useContext(UserAutenticado)
     const navigate = useNavigate()
     const [cart, setCart] = useState<CartOrderUser[]>([])
     const [loadingCart, setLoadingCart] = useState<boolean>(false)
+    const [produtoId, setProdutoId] = useState<number>()
     const { produto } = useProdutoId()
 
     async function addCart() {
@@ -54,7 +55,12 @@ export default function useCart() {
 
                 // setLoadingCart(false)
                 setCart(response.data.carrinho)
-                // console.log(response.data)
+                console.log(response.data)
+
+                if (response.data.carrinho.length > 0) {
+                    setProdutoId(response.data.carrinho[0].produtoId);
+                    // console.log(produtoId)
+                }
             }
         } catch (err) {
             // setLoadingCart(false)
@@ -75,7 +81,7 @@ export default function useCart() {
                 })
 
                 // console.log(response)
-                setCart(cart.filter((c:CartOrderUser) => c.produtoId !== produtoId))
+                setCart(cart.filter((c: CartOrderUser) => c.produtoId !== produtoId))
                 setLoadingCart(false)
             }
         } catch (err) {
@@ -88,27 +94,32 @@ export default function useCart() {
         setLoadingCart(true)
 
         try {
-            if(token) {
-                const response = await api.delete("/cart/clear", {headers: {
-                    "Authorization": "Bearer " + JSON.parse(token)
-                }})
+            if (token) {
+                const response = await api.delete("/cart/clear", {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                })
 
                 setCart(response.data)
                 setLoadingCart(false)
             }
-        } catch(err) {
+        } catch (err) {
             console.log(err)
             setLoadingCart(false)
         }
     }
 
-    useEffect(() => { getCart() }, [cart])
+    useEffect(() => {
+        getCart()
+    }, [])
 
     return {
         cart,
         loadingCart,
         addCart,
         deleteProdutoId,
-        clearCart
+        clearCart,
+        produtoId
     }
 }
