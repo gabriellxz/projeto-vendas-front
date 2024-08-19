@@ -21,11 +21,11 @@ export default function useCreateProduct() {
     const [loading, setLoading] = useState<boolean>(false)
     const [categoryId, setCategoryId] = useState<number>()
     const [ofertaProduct, setOfertaProduct] = useState<string>("")
-    const [largura, setLargura] = useState<number>()
-    const [peso, setPeso] = useState<number>()
-    const [altura, setAltura] = useState<number>()
-    const [diametro, setDiametro] = useState<number>()
-    const [quant, setQuant] = useState<number>()
+    const [width, setWidth] = useState<number>()
+    const [weight, setWeight] = useState<number>()
+    const [height, setHeight] = useState<number>()
+    const [diameter, setDiamater] = useState<number>()
+    const [length, setLength] = useState<number>()
     const navigate = useNavigate()
 
     function handleNomeProduct(event: ChangeEvent<HTMLInputElement>): void {
@@ -63,29 +63,29 @@ export default function useCreateProduct() {
         // console.log(oferta)
     }
 
-    function handleLargura(e:ChangeEvent<HTMLInputElement>) {
-        const larguraValue: number = parseInt(e.target.value)
-        setLargura(larguraValue)
+    function handlewidth(e:ChangeEvent<HTMLInputElement>) {
+        const widthValue: number = parseInt(e.target.value)
+        setWidth(widthValue)
     }
 
-    function handlePeso(e:ChangeEvent<HTMLInputElement>) {
-        const pesoValue: number = parseInt(e.target.value)
-        setPeso(pesoValue)
+    function handleweight(e:ChangeEvent<HTMLInputElement>) {
+        const weightValue: number = parseInt(e.target.value)
+        setWeight(weightValue)
     }
 
-    function handleAltura(e:ChangeEvent<HTMLInputElement>) {
-        const alturaValue: number = parseInt(e.target.value)
-        setAltura(alturaValue)
+    function handleheight(e:ChangeEvent<HTMLInputElement>) {
+        const heightValue: number = parseInt(e.target.value)
+        setHeight(heightValue)
     }
 
-    function handleQuantity(e:ChangeEvent<HTMLInputElement>) {
-        const quantityValue: number = parseInt(e.target.value)
-        setQuant(quantityValue)
+    function handlelengthity(e:ChangeEvent<HTMLInputElement>) {
+        const lengthityValue: number = parseInt(e.target.value)
+        setLength(lengthityValue)
     }
 
-    function handleDiametro(e:ChangeEvent<HTMLInputElement>) {
+    function handlediameter(e:ChangeEvent<HTMLInputElement>) {
         const diameterValue: number = parseInt(e.target.value)
-        setDiametro(diameterValue)
+        setDiamater(diameterValue)
     }
 
     // const token = localStorage.getItem("tokenUser")
@@ -105,11 +105,11 @@ export default function useCreateProduct() {
             estoque !== undefined &&
             categoryId !== undefined &&
             file !== null &&
-            diametro !== null &&
-            peso !== null &&
-            altura !== null &&
-            largura !== null &&
-            quant !== null
+            diameter !== null &&
+            weight !== null &&
+            height !== null &&
+            width !== null &&
+            length !== null
         ) {
             const data = {
                 nome_produto,
@@ -118,16 +118,16 @@ export default function useCreateProduct() {
                 estoque,
                 categoryId,
                 oferta,
-                diametro,
-                peso,
-                altura,
-                largura,
-                quant
+                diameter,
+                weight,
+                height,
+                width,
+                length
             };
     
             try {
                 if (token) {
-                    const response = await api.post("/Product/create", data, {
+                    const response = await api.post("/product/create", data, {
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${JSON.parse(token)}`
@@ -153,7 +153,7 @@ export default function useCreateProduct() {
                         formData.append("file", file);
                     }
     
-                    api.post(`/Product/Image/${response.data.id_produto}`, formData, {
+                    api.post(`/product/Image/${response.data.id_produto}`, formData, {
                         headers: {
                             Authorization: `Bearer ${JSON.parse(token)}`,
                             "Content-Type": "multipart/form-data"
@@ -165,7 +165,7 @@ export default function useCreateProduct() {
                     }, 3000);
                 }
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 setLoading(false);
     
                 toast.error("Ocorreu um erro ao cadastrar o produto. Por favor, tente novamente.", {
@@ -246,15 +246,15 @@ export default function useCreateProduct() {
         loading,
         handleOferta,
         ofertaProduct,
-        handleAltura,
-        handlePeso,
-        handleLargura,
-        handleQuantity,
-        handleDiametro,
-        diametro,
-        quant,
-        largura,
-        peso,
-        altura
+        handleheight,
+        handleweight,
+        handlewidth,
+        handlelengthity,
+        handlediameter,
+        diameter,
+        length,
+        width,
+        weight,
+        height
     }
 }

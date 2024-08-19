@@ -37,16 +37,16 @@ export default function FormCadastroProdutos() {
         registerProduct,
         loading,
         handleOferta,
-        handleAltura,
-        handleDiametro,
-        handleLargura,
-        handlePeso,
-        handleQuantity,
-        altura,
-        diametro,
-        largura,
-        peso,
-        quant
+        handlediameter,
+        handleheight,
+        handlelengthity,
+        handleweight,
+        handlewidth,
+        height,
+        diameter,
+        weight,
+        width,
+        length
     } = useCreateProduct()
     const { categoria, categoriaNome, createCategory, onChangeCategoria, loadingCategory } = useCategory()
 
@@ -132,9 +132,9 @@ export default function FormCadastroProdutos() {
                                 <input
                                     type="number"
                                     className="input border border-1 border-black outline-none p-2 w-full"
-                                    onChange={handleQuantity}
+                                    onChange={handlelengthity}
                                     name="length"
-                                    value={quant}
+                                    value={length}
                                     onKeyDown={handleKeyDown}
                                 />
                             </div>
@@ -144,9 +144,9 @@ export default function FormCadastroProdutos() {
                                     <input
                                         type="number"
                                         className="input border border-1 border-black outline-none p-2 w-full"
-                                        onChange={handleAltura}
+                                        onChange={handleheight}
                                         name="height"
-                                        value={altura}
+                                        value={height}
                                         onKeyDown={handleKeyDown}
                                     />
                                 </div>
@@ -155,9 +155,9 @@ export default function FormCadastroProdutos() {
                                     <input
                                         type="number"
                                         className="input border border-1 border-black outline-none p-2 w-full"
-                                        onChange={handleLargura}
+                                        onChange={handlewidth}
                                         name="height"
-                                        value={largura}
+                                        value={width}
                                         onKeyDown={handleKeyDown}
                                     />
                                 </div>
@@ -168,9 +168,9 @@ export default function FormCadastroProdutos() {
                                     <input
                                         type="number"
                                         className="input border border-1 border-black outline-none p-2 w-full"
-                                        onChange={handlePeso}
+                                        onChange={handleweight}
                                         name="weight"
-                                        value={peso}
+                                        value={weight}
                                         onKeyDown={handleKeyDown}
                                     />
                                 </div>
@@ -179,9 +179,9 @@ export default function FormCadastroProdutos() {
                                     <input
                                         type="number"
                                         className="input border border-1 border-black outline-none p-2 w-full"
-                                        onChange={handleDiametro}
+                                        onChange={handlediameter}
                                         name="diameter"
-                                        value={diametro}
+                                        value={diameter}
                                         onKeyDown={handleKeyDown}
                                     />
                                 </div>
