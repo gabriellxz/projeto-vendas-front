@@ -7,6 +7,7 @@ import { CartOrderUser } from "../../../types/cart";
 import Moeda from "../../../utils/moeda";
 import Loading from "../../../components/Loading/loading";
 import ButtonDark from "../../../components/Button-dark/button-dark";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function OrderUser() {
 
@@ -63,6 +64,17 @@ export default function OrderUser() {
                 console.log(response)
             } catch (error) {
                 console.log(error)
+
+                toast.error("Não foi possivel atualizar status de entrega do produto.", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
             }
         }
     }
@@ -143,6 +155,7 @@ export default function OrderUser() {
                     </span> : <ButtonDark text="Confirmar entrega" propsBtn={confirmedOrder} />
                 }
             </div>
+            <ToastContainer/>
         </div>
     )
 }
