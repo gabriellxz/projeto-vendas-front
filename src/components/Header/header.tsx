@@ -82,10 +82,26 @@ export default function Header() {
                                     >
                                         <UserIcon />
                                         <div>
-                                            <span className={`
-                                                flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                h-[10px] cursor-pointer
-                                            `}>{amount}</span>
+                                            {
+                                                amount ? (
+                                                    amount > 0 ? (
+                                                        <span className={`
+                                                            flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
+                                                            h-[10px] cursor-pointer
+                                                        `}>{amount}</span>
+                                                    ) : (
+                                                        <span className={`
+                                                            justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
+                                                            h-[10px] cursor-pointer hidden
+                                                        `}>{amount}</span>
+                                                    )
+                                                ) : (
+                                                    <span className={`
+                                                        justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
+                                                        h-[10px] cursor-pointer hidden
+                                                    `}>{amount}</span>
+                                                )
+                                            }
                                             <BagIcon />
                                         </div>
                                         <Link to={"/dashboard"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
@@ -146,12 +162,26 @@ export default function Header() {
                                                 </li>
                                                 <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                                     <div>
-                                                        <span className={`
-                                                            flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full 
-                                                            w-[10px] 
-                                                            h-[10px]
-                                                            text-sm cursor-pointer
-                                                        `}>10</span>
+                                                        {
+                                                            amount ? (
+                                                                amount > 0 ? (
+                                                                    <span className={`
+                                                            flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
+                                                            h-[10px] cursor-pointer
+                                                        `}>{amount}</span>
+                                                                ) : (
+                                                                    <span className={`
+                                                            justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
+                                                            h-[10px] cursor-pointer hidden
+                                                        `}>{amount}</span>
+                                                                )
+                                                            ) : (
+                                                                <span className={`
+                                                        justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
+                                                        h-[10px] cursor-pointer hidden
+                                                    `}>{amount}</span>
+                                                            )
+                                                        }
                                                         <BagIcon />
                                                     </div>
                                                     <Link to={"/home/carrinho"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
