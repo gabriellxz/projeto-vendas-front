@@ -84,7 +84,7 @@ export default function Header() {
                                         <div>
                                             <span className={`
                                                 flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                h-[10px]
+                                                h-[10px] cursor-pointer
                                             `}>{amount}</span>
                                             <BagIcon />
                                         </div>
@@ -150,7 +150,7 @@ export default function Header() {
                                                             flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full 
                                                             w-[10px] 
                                                             h-[10px]
-                                                            text-sm
+                                                            text-sm cursor-pointer
                                                         `}>10</span>
                                                         <BagIcon />
                                                     </div>
