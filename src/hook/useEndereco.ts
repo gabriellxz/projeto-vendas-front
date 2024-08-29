@@ -134,7 +134,7 @@ export default function useEndereco() {
         e.preventDefault()
         setLoading(true)
 
-        const data:EnderecoData = {
+        const data: EnderecoData = {
             CEP: cep,
             numero: numero,
             complemento: complemento,
@@ -237,6 +237,154 @@ export default function useEndereco() {
         }
     }
 
+    //EDITAR ENDEREÇO
+    async function handleEditEndereco(e: SyntheticEvent) {
+        e.preventDefault()
+        setLoading(true)
+
+        const data: EnderecoData = {
+            CEP: cep,
+            numero: numero,
+            complemento: complemento,
+            ponto_de_referencia: pontoDeReferencia,
+            bairro: bairro,
+            Rua: rua,
+            telefone_contato: ddd + telefoneContato,
+            cidade: cidade,
+            estado: estado,
+            userId: user?.id
+        }
+
+        if (
+            cep !== "" &&
+            numero !== undefined &&
+            complemento !== "" &&
+            pontoDeReferencia !== "" &&
+            bairro !== "" &&
+            rua !== "" &&
+            ddd !== "" &&
+            telefoneContato !== "" &&
+            ddd !== "" &&
+            estado !== "" &&
+            cidade !== ""
+        ) {
+            try {
+                if (token) {
+                    await api.patch("/Endereco", data, {
+                        headers: {
+                            "Authorization": "Bearer " + JSON.parse(token)
+                        }
+                    }).then((response: AxiosResponse) => {
+                        toast.success("Endereço editado com sucesso!", {
+                            position: "bottom-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+
+                        setLoading(false)
+                        console.log(response)
+
+                        if (response.status === 201) {
+                            navigate("/home/meus-endereços")
+                        }
+                    }).catch((error: AxiosError) => {
+                        setLoading(false)
+                        console.log(error)
+                        if (data.telefone_contato.length != 11) {
+                            setLoading(false)
+
+                            toast.error("Telefone inválido.", {
+                                position: "bottom-center",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "colored",
+                            })
+                        }
+                    })
+
+
+                }
+            } catch (err) {
+                // console.log(err)
+                setLoading(false)
+
+                toast.error("Ocorreu um erro ao editar o endereço. Por favor, tente novamente.", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+
+            }
+        } else {
+            toast.error("Preencha os campos corretamente.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+
+            setLoading(false)
+        }
+    }
+
+    //EXCLUIR ENDEREÇO
+    async function deleteEndereco(id: number) {
+        console.log(id);
+        try {
+            if (token) {
+                const response = await api.delete(`/Endereco/${id}`, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                })
+
+                console.log(response);
+                setEndereco(endereco.filter((e: Endereco) => e.id != id));
+
+                toast.success("Endereço excluído com sucesso.", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+            }
+        } catch (e) {
+            console.log(e);
+            toast.error("Não foi possivel deletar endereço, por favor tente novamente.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        }
+    }
+
     //RENDERIZAR ENDEREÇOS APENAS QUANDO O COMPONENTE FOR MONTADO
     useEffect(() => {
         getEnderecos()
@@ -267,6 +415,8 @@ export default function useEndereco() {
         handleChangeTelefone,
         handleChangeDdd,
         handleChangeRua,
-        getLoadingEnd
+        getLoadingEnd,
+        handleEditEndereco,
+        deleteEndereco
     }
 }
