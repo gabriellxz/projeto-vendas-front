@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { enderecoReducer } from "./selectEndereco";
+import { enderecoReducer } from "./enderecoSlice";
 
 export const store = configureStore({
     reducer: {
-        endereco: enderecoReducer
+        endereco: enderecoReducer,
     }
 })
 
