@@ -14,11 +14,16 @@ export default function Perfil() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
         >
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col items-center justify-between sm:flex-row gap-5">
                 <span className="text-3xl uppercase font-bold">Minha conta</span>
-                <Link to={"/home/meus-pedidos"}>
-                    <ButtonDark text="Verificar meus pedidos" />
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-2">
+                    <Link to={"/home/meus-endereços"}>
+                        <ButtonDark text="Meus endereços" />
+                    </Link>
+                    <Link to={"/home/meus-pedidos"}>
+                        <ButtonDark text="Verificar meus pedidos" />
+                    </Link>
+                </div>
             </div>
             <div className="mt-[50px] border border-zinc-500 rounded-[10px] shadow-md shadow-zinc-300">
                 <div className="flex items-center justify-between border border-b-zinc-500 px-[50px] py-2">

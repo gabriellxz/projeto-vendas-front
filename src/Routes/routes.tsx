@@ -21,6 +21,8 @@ import PainelAdministrativo from "../Pages/Dashboard/Painel-administrativo/paine
 import Perfil from "../Pages/Home/Perfil/perfil";
 import { AnimatePresence } from "framer-motion";
 import OrderUser from "../Pages/Home/Order-user/order-user";
+import Enderecos from "../Pages/Home/Enderecos/enderecos";
+import EditEndereco from "../Pages/Home/EditEndereco/editEndereco";
 
 export default function RoutesApp() {
     return (
@@ -44,6 +46,8 @@ export default function RoutesApp() {
                             <Route path="criar-endereço" element={<FormEndereco />} />
                             <Route path="perfil" element={<Perfil />} />
                             <Route path="meus-pedidos" element={<OrderUser />} />
+                            <Route path="meus-endereços" element={<Enderecos />} />
+                            <Route path="editar-endereço" element={<EditEndereco />} />
                         </Route>
                         <Route path="cadastro-produtos" element={
                             <UserAutenticadoProvider>
