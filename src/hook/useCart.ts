@@ -54,7 +54,7 @@ export default function useCart() {
                     })
 
                     setCart(response.data.carrinho);
-                    console.log(response.data.carrinho);
+                    // console.log(response.data.carrinho);
                     // setLoadingCart(false);
 
                     if (response.data.carrinho.length > 0) {
@@ -100,6 +100,8 @@ export default function useCart() {
                 await api.delete("/cart/clear", {headers: {
                     "Authorization": "Bearer " + JSON.parse(token)
                 }})
+
+                window.location.reload();
             }
         } catch(error) {
             console.log(error);

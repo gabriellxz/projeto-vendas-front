@@ -9,7 +9,7 @@ import { motion } from "framer-motion"
 
 export default function Cart() {
 
-    const { cart, loadingCart } = useCart();
+    const { cart, loadingCart, clearCart } = useCart();
 
     return (
         <motion.div
@@ -23,7 +23,7 @@ export default function Cart() {
                             <div>
                                 <h1 className="uppercase p-[10px] mt-20 font-bold text-2xl flex items-center gap-2">
                                     carrinho
-                                    <span className="cursor-pointer"><TrashIcon /></span>
+                                    <span className="cursor-pointer" onClick={clearCart}><TrashIcon /></span>
                                 </h1>
                             </div>
                             <div className="flex flex-col md:flex md:flex-row w-full">
