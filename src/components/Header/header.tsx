@@ -6,11 +6,13 @@ import NavBarIcon from "../../svg/navbar-icon";
 import CloseNavBar from "../../svg/closeNavbar";
 import { useSpring, animated } from '@react-spring/web'
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserAutenticado } from "../../context/authContext";
 import IconPlus from "../../svg/plus-icon";
 import IconHome from "../../svg/icon-home";
 import { AnimatePresence, motion } from "framer-motion"
+import { CartOrderUser } from "../../types/cart";
+import api from "../../config/config";
 
 export default function Header() {
 
@@ -18,10 +20,43 @@ export default function Header() {
     const token = localStorage.getItem('tokenUser')
     // const token = localStorage.getItem("tokenUser")
     const [open, setOpen] = useState<boolean>(false)
+    const [amount, setAmount] = useState<number>();
+    const [cart, setCart] = useState<CartOrderUser[]>([]);
+
+    async function getAmount() {
+        try {
+            if (token) {
+                const response = await api.get("/cart/find", {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                })
+
+                setCart(response.data.carrinho);
+
+                const totalAmount = cart.reduce((accumulator, item) => {
+                    return accumulator + item.amount;
+                }, 0);
+
+                setAmount(totalAmount);
+            }
+        } catch (error) {
+            console.log(error);
+            // setLoadingCart(false);
+        } finally {
+            // setLoadingCart(false);
+        }
+    }
+
+    useEffect(() => {
+        getAmount();
+    }, [cart])
 
     const openMenu = useSpring({
         width: open ? "60vw" : "0",
     });
+
+
 
     return (
         <>
@@ -46,7 +81,13 @@ export default function Header() {
                                         transition={{ duration: 0.5 }}
                                     >
                                         <UserIcon />
-                                        <BagIcon />
+                                        <div>
+                                            <span className={`
+                                                flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
+                                                h-[10px]
+                                            `}>{amount}</span>
+                                            <BagIcon />
+                                        </div>
                                         <Link to={"/dashboard"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
                                             <IconPlus />
                                         </Link>
@@ -104,7 +145,15 @@ export default function Header() {
                                                     </Link>
                                                 </li>
                                                 <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                    <BagIcon />
+                                                    <div>
+                                                        <span className={`
+                                                            flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full 
+                                                            w-[10px] 
+                                                            h-[10px]
+                                                            text-sm
+                                                        `}>10</span>
+                                                        <BagIcon />
+                                                    </div>
                                                     <Link to={"/home/carrinho"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
                                                         carrinho
                                                     </Link>
