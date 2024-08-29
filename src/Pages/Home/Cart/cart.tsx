@@ -9,21 +9,21 @@ import { motion } from "framer-motion"
 
 export default function Cart() {
 
-    const { loadingCart, cart, clearCart } = useCart()
+    const { cart, loadingCart } = useCart();
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1}}
+            animate={{ opacity: 1 }}
         >
             {
-                loadingCart ? <Loading styleLoading="absolute top-[50%] left-[50%] bottom-[50%] right-[50%]" /> : (
-                    cart.length > 0 ? (
+                loadingCart ? <Loading styleLoading="absolute top-[50%] left-[50%] bottom-[50%] right-[50%]"/> : (
+                    <>
                         <div className="mb-5">
                             <div>
                                 <h1 className="uppercase p-[10px] mt-20 font-bold text-2xl flex items-center gap-2">
                                     carrinho
-                                    <span className="cursor-pointer" onClick={clearCart}>{loadingCart ? <Loading /> : <TrashIcon />}</span>
+                                    <span className="cursor-pointer"><TrashIcon /></span>
                                 </h1>
                             </div>
                             <div className="flex flex-col md:flex md:flex-row w-full">
@@ -35,19 +35,20 @@ export default function Cart() {
                                     }
                                 </div>
                                 <div className="p-5 md:max-w-[257px] lg:mr-[100px] w-full mt-5">
-                                    <SumarioCompras iCart={cart} />
+                                    <SumarioCompras iCart={cart}/>
                                 </div>
                             </div>
                         </div>
-                    ) : (<h1 className="text-4xl p-[10px] sm:ml-[50px] font-bold text-zinc-500 mt-10">Seu carrinho está vazio...</h1>)
+
+                        <div className="mt-[200px]">
+                            <div className="pl-10">
+                                <span className="uppercase text-2xl">Recomendado para você</span>
+                            </div>
+                            <Catalog reload={() => { }} />
+                        </div>
+                    </>
                 )
             }
-            <div className="mt-[200px]">
-                <div className="pl-10">
-                    <span className="uppercase text-2xl">Recomendado para você</span>
-                </div>
-                <Catalog reload={() => { }} />
-            </div>
         </motion.div>
 
     )

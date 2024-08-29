@@ -3,8 +3,9 @@ import ProdutosDTO from "../../types/produto"
 import Moeda from "../../utils/moeda"
 import ButtonDark from "../Button-dark/button-dark"
 import useCart from "../../hook/useCart"
-import Loading from "../Loading/loading"
 import Catalog from "../Catalog/catalog"
+import Loading from "../Loading/loading"
+
 
 interface Props {
     iProdutoDetails: ProdutosDTO
@@ -12,7 +13,8 @@ interface Props {
 
 export default function DetailsProductPage(props: Props) {
 
-    const { addCart, loadingCart } = useCart()
+    const { handleAddCart, loadingCart } = useCart();
+
     function reloadPage() {
         setTimeout(() => {
             window.location.reload()
@@ -61,45 +63,10 @@ export default function DetailsProductPage(props: Props) {
                         <p>Estoque: {props.iProdutoDetails.estoque}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        {loadingCart ? <Loading /> : <ButtonDark text="Adicionar ao carrinho" propsBtn={addCart} />}
+                        {loadingCart ? <Loading /> : <ButtonDark text="Adicionar ao carrinho" propsBtn={handleAddCart} />}
                     </div>
                 </div>
             </div>
-            {/* <div className="w-full">
-                <div className="flex justify-center px-[5px] flex-col w-full">
-                    <p className="uppercase text-xl">detalhes</p>
-                    <div className="bg-zinc-400 p-[0.5px] w-full">
-                        <div className="bg-greenEco-200 p-[1px] w-[90px] absolute"></div>
-                    </div>
-                </div>
-                <div className="flex m-10">
-                    <div className="mr-10 sm:mr-[200px]">
-                        <div>
-                            <h1 className="text-[15px] md:text-3xl font-semibold">{props.iProdutoDetails.nome_produto}</h1>
-                            <p className="text-zinc-500 md:text-xl text-[10px]">Categoria Do Produto</p>
-                        </div>
-                        <div>
-                            <ul className="list-disc p-5">
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                                <li>Caracteristica</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="mt-4">
-                        <h1 className="font-bold">Composição</h1>
-                        <p className="text-zinc-500">100% vegano</p>
-                    </div>
-                </div>
-            </div> */}
             <div className="mt-[200px]">
                 <div className="pl-10">
                     <span className="uppercase text-2xl">Recomendado para você</span>

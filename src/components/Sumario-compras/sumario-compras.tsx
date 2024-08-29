@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import usePayment from "../../hook/usePayment";
 import Loading from "../Loading/loading";
 import { useDispatch, useSelector } from "react-redux";
-import { changeValue } from "../../features/selectEndereco";
+import { changeValue } from "../../features/enderecoSlice";
 import { TypeReducer } from "../../features/store";
 import Input from "../Input/input";
 import useCalculateDelivered from "../../hook/useCalculateDelivered";
