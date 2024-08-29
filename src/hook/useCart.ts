@@ -94,10 +94,24 @@ export default function useCart() {
         }
     }
 
+    async function clearCart() {
+        try {
+            if(token) {
+                await api.delete("/cart/clear", {headers: {
+                    "Authorization": "Bearer " + JSON.parse(token)
+                }})
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     return {
         handleAddCart,
         cart,
         deleteCartProduct,
-        loadingCart
+        loadingCart,
+        clearCart,
+        produtoId
     }
 }
