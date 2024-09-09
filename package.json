@@ -18,6 +18,7 @@
     "aws-sdk": "^2.1588.0",
     "axios": "^1.6.5",
     "framer-motion": "^11.2.4",
+    "front": "file:",
     "gsap": "^3.12.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",

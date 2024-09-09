@@ -47,7 +47,7 @@ export default function RoutesApp() {
                             <Route path="perfil" element={<Perfil />} />
                             <Route path="meus-pedidos" element={<OrderUser />} />
                             <Route path="meus-endereços" element={<Enderecos />} />
-                            <Route path="editar-endereço" element={<EditEndereco />} />
+                            <Route path="editar-endereço/:idEndereco" element={<EditEndereco />} />
                         </Route>
                         <Route path="cadastro-produtos" element={
                             <UserAutenticadoProvider>

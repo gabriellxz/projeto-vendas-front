@@ -5,7 +5,7 @@ import axios, { AxiosError, AxiosResponse } from "axios"
 import { toast } from "react-toastify";
 // import usePayment from "./usePayment";
 import { UserAutenticado } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface CEP {
     localidade: string;
@@ -238,6 +238,8 @@ export default function useEndereco() {
     }
 
     //EDITAR ENDEREÇO
+    const params = useParams();
+
     async function handleEditEndereco(e: SyntheticEvent) {
         e.preventDefault()
         setLoading(true)
@@ -255,6 +257,7 @@ export default function useEndereco() {
             userId: user?.id
         }
 
+
         if (
             cep !== "" &&
             numero !== undefined &&
@@ -270,7 +273,7 @@ export default function useEndereco() {
         ) {
             try {
                 if (token) {
-                    await api.patch("/Endereco", data, {
+                    await api.patch(`/Endereco/${Number(params.idEndereco)}`, data, {
                         headers: {
                             "Authorization": "Bearer " + JSON.parse(token)
                         }
