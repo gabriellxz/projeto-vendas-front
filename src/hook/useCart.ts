@@ -2,25 +2,26 @@ import { useContext, useEffect, useState } from "react"
 import { CartOrderUser } from "../types/cart"
 import api from "../config/config"
 import { AxiosResponse } from "axios"
-import useProdutoId from "./useProdutoId"
+// import useProdutoId from "./useProdutoId"
 import { useNavigate } from "react-router-dom"
 import { UserAutenticado } from "../context/authContext"
 export default function useCart() {
 
     const navigate = useNavigate();
     const { token } = useContext(UserAutenticado);
-    const { produto } = useProdutoId();
+    // const { produto } = useProdutoId();
     const [cart, setCart] = useState<CartOrderUser[]>([]);
     const [produtoId, setProdutoId] = useState<number>();
     const [loadingCart, setLoadingCart] = useState<boolean>(false);
+    // const params = useParams();
 
-    async function handleAddCart() {
+    async function handleAddCart(idProduto: number) {
 
         setLoadingCart(true);
 
         const data = {
             amount: 1,
-            produtoId: produto?.id_produto
+            produtoId: Number(idProduto)
         }
 
         try {

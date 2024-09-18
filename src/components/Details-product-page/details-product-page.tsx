@@ -5,6 +5,7 @@ import ButtonDark from "../Button-dark/button-dark"
 import useCart from "../../hook/useCart"
 import Catalog from "../Catalog/catalog"
 import Loading from "../Loading/loading"
+import { useParams } from "react-router-dom"
 
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 export default function DetailsProductPage(props: Props) {
 
     const { handleAddCart, loadingCart } = useCart();
+    const params = useParams();
 
     function reloadPage() {
         setTimeout(() => {
@@ -63,7 +65,7 @@ export default function DetailsProductPage(props: Props) {
                         <p>Estoque: {props.iProdutoDetails.estoque}</p>
                     </div>
                     <div className="flex flex-col gap-3">
-                        {loadingCart ? <Loading /> : <ButtonDark text="Adicionar ao carrinho" propsBtn={handleAddCart} />}
+                        {loadingCart ? <Loading /> : <ButtonDark text="Adicionar ao carrinho" propsBtn={() => handleAddCart(Number(params.idProduto))} />}
                     </div>
                 </div>
             </div>

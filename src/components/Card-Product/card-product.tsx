@@ -3,6 +3,9 @@ import ProdutosDTO from '../../types/produto'
 import Moeda from '../../utils/moeda';
 import { ShoppingCartIcon } from '@heroicons/react/16/solid';
 import useCart from '../../hook/useCart';
+import { CartOrderUser } from '../../types/cart';
+import { CartIcon } from '../../svg/cart-icon';
+import Loading from '../Loading/loading';
 // import imgProduct from '../../assets/produto-1.webp'
 
 interface PropsProduto {
@@ -12,7 +15,9 @@ interface PropsProduto {
 
 export default function CardProduct(props: PropsProduto) {
 
-    const { handleAddCart } = useCart();
+    const { handleAddCart, cart, loadingCart } = useCart();
+
+    const isCart = cart.some((c: CartOrderUser) => c.produtoId === props.iProduto.id_produto);
 
     return (
         <div className='bg-zinc-100 p-2'>
@@ -39,7 +44,17 @@ export default function CardProduct(props: PropsProduto) {
                 </div>
             </Link>
             <span className='flex justify-end cursor-pointer'>
-                <ShoppingCartIcon className='w-[30px]' onClick={handleAddCart}/>
+                {isCart ? (
+                    <>
+                        {loadingCart ? <Loading /> : <ShoppingCartIcon className='w-[30px]' onClick={() => handleAddCart(props.iProduto.id_produto)} />}
+                    </>
+                ) : (
+                    <>
+                        {loadingCart ? <Loading /> : <span onClick={() => handleAddCart(props.iProduto.id_produto)}>
+                            <CartIcon />
+                        </span>}
+                    </>
+                )}
             </span>
         </div>
     )
