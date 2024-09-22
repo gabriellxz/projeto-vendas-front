@@ -16,14 +16,14 @@ export default function SlidesMiniCard() {
 
     const responsiveOptions = [
         {
-            breakpoint: '640px',  // sm breakpoint
-            numVisible: 1,        // 1 card visível em telas menores que 640px
-            numScroll: 1          // 1 card por scroll
+            breakpoint: '640px',  
+            numVisible: 1,        
+            numScroll: 1          
         },
         {
-            breakpoint: '1024px', // a partir de md (tablet ou desktop)
-            numVisible: 3,        // 3 cards visíveis em telas maiores que 640px
-            numScroll: 3          // 3 cards por scroll
+            breakpoint: '1024px', 
+            numVisible: 3,        
+            numScroll: 3          
         }
     ];
 
