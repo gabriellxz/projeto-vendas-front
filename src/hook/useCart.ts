@@ -5,6 +5,7 @@ import { AxiosResponse } from "axios"
 // import useProdutoId from "./useProdutoId"
 import { useNavigate } from "react-router-dom"
 import { UserAutenticado } from "../context/authContext"
+import { toast } from "react-toastify"
 export default function useCart() {
 
     const navigate = useNavigate();
@@ -88,23 +89,47 @@ export default function useCart() {
                 setCart(cart.filter((c: CartOrderUser) => c.id !== produtoId));
                 setLoadingCart(false);
                 window.location.reload();
+
+                toast.success("Produto adicionado ao carrinho!", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored"
+                });
             }
         } catch (error) {
             console.log(error);
             setLoadingCart(false);
+
+            toast.error("Não foi possível adicionar este produto ao carrinho.", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+            });
         }
     }
 
     async function clearCart() {
         try {
-            if(token) {
-                await api.delete("/cart/clear", {headers: {
-                    "Authorization": "Bearer " + JSON.parse(token)
-                }})
+            if (token) {
+                await api.delete("/cart/clear", {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                })
 
                 window.location.reload();
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error);
         }
     }
