@@ -21,6 +21,8 @@
     "front": "file:",
     "gsap": "^3.12.5",
     "jwt-decode": "^4.0.0",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.8.3",
     "react": "^18.2.0",
     "react-aws-s3": "^1.5.0",
     "react-dom": "^18.2.0",
