@@ -45,12 +45,14 @@ export default function Cart() {
                                 <div className="pl-10">
                                     <span className="uppercase text-2xl">Recomendado para você</span>
                                 </div>
-                                <Catalog reload={() => { }} />
+                                <div className="flex justify-center">
+                                    <Catalog reload={() => { }} />
+                                </div>
                             </div>
                         </>
                     )
                 ) : (
-                    <span className="m-[50px] text-4xl font-bold text-zinc-600">Seu carrinho está vazio.</span>
+                    <span className="p-[50px] text-2xl font-bold text-zinc-600">Seu carrinho está vazio.</span>
                 )
             }
         </motion.div>
