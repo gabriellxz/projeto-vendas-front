@@ -18,9 +18,12 @@ export default function useCalculateDelivered() {
         if (token) {
             if (cep != null) {
                 try {
-                    const response = api.get(`/product/${produtoId}/delivery/${cep}`)
+                    const response = api.get(`/product/${produtoId}/delivery/${cep}`, {headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }})
                     setLoadingFrete(false);
                     setFrete(response);
+                    // console.log(response);
                 } catch (error) {
                     setLoadingFrete(false);
                     console.log(error);
