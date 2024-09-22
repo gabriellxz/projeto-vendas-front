@@ -7,7 +7,6 @@ import Loading from '../Loading/loading';
 
 interface PropsProduto {
     iProduto: ProdutosDTO;
-    reload: () => void;
 }
 
 export default function CardProduct(props: PropsProduto) {
@@ -16,10 +15,10 @@ export default function CardProduct(props: PropsProduto) {
 
     return (
         <div className={`text-center`}>
-            <Link to={`/detalhes-produtos/${props.iProduto.id_produto}`}>
+            <Link to={`/home/detalhes-produtos/${props.iProduto.id_produto}`}>
                 <img src={props.iProduto.imagem && props.iProduto.imagem[0] && props.iProduto.imagem[0].url} alt="" className='py-5 max-w-[300px] h-[300px] w-full' />
             </Link>
-            <Link to={`/detalhes-produtos/${props.iProduto.id_produto}`}>{props.iProduto.nome_produto}</Link>
+            <Link to={`/home/detalhes-produtos/${props.iProduto.id_produto}`}>{props.iProduto.nome_produto}</Link>
             <p className={`font-bold ${props.iProduto.oferta ? "text-green-600" : ""}`}>{Moeda.formatar(props.iProduto.preco)}</p>
             <div className='flex justify-center'>
                 {

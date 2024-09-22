@@ -4,7 +4,6 @@ import CardProduct from "../Card-Product/card-product"
 import Loading from "../Loading/loading"
 
 interface Props {
-    reload: () => void;
     searchItem?: string;
 }
 
@@ -46,22 +45,20 @@ export default function Catalog(props: Props) {
     )
 
     return (
-        <div>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 grid grid-cols-2 gap-5 mt-5 pt-10 p-10 card-item">
+        <div className="sm:grid sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 grid grid-cols-2 gap-5 mt-5 pt-10 p-10 card-item">
 
-                {loading ? (
-                    <Loading />
+            {loading ? (
+                <Loading />
+            ) : (
+                product.length > 0 ? (
+                    filterProduct.map((product) => (
+                        <CardProduct key={product.id_produto} iProduto={product} />
+                    ))
                 ) : (
-                    product.length > 0 ? (
-                        filterProduct.map((product) => (
-                            <CardProduct key={product.id_produto} iProduto={product} reload={props.reload} />
-                        ))
-                    ) : (
-                        <p>Não existem produtos...</p>
-                    )
-                )}
+                    <p>Não existem produtos...</p>
+                )
+            )}
 
-            </div>
         </div>
     )
 }

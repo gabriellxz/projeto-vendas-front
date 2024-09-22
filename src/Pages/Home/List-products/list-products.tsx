@@ -75,7 +75,7 @@ export default function ListProduct() {
                             </AnimatePresence>
                         </div>
                         <div className='flex justify-center'>
-                            <Catalog searchItem={search} reload={() => { }} />
+                            <Catalog searchItem={search}/>
                         </div>
                     </div>
                 </div>

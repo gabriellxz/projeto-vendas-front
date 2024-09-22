@@ -17,11 +17,6 @@ export default function DetailsProductPage(props: Props) {
     const { handleAddCart, loadingCart } = useCart();
     const params = useParams();
 
-    function reloadPage() {
-        setTimeout(() => {
-            window.location.reload()
-        }, 1000)
-    }
 
     return (
         <div className={`
@@ -73,7 +68,9 @@ export default function DetailsProductPage(props: Props) {
                 <div className="pl-10">
                     <span className="uppercase text-2xl">Recomendado para você</span>
                 </div>
-                <Catalog reload={reloadPage} />
+                <div className="flex justify-center">
+                    <Catalog />
+                </div>
             </div>
         </div>
     )

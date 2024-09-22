@@ -46,7 +46,7 @@ export default function Cart() {
                                     <span className="uppercase text-2xl">Recomendado para você</span>
                                 </div>
                                 <div className="flex justify-center">
-                                    <Catalog reload={() => { }} />
+                                    <Catalog />
                                 </div>
                             </div>
                         </>
