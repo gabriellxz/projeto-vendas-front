@@ -10,9 +10,9 @@ export default function MiniCard(props: Props) {
     return (
         <>
             <Link to={`/home/detalhes-produtos/${props.iProduto.id_produto}`}>
-                <div className='max-w-[224px] w-full bg-white flex flex-col justify-center items-center p-3'>
+                <div className='max-w-[200px] w-full bg-white flex flex-col justify-center items-center p-3'>
                     <div>
-                        <img src={props.iProduto.imagem && props.iProduto.imagem[0] && props.iProduto.imagem[0].url} alt="" className='w-[224px] h-[200px]' />
+                        <img src={props.iProduto.imagem && props.iProduto.imagem[0] && props.iProduto.imagem[0].url} alt="" className='w-[200px] h-[200px]' />
                     </div>
                     <div className='text-xl text-center flex justify-center items-center'>
                         <h1 className='whitespace-nowrap overflow-hidden text-ellipsis'
