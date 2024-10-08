@@ -20,7 +20,7 @@ interface PropsSumario {
 export default function SumarioCompras(props: PropsSumario) {
 
     const navigate = useNavigate()
-    const { calculateDelivered, LoadingFrete, setCep, cep } = useCalculateDelivered();
+    const { calculateDelivered, LoadingFrete, setCep, cep, frete } = useCalculateDelivered();
     const { endereco, getLoadingEnd } = useEndereco()
     const { make, loading } = usePayment()
     const [subTotal, setSubTotal] = useState(0)
@@ -67,6 +67,11 @@ export default function SumarioCompras(props: PropsSumario) {
                     />
                     {LoadingFrete ? <Loading /> : <ButtonDark text="Calcular frete" propsBtn={calculateDelivered} />}
                     {/* <span>{frete}</span> */}
+                </div>
+                <div className={`
+                    border border-1 border-black outline-none p-2 w-[100%]
+                `}>
+                    <div>{frete ? <span>R${frete}</span> : <span>R$0,00</span>}</div>
                 </div>
                 <div className="bg-zinc-400 p-[0.5px] w-full"></div>
                 <form>
