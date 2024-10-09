@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import CardCart from "../../../components/Card-cart/card-cart";
 import Catalog from "../../../components/Catalog/catalog";
 import Loading from "../../../components/Loading/loading";
@@ -55,6 +56,7 @@ export default function Cart() {
                     <span className="p-[50px] text-2xl font-bold text-zinc-600">Seu carrinho está vazio.</span>
                 )
             }
+            <ToastContainer/>
         </motion.div>
 
     )

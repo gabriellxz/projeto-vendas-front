@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import logo_dash from '../../assets/logo-dash.png'
+import logo_dash from '../../assets/yeshuá.svg'
 import './style.css'
 import { useContext, useState } from "react"
 import { UserAutenticado } from "../../context/authContext"
