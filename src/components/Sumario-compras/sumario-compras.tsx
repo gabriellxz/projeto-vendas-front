@@ -41,8 +41,12 @@ export default function SumarioCompras(props: PropsSumario) {
             total += item.amount * item.produtos.preco
         })
 
+        if(frete) {
+            total += parseFloat(frete)
+        }
+
         setSubTotal(total)
-    }, [props.iCart])
+    }, [props.iCart, frete])
 
 
     return (
