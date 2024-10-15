@@ -24,6 +24,7 @@ import OrderUser from "../Pages/Home/Order-user/order-user";
 import Enderecos from "../Pages/Home/Enderecos/enderecos";
 import EditEndereco from "../Pages/Home/EditEndereco/editEndereco";
 import PageSuccess from "../Pages/PageSuccess/page-success";
+import PageErrorPayment from "../Pages/PageError/page-error";
 
 export default function RoutesApp() {
     return (
@@ -84,6 +85,7 @@ export default function RoutesApp() {
                         </Route>
                         <Route path="acesso-negado" element={<PageError />} />
                         <Route path="pagamento-efetuado" element={<PageSuccess />} />
+                        <Route path="pagamento-erro" element={<PageErrorPayment />} />
                     </Routes>
                 </UserAutenticadoProvider >
             </BrowserRouter>
