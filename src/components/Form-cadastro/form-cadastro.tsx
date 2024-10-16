@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from "../Loading/loading";
 import useCadastro from "../../hook/useCadastro";
+import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@mui/material";
 
 export default function FormCadastro() {
 
@@ -69,23 +70,23 @@ export default function FormCadastro() {
                             </p>
                         </div>
                         <div className="flex gap-5">
-                            <div className="flex flex-col max-w-[108px] w-full">
-                                <span className="text-xl">DDD</span>
-                                <select
+                            <FormControl className="max-w-[108px] w-full">
+                                <InputLabel id="demo-simple-select-label">DDD</InputLabel>
+                                <Select
                                     name="ddd"
-                                    id=""
+                                    labelId="demo-simple-select-label"
                                     value={telefoneData.ddd}
+                                    label="DDD"
                                     onChange={handleTelefoneValue}
-                                    className="border border-1 border-black outline-none p-2 max-w-[108px] w-full"
                                 >
-                                    <option>DDD</option>
+                                    <MenuItem disabled selected>DDD</MenuItem>
                                     {
                                         data.dddsPorEstado.map((ddd: string) => (
-                                            <option>{ddd}</option>
+                                            <MenuItem>{ddd}</MenuItem>
                                         ))
                                     }
-                                </select>
-                            </div>
+                                </Select>
+                            </FormControl>
                             <div className="w-full">
                                 <Input
                                     typeInput={"tel"}
@@ -107,28 +108,27 @@ export default function FormCadastro() {
                                 onInputValue={handleNomeInput}
                             />
                         </div>
-                        <div className="flex flex-col mt-5">
-                            <span className="text-xl">Sexo</span>
-                            <div className="flex flex-col gap-5 mt-5 sm:flex sm:flex-row">
+                        <FormControl className="mt-5">
+                            <FormLabel id="label-radio-gender">Sexo</FormLabel>
+                            <RadioGroup
+                                aria-labelledby="label-radio-gender"
+                            >
                                 <div className="flex items-center gap-3">
-                                    <input type="radio" name="gender" value={"feminino"} onChange={handleGeneroValue} className="w-[40px] h-[40px] border border-1 border-black" />
-                                    Feminino
+                                    <FormControlLabel control={<Radio />} label={"Feminino"} name="gender" value={"feminino"} onChange={handleGeneroValue} />
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <input type="radio" name="gender" value={"masculino"} onChange={handleGeneroValue} className="w-[40px] h-[40px] border border-1 border-black" />
-                                    Masculino
+                                    <FormControlLabel control={<Radio />} label={"Masculino"} name="gender" value={"masculino"} onChange={handleGeneroValue} />
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <input type="radio" name="gender" value={"outro"} onChange={handleGeneroValue} className="w-[40px] h-[40px] border border-1 border-black" />
-                                    Outro
+                                    <FormControlLabel control={<Radio />} label={"Masculino"} name="gender" value={"outro"} onChange={handleGeneroValue} />
                                 </div>
-                            </div>
-                        </div>
+                            </RadioGroup>
+                        </FormControl>
                         <div className="text-center">
                             {
                                 validation.loading ? <Loading />
                                     :
-                                    <ButtonDark text={"cadastrar"} />       
+                                    <ButtonDark text={"cadastrar"} />
                             }
                             <div className="bg-zinc-400 p-[0.4px] w-full"></div>
                         </div>

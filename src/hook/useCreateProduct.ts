@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../config/config";
 import { UserAutenticado } from "../context/authContext";
+import { SelectChangeEvent } from "@mui/material";
 // import AWS from 'aws-sdk'
 
 // const ACCESS_KEY_AWS = import.meta.env.ACCESS_KEY_AWS
@@ -46,7 +47,7 @@ export default function useCreateProduct() {
         setEstoque(numeroEstoque)
     }
 
-    function handleCategoria(event: ChangeEvent<HTMLSelectElement>): void {
+    function handleCategoria(event: SelectChangeEvent<any>): void {
         const categoryId: number = parseInt(event.target.value)
         setCategoryId(categoryId)
     }

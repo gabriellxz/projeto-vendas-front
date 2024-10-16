@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 // import usePayment from "./usePayment";
 import { UserAutenticado } from "../context/authContext";
 import { useNavigate, useParams } from "react-router-dom";
+import { SelectChangeEvent } from "@mui/material";
 
 interface CEP {
     localidade: string;
@@ -126,7 +127,7 @@ export default function useEndereco() {
         setTelefoneContato(e.target.value)
     }
 
-    function handleChangeDdd(e: ChangeEvent<HTMLSelectElement>) {
+    function handleChangeDdd(e: SelectChangeEvent<string>) {
         setDdd(e.target.value)
     }
 

@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify"
 import Loading from "../../../components/Loading/loading";
 import '../../../global.css'
 import { motion } from "framer-motion"
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 export default function FormEndereco() {
 
@@ -105,8 +106,7 @@ export default function FormEndereco() {
                             />
                         </div>
                         <div className="flex flex-col w-full">
-                            <label className="text-xl">Número</label>
-                            <input placeholder="Obs: se não houver número, coloque zero" type="number" name="numero" value={numero ? numero : ""} onKeyDown={hanldeKeyDown} onChange={handleChangeNumero} className="input border border-1 border-black outline-none p-2" />
+                            <TextField variant="outlined" label="Número" placeholder="Obs: se não houver número, coloque zero" type="number" name="numero" value={numero ? numero : ""} onKeyDown={hanldeKeyDown} onChange={handleChangeNumero} className="input border border-1 border-black outline-none p-2" />
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
@@ -145,23 +145,23 @@ export default function FormEndereco() {
                         </div>
                     </div>
                     <div className="md:flex md:flex-row w-full gap-[20px] mt-5">
-                        <div className="flex flex-col w-full">
-                            <span className="text-xl">DDD</span>
-                            <select
+                        <FormControl className="max-w-[108px] w-full">
+                            <InputLabel id="demo-simple-select-label">DDD</InputLabel>
+                            <Select
                                 name="ddd"
-                                id=""
+                                labelId="demo-simple-select-label"
                                 value={ddd}
+                                label="DDD"
                                 onChange={handleChangeDdd}
-                                className="border border-1 border-black outline-none p-2 w-full"
                             >
-                                <option>DDD</option>
+                                <MenuItem disabled selected>DDD</MenuItem>
                                 {
                                     data.dddsPorEstado.map((ddd: string) => (
-                                        <option>{ddd}</option>
+                                        <MenuItem>{ddd}</MenuItem>
                                     ))
                                 }
-                            </select>
-                        </div>
+                            </Select>
+                        </FormControl>
                         <div className="flex flex-col w-full">
                             <Input
                                 inputLabel="Telefone"
