@@ -42,15 +42,26 @@ export default function PainelAdministrativo() {
     }
 
     function TableEstoque() {
+
+        const maxEstoque = 100
+
         return (
             <div>
                 {
-                    product.map((p: ProdutosDTO) => (
-                        <div className="flex justify-between bg-zinc-200 mx-1 my-3 rounded-lg py-5 px-3 text-xl">
-                            <span>{p.nome_produto}</span>
-                            <span>{p.estoque}</span>
-                        </div>
-                    ))
+                    product.map((p: ProdutosDTO) => {
+                        const estoquePercent = (p.estoque / maxEstoque) * 100
+
+                        return (
+                            <div className="relative flex justify-between bg-zinc-200 mx-1 my-3 rounded-lg py-5 px-3 text-xl">
+                                <div
+                                    className="absolute top-0 left-0 h-full bg-blue-500 rounded-lg z-0"
+                                    style={{width: `${estoquePercent}%`}}
+                                ></div>
+                                <span className="z-10">{p.nome_produto}</span>
+                                <span className="z-10">{p.estoque}</span>
+                            </div>
+                        )
+                    })
                 }
             </div>
         )
