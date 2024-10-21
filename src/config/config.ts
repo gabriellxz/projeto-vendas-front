@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: "https://vendas-online-ruddy.vercel.app"
+    baseURL: import.meta.env.VITE_API_LINK
 });
 
 export default api;
