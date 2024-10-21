@@ -127,7 +127,7 @@ export default function useEndereco() {
         setTelefoneContato(e.target.value)
     }
 
-    function handleChangeDdd(e: SelectChangeEvent<string>) {
+    function handleChangeDdd(e: SelectChangeEvent<any>) {
         setDdd(e.target.value)
     }
 
