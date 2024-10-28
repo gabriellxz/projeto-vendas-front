@@ -12,6 +12,7 @@ import { changeValue } from "../../features/enderecoSlice";
 import { TypeReducer } from "../../features/store";
 import Input from "../Input/input";
 import useCalculateDelivered from "../../hook/useCalculateDelivered";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 interface PropsSumario {
     iCart: CartOrderUser[];
@@ -28,7 +29,7 @@ export default function SumarioCompras(props: PropsSumario) {
     const dispatch = useDispatch()
     const enderecoState = useSelector((state: TypeReducer) => state.endereco.adressId)
 
-    function changeEndereco(e: ChangeEvent<HTMLSelectElement>) {
+    function changeEndereco(e: SelectChangeEvent<string>) {
         const adressId = e.target.value
         console.log(adressId)
         dispatch(changeValue(adressId))
@@ -41,7 +42,7 @@ export default function SumarioCompras(props: PropsSumario) {
             total += item.amount * item.produtos.preco
         })
 
-        if(frete) {
+        if (frete) {
             total += parseFloat(frete)
         }
 
@@ -79,7 +80,7 @@ export default function SumarioCompras(props: PropsSumario) {
                 </div>
                 <div className="bg-zinc-400 p-[0.5px] w-full"></div>
                 <form>
-                    <div className="text-center mb-1">
+                    <div className="mb-1">
                         {
                             endereco.length < 1 ? (
                                 <>
@@ -91,25 +92,35 @@ export default function SumarioCompras(props: PropsSumario) {
                                 <div>
                                     {
                                         getLoadingEnd ? <Loading /> : (
-                                            <select value={enderecoState} onChange={changeEndereco} className="border border-1 border-black outline-none p-2 w-full mb-5" required>
-                                                <option>Selecione um endereço</option>
-                                                {
-                                                    endereco.map((item: Endereco, index: number) => (
-                                                        <option value={item.id} key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</option>
-                                                    ))
-                                                }
-                                            </select>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="id-endereço">Endereço</InputLabel>
+                                                <Select
+                                                    name="endereco"
+                                                    label="Endereço"
+                                                    labelId="id-endereço"
+                                                    value={enderecoState}
+                                                    onChange={changeEndereco}
+                                                    required
+                                                >
+                                                    <MenuItem disabled selected value="">Selecione um endereço</MenuItem>
+                                                    {
+                                                        endereco.map((item: Endereco, index: number) => (
+                                                            <MenuItem value={item.id} key={index}>{`${item.bairro}, ${item.cidade}, ${item.estado}`}</MenuItem>
+                                                        ))
+                                                    }
+                                                </Select>
+                                            </FormControl>
                                         )
                                     }
                                     <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/home/criar-endereço") }} />
                                 </div>
                         }
                     </div>
-                    <div className={`${endereco.length < 1 ? "hidden" : "block"}`}>
+                    {frete && <div className={`${endereco.length < 1 ? "hidden" : "block"}`}>
                         {
                             loading ? <Loading /> : <ButtonDark text="Prosseguir com a compra" propsBtn={make} />
                         }
-                    </div>
+                    </div>}
                 </form>
             </div>
         </>

@@ -8,7 +8,7 @@ export default function PageErrorPayment() {
                 <ExclamationCircleIcon className="w-[100px] text-red-700" />
                 <img src={logo} alt="logo" className="max-w-[120px] w-full" />
             </div>
-            <p className="text-3xl uppercase">
+            <p className="text-3xl uppercase text-center">
                 Ocorreu um erro ao efetuar o pagamento!
             </p>
         </div>
