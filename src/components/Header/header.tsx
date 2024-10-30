@@ -140,7 +140,7 @@ export default function Header() {
                                 <button>
                                     <NavBarIcon handleNavBar={() => setOpen(!open)} />
                                 </button>
-                                <Drawer open={open} onClose={() => setOpen(false)}>
+                                <Drawer className="sm:hidden" open={open} onClose={() => setOpen(false)}>
 
 
                                     <div className={`
