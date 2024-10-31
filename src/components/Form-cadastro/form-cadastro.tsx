@@ -82,7 +82,7 @@ export default function FormCadastro() {
                                     <MenuItem disabled selected>DDD</MenuItem>
                                     {
                                         data.dddsPorEstado.map((ddd: string) => (
-                                            <MenuItem>{ddd}</MenuItem>
+                                            <MenuItem value={ddd}>{ddd}</MenuItem>
                                         ))
                                     }
                                 </Select>
