@@ -1,14 +1,18 @@
 import { MapPinIcon } from "@heroicons/react/16/solid";
 import useEndereco from "../../../hook/useEndereco"
 import Endereco from "../../../types/endereco";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { Fab } from "@mui/material";
 
 export default function Enderecos() {
 
     const { endereco, deleteEndereco } = useEndereco();
+    const navigate = useNavigate()
 
-    
+    function navigateFormEndereco() {
+        navigate("/home/criar-endereço")
+    }
 
     return (
         <div>
@@ -36,7 +40,10 @@ export default function Enderecos() {
                     </div>
                 ))
             }
-            <ToastContainer/>
+            <Fab color="primary" aria-label="add" onClick={navigateFormEndereco} style={{ fontSize: "20px", position: "fixed", bottom: "20px", right: "20px", backgroundColor: "#223074" }}>
+                +
+            </Fab>
+            <ToastContainer />
         </div>
     )
 }
