@@ -16,6 +16,7 @@ export default function usePayment() {
     const { token } = useContext(UserAutenticado)
 
     const selectedAdressId = useSelector((state: TypeReducer) => state.endereco.adressId)
+    const cepDestino = useSelector((state:TypeReducer) => state.endereco.cepDestino)
 
     async function make() {
 
@@ -36,7 +37,7 @@ export default function usePayment() {
                 };
 
                 if (selectedAdressId) {
-                    const response = await fetch(`https://vendas-online-ruddy.vercel.app/payments/create-checkout-session/${selectedAdressId}`, {
+                    const response = await fetch(`https://vendas-online-ruddy.vercel.app/payments/create-checkout-session/${selectedAdressId}/${cepDestino}`, {
                         method: "POST",
                         headers: headers,
                         body: JSON.stringify(body)
@@ -52,7 +53,7 @@ export default function usePayment() {
                     await stripe?.redirectToCheckout({
                         sessionId: session.id
                     });
-                } 
+                }
             }
 
         } catch (error) {

@@ -2,22 +2,27 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface State {
     adressId: string;
+    cepDestino: string;
 }
 
 const initialState: State = {
-    adressId: ""
+    adressId: "",
+    cepDestino: ""
+}
+
+interface UpdateFieldPayload {
+    field: "adressId" | "cepDestino";
+    value: string;
 }
 
 export const sliceEndereco = createSlice({
     name: "endereço",
     initialState,
     reducers: {
-        changeValue(state: State, action: PayloadAction<string>) {
+        changeValue(state: State, action: PayloadAction<UpdateFieldPayload>) {
             console.log(action)
-            return {
-                ...state,
-                adressId: action.payload
-            }
+            const { field, value } = action.payload
+            state[field] = value
         }
     }
 });

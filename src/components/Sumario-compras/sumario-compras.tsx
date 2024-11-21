@@ -28,11 +28,17 @@ export default function SumarioCompras(props: PropsSumario) {
 
     const dispatch = useDispatch()
     const enderecoState = useSelector((state: TypeReducer) => state.endereco.adressId)
+    const cepState = useSelector((state:TypeReducer) => state.endereco.cepDestino)
 
     function changeEndereco(e: SelectChangeEvent<string>) {
         const adressId = e.target.value
         console.log(adressId)
-        dispatch(changeValue(adressId))
+        dispatch(changeValue({field: "adressId", value: adressId}))
+    }
+
+    function changeCep(e: ChangeEvent<HTMLInputElement>) {
+        setCep(e.target.value)
+        dispatch(changeValue({field: "cepDestino", value: cep}))
     }
 
     useEffect(() => {
@@ -64,10 +70,10 @@ export default function SumarioCompras(props: PropsSumario) {
                     <Input
                         inputLabel="Calcular frete"
                         name="cep"
-                        onInputValue={(e: ChangeEvent<HTMLInputElement>) => setCep(e.target.value)}
+                        onInputValue={changeCep}
                         styleWidth="w-full mb-3"
                         typeInput="text"
-                        value={cep}
+                        value={cepState}
                         placeholder="CEP"
                     />
                     {LoadingFrete ? <Loading /> : <ButtonDark text="Calcular frete" propsBtn={calculateDelivered} />}

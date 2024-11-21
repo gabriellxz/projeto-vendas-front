@@ -4,6 +4,7 @@ import { enderecoReducer } from "./enderecoSlice";
 export const store = configureStore({
     reducer: {
         endereco: enderecoReducer,
+        cepDestino: enderecoReducer
     }
 })
 
