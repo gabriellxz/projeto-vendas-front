@@ -1,7 +1,6 @@
 import { loadStripe } from "@stripe/stripe-js";
 import useCart from "./useCart";
 import { useContext, useState } from "react";
-import { toast } from "react-toastify";
 import { UserAutenticado } from "../context/authContext";
 import { useSelector } from "react-redux";
 import { TypeReducer } from "../features/store";
@@ -59,16 +58,17 @@ export default function usePayment() {
         } catch (error) {
             setLoading(false)
             // console.error("Erro ao processar pagamento:", error);
-            toast.error("Erro ao processar pagamento", {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            })
+            // toast.error("Erro ao processar pagamento", {
+            //     position: "bottom-center",
+            //     autoClose: 5000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "colored",
+            // })
+            
         }
     }
 

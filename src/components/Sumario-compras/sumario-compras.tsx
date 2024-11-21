@@ -37,8 +37,9 @@ export default function SumarioCompras(props: PropsSumario) {
     }
 
     function changeCep(e: ChangeEvent<HTMLInputElement>) {
-        setCep(e.target.value)
-        dispatch(changeValue({field: "cepDestino", value: cep}))
+        const valueCep = e.target.value
+        setCep(valueCep)
+        dispatch(changeValue({field: "cepDestino", value: valueCep}))
     }
 
     useEffect(() => {
