@@ -21,7 +21,7 @@ interface PropsSumario {
 export default function SumarioCompras(props: PropsSumario) {
 
     const navigate = useNavigate()
-    const { calculateDelivered, LoadingFrete, setCep, cep, frete } = useCalculateDelivered();
+    const { calculateDelivered, LoadingFrete, setCep, frete } = useCalculateDelivered();
     const { endereco, getLoadingEnd } = useEndereco()
     const { make, loading } = usePayment()
     const [subTotal, setSubTotal] = useState(0)
