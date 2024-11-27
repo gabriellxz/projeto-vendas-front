@@ -28,18 +28,18 @@ export default function SumarioCompras(props: PropsSumario) {
 
     const dispatch = useDispatch()
     const enderecoState = useSelector((state: TypeReducer) => state.endereco.adressId)
-    const cepState = useSelector((state:TypeReducer) => state.endereco.cepDestino)
+    const cepState = useSelector((state: TypeReducer) => state.endereco.cepDestino)
 
     function changeEndereco(e: SelectChangeEvent<string>) {
         const adressId = e.target.value
         console.log(adressId)
-        dispatch(changeValue({field: "adressId", value: adressId}))
+        dispatch(changeValue({ field: "adressId", value: adressId }))
     }
 
     function changeCep(e: ChangeEvent<HTMLInputElement>) {
         const valueCep = e.target.value
         setCep(valueCep)
-        dispatch(changeValue({field: "cepDestino", value: valueCep}))
+        dispatch(changeValue({ field: "cepDestino", value: valueCep }))
     }
 
     useEffect(() => {
@@ -123,7 +123,7 @@ export default function SumarioCompras(props: PropsSumario) {
                                 </div>
                         }
                     </div>
-                    {frete && <div className={`${endereco.length < 1 ? "hidden" : "block"}`}>
+                    {frete && enderecoState && <div className={`${endereco.length < 1 ? "hidden" : "block"}`}>
                         {
                             loading ? <Loading /> : <ButtonDark text="Prosseguir com a compra" propsBtn={make} />
                         }
