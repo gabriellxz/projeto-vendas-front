@@ -31,7 +31,6 @@ export default function OrderUser() {
                         }
                     })
 
-                    setDelivered(response.data.Delivered)
                     setLoading(false)
                     setOrderUser(response.data)
                     console.log(response)
@@ -44,6 +43,8 @@ export default function OrderUser() {
 
         getOrderUser()
     }, [])
+
+    const isDelivered = orderUser.filter(d => d.Delivered);
 
     async function confirmedOrder() {
 
@@ -117,7 +118,7 @@ export default function OrderUser() {
                         {
                             orderUser.map((order: Pedidos) => (
                                 order.carrinho.carrinho.carrinho.map((o: CartOrderUser) => (
-                                    <div className="flex gap-5 border-b border-zinc-500 p-5">
+                                    <div className="flex gap-5 border-b border-zinc-500 p-5" key={o.id}>
                                         <div>
                                             <img src={o.produtos.imagem && o.produtos.imagem[0] && o.produtos.imagem[0].url} alt="" className="w-[135px] h-[135px] rounded-[40px]" />
                                         </div>
@@ -152,7 +153,7 @@ export default function OrderUser() {
             }
             <div className="w-full">
                 {
-                    delivered ? <ButtonDark text="Confirmar entrega" propsBtn={confirmedOrder}/> : ""
+                    isDelivered ? <ButtonDark text="Confirmar entrega" propsBtn={confirmedOrder}/> : ""
                 }
             </div>
             <ToastContainer/>
