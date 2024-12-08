@@ -4,7 +4,7 @@ import Pedidos from "../../types/pedidos"
 import Moeda from "../../utils/moeda"
 import { useState, ChangeEvent, SyntheticEvent, useContext } from "react"
 import { UserAutenticado } from "../../context/authContext"
-import { AxiosResponse, AxiosError } from "axios"
+// import { AxiosResponse, AxiosError } from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import Loading from "../Loading/loading"
 // import { DataUser } from "../../context/dataUser"
@@ -48,8 +48,8 @@ export default function InforProduct(props: PropsProduct) {
                         headers: {
                             "Authorization": "Bearer " + JSON.parse(token)
                         }
-                    }).then((response: AxiosResponse) => {
-                        console.log(response)
+                    }).then(() => {
+                        // console.log(response)
 
                         setLoading(false)
                         location.reload()
@@ -64,8 +64,8 @@ export default function InforProduct(props: PropsProduct) {
                             progress: undefined,
                             theme: "colored",
                         })
-                    }).catch((error: AxiosError) => {
-                        console.log(error)
+                    }).catch(() => {
+                        // console.log(error)
 
                         setLoading(false)
 
@@ -82,7 +82,7 @@ export default function InforProduct(props: PropsProduct) {
                     })
 
                 } catch (error) {
-                    console.log(error)
+                    // console.log(error)
                     setLoading(false)
                 }
             }

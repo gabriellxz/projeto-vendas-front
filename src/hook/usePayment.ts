@@ -44,8 +44,8 @@ export default function usePayment() {
 
 
                     const session = await response.json();
-                    console.log(session)
-                    console.log(selectedAdressId)
+                    // console.log(session)
+                    // console.log(selectedAdressId)
                     window.location.href = session.url
 
                     // Redirecionar para o checkout do Stripe utilizando o Stripe SDK

@@ -29,10 +29,10 @@ export default function useCalculateDelivered() {
 
                     setLoadingFrete(false);
                     setFrete(freteData[0])
-                    console.log(response);
+                    // console.log(response);
                 } catch (error) {
                     setLoadingFrete(false);
-                    console.log(error);
+                    // console.log(error);
 
                     toast.error("Ocorreu um erro ao processar o valor.", {
                         position: "bottom-center",
@@ -46,7 +46,7 @@ export default function useCalculateDelivered() {
                     })
                 }
             } else {
-                console.log("algo de errado não está certo, preencha todin");
+                // console.log("algo de errado não está certo, preencha todin");
             }
         }
     }

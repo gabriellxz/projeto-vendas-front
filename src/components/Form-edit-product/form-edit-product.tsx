@@ -5,7 +5,7 @@ import api from "../../config/config";
 import useCategory from "../../hook/useCategory";
 import Category from "../../types/category";
 import { ToastContainer, toast } from "react-toastify";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import Loading from "../Loading/loading";
 import CloseNavBar from "../../svg/closeNavbar";
 import { motion, AnimatePresence } from "framer-motion";
@@ -64,7 +64,7 @@ export default function FormEditProduct(props: PropsForm) {
 
         const oferta = ofertaProduto === "true" ? true : false;
 
-        console.log("boolean: ", oferta)
+        // console.log("boolean: ", oferta)
 
         const data = {
             id_produto: props.iProduct?.id_produto,
@@ -76,7 +76,7 @@ export default function FormEditProduct(props: PropsForm) {
             categoryId: categoryProduto
         }
 
-        console.log(data)
+        // console.log(data)
 
         if (
             nomeProduto !== "" &&
@@ -93,7 +93,7 @@ export default function FormEditProduct(props: PropsForm) {
                         }
                     }).then((response: AxiosResponse) => {
                         setLoading(false)
-                        console.log(response)
+                        // console.log(response)
 
 
                         toast.success("Alterações feitas com sucesso!", {
@@ -114,9 +114,9 @@ export default function FormEditProduct(props: PropsForm) {
                                 props.closeModal(false)
                             }
                         }, 2000)
-                    }).catch((error: AxiosError) => {
+                    }).catch(() => {
                         setLoading(false)
-                        console.log(error)
+                        // console.log(error)
 
                         toast.error("Não foi possível fazer as alterações.", {
                             position: "bottom-center",
@@ -132,7 +132,7 @@ export default function FormEditProduct(props: PropsForm) {
 
                 } catch (error) {
                     setLoading(false);
-                    console.log(error)
+                    // console.log(error)
                 }
             }
         } else {

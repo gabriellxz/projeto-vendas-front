@@ -87,7 +87,7 @@ export default function useCadastro() {
                         "Content-Type": "application/json"
                     }
                 }).then((response) => {
-                    console.log(response)
+                    // console.log(response)
 
                     navigate("/home")
 
@@ -112,7 +112,7 @@ export default function useCadastro() {
                     cadastro(token)
                     // localStorage.setItem("tokenUser", JSON.stringify(response.data.accessToken))
                 }).catch((error) => {
-                    console.log(error)
+                    // console.log(error)
 
                     setValidation({
                         type: "error",
@@ -198,7 +198,7 @@ export default function useCadastro() {
 
                 })
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 setValidation({
                     type: "error",
                     message: "error",

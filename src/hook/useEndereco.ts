@@ -351,16 +351,16 @@ export default function useEndereco() {
 
     //EXCLUIR ENDEREÇO
     async function deleteEndereco(id: number) {
-        console.log(id);
+        // console.log(id);
         try {
             if (token) {
-                const response = await api.delete(`/Endereco/${id}`, {
+                await api.delete(`/Endereco/${id}`, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 })
 
-                console.log(response);
+                // console.log(response);
                 setEndereco(endereco.filter((e: Endereco) => e.id != id));
 
                 toast.success("Endereço excluído com sucesso.", {

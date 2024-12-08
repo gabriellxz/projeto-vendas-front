@@ -32,7 +32,7 @@ export default function SumarioCompras(props: PropsSumario) {
 
     function changeEndereco(e: SelectChangeEvent<string>) {
         const adressId = e.target.value
-        console.log(adressId)
+        // console.log(adressId)
         dispatch(changeValue({ field: "adressId", value: adressId }))
     }
 

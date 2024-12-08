@@ -29,18 +29,18 @@ export default function CardCart(props: PropsCart) {
 
         try {
             if (token) {
-                const response = await api.patch("/cart/update", cartUpdate, {
+                await api.patch("/cart/update", cartUpdate, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 });
                 setAmount(updatedAmount);
-                console.log("amount: " + updatedAmount);
-                console.log(response.data)
+                // console.log("amount: " + updatedAmount);
+                // console.log(response.data)
 
             }
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 
@@ -60,17 +60,17 @@ export default function CardCart(props: PropsCart) {
 
         try {
             if (token) {
-                const response = await api.patch("/cart/update", cartUpdate, {
+                await api.patch("/cart/update", cartUpdate, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 });
                 setAmount(updatedAmount);
-                console.log("amount: " + updatedAmount);
-                console.log(response.data)
+                // console.log("amount: " + updatedAmount);
+                // console.log(response.data)
             }
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 

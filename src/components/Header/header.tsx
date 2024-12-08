@@ -51,7 +51,7 @@ export default function Header() {
                 setAmount(totalAmount);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             // setLoadingCart(false);
         } finally {
             // setLoadingCart(false);

@@ -38,7 +38,7 @@ export default function Forget() {
                     }
                 })
                     .then((response: AxiosResponse) => {
-                        console.log(response)
+                        // console.log(response)
 
                         setStatus({
                             type: "success",
@@ -61,7 +61,7 @@ export default function Forget() {
 
                         setLoading(false)
                     }).catch((error: AxiosError) => {
-                        console.log(error)
+                        // console.log(error)
 
                         if (email == "") {
                             // alert("Please enter a valid email")

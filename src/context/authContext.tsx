@@ -49,7 +49,7 @@ function UserAutenticadoProvider({ children }: any) {
                     navigate("/")
                 }
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 setAutenticado(false)
             }
         } else {

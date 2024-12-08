@@ -11,7 +11,6 @@ import FormEditProduct from "../../../components/Form-edit-product/form-edit-pro
 import Category from "../../../types/category"
 import useCategory from "../../../hook/useCategory"
 import api from "../../../config/config"
-import { AxiosError, AxiosResponse } from "axios"
 import TrashIcon from "../../../svg/trash-icon"
 import { toast } from "react-toastify"
 import { motion } from "framer-motion"
@@ -43,7 +42,7 @@ export default function ProdutoEstoque() {
         setNomeCategory(nomeCategory)
         setCategoryId(categoryId)
         setModalEdit(true)
-        console.log(p)
+        // console.log(p)
     }
 
 
@@ -78,8 +77,8 @@ export default function ProdutoEstoque() {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
-                }).then((response: AxiosResponse) => {
-                    console.log(response)
+                }).then(() => {
+                    // console.log(response)
 
                     toast.success("Produto excluido com sucesso com sucesso!", {
                         position: "bottom-center",
@@ -94,7 +93,7 @@ export default function ProdutoEstoque() {
 
                     setLoading(false)
                     setCategoria(categoria.filter((c: Category) => c.id_produto !== id))
-                }).catch((error: AxiosError) => {
+                }).catch(() => {
                     toast.error("Não foi possivel excluir o produto.", {
                         position: "bottom-center",
                         autoClose: 5000,
@@ -107,7 +106,7 @@ export default function ProdutoEstoque() {
                     })
 
                     setLoading(false)
-                    console.log(error)
+                    // console.log(error)
                 })
             } catch (error) {
                 toast.error("Não foi possivel excluir o produto.", {
@@ -122,7 +121,7 @@ export default function ProdutoEstoque() {
                 })
 
                 setLoading(false)
-                console.log(error)
+                // console.log(error)
             }
         }
     }
