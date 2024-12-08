@@ -136,73 +136,71 @@ export default function Header() {
                             <img src={Logo_yeshua} className="w-[100px]" alt="logo_yeshuá" />
                         </Link>
                         <div className={`${token ? "flex justify-end" : "hidden"}`}>
-                            <>
-                                <button>
-                                    <NavBarIcon handleNavBar={() => setOpen(!open)} />
-                                </button>
-                                <Drawer className="sm:hidden" open={open} onClose={() => setOpen(false)}>
+                            <button>
+                                <NavBarIcon handleNavBar={() => setOpen(!open)} />
+                            </button>
+                            <Drawer className="sm:hidden" open={open} onClose={() => setOpen(false)}>
 
 
-                                    <div className={`
+                                <div className={`
                                                 flex flex-col items-end gap-5 mt-5 px-[37px]
                                             `}>
-                                        <ul className="flex flex-col">
-                                            <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                <UserIcon />
-                                                <Link to={"/home/perfil"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
-                                                    usuário
-                                                </Link>
-                                            </li>
-                                            <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                <div>
-                                                    {
-                                                        amount ? (
-                                                            amount > 0 ? (
-                                                                <span className={`
+                                    <ul className="flex flex-col">
+                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                            <UserIcon />
+                                            <Link to={"/home/perfil"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
+                                                usuário
+                                            </Link>
+                                        </li>
+                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                            <div>
+                                                {
+                                                    amount ? (
+                                                        amount > 0 ? (
+                                                            <span className={`
                                                             flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
                                                             h-[10px] cursor-pointer
                                                         `}>{amount}</span>
-                                                            ) : (
-                                                                <span className={`
+                                                        ) : (
+                                                            <span className={`
                                                             justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
                                                             h-[10px] cursor-pointer hidden
                                                         `}>{amount}</span>
-                                                            )
-                                                        ) : (
-                                                            <span className={`
+                                                        )
+                                                    ) : (
+                                                        <span className={`
                                                         justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
                                                         h-[10px] cursor-pointer hidden
                                                     `}>{amount}</span>
-                                                        )
-                                                    }
-                                                    <BagIcon />
-                                                </div>
-                                                <Link to={"/home/carrinho"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
-                                                    carrinho
-                                                </Link>
-                                            </li>
-                                            <Link to={"/home"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" onClick={() => setOpen(!open)}>
-                                                <IconHome />
-                                                <span>
-                                                    Início
-                                                </span>
+                                                    )
+                                                }
+                                                <BagIcon />
+                                            </div>
+                                            <Link to={"/home/carrinho"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
+                                                carrinho
                                             </Link>
-                                            <Link to={"/dashboard/registro-de-pedidos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
-                                                <IconPlus />
-                                                <span>
-                                                    Dashboard
-                                                </span>
-                                            </Link>
-                                            <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                                <ButtonLogout />
-                                                <span className="flex justify-start w-full">
-                                                    sair
-                                                </span>
-                                            </Link>
-                                        </ul>
-                                    </div>
-                                </Drawer>
-                            </>
+                                        </li>
+                                        <Link to={"/home"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" onClick={() => setOpen(!open)}>
+                                            <IconHome />
+                                            <span>
+                                                Início
+                                            </span>
+                                        </Link>
+                                        <Link to={"/dashboard/registro-de-pedidos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
+                                            <IconPlus />
+                                            <span>
+                                                Dashboard
+                                            </span>
+                                        </Link>
+                                        <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                            <ButtonLogout />
+                                            <span className="flex justify-start w-full">
+                                                sair
+                                            </span>
+                                        </Link>
+                                    </ul>
+                                </div>
+                            </Drawer>
 
 
                         </div>
