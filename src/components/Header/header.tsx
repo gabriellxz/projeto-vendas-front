@@ -75,83 +75,85 @@ export default function Header() {
                         <Link to={"/home"} className="">
                             <img src={Logo_yeshua} className="max-w-[100px] w-full" alt="logo_yeshuá" />
                         </Link>
-                        <div>
-                            <Tooltip title="menu do usuário">
-                                <IconButton
-                                    onClick={handleClick}
-                                    size="small"
-                                    aria-controls={openMenu ? "menu-do-usuario" : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={openMenu ? "true" : undefined}
-                                >
-                                    <UserCircleIcon className="w-[50px]" />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                anchorEl={anchorEl}
-                                id="menu-do-usuario"
-                                open={openMenu}
-                                onClose={handleClose}
-                                onClick={handleClose}
-                                slotProps={{
-                                    paper: {
-                                        elevation: 0,
-                                        sx: {
-                                            overflow: 'visible',
-                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                            mt: 1.5,
-                                            '& .MuiAvatar-root': {
-                                                width: 32,
-                                                height: 32,
-                                                ml: -0.5,
-                                                mr: 1,
-                                            },
-                                            '&::before': {
-                                                content: '""',
-                                                display: 'block',
-                                                position: 'absolute',
-                                                top: 0,
-                                                right: 14,
-                                                width: 10,
-                                                height: 10,
-                                                bgcolor: 'background.paper',
-                                                transform: 'translateY(-50%) rotate(45deg)',
-                                                zIndex: 0,
+                        {
+                            token && <div>
+                                <Tooltip title="menu do usuário">
+                                    <IconButton
+                                        onClick={handleClick}
+                                        size="small"
+                                        aria-controls={openMenu ? "menu-do-usuario" : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={openMenu ? "true" : undefined}
+                                    >
+                                        <UserCircleIcon className="w-[50px]" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    id="menu-do-usuario"
+                                    open={openMenu}
+                                    onClose={handleClose}
+                                    onClick={handleClose}
+                                    slotProps={{
+                                        paper: {
+                                            elevation: 0,
+                                            sx: {
+                                                overflow: 'visible',
+                                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                mt: 1.5,
+                                                '& .MuiAvatar-root': {
+                                                    width: 32,
+                                                    height: 32,
+                                                    ml: -0.5,
+                                                    mr: 1,
+                                                },
+                                                '&::before': {
+                                                    content: '""',
+                                                    display: 'block',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    right: 14,
+                                                    width: 10,
+                                                    height: 10,
+                                                    bgcolor: 'background.paper',
+                                                    transform: 'translateY(-50%) rotate(45deg)',
+                                                    zIndex: 0,
+                                                },
                                             },
                                         },
-                                    },
-                                }}
-                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                                <MenuItem onClick={handleClose}>
-                                    <Link to={"/home/perfil"} className="flex items-center">
-                                        <Avatar /> Perfil
-                                    </Link>
-                                </MenuItem>
-                                <Divider />
-                                <MenuItem onClick={handleClose}>
-                                    <Link to={"/home/carrinho"}>
-                                        Carrinho
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <Link to={"/home"}>
-                                        Início
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <Link to={"/dashboard/registro-de-pedidos"}>
-                                        Dashboard
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <Link to={"/"} onClick={logout}>
-                                        Sair
-                                    </Link>
-                                </MenuItem>
-                            </Menu>
-                        </div>
+                                    }}
+                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                    <MenuItem onClick={handleClose}>
+                                        <Link to={"/home/perfil"} className="flex items-center">
+                                            <Avatar /> Perfil
+                                        </Link>
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={handleClose}>
+                                        <Link to={"/home/carrinho"}>
+                                            Carrinho
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                        <Link to={"/home"}>
+                                            Início
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                        <Link to={"/dashboard/registro-de-pedidos"}>
+                                            Dashboard
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                        <Link to={"/"} onClick={logout}>
+                                            Sair
+                                        </Link>
+                                    </MenuItem>
+                                </Menu>
+                            </div>
+                        }
                     </div>
                 </header>
 
