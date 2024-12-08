@@ -40,7 +40,7 @@ export default function HeaderDashboard() {
                 {/* MOBILE */}
                 <Drawer open={open} onClick={() => setOpen(!open)}>
                     <div className="px-5 pt-5 h-full flex flex-col items-center">
-                        <img src={logo_dash} alt="" className="max-w-[150px] w-full mb-[30px]"/>
+                        <img src={logo_dash} alt="" className="max-w-[150px] w-full mb-[30px]" />
                         <ul>
                             <li className="mb-[30px]">
                                 <Link to={"/dashboard/painel-administrativo"} className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export default function HeaderDashboard() {
                                     <span className="font-semibold uppercase">Produtos e estoque</span>
                                 </Link>
                             </li>
-                            <li className="mb-[30px]"> 
+                            <li className="mb-[30px]">
                                 <Link to={"/dashboard/registro-de-pedidos"} className="flex items-center gap-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                         stroke="currentColor" className="w-[35px] h-[35px]">
@@ -70,6 +70,14 @@ export default function HeaderDashboard() {
                                             d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
                                     </svg>
                                     <span className="font-semibold uppercase">Registro de pedidos</span>
+                                </Link>
+                            </li>
+                            <li className="mb-[30px]">
+                                <Link to={"/home"} className="flex items-center gap-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[35px] h-[35px]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                    </svg>
+                                    <span className="font-semibold uppercase">Início</span>
                                 </Link>
                             </li>
                         </ul>
@@ -107,12 +115,19 @@ export default function HeaderDashboard() {
                                     </svg>
                                 </Link>
                             </li>
-                            <li>
+                            <li className="mb-[50px]">
                                 <Link to={"/dashboard/registro-de-pedidos"} className={`${location.pathname === "/dashboard/registro-de-pedidos" ? "text-blue-500" : ""}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                         stroke="currentColor" className="w-[35px] h-[35px]">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
+                                    </svg>
+                                </Link>
+                            </li>
+                            <li >
+                                <Link to={"/home"} className="flex items-center gap-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[35px] h-[35px]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
                                 </Link>
                             </li>
