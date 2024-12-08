@@ -1,4 +1,4 @@
-import FormCadastroProdutos from "../../components/Form-cadastro-produtos/form-cadastro-produtos";
+import FormCadastroProdutos from "../Dashboard/Form-cadastro-produtos/form-cadastro-produtos";
 
 export default function CadastroProdutos() {
     return (
