@@ -3,16 +3,15 @@ import UserIcon from "../../svg/user-icon";
 import Logo_yeshua from "../../assets/yeshuá.svg"
 import ButtonLogout from "../../svg/button-logout";
 import NavBarIcon from "../../svg/navbar-icon";
-import CloseNavBar from "../../svg/closeNavbar";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserAutenticado } from "../../context/authContext";
 import IconPlus from "../../svg/plus-icon";
 import IconHome from "../../svg/icon-home";
-import { AnimatePresence, motion } from "framer-motion"
 import { CartOrderUser } from "../../types/cart";
 import api from "../../config/config";
-import { Drawer } from "@mui/material";
+import { Avatar, Divider, Drawer, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
+import { UserCircleIcon } from "@heroicons/react/16/solid";
 
 export default function Header() {
 
@@ -22,6 +21,17 @@ export default function Header() {
     const [open, setOpen] = useState<boolean>(false)
     const [amount, setAmount] = useState<number>();
     const [cart, setCart] = useState<CartOrderUser[]>([]);
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const openMenu = Boolean(anchorEl)
+
+    function handleClick(event: React.MouseEvent<HTMLElement>) {
+        setAnchorEl(event.currentTarget)
+    }
+
+    function handleClose() {
+        setAnchorEl(null)
+    }
 
     async function getAmount() {
         try {
@@ -59,69 +69,88 @@ export default function Header() {
                 {/* VISÍVEL PARA TELAS GRANDES */}
                 <header className={`
                 hidden p-5
-                lg:flex lg:items-center lg:justify-end
+                sm:flex lg:flex lg:items-center lg:justify-end
                 `}>
                     <div className="flex items-center justify-between max-w-[100%] w-full">
                         <Link to={"/home"} className="">
                             <img src={Logo_yeshua} className="max-w-[100px] w-full" alt="logo_yeshuá" />
                         </Link>
-                        <div className="flex items-center gap-5">
-                            <AnimatePresence>
-                                {
-                                    open &&
-                                    <motion.div className={`${token ? "flex items-center gap-5" : "hidden"}`}
-                                        initial={{ opacity: 0, translateX: 50 }}
-                                        animate={{ opacity: 1, translateX: 0 }}
-                                        exit={{ opacity: 0, translateX: 50 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <UserIcon />
-                                        <div>
-                                            {
-                                                amount ? (
-                                                    amount > 0 ? (
-                                                        <span className={`
-                                                            flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                            h-[10px] cursor-pointer
-                                                        `}>{amount}</span>
-                                                    ) : (
-                                                        <span className={`
-                                                            justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                            h-[10px] cursor-pointer hidden
-                                                        `}>{amount}</span>
-                                                    )
-                                                ) : (
-                                                    <span className={`
-                                                        justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                        h-[10px] cursor-pointer hidden
-                                                    `}>{amount}</span>
-                                                )
-                                            }
-                                            <BagIcon />
-                                        </div>
-                                        <Link to={"/dashboard"} className={`${user?.role == 2 ? "flex" : "hidden"}`}>
-                                            <IconPlus />
-                                        </Link>
-                                        <Link to={"/home"}>
-                                            <IconHome />
-                                        </Link>
-                                        <Link to={"/"} onClick={logout}>
-                                            <ButtonLogout />
-                                        </Link>
-                                    </motion.div>
-                                }
-                            </AnimatePresence>
-                            <div>
-                                {token ? (
-                                    <div className="">
-                                        {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
-                                    </div>
-                                ) : (
-                                    <div className="hidden">
-                                        {open ? <CloseNavBar handleNavBar={() => setOpen(!open)} /> : <NavBarIcon handleNavBar={() => setOpen(!open)} />}
-                                    </div>
-                                )}
-                            </div>
+                        <div>
+                            <Tooltip title="menu do usuário">
+                                <IconButton
+                                    onClick={handleClick}
+                                    size="small"
+                                    aria-controls={openMenu ? "menu-do-usuario" : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={openMenu ? "true" : undefined}
+                                >
+                                    <UserCircleIcon className="w-[50px]" />
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                anchorEl={anchorEl}
+                                id="menu-do-usuario"
+                                open={openMenu}
+                                onClose={handleClose}
+                                onClick={handleClose}
+                                slotProps={{
+                                    paper: {
+                                        elevation: 0,
+                                        sx: {
+                                            overflow: 'visible',
+                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                            mt: 1.5,
+                                            '& .MuiAvatar-root': {
+                                                width: 32,
+                                                height: 32,
+                                                ml: -0.5,
+                                                mr: 1,
+                                            },
+                                            '&::before': {
+                                                content: '""',
+                                                display: 'block',
+                                                position: 'absolute',
+                                                top: 0,
+                                                right: 14,
+                                                width: 10,
+                                                height: 10,
+                                                bgcolor: 'background.paper',
+                                                transform: 'translateY(-50%) rotate(45deg)',
+                                                zIndex: 0,
+                                            },
+                                        },
+                                    },
+                                }}
+                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                            >
+                                <MenuItem onClick={handleClose}>
+                                    <Link to={"/home/perfil"} className="flex items-center">
+                                        <Avatar /> Perfil
+                                    </Link>
+                                </MenuItem>
+                                <Divider />
+                                <MenuItem onClick={handleClose}>
+                                    <Link to={"/home/carrinho"}>
+                                        Carrinho
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <Link to={"/home"}>
+                                        Início
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <Link to={"/dashboard/registro-de-pedidos"}>
+                                        Dashboard
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <Link to={"/"} onClick={logout}>
+                                        Sair
+                                    </Link>
+                                </MenuItem>
+                            </Menu>
                         </div>
                     </div>
                 </header>
@@ -129,7 +158,7 @@ export default function Header() {
                 {/* VISÍVEL PARA TELAS PEQUENAS */}
                 <header className={`
                 flex items-center justify-between p-5
-                lg:hidden
+                sm:hidden lg:hidden
             `}>
                     <div className="flex items-center w-full">
                         <Link to={"/home"} className="w-full flex justify-center">
