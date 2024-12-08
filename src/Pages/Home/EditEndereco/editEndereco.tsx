@@ -3,9 +3,12 @@ import Input from "../../../components/Input/input";
 import Loading from "../../../components/Loading/loading";
 import useEndereco from "../../../hook/useEndereco";
 import data from "../../../ddd.json";
-import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function EditEndereco() {
+
+    const navigate = useNavigate()
 
     function hanldeKeyDown(event: any) {
         if (event.key === "KeyUp" || event.key === "KeyDown") {
@@ -37,8 +40,15 @@ export default function EditEndereco() {
         loading,
     } = useEndereco();
 
+    function redirect() {
+        navigate("/home/meus-endereços")
+    }
+
     return (
         <div className="flex justify-center p-5">
+            <div className="absolute top-32 left-5">
+                <Button variant="outlined" onClick={redirect}>Voltar</Button>
+            </div>
             <form className="max-w-[670px] w-full mt-5" onSubmit={handleEditEndereco}>
                 <div>
                     <h1 className="text-xl font-bold mb-2">Editar seu endereço</h1>
@@ -96,7 +106,7 @@ export default function EditEndereco() {
                             variant="outlined"
                             label="Número"
                             placeholder="Obs: se não houver número, coloque zero"
-                            type="number" 
+                            type="number"
                             name="numero"
                             value={numero ? numero : ""}
                             onKeyDown={hanldeKeyDown}

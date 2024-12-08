@@ -7,9 +7,12 @@ import { ToastContainer } from "react-toastify"
 import Loading from "../../../components/Loading/loading";
 import '../../../global.css'
 import { motion } from "framer-motion"
-import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function FormEndereco() {
+
+    const navigate = useNavigate()
 
     function hanldeKeyDown(event: any) {
         if (event.key === "KeyUp" || event.key === "KeyDown") {
@@ -41,6 +44,10 @@ export default function FormEndereco() {
         loading,
     } = useEndereco()
 
+    function redirect() {
+        navigate("/home")
+    }
+
     return (
         <>
             <motion.div className="flex justify-center p-5"
@@ -53,6 +60,9 @@ export default function FormEndereco() {
                     translateY: 0
                 }}
             >
+                <div className="absolute top- left-5">
+                    <Button variant="outlined" onClick={redirect}>Voltar</Button>
+                </div>
                 <form className="max-w-[670px] w-full mt-5" onSubmit={handlePostEndereco}>
                     <div>
                         <h1 className="text-xl font-bold mb-2">Informações para entrega</h1>
