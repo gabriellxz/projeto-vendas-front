@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../Pages/Login/login";
 import Cadastro from "../Pages/Cadastro/cadastro";
 import Home from "../Pages/Home/home";
-import { UserAutenticado, UserAutenticadoProvider } from "../context/authContext";
+import { UserAutenticadoProvider } from "../context/authContext";
 import CustomRoutes from "../utils/Custom-routes";
 import CadastroProdutos from "../Pages/CadastroProdutos/cadastro-produtos";
 import ListProduct from "../Pages/Home/List-products/list-products";
