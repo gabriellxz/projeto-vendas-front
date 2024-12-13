@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../Pages/Login/login";
 import Cadastro from "../Pages/Cadastro/cadastro";
 import Home from "../Pages/Home/home";
-import { UserAutenticadoProvider } from "../context/authContext";
+import { UserAutenticado, UserAutenticadoProvider } from "../context/authContext";
 import CustomRoutes from "../utils/Custom-routes";
 import CadastroProdutos from "../Pages/CadastroProdutos/cadastro-produtos";
 import ListProduct from "../Pages/Home/List-products/list-products";
@@ -33,14 +33,12 @@ export default function RoutesApp() {
                 <UserAutenticadoProvider>
                     <Routes>
                         <Route path="/" element={<Login />} />
-                        <Route path="cadastro" element={<Cadastro />} />
                         <Route path="home" element={
-                            <UserAutenticadoProvider>
-                                <CustomRoutes>
-                                    <Home />
-                                </CustomRoutes>
-                            </UserAutenticadoProvider>
+                            <CustomRoutes>
+                                <Home />
+                            </CustomRoutes>
                         }>
+                            <Route path="cadastro" element={<Cadastro />} />
                             <Route index element={<ListProduct />} />
                             <Route path="catalogo-produtos" element={<ListProduct />} />
                             <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
@@ -52,30 +50,24 @@ export default function RoutesApp() {
                             <Route path="editar-endereço/:idEndereco" element={<EditEndereco />} />
                         </Route>
                         <Route path="cadastro-produtos" element={
-                            <UserAutenticadoProvider>
-                                <CustomRoutes>
-                                    <NivelAccess>
-                                        <CadastroProdutos />
-                                    </NivelAccess>
-                                </CustomRoutes>
-                            </UserAutenticadoProvider>
+                            <CustomRoutes>
+                                <NivelAccess>
+                                    <CadastroProdutos />
+                                </NivelAccess>
+                            </CustomRoutes>
                         } />
                         <Route path="forget" element={<Forget />} />
                         <Route path="changePass" element={
-                            <UserAutenticadoProvider>
-                                <CustomRoutes>
-                                    <ChangePass />
-                                </CustomRoutes>
-                            </UserAutenticadoProvider>
+                            <CustomRoutes>
+                                <ChangePass />
+                            </CustomRoutes>
                         } />
                         <Route path="dashboard" element={
-                            <UserAutenticadoProvider>
-                                <CustomRoutes>
-                                    <NivelAccess>
-                                        <HeaderDashboard />
-                                    </NivelAccess>
-                                </CustomRoutes>
-                            </UserAutenticadoProvider>
+                            <CustomRoutes>
+                                <NivelAccess>
+                                    <HeaderDashboard />
+                                </NivelAccess>
+                            </CustomRoutes>
                         }>
                             <Route index element={<RegistroDePedidos />} />
                             <Route path="registro-de-pedidos" element={<RegistroDePedidos />} />
