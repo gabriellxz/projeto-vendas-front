@@ -34,9 +34,11 @@ export default function RoutesApp() {
                     <Routes>
                         <Route path="/" element={<Login />} />
                         <Route path="home" element={
-                            <CustomRoutes>
-                                <Home />
-                            </CustomRoutes>
+                            <UserAutenticadoProvider>
+                                <CustomRoutes>
+                                    <Home />
+                                </CustomRoutes>
+                            </UserAutenticadoProvider>
                         }>
                             <Route path="cadastro" element={<Cadastro />} />
                             <Route index element={<ListProduct />} />
@@ -63,11 +65,13 @@ export default function RoutesApp() {
                             </CustomRoutes>
                         } />
                         <Route path="dashboard" element={
-                            <CustomRoutes>
-                                <NivelAccess>
-                                    <HeaderDashboard />
-                                </NivelAccess>
-                            </CustomRoutes>
+                            <UserAutenticadoProvider>
+                                <CustomRoutes>
+                                    <NivelAccess>
+                                        <HeaderDashboard />
+                                    </NivelAccess>
+                                </CustomRoutes>
+                            </UserAutenticadoProvider>
                         }>
                             <Route index element={<RegistroDePedidos />} />
                             <Route path="registro-de-pedidos" element={<RegistroDePedidos />} />
