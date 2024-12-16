@@ -141,11 +141,11 @@ export default function Header() {
                                             Início
                                         </MenuItem>
                                     </Link>
-                                    <Link to={"/dashboard/registro-de-pedidos"}>
+                                    {user?.role == 2 && <Link to={"/dashboard/registro-de-pedidos"}>
                                         <MenuItem onClick={handleClose}>
                                             Dashboard
                                         </MenuItem>
-                                    </Link>
+                                    </Link>}
                                     <Link to={"/"} onClick={logout}>
                                         <MenuItem onClick={handleClose}>
                                             Sair
@@ -217,12 +217,12 @@ export default function Header() {
                                                 Início
                                             </span>
                                         </Link>
-                                        <Link to={"/dashboard/registro-de-pedidos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
+                                        {user?.role == 2 && <Link to={"/dashboard/registro-de-pedidos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
                                             <IconPlus />
                                             <span>
                                                 Dashboard
                                             </span>
-                                        </Link>
+                                        </Link>}
                                         <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                             <ButtonLogout />
                                             <span className="flex justify-start w-full">

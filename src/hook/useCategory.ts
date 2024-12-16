@@ -46,6 +46,7 @@ export default function useCategory() {
                     theme: "colored",
                 })
                 
+                window.location.reload()
                 setCategoriaNome("")
                 setOpen(false)
                 setLoading(false)
@@ -69,7 +70,7 @@ export default function useCategory() {
         }
 
         getcategoria()
-    }, [categoria])
+    }, [])
 
 
     return {
