@@ -57,7 +57,7 @@ export default function ProdutoEstoque() {
                         <td className="px-1 cursor-pointer">{
                             openButton &&
                             <span className="flex">
-                                <span onClick={() => handleOpenModalEdit(product, p.nome, p.categoryId)}><IconEdit style="w-[45px] h-[45px] text-blue-600" /></span>
+                                <span onClick={() => handleOpenModalEdit(product, p.nome, p.categoryId)}><IconEdit style="w-[25px] h-[25px] text-black" /></span>
                                 {loading ? <Loading /> : <span onClick={() => deleteProduct(product.id_produto)}><TrashIcon /></span>}
                             </span>
                         }</td>
@@ -157,7 +157,7 @@ export default function ProdutoEstoque() {
                     titleLayout={"Produtos à venda"}
                     th1={"Produto"}
                     th2={"Linha"}
-                    th3={"Qtd"}
+                    th3={"Quantidade"}
                     styleTable={""}
                     component={<TableEstoque />}
                 />
