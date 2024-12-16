@@ -110,7 +110,11 @@ export default function FormCadastroProdutos() {
                                     onChange={handleCategoria}
                                     name="categoryId"
                                     label="Categoria"
-                                    className="w-[100%]"
+                                    sx={{
+                                        minWidth: "200px", // Define uma largura mínima
+                                        maxWidth: "200px", // Define uma largura máxima fixa
+                                        overflow: "hidden", // Evita que textos longos extrapolem
+                                    }}
                                 >
                                     <MenuItem disabled selected>Selecione uma categoria</MenuItem>
                                     {
@@ -122,7 +126,7 @@ export default function FormCadastroProdutos() {
                                 <Button
                                     variant="contained"
                                     onClick={() => { setOpen(!open) }}
-                                    sx={{ backgroundColor: "#3044A6", width: "100%" }}
+                                    sx={{ backgroundColor: "#3044A6", width: "100%", fontSize: "10px" }}
                                 >
                                     + Categoria
                                 </Button>
