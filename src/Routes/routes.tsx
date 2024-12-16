@@ -33,6 +33,7 @@ export default function RoutesApp() {
                 <UserAutenticadoProvider>
                     <Routes>
                         <Route path="/" element={<Login />} />
+                        <Route path="cadastro" element={<Cadastro />} />
                         <Route path="home" element={
                             <UserAutenticadoProvider>
                                 <CustomRoutes>
@@ -40,7 +41,6 @@ export default function RoutesApp() {
                                 </CustomRoutes>
                             </UserAutenticadoProvider>
                         }>
-                            <Route path="cadastro" element={<Cadastro />} />
                             <Route index element={<ListProduct />} />
                             <Route path="catalogo-produtos" element={<ListProduct />} />
                             <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
