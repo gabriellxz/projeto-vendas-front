@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react"
+import React, { ChangeEvent, useContext, useEffect, useState } from "react"
 import api from "../config/config"
 import { AxiosResponse } from "axios"
 import Category from "../types/category"
@@ -18,8 +18,7 @@ export default function useCategory() {
     // const token = localStorage.getItem("tokenUser")
     const { token } = useContext(UserAutenticado)
 
-    async function createCategory(e: any) {
-        e.preventDefault()
+    async function createCategory(setOpen:React.Dispatch<React.SetStateAction<boolean>>) {
 
         const data = {
             nome: categoriaNome
@@ -46,7 +45,9 @@ export default function useCategory() {
                     progress: undefined,
                     theme: "colored",
                 })
-
+                
+                setCategoriaNome("")
+                setOpen(false)
                 setLoading(false)
             }
         } catch (err) {

@@ -111,9 +111,9 @@ export default function FormCadastroProdutos() {
                                     name="categoryId"
                                     label="Categoria"
                                     sx={{
-                                        minWidth: "200px", // Define uma largura mínima
-                                        maxWidth: "200px", // Define uma largura máxima fixa
-                                        overflow: "hidden", // Evita que textos longos extrapolem
+                                        minWidth: "200px",
+                                        maxWidth: "200px",
+                                        overflow: "hidden",
                                     }}
                                 >
                                     <MenuItem disabled selected>Selecione uma categoria</MenuItem>
@@ -306,7 +306,7 @@ export default function FormCadastroProdutos() {
                                 value={categoriaNome}
                             />
                         </div>
-                        {loadingCategory ? <Loading /> : <ButtonDark text="Criar" propsBtn={createCategory} />}
+                        {loadingCategory ? <Loading /> : <ButtonDark text="Criar" propsBtn={() => createCategory(setOpen)} />}
                     </Box>
                 </Modal>
 
