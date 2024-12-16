@@ -44,7 +44,7 @@ export default function useCart() {
 
     useEffect(() => {
 
-        // setLoadingCart(true);
+        setLoadingCart(true);
 
         async function getCart() {
             try {
@@ -72,7 +72,7 @@ export default function useCart() {
         }
 
         getCart();
-    }, [cart])
+    }, [token])
 
     async function deleteCartProduct(id: number) {
 
@@ -105,7 +105,7 @@ export default function useCart() {
             console.log(error);
             setLoadingCart(false);
 
-            toast.error("Não foi possível adicionar este produto ao carrinho.", {
+            toast.error("Não foi possível remover este produto do carrinho.", {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
