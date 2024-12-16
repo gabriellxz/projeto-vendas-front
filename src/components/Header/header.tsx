@@ -125,32 +125,32 @@ export default function Header() {
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
-                                    <MenuItem onClick={handleClose}>
-                                        <Link to={"/home/perfil"} className="flex items-center">
+                                    <Link to={"/home/perfil"} className="flex items-center">
+                                        <MenuItem onClick={handleClose}>
                                             <Avatar /> Perfil
-                                        </Link>
-                                    </MenuItem>
+                                        </MenuItem>
+                                    </Link>
                                     <Divider />
-                                    <MenuItem onClick={handleClose}>
-                                        <Link to={"/home/carrinho"}>
+                                    <Link to={"/home/carrinho"}>
+                                        <MenuItem onClick={handleClose}>
                                             Carrinho
-                                        </Link>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                        <Link to={"/home"}>
+                                        </MenuItem>
+                                    </Link>
+                                    <Link to={"/home"}>
+                                        <MenuItem onClick={handleClose}>
                                             Início
-                                        </Link>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                        <Link to={"/dashboard/registro-de-pedidos"}>
+                                        </MenuItem>
+                                    </Link>
+                                    <Link to={"/dashboard/registro-de-pedidos"}>
+                                        <MenuItem onClick={handleClose}>
                                             Dashboard
-                                        </Link>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                        <Link to={"/"} onClick={logout}>
+                                        </MenuItem>
+                                    </Link>
+                                    <Link to={"/"} onClick={logout}>
+                                        <MenuItem onClick={handleClose}>
                                             Sair
-                                        </Link>
-                                    </MenuItem>
+                                        </MenuItem>
+                                    </Link>
                                 </Menu>
                             </div>
                         }
