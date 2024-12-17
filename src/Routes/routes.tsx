@@ -52,11 +52,13 @@ export default function RoutesApp() {
                             <Route path="editar-endereço/:idEndereco" element={<EditEndereco />} />
                         </Route>
                         <Route path="cadastro-produtos" element={
-                            <CustomRoutes>
-                                <NivelAccess>
-                                    <CadastroProdutos />
-                                </NivelAccess>
-                            </CustomRoutes>
+                            <UserAutenticadoProvider>
+                                <CustomRoutes>
+                                    <NivelAccess>
+                                        <CadastroProdutos />
+                                    </NivelAccess>
+                                </CustomRoutes>
+                            </UserAutenticadoProvider>
                         } />
                         <Route path="forget" element={<Forget />} />
                         <Route path="changePass" element={
