@@ -4,15 +4,71 @@ import { UserAutenticado } from "../../../context/authContext";
 import IconEdit from "../../../svg/icon-edit";
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom";
+import api from "../../../config/config";
+import { Button, TextField } from "@mui/material";
+import Loading from "../../../components/Loading/loading";
+import { Controller, useForm } from "react-hook-form";
+import Form from "react-bootstrap/Form";
+import InputMask from "react-input-mask";
+import { userSchema } from "./schemaProfile";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+interface UserFormData {
+    name: string
+    email: string
+    cpf: string
+    phone: string
+}
 
 export default function Perfil() {
 
-    const { user } = useContext(UserAutenticado);
+    const { user, token } = useContext(UserAutenticado);
 
     const [isEditTable, setIsEditTable] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const { register, control, handleSubmit, formState: { errors } } = useForm<UserFormData>({
+        resolver: zodResolver(userSchema),
+        defaultValues: {
+            name: user?.name,
+            email: user?.email,
+            phone: user?.telefone,
+            cpf: user?.CPF
+        }
+    })
 
     function toggleEdit() {
         setIsEditTable((prevState) => !prevState)
+    }
+
+    async function editProfile(data: UserFormData) {
+
+
+        const dataUser = {
+            nome: data.name,
+            email: data.email,
+            Telefone: data.phone,
+            CPF: data.cpf
+        }
+
+        setLoading(true)
+
+        try {
+            if (token) {
+                const response = await api.put(`/users/${user?.id}`, dataUser, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                })
+
+                console.log(data)
+                setLoading(false)
+                console.log(response)
+            }
+        } catch (e) {
+            console.log(e)
+            setLoading(false)
+        }
     }
 
     return (
@@ -31,36 +87,94 @@ export default function Perfil() {
                     </Link>
                 </div>
             </div>
-            <div className="mt-[50px] border border-zinc-500 rounded-[10px] shadow-md shadow-zinc-300">
+            <form className="mt-[50px] border border-zinc-500 rounded-[10px] shadow-md shadow-zinc-300">
                 <div className="flex items-center justify-between border border-b-zinc-500 px-[50px] py-2">
                     <span className="uppercase text-2xl">Dados pessoais</span>
-                    <button className="bg-greenEco-200 p-2 rounded-[5px]">
-                        <IconEdit style="text-white w-[30px] h-[30px]" onClickEdit={toggleEdit}/>
+                    <button type="button" className="bg-greenEco-200 p-2 rounded-[5px]" onClick={toggleEdit}>
+                        <IconEdit style="text-white w-[30px] h-[30px]" />
                     </button>
                 </div>
                 <div className="px-[40px] py-8">
                     <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
                             <span>Nome</span>
-                            <input disabled={!isEditTable} type="text" value={user?.name} className="border border-zinc-500 rounded-md w-full p-2" />
+                            <TextField
+                                disabled={!isEditTable}
+                                type="text"
+                                {...register("name")}
+                                className="border border-zinc-500 rounded-md w-full p-2"
+                            />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
                             <span>Telefone</span>
-                            <input disabled={!isEditTable} type="text" value={user?.telefone} className="border border-zinc-500 rounded-md w-full p-2" />
+                            <Controller
+                                name="phone"
+                                control={control}
+                                defaultValue=""
+                                render={({ field }) => (
+                                    <InputMask
+                                        mask="99 999999999"
+                                        disabled={!isEditTable}
+                                        {...field}
+                                    >
+                                        {(inputProps) => (
+                                            <TextField
+                                                {...inputProps}
+                                                // disabled={!isEditTable}
+                                                type="text"
+                                                className="border border-zinc-500 rounded-md w-full p-2"
+                                            />
+                                        )}
+                                    </InputMask>
+                                )}
+                            />
                         </div>
+                        { }
                     </div>
                     <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
                             <span>Email</span>
-                            <input disabled={!isEditTable} type="text" value={user?.email} className="border border-zinc-500 rounded-md w-full p-2" />
+                            <TextField
+                                disabled={!isEditTable}
+                                type="text"
+                                {...register("email")}
+                                className="border border-zinc-500 rounded-md w-full p-2"
+                            />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
                             <span>CPF/CNPJ</span>
-                            <input disabled={!isEditTable} type="text" value={user?.CPF} className="border border-zinc-500 rounded-md w-full p-2" />
+                            <Controller
+                                name="cpf"
+                                control={control}
+                                defaultValue=""
+                                render={({ field }) => (
+                                    <InputMask
+                                        mask="999.999.999-99"
+                                        disabled={!isEditTable}
+                                        {...field}
+                                    >
+                                        {(inputProps) => (
+                                            <TextField
+                                                {...inputProps}
+                                                // disabled={!isEditTable}
+                                                type="text"
+                                                className="border border-zinc-500 rounded-md w-full p-2"
+                                            />
+                                        )}
+                                    </InputMask>
+                                )}
+                            />
                         </div>
                     </div>
                 </div>
-            </div>
+                {
+                    loading ? <Loading /> : (
+                        <div className="flex justify-end p-3">
+                            {isEditTable && <Button variant="outlined" type="submit" onClick={handleSubmit(editProfile)}>Salvar</Button>}
+                        </div>
+                    )
+                }
+            </form>
         </motion.div>
     )
 }
