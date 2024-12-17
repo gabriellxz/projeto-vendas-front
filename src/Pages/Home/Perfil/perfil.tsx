@@ -8,7 +8,6 @@ import api from "../../../config/config";
 import { Button, TextField } from "@mui/material";
 import Loading from "../../../components/Loading/loading";
 import { Controller, useForm } from "react-hook-form";
-import Form from "react-bootstrap/Form";
 import InputMask from "react-input-mask";
 import { userSchema } from "./schemaProfile";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +26,7 @@ export default function Perfil() {
     const [isEditTable, setIsEditTable] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm<UserFormData>({
+    const { register, control, handleSubmit } = useForm<UserFormData>({
         resolver: zodResolver(userSchema),
         defaultValues: {
             name: user?.name,
