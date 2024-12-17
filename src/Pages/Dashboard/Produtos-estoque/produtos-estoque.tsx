@@ -15,11 +15,13 @@ import TrashIcon from "../../../svg/trash-icon"
 import { toast } from "react-toastify"
 import { motion } from "framer-motion"
 import Loading from "../../../components/Loading/loading"
+import useListProduct from "../../../hook/useListProduct"
 
 export default function ProdutoEstoque() {
 
     // const { product } = useListProduct()
     const { categoria, setCategoria } = useCategory()
+    const { product, loading } = useListProduct()
     const { token } = useContext(UserAutenticado)
     const navigate = useNavigate()
     const [openButton, setOpenButton] = useState<boolean>(false)
@@ -27,7 +29,6 @@ export default function ProdutoEstoque() {
     const [selectedProduct, setSelectedProduct] = useState<ProdutosDTO | null>(null)
     const [nomeCategory, setNomeCategory] = useState<string>("")
     const [categoryId, setCategoryId] = useState<number>()
-    const [loading, setLoading] = useState<boolean>(false)
 
     function openButtonsEdit() {
         setOpenButton(!openButton)
@@ -37,7 +38,7 @@ export default function ProdutoEstoque() {
         setModalEdit(status)
     }
 
-    function handleOpenModalEdit(p: ProdutosDTO, nomeCategory: string, categoryId: number) {
+    function handleOpenModalEdit(p: ProdutosDTO, nomeCategory: string) {
         setSelectedProduct(p)
         setNomeCategory(nomeCategory)
         setCategoryId(categoryId)
@@ -48,28 +49,26 @@ export default function ProdutoEstoque() {
 
     function TableEstoque() {
         return (
-            categoria.map((p: Category) => (
-                p.Produtos.map((product: ProdutosDTO) => (
-                    <tr className={`w-full flex justify-between items-center mt-5`} key={product.id_produto}>
-                        <td className="w-full text-left">{product.nome_produto}</td>
-                        <td className="w-full text-center">{p.nome}</td>
-                        <td className="w-full text-center">{product.estoque}</td>
-                        <td className="px-1 cursor-pointer">{
-                            openButton &&
-                            <span className="flex">
-                                <span onClick={() => handleOpenModalEdit(product, p.nome, p.categoryId)}><IconEdit style="w-[25px] h-[25px] text-black" /></span>
-                                {loading ? <Loading /> : <span onClick={() => deleteProduct(product.id_produto)}><TrashIcon /></span>}
-                            </span>
-                        }</td>
-                    </tr>
-                ))
+            product.map((product: ProdutosDTO) => (
+                <tr className={`w-full flex justify-between items-center mt-5`} key={product.id_produto}>
+                    <td className="w-full text-left">{product.nome_produto}</td>
+                    <td className="w-full text-center">{product.nome_produto}</td>
+                    <td className="w-full text-center">{product.estoque}</td>
+                    <td className="px-1 cursor-pointer">{
+                        openButton &&
+                        <span className="flex">
+                            <span onClick={() => handleOpenModalEdit(product, product.nome_produto)}><IconEdit style="w-[25px] h-[25px] text-black" /></span>
+                            {loading ? <Loading /> : <span onClick={() => deleteProduct(product.id_produto)}><TrashIcon /></span>}
+                        </span>
+                    }</td>
+                </tr>
             ))
         )
     }
 
     async function deleteProduct(id: number) {
 
-        setLoading(true)
+        
 
         if (token) {
             try {
@@ -91,7 +90,6 @@ export default function ProdutoEstoque() {
                         theme: "colored",
                     })
 
-                    setLoading(false)
                     setCategoria(categoria.filter((c: Category) => c.id_produto !== id))
                 }).catch(() => {
                     toast.error("Não foi possivel excluir o produto.", {
@@ -105,7 +103,6 @@ export default function ProdutoEstoque() {
                         theme: "colored",
                     })
 
-                    setLoading(false)
                     // console.log(error)
                 })
             } catch (error) {
@@ -120,7 +117,6 @@ export default function ProdutoEstoque() {
                     theme: "colored",
                 })
 
-                setLoading(false)
                 // console.log(error)
             }
         }
