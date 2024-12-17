@@ -143,7 +143,7 @@ export default function FormCadastro() {
                                 defaultValue=""
                                 render={({ field }) => (
                                     <InputMask
-                                        mask="99999999999"
+                                        mask="999.999.999-99"
                                         {...field}
                                         value={field.value || ""}
                                         onChange={(e) => {
@@ -179,7 +179,7 @@ export default function FormCadastro() {
                                 defaultValue=""
                                 render={({ field }) => (
                                     <InputMask
-                                        mask="99999999999"
+                                        mask="99 999999999"
                                         {...field}
                                         value={field.value || ""}
                                         onChange={(e) => {
