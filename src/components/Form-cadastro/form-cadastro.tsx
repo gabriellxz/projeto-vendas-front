@@ -14,7 +14,7 @@ import Loading from "../Loading/loading";
 import FormText from "react-bootstrap/esm/FormText";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "./registerSchema";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 
 interface TypeRegister {
     nome: string
