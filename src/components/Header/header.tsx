@@ -1,6 +1,6 @@
 import BagIcon from "../../svg/bag-icon";
 import UserIcon from "../../svg/user-icon";
-import Logo_yeshua from "../../assets/yeshuá.svg"
+import Logo_yeshua from "../../assets/yeshua_white.png"
 import ButtonLogout from "../../svg/button-logout";
 import NavBarIcon from "../../svg/navbar-icon";
 import { Link } from "react-router-dom";
@@ -65,7 +65,7 @@ export default function Header() {
 
     return (
         <>
-            <div>
+            <div className="bg-greenEco-300">
                 {/* VISÍVEL PARA TELAS GRANDES */}
                 <header className={`
                 hidden p-5
@@ -77,7 +77,7 @@ export default function Header() {
                         </Link>
                         {
                             token && <div>
-                                <Tooltip title="menu do usuário">
+                                <Tooltip title="Menu do usuário">
                                     <IconButton
                                         onClick={handleClick}
                                         size="small"
@@ -85,7 +85,7 @@ export default function Header() {
                                         aria-haspopup="true"
                                         aria-expanded={openMenu ? "true" : undefined}
                                     >
-                                        <UserCircleIcon className="w-[50px]" />
+                                        <UserCircleIcon className="w-[50px]" color="white"/>
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -238,13 +238,6 @@ export default function Header() {
 
                     </div>
                 </header>
-
-
-                <div className="flex justify-center px-[58px]">
-                    <div className="bg-zinc-400 p-[0.5px] w-full"></div>
-                </div>
-
-
             </div>
         </>
     )

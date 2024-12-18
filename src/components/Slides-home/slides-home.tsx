@@ -5,7 +5,7 @@ export default function SlidesHome() {
     return (
         <>
             <div className={`
-                hidden mt-7
+                hidden
                 lg:flex lg:justify-center
             `}>
                 <img src={background_pc} alt="image-home" className={`
@@ -14,7 +14,7 @@ export default function SlidesHome() {
             </div>
 
             <div className={`
-                lg:hidden mt-7
+                lg:hidden
             `}>
                 <img src={background_mobile} alt="image-home" className={`
                     w-full
