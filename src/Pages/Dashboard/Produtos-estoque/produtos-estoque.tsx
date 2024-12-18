@@ -21,7 +21,7 @@ export default function ProdutoEstoque() {
 
     // const { product } = useListProduct()
     const { categoria, setCategoria } = useCategory()
-    const { product, loading } = useListProduct()
+    const { product } = useListProduct()
     const { token } = useContext(UserAutenticado)
     const navigate = useNavigate()
     const [openButton, setOpenButton] = useState<boolean>(false)
@@ -29,6 +29,7 @@ export default function ProdutoEstoque() {
     const [selectedProduct, setSelectedProduct] = useState<ProdutosDTO | null>(null)
     const [nomeCategory, setNomeCategory] = useState<string>("")
     const [categoryId, setCategoryId] = useState<number>()
+    const [loadingDelete, setLoadingDelete] = useState<boolean>(false)
 
     function openButtonsEdit() {
         setOpenButton(!openButton)
@@ -58,7 +59,7 @@ export default function ProdutoEstoque() {
                         openButton &&
                         <span className="flex">
                             <span onClick={() => handleOpenModalEdit(product, product.nome_produto)}><IconEdit style="w-[25px] h-[25px] text-black" /></span>
-                            {loading ? <Loading /> : <span onClick={() => deleteProduct(product.id_produto)}><TrashIcon /></span>}
+                            {loadingDelete ? <Loading /> : <span onClick={() => deleteProduct(product.id_produto)}><TrashIcon /></span>}
                         </span>
                     }</td>
                 </tr>
@@ -68,7 +69,7 @@ export default function ProdutoEstoque() {
 
     async function deleteProduct(id: number) {
 
-        
+        setLoadingDelete(true)
 
         if (token) {
             try {
@@ -90,6 +91,8 @@ export default function ProdutoEstoque() {
                         theme: "colored",
                     })
 
+                    setLoadingDelete(false)
+
                     setCategoria(categoria.filter((c: Category) => c.id_produto !== id))
                 }).catch(() => {
                     toast.error("Não foi possivel excluir o produto.", {
@@ -103,6 +106,7 @@ export default function ProdutoEstoque() {
                         theme: "colored",
                     })
 
+                    setLoadingDelete(false)
                     // console.log(error)
                 })
             } catch (error) {
@@ -117,6 +121,7 @@ export default function ProdutoEstoque() {
                     theme: "colored",
                 })
 
+                setLoadingDelete(false)
                 // console.log(error)
             }
         }
