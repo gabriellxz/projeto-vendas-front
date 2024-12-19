@@ -82,7 +82,11 @@ export default function RoutesApp() {
                             <Route path="painel-administrativo" element={<PainelAdministrativo />} />
                         </Route>
                         <Route path="acesso-negado" element={<PageError />} />
-                        <Route path="pagamento-efetuado" element={<PageSuccess />} />
+                        <Route path="pagamento-efetuado" element={
+                            <UserAutenticadoProvider>
+                                <PageSuccess/>
+                            </UserAutenticadoProvider>
+                        } />
                         <Route path="pagamento-erro" element={<PageErrorPayment />} />
                     </Routes>
                 </UserAutenticadoProvider >
