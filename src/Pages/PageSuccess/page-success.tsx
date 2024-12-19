@@ -3,7 +3,7 @@ import logo from "../../assets/yeshuá.svg"
 import { useContext, useEffect, useState } from "react";
 import { UserAutenticado } from "../../context/authContext";
 import { Box, Button, Modal } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyDocument from "./components/MyDocument";
 import api from "../../config/config";
@@ -11,11 +11,12 @@ import Pedidos from "../../types/pedidos";
 
 export default function PageSuccess() {
 
+    const location = useLocation()
+    const navigate = useNavigate()
     const { user, token } = useContext(UserAutenticado)
     const [orderUser, setOrderUser] = useState<Pedidos>()
-    const navigate = useNavigate()
-
     const [open, setOpen] = useState<boolean>(false)
+    const [inforPayment, setInforPayment] = useState(null)
 
     function handleOpen() {
         setOpen(true)
@@ -49,6 +50,34 @@ export default function PageSuccess() {
 
         getDetails()
     }, [])
+
+
+
+    async function sendSessionId(sessionId: string) {
+        try {
+            if (token) {
+                const response = await api.get(`/Order/by-session/${sessionId}`, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token)
+                    }
+                })
+
+                console.log(response.data)
+                setInforPayment(response.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search)
+        const sessionId = queryParams.get("session_id")
+
+        if (sessionId) {
+            sendSessionId(sessionId)
+        }
+    }, [location])
 
 
     return (
@@ -92,7 +121,7 @@ export default function PageSuccess() {
                         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <PDFDownloadLink document={<MyDocument orderPDF={orderUser}/>} fileName="test.pdf">
+                    <PDFDownloadLink document={<MyDocument orderPDF={orderUser} />} fileName="test.pdf">
                         <Button variant="outlined">Fazer download</Button>
                     </PDFDownloadLink>
                 </Box>
