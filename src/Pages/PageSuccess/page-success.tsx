@@ -40,6 +40,7 @@ export default function PageSuccess() {
                         }
                     })
 
+                    console.log(inforPayment)
                     console.log(response)
                     setOrderUser(response.data)
                 } catch (err) {
