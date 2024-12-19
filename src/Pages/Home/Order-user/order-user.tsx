@@ -75,6 +75,7 @@ export default function OrderUser() {
                     theme: "colored",
                 })
 
+                window.location.reload()
                 setLoadingConfirmed(false)
             }
         } catch (error) {
