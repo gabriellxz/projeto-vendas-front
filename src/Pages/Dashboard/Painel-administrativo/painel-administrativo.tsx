@@ -52,7 +52,7 @@ export default function PainelAdministrativo() {
                         const estoquePercent = (p.estoque / maxEstoque) * 100
 
                         return (
-                            <div className="relative flex justify-between bg-zinc-200 mx-1 my-3 rounded-lg py-5 px-3 text-xl">
+                            <div className="relative max-w-[390px] w-full flex justify-between bg-zinc-200 mx-1 my-3 rounded-lg py-5 px-3 text-xl">
                                 <div
                                     className="absolute top-0 left-0 h-full bg-blue-500 rounded-lg z-0"
                                     style={{width: `${estoquePercent}%`}}
