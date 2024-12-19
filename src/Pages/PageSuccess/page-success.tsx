@@ -4,19 +4,18 @@ import { useContext, useEffect, useState } from "react";
 import { UserAutenticado } from "../../context/authContext";
 import { Box, Button, Modal } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import MyDocument from "./components/MyDocument";
 import api from "../../config/config";
-import Pedidos from "../../types/pedidos";
+import { CompleteOrder } from "./typePayment";
 
 export default function PageSuccess() {
 
     const location = useLocation()
     const navigate = useNavigate()
     const { user, token } = useContext(UserAutenticado)
-    const [orderUser, setOrderUser] = useState<Pedidos>()
     const [open, setOpen] = useState<boolean>(false)
-    const [inforPayment, setInforPayment] = useState(null)
+    const [inforPayment, setInforPayment] = useState<CompleteOrder>()
 
     function handleOpen() {
         setOpen(true)
@@ -29,30 +28,6 @@ export default function PageSuccess() {
     function redirect() {
         navigate("/home")
     }
-
-    useEffect(() => {
-        async function getDetails() {
-            if (user && token) {
-                try {
-                    const response = await api.get(`/Order/User/${Number(user.id)}`, {
-                        headers: {
-                            "Authorization": "Bearer " + JSON.parse(token)
-                        }
-                    })
-
-                    console.log(inforPayment)
-                    console.log(response)
-                    setOrderUser(response.data)
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-        }
-
-        getDetails()
-    }, [])
-
-
 
     async function sendSessionId(sessionId: string) {
         try {
@@ -122,7 +97,12 @@ export default function PageSuccess() {
                         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <PDFDownloadLink document={<MyDocument orderPDF={orderUser} />} fileName="test.pdf">
+                    <div className="w-full h-64 overflow-hidden border border-gray-300 rounded mb-4">
+                        <PDFViewer width="100%" height="100%" showToolbar={false}>
+                            <MyDocument orderPDF={inforPayment} />
+                        </PDFViewer>
+                    </div>
+                    <PDFDownloadLink document={<MyDocument orderPDF={inforPayment} />} fileName={`recibo-${user?.name}.pdf`}>
                         <Button variant="outlined">Fazer download</Button>
                     </PDFDownloadLink>
                 </Box>
