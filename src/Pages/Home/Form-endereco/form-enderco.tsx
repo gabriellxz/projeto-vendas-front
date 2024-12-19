@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { useContext, useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import api from "../../../config/config";
 import { UserAutenticado } from "../../../context/authContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -106,21 +106,19 @@ export default function FormEndereco() {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
-                }).then((response: AxiosResponse) => {
-                    if (response.status === 200) {
-                        toast.success("Houve um erro na busca do CEP", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored",
-                        })
+                }).then(() => {
+                    toast.success("Houve um erro na busca do CEP", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
 
-                        navigate("/home/meus-endereços")
-                    }
+                    navigate("/home/meus-endereços")
 
                 }).catch(() => {
                     toast.error("Houve um erro na criação do endereço", {
