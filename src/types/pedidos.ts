@@ -6,7 +6,7 @@ export default interface Pedidos {
     adressId: number;
     carrinho: CartType;
     id_order: number;
-    cartId: number;
+    cart_Id: number;
     id: number;
     trackingCode: string;
     createdAt: string;

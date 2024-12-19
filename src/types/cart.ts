@@ -7,8 +7,9 @@ export interface CartType {
     carrinho: {
         carrinho: [
             {
+                Delivered: boolean;
                 amount: number;
-                cartId: number;
+                cart_Id: number;
                 produtoId: number;
                 id: number;
                 produtos: {
@@ -28,8 +29,9 @@ export interface CartType {
 }
 
 export interface CartOrderUser {
+    Delivered:  boolean;
     amount: number;
-    cartId: number;
+    cart_Id: number;
     produtoId: number;
     id: number;
     produtos: {
