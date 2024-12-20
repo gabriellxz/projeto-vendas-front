@@ -163,7 +163,14 @@ export default function ProdutoEstoque() {
                     component={<TableEstoque />}
                 />
             </motion.div>
-            {openModalEdit && <FormEditProduct categoryId={categoryId} nomeCategory={nomeCategory} iProduct={selectedProduct} closeModal={closeModalEdit} />}
+            {openModalEdit &&
+                <FormEditProduct
+                    categoryId={categoryId}
+                    nomeCategory={nomeCategory}
+                    iProduct={selectedProduct}
+                    closeModal={closeModalEdit}
+                    openModal={openModalEdit}
+                />}
         </div>
     )
 }

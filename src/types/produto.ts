@@ -8,6 +8,11 @@ export default interface ProdutosDTO {
     createdAt: string;
     categoryId: number;
     updatedAt: string;
+    weight: number
+    height: number
+    width: number
+    diameter: number
+    length: number
     imagem: [
         {
             url: string;

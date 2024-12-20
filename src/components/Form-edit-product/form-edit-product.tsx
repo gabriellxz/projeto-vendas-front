@@ -1,144 +1,104 @@
-import { useState, useContext, ChangeEvent, SyntheticEvent } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserAutenticado } from "../../context/authContext";
 import ProdutosDTO from "../../types/produto";
 import api from "../../config/config";
 import useCategory from "../../hook/useCategory";
 import Category from "../../types/category";
 import { ToastContainer, toast } from "react-toastify";
-import { AxiosResponse } from "axios";
 import Loading from "../Loading/loading";
 import CloseNavBar from "../../svg/closeNavbar";
-import { motion, AnimatePresence } from "framer-motion";
+import { Box, Button, FormControl, FormControlLabel, FormLabel, MenuItem, Modal, Radio, RadioGroup, Select, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { productSchema } from "../../schemas/productSchema";
+import FormText from "react-bootstrap/esm/FormText";
 
 interface PropsForm {
     iProduct: ProdutosDTO | null;
     closeModal: (status: boolean) => void;
     nomeCategory: string | undefined;
     categoryId: number | undefined;
+    openModal: boolean
 }
+
+export interface TypeProductEdit {
+    nome_produto: string
+    preco: number
+    descricao: string
+    estoque: number
+    oferta: boolean
+    weight: number
+    height: number
+    width: number
+    diameter: number
+    length: number
+    categoryId: number
+}
+
 
 export default function FormEditProduct(props: PropsForm) {
 
     const { categoria } = useCategory()
     const { token } = useContext(UserAutenticado)
-    const [nomeProduto, setNomeProduto] = useState<string | undefined>(props.iProduct?.nome_produto)
-    const [precoProduto, setPrecoProduto] = useState<number | undefined>(props.iProduct?.preco)
-    const [estoqueProduto, setEstoqueProduto] = useState<number | undefined>(props.iProduct?.estoque)
-    const [descricaoProduto, setDescricaoProduto] = useState<string | undefined>(props.iProduct?.descricao)
-    const [ofertaProduto, setOfertaProduto] = useState<string>("")
     // const [nomeCategory, setNomeCategory] = useState<string | undefined>(props.nomeCategory)
-    const [categoryProduto, setCategoryProduto] = useState<number | undefined>(props.iProduct?.categoryId)
     const [loading, setLoading] = useState<boolean>(false)
+    const [openModalConfig, setOpenModalConfig] = useState(false)
 
-    function onChangeNomeProduto(e: ChangeEvent<HTMLInputElement>) {
-        setNomeProduto(e.target.value)
+    function openModal() {
+        setOpenModalConfig(true)
     }
 
-    function onChangePrecoEstoque(e: ChangeEvent<HTMLInputElement>) {
-        const precoEstoque: number = parseFloat(e.target.value)
-        setEstoqueProduto(precoEstoque)
+    function closeModal() {
+        setOpenModalConfig(false)
     }
 
-    function onChangePrecoProduto(e: ChangeEvent<HTMLInputElement>) {
-        const precoProduct: number = parseFloat(e.target.value)
-        setPrecoProduto(precoProduct)
-    }
+    const { register, handleSubmit, formState: { errors } } = useForm<TypeProductEdit>({
+        defaultValues: {
+            nome_produto: props.iProduct?.nome_produto,
+            descricao: props.iProduct?.descricao,
+            categoryId: props.iProduct?.categoryId,
+            diameter: props.iProduct?.diameter,
+            estoque: props.iProduct?.estoque,
+            height: props.iProduct?.height,
+            length: props.iProduct?.length,
+            oferta: props.iProduct?.oferta,
+            preco: props.iProduct?.preco,
+            weight: props.iProduct?.weight,
+            width: props.iProduct?.width
+        },
+        resolver: zodResolver(productSchema)
+    })
 
-    function onChangeDescricaoProduto(e: ChangeEvent<HTMLTextAreaElement>) {
-        setDescricaoProduto(e.target.value)
-    }
 
-    function onChangeOfertaProduto(e: any) {
-        setOfertaProduto(e.target.value)
-    }
+    async function editProduct(data: TypeProductEdit) {
 
-    function onChangeCategoriaProduto(e: ChangeEvent<HTMLSelectElement>) {
-        const categoriaProduto: number = parseFloat(e.target.value)
-        setCategoryProduto(categoriaProduto)
-    }
-
-
-    async function putProducts(e: SyntheticEvent) {
-        e.preventDefault()
         setLoading(true)
 
-        const oferta = ofertaProduto === "true" ? true : false;
-
-        // console.log("boolean: ", oferta)
-
-        const data = {
-            id_produto: props.iProduct?.id_produto,
-            nome_produto: nomeProduto,
-            preco: precoProduto,
-            descricao: descricaoProduto,
-            estoque: estoqueProduto,
-            oferta: oferta,
-            categoryId: categoryProduto
-        }
-
-        // console.log(data)
-
-        if (
-            nomeProduto !== "" &&
-            precoProduto !== undefined &&
-            estoqueProduto !== undefined &&
-            descricaoProduto !== "" &&
-            ofertaProduto !== undefined
-        ) {
+        try {
             if (token) {
-                try {
-                    await api.put(`/Product/${props.iProduct?.id_produto}`, data, {
-                        headers: {
-                            "Authorization": "Bearer " + JSON.parse(token)
-                        }
-                    }).then((response: AxiosResponse) => {
-                        setLoading(false)
-                        // console.log(response)
+                await api.put(`/product/${props.iProduct?.id_produto}`, data, {
+                    headers: {
+                        "Authorization": "Bearer " + JSON.parse(token),
+                        "Content-Type": "application/json"
+                    }
+                })
 
+                toast.success("A edição do produto foi feita com sucesso!", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
 
-                        toast.success("Alterações feitas com sucesso!", {
-                            position: "bottom-center",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored"
-                        });
-
-
-                        setTimeout(() => {
-                            if (response.status === 200) {
-                                location.reload()
-                                props.closeModal(false)
-                            }
-                        }, 2000)
-                    }).catch(() => {
-                        setLoading(false)
-                        // console.log(error)
-
-                        toast.error("Não foi possível fazer as alterações.", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "colored"
-                        });
-                    })
-
-                } catch (error) {
-                    setLoading(false);
-                    // console.log(error)
-                }
+                window.location.reload()
+                setLoading(false)
             }
-        } else {
-            setLoading(false);
-
-            toast.error("Preencha os campos corretamente.", {
+        } catch (err) {
+            toast.error("Houve um erro na edição do produto", {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -146,78 +106,144 @@ export default function FormEditProduct(props: PropsForm) {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
-            });
+                theme: "colored",
+            })
+
+            setLoading(false)
         }
     }
 
-
+    useEffect(() => {
+        if(Object.keys(errors).length > 0) {
+            openModal()
+        }
+    }, [errors])
 
     return (
-        <AnimatePresence>
-            <motion.div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md shadow-zinc-500 sm:max-w-[700px] w-full p-5 rounded-xl"
-                initial={{
-                    opacity: 0,
-                }}
-                animate={{
-                    opacity: 1,
-                }}
-                transition={{
-                    duration: 0.5
-                }}
-                exit={{
-                    opacity: 0,
+
+        <Modal
+            open={props.openModal}
+            onClose={props.closeModal}
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+            }}
+        >
+            <Box
+                sx={{
+                    maxWidth: "500px",
+                    width: "100%",
+                    backgroundColor: "#fff",
+                    padding: "20px",
+                    borderRadius: "8px",
+                    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                    position: "relative",
                 }}
             >
                 <div>
                     <span className="text-3xl font-bold">Editar produto</span>
                 </div>
-                <form className="flex flex-col gap-6 p-4" onSubmit={putProducts}>
-                    <div>
-                        <span onClick={() => props.closeModal(false)}><CloseNavBar /></span>
+                <div className="absolute right-5 top-7">
+                    <button onClick={() => props.closeModal(false)}><CloseNavBar /></button>
+                </div>
+                <form className="flex flex-col gap-6 p-4" onSubmit={handleSubmit(editProduct)}>
+                    <div className="flex flex-col">
+                        <TextField
+                            type="text"
+                            label="Nome do produto"
+                            variant="outlined"
+                            {...register("nome_produto")}
+                        />
+                        {
+                            errors.nome_produto && errors.nome_produto.message && (
+                                <FormText className="text-red-600">
+                                    {
+                                        typeof errors.nome_produto.message === "string" && errors.nome_produto.message
+                                    }
+                                </FormText>
+                            )
+                        }
                     </div>
-                    <div>
-                        <span>Nome do produto</span>
-                        <input type="text" name="nome_produto" onChange={onChangeNomeProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={nomeProduto} />
+                    <div className="w-full flex flex-col">
+                        <Select
+                            value={props.iProduct?.categoryId}
+                            sx={{ width: "100%" }}
+                            {...register("categoryId")}
+                        >
+                            <MenuItem>Selecione uma categoria</MenuItem>
+                            {
+                                categoria.map((c: Category) => (
+                                    <MenuItem value={c.id}>{c.nome}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                        {
+                            errors.categoryId && errors.categoryId.message && (
+                                <FormText className="text-red-600">
+                                    {
+                                        typeof errors.categoryId.message === "string" && errors.categoryId.message
+                                    }
+                                </FormText>
+                            )
+                        }
                     </div>
-                    <div className="flex flex-col sm:flex sm:flex-row gap-8">
-                        <div>
-                            <span>Valor do produto</span>
-                            <input type="number" name="preco" onChange={onChangePrecoProduto} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={precoProduto} />
-                        </div>
-                        <div>
-                            <span>Quantidade em estoque</span>
-                            <input type="number" name="estoque" onChange={onChangePrecoEstoque} className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200" value={estoqueProduto} />
-                        </div>
-                        <div>
-                            <span>Categoria: {props.nomeCategory}</span>
-                            <select name="categoryId" value={categoryProduto} onChange={onChangeCategoriaProduto} id="" className="w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200">
-                                <option>Selecione uma categoria</option>
-                                {
-                                    categoria.map((c: Category) => (
-                                        <option value={c.id}>{c.nome}</option>
-                                    ))
-                                }
-                            </select>
-                        </div>
+                    <Button variant="outlined" onClick={openModal}>Mais opções</Button>
+                    <div className="w-full flex flex-col">
+                        <TextField
+                            type="text"
+                            label="Descrição"
+                            variant="filled"
+                            maxRows={5}
+                            sx={{
+                                width: "100%"
+                            }}
+                            {...register("descricao")}
+                        />
+                        {
+                            errors.descricao && errors.descricao.message && (
+                                <FormText className="text-red-600">
+                                    {
+                                        typeof errors.descricao.message === "string" && errors.descricao.message
+                                    }
+                                </FormText>
+                            )
+                        }
                     </div>
-                    <div>
-                        <span>Descrição</span>
-                        <textarea name="descricao" onChange={onChangeDescricaoProduto} id="" value={descricaoProduto} className="resize-none w-full outline-none border border-zinc-600 rounded-md p-3 bg-slate-200"></textarea>
-                    </div>
-                    <div>
-                        <span className="text-2xl">Produto em oferta: {props.iProduct?.oferta === true ? "Sim" : "Não"}</span>
-                        <div className="flex gap-[30px] py-5">
+                    <FormControl>
+                        <FormLabel>Produto em oferta: {props.iProduct?.oferta === true ? "Sim" : "Não"}</FormLabel>
+                        <RadioGroup
+                            row
+                            defaultValue={props.iProduct?.oferta ? "true" : "false"}
+                            className="flex gap-[30px] py-5"
+                            {...register("oferta")}
+                        >
                             <div className="flex items-center gap-1">
-                                <span className="text-xl">Sim</span>
-                                <input type="radio" name="oferta" value={"true"} onChange={onChangeOfertaProduto} className="w-5 h-5 cursor-pointer" />
+                                <FormControlLabel
+                                    label="Sim"
+                                    value={true}
+                                    control={<Radio />}
+                                />
                             </div>
                             <div className="flex items-center gap-1">
-                                <span className="text-xl">Não</span>
-                                <input type="radio" name="oferta" value={"false"} onChange={onChangeOfertaProduto} className="w-5 h-5 cursor-pointer" />
+                                <FormControlLabel
+                                    label="Não"
+                                    value={false}
+                                    control={<Radio />}
+                                />
                             </div>
-                        </div>
-                    </div>
+                        </RadioGroup>
+                        {
+                            errors.oferta && errors.oferta.message && (
+                                <FormText className="text-red-600">
+                                    {
+                                        typeof errors.oferta.message === "string" && errors.oferta.message
+                                    }
+                                </FormText>
+                            )
+                        }
+                    </FormControl>
                     <div className="w-full flex justify-center">
                         {
                             loading ? <Loading />
@@ -225,9 +251,189 @@ export default function FormEditProduct(props: PropsForm) {
                                 <button className="p-3 bg-green-300 text-green-800 font-bold max-w-[400px] w-full rounded-md text-xl">Salvar alterações</button>
                         }
                     </div>
+
+                    <Modal
+                        open={openModalConfig}
+                        onClose={closeModal}
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                maxWidth: "500px",
+                                width: "100%",
+                                backgroundColor: "#fff",
+                                padding: "20px",
+                                borderRadius: "8px",
+                                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                                position: "relative",
+                            }}
+                        >
+                            <div className="flex sm:flex sm:flex-row gap-4 mb-5">
+                                <div className="w-full flex flex-col">
+                                    <TextField
+                                        type="number"
+                                        label="Valor do produto"
+                                        variant="outlined"
+                                        sx={{ width: "100%" }}
+                                        {...register("preco", {
+                                            setValueAs: (value) => value == "" ? undefined : Number(value)
+                                        })}
+                                    />
+                                    {
+                                        errors.preco && errors.preco.message && (
+                                            <FormText className="text-red-600">
+                                                {
+                                                    errors.preco.message
+                                                }
+                                            </FormText>
+                                        )
+                                    }
+                                </div>
+                                <div className="w-full">
+                                    <TextField
+                                        type="number"
+                                        label="Quantidade em estoque"
+                                        variant="outlined"
+                                        sx={{ width: "100%" }}
+                                        {...register("estoque", {
+                                            setValueAs: (value) => value == "" ? undefined : Number(value)
+                                        })}
+                                    />
+                                    {
+                                        errors.length && errors.length.message && (
+                                            <FormText className="text-red-600">
+                                                {
+                                                    errors.length.message
+                                                }
+                                            </FormText>
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            <div className="flex gap-4 mb-5">
+                                <div className="flex flex-col">
+                                    <TextField
+                                        type="number"
+                                        label="Peso"
+                                        variant="outlined"
+                                        sx={{ width: "100%" }}
+                                        {...register("weight", {
+                                            setValueAs: (value) => value == "" ? undefined : Number(value)
+                                        })}
+                                    />
+                                    {
+                                        errors.weight && errors.weight.message && (
+                                            <FormText className="text-red-600">
+                                                {
+                                                    errors.weight.message
+                                                }
+                                            </FormText>
+                                        )
+                                    }
+                                </div>
+                                <div className="flex flex-col">
+                                    <TextField
+                                        label="Altura"
+                                        type="number"
+                                        sx={{ width: "100%" }}
+                                        {...register("height", {
+                                            setValueAs: (value) => value == "" ? undefined : Number(value)
+                                        })}
+                                    />
+                                    {
+                                        errors.height && errors.height.message && (
+                                            <FormText className="text-red-600">
+                                                {
+                                                    errors.height.message
+                                                }
+                                            </FormText>
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            <div className="flex gap-4 mb-5">
+                                <div className="flex flex-col">
+                                    <TextField
+                                        label="Largura"
+                                        type="number"
+                                        className="border border-zinc-500 rounded-md w-full p-2"
+                                        sx={{ width: "100%" }}
+                                        {...register("width", {
+                                            setValueAs: (value) => value == "" ? undefined : Number(value)
+                                        })}
+                                    />
+                                    {
+                                        errors.width && errors.width.message && (
+                                            <FormText className="text-red-600">
+                                                {
+                                                    errors.width.message
+                                                }
+                                            </FormText>
+                                        )
+                                    }
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <TextField
+                                        label="Diâmetro"
+                                        type="number"
+                                        className="border border-zinc-500 rounded-md w-full p-2"
+                                        sx={{ width: "100%" }}
+                                        {...register("diameter", {
+                                            setValueAs: (value) => value == "" ? undefined : Number(value)
+                                        })}
+                                    />
+                                    {
+                                        errors.diameter && errors.diameter.message && (
+                                            <FormText className="text-red-600">
+                                                {
+                                                    errors.diameter.message
+                                                }
+                                            </FormText>
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            <div className="w-full mb-5">
+                                <TextField
+                                    type="number"
+                                    label="Quantidade"
+                                    variant="outlined"
+                                    sx={{ width: "100%" }}
+                                    {...register("length", {
+                                        setValueAs: (value) => value == "" ? undefined : Number(value)
+                                    })}
+                                />
+                                {
+                                    errors.length && errors.length.message && (
+                                        <FormText className="text-red-600">
+                                            {
+                                                errors.length.message
+                                            }
+                                        </FormText>
+                                    )
+                                }
+                            </div>
+                            <div className="w-full">
+                                <Button
+                                    variant="outlined"
+                                    sx={{ width: "100%" }}
+                                    onClick={closeModal}
+                                    disabled={loading}
+                                >
+                                    Confirmar
+                                </Button>
+                            </div>
+                        </Box>
+                    </Modal>
                 </form>
                 <ToastContainer />
-            </motion.div>
-        </AnimatePresence>
+            </Box>
+        </Modal>
     )
 }
