@@ -3,7 +3,7 @@ import Login from "../Pages/Login/login";
 import Cadastro from "../Pages/Cadastro/cadastro";
 import Home from "../Pages/Home/home";
 import { UserAutenticadoProvider } from "../context/authContext";
-import CustomRoutes from "../utils/Custom-routes";
+import { CustomRoutes, AccessPaymentSucces } from "../utils/Custom-routes";
 import CadastroProdutos from "../Pages/CadastroProdutos/cadastro-produtos";
 import ListProduct from "../Pages/Home/List-products/list-products";
 import DetailsProduct from "../Pages/Details-product/details-product";
@@ -84,7 +84,9 @@ export default function RoutesApp() {
                         <Route path="acesso-negado" element={<PageError />} />
                         <Route path="pagamento-efetuado" element={
                             <UserAutenticadoProvider>
-                                <PageSuccess/>
+                                <AccessPaymentSucces>
+                                    <PageSuccess />
+                                </AccessPaymentSucces>
                             </UserAutenticadoProvider>
                         } />
                         <Route path="pagamento-erro" element={<PageErrorPayment />} />
