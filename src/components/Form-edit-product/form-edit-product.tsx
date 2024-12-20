@@ -74,9 +74,14 @@ export default function FormEditProduct(props: PropsForm) {
 
         setLoading(true)
 
+        const dataProduct = {
+            ...data,
+            oferta: Boolean(data.oferta)
+        }
+
         try {
             if (token) {
-                await api.put(`/product/${props.iProduct?.id_produto}`, data, {
+                await api.put(`/product/${props.iProduct?.id_produto}`, dataProduct, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token),
                         "Content-Type": "application/json"
@@ -109,12 +114,20 @@ export default function FormEditProduct(props: PropsForm) {
                 theme: "colored",
             })
 
+            
             setLoading(false)
         }
     }
 
     useEffect(() => {
-        if(Object.keys(errors).length > 0) {
+        if (
+
+            errors.preco ||
+            errors.diameter ||
+            errors.estoque ||
+            errors.weight ||
+            errors.width
+        ) {
             openModal()
         }
     }, [errors])
@@ -215,21 +228,23 @@ export default function FormEditProduct(props: PropsForm) {
                         <FormLabel>Produto em oferta: {props.iProduct?.oferta === true ? "Sim" : "Não"}</FormLabel>
                         <RadioGroup
                             row
-                            defaultValue={props.iProduct?.oferta ? "true" : "false"}
+                            defaultValue={String(props.iProduct?.oferta)}
                             className="flex gap-[30px] py-5"
-                            {...register("oferta")}
+                            {...register("oferta", {
+                                setValueAs: (value) => value === "true",
+                            })}
                         >
                             <div className="flex items-center gap-1">
                                 <FormControlLabel
                                     label="Sim"
-                                    value={true}
+                                    value="true"
                                     control={<Radio />}
                                 />
                             </div>
                             <div className="flex items-center gap-1">
                                 <FormControlLabel
                                     label="Não"
-                                    value={false}
+                                    value="false"
                                     control={<Radio />}
                                 />
                             </div>
@@ -238,7 +253,7 @@ export default function FormEditProduct(props: PropsForm) {
                             errors.oferta && errors.oferta.message && (
                                 <FormText className="text-red-600">
                                     {
-                                        typeof errors.oferta.message === "string" && errors.oferta.message
+                                        errors.oferta.message
                                     }
                                 </FormText>
                             )
@@ -305,10 +320,10 @@ export default function FormEditProduct(props: PropsForm) {
                                         })}
                                     />
                                     {
-                                        errors.length && errors.length.message && (
+                                        errors.estoque && errors.estoque.message && (
                                             <FormText className="text-red-600">
                                                 {
-                                                    errors.length.message
+                                                    errors.estoque.message
                                                 }
                                             </FormText>
                                         )
@@ -316,7 +331,7 @@ export default function FormEditProduct(props: PropsForm) {
                                 </div>
                             </div>
                             <div className="flex gap-4 mb-5">
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-full">
                                     <TextField
                                         type="number"
                                         label="Peso"
@@ -336,7 +351,7 @@ export default function FormEditProduct(props: PropsForm) {
                                         )
                                     }
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-full">
                                     <TextField
                                         label="Altura"
                                         type="number"
@@ -357,7 +372,7 @@ export default function FormEditProduct(props: PropsForm) {
                                 </div>
                             </div>
                             <div className="flex gap-4 mb-5">
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-full">
                                     <TextField
                                         label="Largura"
                                         type="number"
@@ -378,7 +393,7 @@ export default function FormEditProduct(props: PropsForm) {
                                     }
                                 </div>
 
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-full">
                                     <TextField
                                         label="Diâmetro"
                                         type="number"

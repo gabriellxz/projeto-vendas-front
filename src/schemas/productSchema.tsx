@@ -43,7 +43,7 @@ export const productSchema = z.object({
             message: "Número inválido"
         }),
     oferta: z
-        .boolean({
+        .string({
             required_error: "Campo obrigatório"
         }),
     weight: z
