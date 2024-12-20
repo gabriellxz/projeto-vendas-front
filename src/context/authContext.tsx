@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 // import api from "../config/config";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -10,16 +10,18 @@ interface ContextType {
     login: (token: string | null) => void;
     cadastro: (token: string | null) => void;
     user: dataUser | null;
+    setUser: React.Dispatch<React.SetStateAction<dataUser | null>>
 }
 
 interface dataUser {
-    id: number;
+    id?: number;
     name: string;
     email: string;
     telefone: string;
+    genero: string
     CPF: string;
-    role: number | string;
-    exp: number;
+    role?: number | string;
+    exp?: number;
 }
 
 const UserAutenticado = createContext<ContextType>({} as ContextType)
@@ -31,7 +33,10 @@ function UserAutenticadoProvider({ children }: any) {
     const [autenticado, setAutenticado] = useState<boolean>(false)
     // const [loading, setLoading] = useState<boolean>(true)
     const [token, setToken] = useState<string | null>(localStorage.getItem("tokenUser"))
-    const [user, setUser] = useState<dataUser | null>(null)
+    const [user, setUser] = useState<dataUser | null>(() => {
+        const storedUser = localStorage.getItem("@userY")
+        return storedUser ? (JSON.parse(storedUser) as dataUser) : null
+    })
 
     useEffect(() => {
         if (token) {
@@ -39,14 +44,17 @@ function UserAutenticadoProvider({ children }: any) {
                 const userDecoded: dataUser = jwtDecode(token)
                 const currentTime = Date.now() / 1000
                 setUser(userDecoded)
+                localStorage.setItem("@userY", JSON.stringify(userDecoded))
 
-                if (userDecoded.exp > currentTime) {
-                    setAutenticado(true)
-                } else {
-                    setAutenticado(false)
-                    localStorage.removeItem("tokenUser")
-                    setToken(null)
-                    navigate("/")
+                if (userDecoded.exp) {
+                    if (userDecoded.exp > currentTime) {
+                        setAutenticado(true)
+                    } else {
+                        setAutenticado(false)
+                        localStorage.removeItem("tokenUser")
+                        setToken(null)
+                        navigate("/")
+                    }
                 }
             } catch (error) {
                 // console.log(error)
@@ -71,12 +79,13 @@ function UserAutenticadoProvider({ children }: any) {
 
     function logout() {
         localStorage.removeItem("tokenUser")
+        localStorage.removeItem("@userY")
         setToken(null)
         setAutenticado(false)
     }
 
     return (
-        <UserAutenticado.Provider value={{ autenticado, logout, token, login, cadastro, user }}>
+        <UserAutenticado.Provider value={{ autenticado, logout, token, login, cadastro, user, setUser }}>
             {children}
         </UserAutenticado.Provider>
     )

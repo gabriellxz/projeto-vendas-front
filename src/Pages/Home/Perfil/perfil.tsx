@@ -5,23 +5,26 @@ import IconEdit from "../../../svg/icon-edit";
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom";
 import api from "../../../config/config";
-import { Button, TextField } from "@mui/material";
+import { Button, FormControlLabel, FormGroup, Radio, RadioGroup, TextField } from "@mui/material";
 import Loading from "../../../components/Loading/loading";
 import { Controller, useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { userSchema } from "./schemaProfile";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 
 interface UserFormData {
     name: string
     email: string
     cpf: string
     phone: string
+    genero: string
 }
 
 export default function Perfil() {
 
-    const { user, token } = useContext(UserAutenticado);
+    const { user, token, setUser } = useContext(UserAutenticado);
 
     const [isEditTable, setIsEditTable] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -32,7 +35,8 @@ export default function Perfil() {
             name: user?.name,
             email: user?.email,
             phone: user?.telefone,
-            cpf: user?.CPF
+            cpf: user?.CPF,
+            genero: user?.genero
         }
     })
 
@@ -54,19 +58,54 @@ export default function Perfil() {
 
         try {
             if (token) {
-                const response = await api.put(`/users/${user?.id}`, dataUser, {
+                const response: AxiosResponse = await api.put(`/users/${user?.id}`, dataUser, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 })
 
-                console.log(data)
+                // console.log(data)
                 setLoading(false)
-                console.log(response)
+                // console.log(response)
+
+                if (response.data) {
+                    setUser({
+                        ...user,
+                        name: data.name,
+                        CPF: data.cpf,
+                        email: data.email,
+                        genero: data.genero,
+                        telefone: data.phone
+                    })
+
+                    toast.success("Informações editadas com sucesso!", {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    })
+
+                    setIsEditTable(!isEditTable)
+                }
             }
         } catch (e) {
             console.log(e)
             setLoading(false)
+
+            toast.error("Houve um erro ao editar as suas informações", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
         }
     }
 
@@ -94,76 +133,103 @@ export default function Perfil() {
                     </button>
                 </div>
                 <div className="px-[40px] py-8">
-                    <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
-                            <span>Nome</span>
-                            <TextField
-                                disabled={!isEditTable}
-                                type="text"
-                                {...register("name")}
-                                className="border border-zinc-500 rounded-md w-full p-2"
-                            />
-                        </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
-                            <span>Telefone</span>
-                            <Controller
-                                name="phone"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <InputMask
-                                        mask="99 999999999"
-                                        disabled={!isEditTable}
-                                        {...field}
-                                    >
-                                        {(inputProps) => (
-                                            <TextField
-                                                {...inputProps}
-                                                // disabled={!isEditTable}
-                                                type="text"
-                                                className="border border-zinc-500 rounded-md w-full p-2"
-                                            />
-                                        )}
-                                    </InputMask>
-                                )}
-                            />
-                        </div>
-                        { }
+                    <div className="w-full flex gap-3 mb-5">
+                        <TextField
+                            variant="outlined"
+                            {...register("name")}
+                            label="Nome"
+                            sx={{ width: "100%" }}
+                            disabled={!isEditTable}
+                        />
+
+                        <TextField
+                            variant="outlined"
+                            {...register("email")}
+                            label="Email"
+                            sx={{ width: "100%" }}
+                            disabled={!isEditTable}
+                        />
                     </div>
-                    <div className="flex flex-col sm:flex-row w-full gap-5 mb-[40px]">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
-                            <span>Email</span>
-                            <TextField
-                                disabled={!isEditTable}
-                                type="text"
-                                {...register("email")}
-                                className="border border-zinc-500 rounded-md w-full p-2"
-                            />
-                        </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 w-full">
-                            <span>CPF/CNPJ</span>
-                            <Controller
-                                name="cpf"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <InputMask
-                                        mask="999.999.999-99"
-                                        disabled={!isEditTable}
-                                        {...field}
-                                    >
-                                        {(inputProps) => (
-                                            <TextField
-                                                {...inputProps}
-                                                // disabled={!isEditTable}
-                                                type="text"
-                                                className="border border-zinc-500 rounded-md w-full p-2"
-                                            />
-                                        )}
-                                    </InputMask>
-                                )}
-                            />
-                        </div>
+                    <div className="w-full flex gap-3 mb-5">
+                        <Controller
+                            name="cpf"
+                            control={control}
+                            defaultValue={user?.CPF}
+                            render={({ field }) => (
+                                <InputMask
+                                    disabled={!isEditTable}
+                                    mask="999.999.999-99"
+                                    {...field}
+                                    value={field.value || ""}
+                                    onChange={(e) => {
+                                        const rawValue = e.target.value.replace(/\D/g, ""); // Remove máscara
+                                        field.onChange(rawValue); // Atualiza o valor sem máscara
+                                    }}
+                                >
+                                    {(inputProps) => (
+                                        <TextField
+                                            variant="outlined"
+                                            {...inputProps}
+                                            label="CPF"
+                                            type="text"
+                                            sx={{ width: "100%" }}
+                                        />
+                                    )}
+                                </InputMask>
+                            )}
+                        />
+                        <Controller
+                            name="phone"
+                            control={control}
+                            defaultValue={user?.telefone}
+                            render={({ field }) => (
+                                <InputMask
+                                    disabled={!isEditTable}
+                                    mask="99 999999999"
+                                    {...field}
+                                    value={field.value || ""}
+                                    onChange={(e) => {
+                                        const rawValue = e.target.value.replace(/\D/g, "");
+                                        field.onChange(rawValue);
+                                    }}
+                                >
+                                    {(inputProps) => (
+                                        <TextField
+                                            variant="outlined"
+                                            {...inputProps}
+                                            label="Telefone"
+                                            type="text"
+                                            sx={{ width: "100%" }}
+                                        />
+                                    )}
+                                </InputMask>
+                            )}
+                        />
+                    </div>
+                    <div className="w-full flex gap-3 mb-5">
+                        <FormGroup>
+                            <RadioGroup
+                                row
+                                defaultValue={user?.genero}
+                                {...register("genero")}
+                            >
+                                <FormControlLabel
+                                    control={<Radio />}
+                                    label="Feminino"
+                                    value="feminino"
+                                />
+                                <FormControlLabel
+                                    control={<Radio />}
+                                    label="Masculino"
+                                    value="masculino"
+                                />
+                                <FormControlLabel
+                                    control={<Radio />}
+                                    label="Outro"
+                                    value="outro"
+                                />
+                            </RadioGroup>
+                        </FormGroup>
                     </div>
                 </div>
                 {

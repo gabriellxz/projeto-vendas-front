@@ -183,8 +183,8 @@ export default function FormCadastro() {
                                         {...field}
                                         value={field.value || ""}
                                         onChange={(e) => {
-                                            const rawValue = e.target.value.replace(/\D/g, ""); // Remove máscara
-                                            field.onChange(rawValue); // Atualiza o valor sem máscara
+                                            const rawValue = e.target.value.replace(/\D/g, ""); 
+                                            field.onChange(rawValue); 
                                         }}
                                     >
                                         {(inputProps) => (
