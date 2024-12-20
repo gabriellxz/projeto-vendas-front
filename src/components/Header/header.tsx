@@ -60,7 +60,7 @@ export default function Header() {
 
     useEffect(() => {
         getAmount();
-    }, [cart])
+    }, [])
 
 
     return (
