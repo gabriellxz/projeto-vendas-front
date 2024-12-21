@@ -27,14 +27,17 @@ export default function useCart() {
 
         try {
             if (token) {
-                await api.post("/cart/insert", data, {
+                const response = await api.post("/cart/insert", data, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 })
 
-                navigate("/home/carrinho")
+                console.log(response)
+                navigate("/carrinho")
                 setLoadingCart(false);
+            } else {
+                navigate("/login")
             }
         } catch (error) {
             console.log(error);

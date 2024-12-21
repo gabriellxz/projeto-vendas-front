@@ -32,24 +32,46 @@ export default function RoutesApp() {
             <BrowserRouter>
                 <UserAutenticadoProvider>
                     <Routes>
-                        <Route path="/" element={<Login />} />
+                        <Route path="login" element={<Login />} />
                         <Route path="cadastro" element={<Cadastro />} />
-                        <Route path="home" element={
+                        <Route path="/" element={
                             <UserAutenticadoProvider>
-                                <CustomRoutes>
-                                    <Home />
-                                </CustomRoutes>
+                                <Home />
                             </UserAutenticadoProvider>
                         }>
                             <Route index element={<ListProduct />} />
                             <Route path="catalogo-produtos" element={<ListProduct />} />
                             <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
-                            <Route path="carrinho" element={<Cart />} />
-                            <Route path="criar-endereço" element={<FormEndereco />} />
-                            <Route path="perfil" element={<Perfil />} />
-                            <Route path="meus-pedidos" element={<OrderUser />} />
-                            <Route path="meus-endereços" element={<Enderecos />} />
-                            <Route path="editar-endereço/:idEndereco" element={<EditEndereco />} />
+                            <Route path="carrinho" element={
+                                <CustomRoutes>
+                                    <Cart />
+                                </CustomRoutes>
+                            } />
+                            <Route path="criar-endereço" element={
+                                <CustomRoutes>
+                                    <FormEndereco />
+                                </CustomRoutes>
+                            } />
+                            <Route path="perfil" element={
+                                <CustomRoutes>
+                                    <Perfil />
+                                </CustomRoutes>
+                            } />
+                            <Route path="meus-pedidos" element={
+                                <CustomRoutes>
+                                    <OrderUser />
+                                </CustomRoutes>
+                            } />
+                            <Route path="meus-endereços" element={
+                                <CustomRoutes>
+                                    <Enderecos />
+                                </CustomRoutes>
+                            } />
+                            <Route path="editar-endereço/:idEndereco" element={
+                                <CustomRoutes>
+                                    <EditEndereco />
+                                </CustomRoutes>
+                            } />
                         </Route>
                         <Route path="cadastro-produtos" element={
                             <UserAutenticadoProvider>

@@ -42,7 +42,7 @@ export default function FormLogin() {
             }).then((response) => {
                 const tokenAccess = response.data.accessToken
                 login(tokenAccess)
-                navigate("/home")
+                navigate("/")
                 setLoading(false)
             }).catch((error: AxiosError) => {
                 if (error.response?.status === 401) {

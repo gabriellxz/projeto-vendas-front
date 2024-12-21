@@ -15,10 +15,10 @@ export default function CardProduct(props: PropsProduto) {
 
     return (
         <div className={`text-center`}>
-            <Link to={`/home/detalhes-produtos/${props.iProduto.id_produto}`}>
+            <Link to={`/detalhes-produtos/${props.iProduto.id_produto}`}>
                 <img src={props.iProduto.imagem && props.iProduto.imagem[0] && props.iProduto.imagem[0].url} alt="" className='py-5 max-w-[200px] h-[200px] w-full' />
             </Link>
-            <Link to={`/home/detalhes-produtos/${props.iProduto.id_produto}`}>{props.iProduto.nome_produto}</Link>
+            <Link to={`/detalhes-produtos/${props.iProduto.id_produto}`}>{props.iProduto.nome_produto}</Link>
             <p className={`font-bold ${props.iProduto.oferta ? "text-green-600" : ""}`}>{Moeda.formatar(props.iProduto.preco)}</p>
             <div className='flex justify-center'>
                 {

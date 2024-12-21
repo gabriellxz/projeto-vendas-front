@@ -11,7 +11,7 @@ export function CustomRoutes({ children }: Props) {
     const { token } = useContext(UserAutenticado)
     // const token = localStorage.getItem("tokenUser")
     if (!token) {
-        return <Navigate to={"/"} />
+        return <Navigate to={"/login"} />
     }
 
     return children

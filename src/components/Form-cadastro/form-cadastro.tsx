@@ -55,7 +55,7 @@ export default function FormCadastro() {
             }).then((response) => {
                 const tokenAccess = response.data.accessToken
                 cadastro(tokenAccess)
-                navigate("/home")
+                navigate("/")
 
                 toast.success("Cadastro feito com sucesso!", {
                     position: "bottom-center",
