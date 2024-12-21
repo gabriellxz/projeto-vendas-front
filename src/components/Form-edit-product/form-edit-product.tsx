@@ -21,7 +21,7 @@ interface PropsForm {
     openModal: boolean
 }
 
-export interface TypeProductEdit {
+interface TypeProductEdit {
     nome_produto: string
     preco: number
     descricao: string
