@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 // import Input from "../Input/input";
 import TitleForm from "../../../components/Title-form/title-form";
 import Input from "../../../components/Input/input";
@@ -6,13 +6,13 @@ import ButtonDark from "../../../components/Button-dark/button-dark";
 import Loading from "../../../components/Loading/loading";
 import Category from "../../../types/category";
 import useCategory from "../../../hook/useCategory";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import CloseNavBar from "../../../svg/closeNavbar";
 import '../../../global.css'
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/16/solid"
 import { Box, Button, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Modal, Radio, RadioGroup, Select, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { UserAutenticado } from "../../../context/authContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema } from "../../../schemas/productSchema";
@@ -32,7 +32,6 @@ interface TypeCreateProduct {
     diameter: number
     length: number
     categoryId: number
-    file?: FileList
 }
 
 export default function FormCadastroProdutos() {
@@ -40,11 +39,19 @@ export default function FormCadastroProdutos() {
     const navigate = useNavigate();
     const { token } = useContext(UserAutenticado)
     const [loading, setLoading] = useState<boolean>(false)
+    const [file, setFile] = useState<File | null>(null)
 
-    const { register, handleSubmit, formState: { errors }, control, watch } = useForm<TypeCreateProduct>({
+    const { register, handleSubmit, formState: { errors } } = useForm<TypeCreateProduct>({
         resolver: zodResolver(productSchema)
     })
+
     const { categoria, categoriaNome, createCategory, onChangeCategoria, loadingCategory } = useCategory()
+
+    function handleFile(e: ChangeEvent<HTMLInputElement>): void {
+        if (e.target.files && e.target.files.length > 0) {
+            setFile(e.target.files[0])
+        }
+    }
 
     // console.log(errors)
 
@@ -53,11 +60,17 @@ export default function FormCadastroProdutos() {
 
         const dataProduct = {
             ...data,
-            oferta: Boolean(data.oferta)
+            oferta: Boolean(data.oferta),
         }
 
         try {
             if (token) {
+                const formData = new FormData()
+
+                if (file) {
+                    formData.append("file", file)
+                }
+
                 const response: AxiosResponse = await api.post("/product/create", dataProduct, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token),
@@ -65,54 +78,35 @@ export default function FormCadastroProdutos() {
                     }
                 })
 
-                const formData = new FormData()
 
-                if (data.file) {
-                    Array.from(data.file).forEach((file) => {
-                        formData.append("file", file)
-                    })
-                }
 
-                api.post(`/product/Image/${response.data.id_produto}`, formData, {
+                await api.post(`/product/Image/${response.data.id_produto}`, formData, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token),
                         "Content-Type": "multipart/form-data"
                     }
-                }).then(() => {
-                    toast.success("O produto foi criado com sucesso!", {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
+                })
 
-                    setLoading(false)
-                    navigate("/dashboard/produto-e-estoque")
-                }).catch((error) => {
-                    console.log(error)
-
-                    toast.error("Houve um erro na criação do produto", {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
-
-                    setLoading(false)
+                toast.success("O produto foi criado com sucesso!", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
                 })
 
                 setLoading(false)
+                navigate("/dashboard/produto-e-estoque")
             }
-        } catch (err) {
-            toast.error("Houve um erro na criação do produto", {
+        } catch (err: any) {
+
+            const errorMessage =
+                err.response?.data?.message || "Houve um erro na criação do produto ou no envio da imagem"
+
+            toast.error(errorMessage, {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -137,8 +131,6 @@ export default function FormCadastroProdutos() {
     function redirect() {
         navigate("/dashboard/produto-e-estoque")
     }
-
-    const selectedFile = watch("file")
 
     return (
         <>
@@ -358,39 +350,34 @@ export default function FormCadastroProdutos() {
                     <div className="flex flex-col w-full">
                         <label className="text-xl">Imagem</label>
                         <div>
-                            <Controller
-                                control={control}
-                                name="file"
-                                defaultValue={undefined}
-                                render={({ field }) => (
-                                    <Box>
-                                        <Button
-                                            variant="outlined"
-                                            component="label"
-                                        >
-                                            Selecionar arquivo
-                                            <input
-                                                type="file"
-                                                hidden
-                                                multiple
-                                                onChange={(e) => {
-                                                    const files = e.target.files;
-                                                    if (files) {
-                                                        console.log("arquivo: ", files)
-                                                        field.onChange(files);
-                                                    }
-                                                }}
-                                            />
-                                        </Button>
 
-                                        {selectedFile && (
-                                            <Typography variant="body2" sx={{ marginTop: "8px" }}>
-                                                {Array.from(selectedFile).map((file) => file.name).join(", ")}
-                                            </Typography>
-                                        )}
-                                    </Box>
+                            <Box>
+                                <Button
+                                    variant="outlined"
+                                    component="label"
+                                >
+                                    Selecionar arquivo
+                                    <input
+                                        type="file"
+                                        hidden
+                                        onChange={handleFile}
+                                    />
+                                </Button>
+
+                                {file && (
+                                    <Typography variant="body2" sx={{ marginTop: "8px" }}>
+                                        {file && <p className="text-green-600">Imagem exportada</p>}
+                                    </Typography>
                                 )}
-                            />
+                            </Box>
+
+                            {
+                                !file && (
+                                    <FormText className="text-red-600">
+                                        Campo obrigatório
+                                    </FormText>
+                                )
+                            }
                         </div>
                     </div>
                     <FormControl sx={{ display: "flex", flexDirection: "column" }}>
@@ -464,8 +451,6 @@ export default function FormCadastroProdutos() {
                         {loadingCategory ? <Loading /> : <ButtonDark text="Criar" propsBtn={() => createCategory(setOpen)} />}
                     </Box>
                 </Modal>
-
-                <ToastContainer />
             </form>
         </>
     )

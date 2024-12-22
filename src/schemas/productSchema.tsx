@@ -64,4 +64,13 @@ export const productSchema = z.object({
         .number({
             required_error: "Campo obrigatório"
         }),
+
+})
+
+export const imageSchema = z.object({
+    file: z
+        .instanceof(File)
+        .refine((file) => file.type.startsWith("image/"), {
+            message: "O arquivo deve ser uma imagem"
+        })
 })
