@@ -183,7 +183,7 @@ export default function useEndereco() {
                         console.log(response)
 
                         if (response.status === 201) {
-                            navigate("/home/carrinho")
+                            navigate("/carrinho")
                         }
                     }).catch((error: AxiosError) => {
                         setLoading(false)
@@ -294,7 +294,7 @@ export default function useEndereco() {
                         console.log(response)
 
                         if (response.status === 201) {
-                            navigate("/home/meus-endereços")
+                            navigate("/meus-endereços")
                         }
                     }).catch((error: AxiosError) => {
                         setLoading(false)

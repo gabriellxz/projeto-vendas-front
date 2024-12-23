@@ -65,6 +65,12 @@ function UserAutenticadoProvider({ children }: any) {
         }
     }, [token])
 
+    useEffect(() => {
+        if(user) {
+            localStorage.setItem("@userY", JSON.stringify(user))
+        }
+    },[user])
+
     function login(token: string | null) {
         localStorage.setItem("tokenUser", JSON.stringify(token))
         setAutenticado(true)

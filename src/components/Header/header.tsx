@@ -10,7 +10,7 @@ import IconPlus from "../../svg/plus-icon";
 import IconHome from "../../svg/icon-home";
 import { CartOrderUser } from "../../types/cart";
 import api from "../../config/config";
-import { Avatar, Divider, Drawer, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
+import { Avatar, Button, Divider, Drawer, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 import { UserCircleIcon } from "@heroicons/react/16/solid";
 
 export default function Header() {
@@ -75,84 +75,96 @@ export default function Header() {
                         <Link to={"/"} className="">
                             <img src={Logo_yeshua} className="max-w-[100px] w-full" alt="logo_yeshuá" />
                         </Link>
-                        <div>
-                            <Tooltip title="Menu do usuário">
-                                <IconButton
-                                    onClick={handleClick}
-                                    size="small"
-                                    aria-controls={openMenu ? "menu-do-usuario" : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={openMenu ? "true" : undefined}
-                                >
-                                    <UserCircleIcon className="w-[50px]" color="white" />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                anchorEl={anchorEl}
-                                id="menu-do-usuario"
-                                open={openMenu}
-                                onClose={handleClose}
-                                onClick={handleClose}
-                                slotProps={{
-                                    paper: {
-                                        elevation: 0,
-                                        sx: {
-                                            overflow: 'visible',
-                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                            mt: 1.5,
-                                            '& .MuiAvatar-root': {
-                                                width: 32,
-                                                height: 32,
-                                                ml: -0.5,
-                                                mr: 1,
-                                            },
-                                            '&::before': {
-                                                content: '""',
-                                                display: 'block',
-                                                position: 'absolute',
-                                                top: 0,
-                                                right: 14,
-                                                width: 10,
-                                                height: 10,
-                                                bgcolor: 'background.paper',
-                                                transform: 'translateY(-50%) rotate(45deg)',
-                                                zIndex: 0,
+                        <div className="flex items-center gap-3">
+                            {!token &&
+                                <div className="flex gap-2">
+                                    <Link to={"/login"}>
+                                        <Button variant="outlined" sx={{ color: "white" }}>Entrar</Button>
+                                    </Link>
+                                    <Link to={"/cadastro"}>
+                                        <Button variant="outlined" sx={{ color: "white" }}>Registrar-se</Button>
+                                    </Link>
+                                </div>
+                            }
+                            <div>
+                                <Tooltip title="Menu do usuário">
+                                    <IconButton
+                                        onClick={handleClick}
+                                        size="small"
+                                        aria-controls={openMenu ? "menu-do-usuario" : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={openMenu ? "true" : undefined}
+                                    >
+                                        <UserCircleIcon className="w-[50px]" color="white" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    id="menu-do-usuario"
+                                    open={openMenu}
+                                    onClose={handleClose}
+                                    onClick={handleClose}
+                                    slotProps={{
+                                        paper: {
+                                            elevation: 0,
+                                            sx: {
+                                                overflow: 'visible',
+                                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                mt: 1.5,
+                                                '& .MuiAvatar-root': {
+                                                    width: 32,
+                                                    height: 32,
+                                                    ml: -0.5,
+                                                    mr: 1,
+                                                },
+                                                '&::before': {
+                                                    content: '""',
+                                                    display: 'block',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    right: 14,
+                                                    width: 10,
+                                                    height: 10,
+                                                    bgcolor: 'background.paper',
+                                                    transform: 'translateY(-50%) rotate(45deg)',
+                                                    zIndex: 0,
+                                                },
                                             },
                                         },
-                                    },
-                                }}
-                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                                <Link to={"/perfil"} className="flex items-center">
-                                    <MenuItem onClick={handleClose}>
-                                        <Avatar /> Perfil
-                                    </MenuItem>
-                                </Link>
-                                <Divider />
-                                <Link to={"/carrinho"}>
-                                    <MenuItem onClick={handleClose}>
-                                        Carrinho
-                                    </MenuItem>
-                                </Link>
-                                <Link to={"/"}>
-                                    <MenuItem onClick={handleClose}>
-                                        Início
-                                    </MenuItem>
-                                </Link>
-                                {token && (
-                                    user?.role == 2 && <Link to={"/dashboard/registro-de-pedidos"}>
+                                    }}
+                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                    <Link to={"/perfil"} className="flex items-center">
                                         <MenuItem onClick={handleClose}>
-                                            Dashboard
+                                            <Avatar /> Perfil
                                         </MenuItem>
                                     </Link>
-                                )}
-                                {token && <Link to={"/"} onClick={logout}>
-                                    <MenuItem onClick={handleClose}>
-                                        Sair
-                                    </MenuItem>
-                                </Link>}
-                            </Menu>
+                                    <Divider />
+                                    <Link to={"/carrinho"}>
+                                        <MenuItem onClick={handleClose}>
+                                            Carrinho
+                                        </MenuItem>
+                                    </Link>
+                                    <Link to={"/"}>
+                                        <MenuItem onClick={handleClose}>
+                                            Início
+                                        </MenuItem>
+                                    </Link>
+                                    {token && (
+                                        user?.role == 2 && <Link to={"/dashboard/registro-de-pedidos"}>
+                                            <MenuItem onClick={handleClose}>
+                                                Dashboard
+                                            </MenuItem>
+                                        </Link>
+                                    )}
+                                    {token && <Link to={"/"} onClick={logout}>
+                                        <MenuItem onClick={handleClose}>
+                                            Sair
+                                        </MenuItem>
+                                    </Link>}
+                                </Menu>
+                            </div>
                         </div>
 
                     </div>
@@ -167,7 +179,7 @@ export default function Header() {
                         <Link to={"/"} className="w-full flex justify-center">
                             <img src={Logo_yeshua} className="w-[100px]" alt="logo_yeshuá" />
                         </Link>
-                        <div className={`${token ? "flex justify-end" : "hidden"}`}>
+                        <div className="flex justify-end">
                             <button>
                                 <NavBarIcon handleNavBar={() => setOpen(!open)} />
                             </button>
@@ -178,12 +190,12 @@ export default function Header() {
                                                 flex flex-col items-end gap-5 mt-5 px-[37px]
                                             `}>
                                     <ul className="flex flex-col">
-                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
+                                        <Link to={"/perfil"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                             <UserIcon />
-                                            <Link to={"/perfil"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
+                                            <span className="flex justify-start w-full" onClick={() => setOpen(!open)}>
                                                 usuário
-                                            </Link>
-                                        </li>
+                                            </span>
+                                        </Link>
                                         <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
                                             <div>
                                                 {

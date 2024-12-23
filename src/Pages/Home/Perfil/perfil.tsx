@@ -29,7 +29,7 @@ export default function Perfil() {
     const [isEditTable, setIsEditTable] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const { register, control, handleSubmit } = useForm<UserFormData>({
+    const { register, control, handleSubmit, watch } = useForm<UserFormData>({
         resolver: zodResolver(userSchema),
         defaultValues: {
             name: user?.name,
@@ -44,6 +44,8 @@ export default function Perfil() {
         setIsEditTable((prevState) => !prevState)
     }
 
+    const generoSelected = watch("genero")
+
     async function editProfile(data: UserFormData) {
 
 
@@ -51,7 +53,8 @@ export default function Perfil() {
             nome: data.name,
             email: data.email,
             Telefone: data.phone,
-            CPF: data.cpf
+            CPF: data.cpf,
+            genero: generoSelected
         }
 
         setLoading(true)
@@ -74,7 +77,7 @@ export default function Perfil() {
                         name: data.name,
                         CPF: data.cpf,
                         email: data.email,
-                        genero: data.genero,
+                        genero: generoSelected,
                         telefone: data.phone
                     })
 
@@ -117,10 +120,10 @@ export default function Perfil() {
             <div className="flex flex-col items-center justify-between sm:flex-row gap-5">
                 <span className="text-3xl uppercase font-bold">Minha conta</span>
                 <div className="flex flex-col sm:flex-row gap-2">
-                    <Link to={"/home/meus-endereços"}>
+                    <Link to={"/meus-endereços"}>
                         <ButtonDark text="Meus endereços" />
                     </Link>
-                    <Link to={"/home/meus-pedidos"}>
+                    <Link to={"/meus-pedidos"}>
                         <ButtonDark text="Verificar meus pedidos" />
                     </Link>
                 </div>
@@ -210,24 +213,29 @@ export default function Perfil() {
                         <FormGroup>
                             <RadioGroup
                                 row
-                                defaultValue={user?.genero}
+                                defaultValue={user?.genero || ""}
                                 {...register("genero")}
                             >
                                 <FormControlLabel
                                     control={<Radio />}
                                     label="Feminino"
                                     value="feminino"
-                                    
+                                    {...register("genero")}
+                                    disabled={!isEditTable}
                                 />
                                 <FormControlLabel
                                     control={<Radio />}
                                     label="Masculino"
                                     value="masculino"
+                                    {...register("genero")}
+                                    disabled={!isEditTable}
                                 />
                                 <FormControlLabel
                                     control={<Radio />}
                                     label="Outro"
                                     value="outro"
+                                    {...register("genero")}
+                                    disabled={!isEditTable}
                                 />
                             </RadioGroup>
                         </FormGroup>

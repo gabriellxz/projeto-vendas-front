@@ -14,11 +14,12 @@ export default function useCart() {
     const [cart, setCart] = useState<CartOrderUser[]>([]);
     const [produtoId, setProdutoId] = useState<number>();
     const [loadingCart, setLoadingCart] = useState<boolean>(false);
+    const [loadingAddCart, setLoadingAddCart] = useState<boolean>(false)
     // const params = useParams();
 
     async function handleAddCart(idProduto: number) {
 
-        setLoadingCart(true);
+        setLoadingAddCart(true);
 
         const data = {
             amount: 1,
@@ -35,13 +36,13 @@ export default function useCart() {
 
                 console.log(response)
                 navigate("/carrinho")
-                setLoadingCart(false);
+                setLoadingAddCart(false);
             } else {
                 navigate("/login")
             }
         } catch (error) {
             console.log(error);
-            setLoadingCart(false);
+            setLoadingAddCart(false);
         }
     }
 
@@ -91,8 +92,6 @@ export default function useCart() {
 
                 setCart(cart.filter((c: CartOrderUser) => c.id !== produtoId));
                 setLoadingCart(false);
-                window.location.reload();
-
                 toast.success("Produto adicionado ao carrinho!", {
                     position: "bottom-center",
                     autoClose: 5000,
@@ -130,7 +129,7 @@ export default function useCart() {
                     }
                 })
 
-                window.location.reload();
+                setCart([])
             }
         } catch (error) {
             console.log(error);
@@ -143,6 +142,7 @@ export default function useCart() {
         deleteCartProduct,
         loadingCart,
         clearCart,
-        produtoId
+        produtoId,
+        loadingAddCart
     }
 }
