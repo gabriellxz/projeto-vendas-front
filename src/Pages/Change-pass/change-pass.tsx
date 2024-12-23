@@ -77,7 +77,7 @@ export default function ChangePass() {
                             })
 
                             setTimeout(() => {
-                                navigate("/home")
+                                navigate("/")
                             }, 5000)
                             // login(token)
                             setLoading(false)

@@ -21,7 +21,7 @@ export function AccessPaymentSucces({ children }: Props) {
     const queryParams = new URLSearchParams(location.search)
     const sessionId = queryParams.get("session_id")
 
-    if (!sessionId) return <Navigate to={"/home"} />
+    if (!sessionId) return <Navigate to={"/"} />
 
     return children
 }

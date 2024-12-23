@@ -41,7 +41,7 @@ export default function EditEndereco() {
     } = useEndereco();
 
     function redirect() {
-        navigate("/home/meus-endereços")
+        navigate("/meus-endereços")
     }
 
     return (

@@ -49,7 +49,7 @@ export default function FormEndereco() {
     const { user, token } = useContext(UserAutenticado)
 
     function redirect() {
-        navigate("/home")
+        navigate("/")
     }
 
     async function getCep(data: { CEP: string }) {
@@ -118,7 +118,7 @@ export default function FormEndereco() {
                         theme: "colored",
                     })
 
-                    navigate("/home/meus-endereços")
+                    navigate("/meus-endereços")
 
                 }).catch(() => {
                     toast.error("Houve um erro na criação do endereço", {

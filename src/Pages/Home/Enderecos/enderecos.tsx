@@ -11,7 +11,7 @@ export default function Enderecos() {
     const navigate = useNavigate()
 
     function navigateFormEndereco() {
-        navigate("/home/criar-endereço")
+        navigate("/criar-endereço")
     }
 
     return (
@@ -34,7 +34,7 @@ export default function Enderecos() {
                             </div>
                         </div>
                         <div className="flex gap-3">
-                            <Link to={`/home/editar-endereço/${e.id}`} className="text-blue-600 text-xl cursor-pointer">Editar</Link>
+                            <Link to={`/editar-endereço/${e.id}`} className="text-blue-600 text-xl cursor-pointer">Editar</Link>
                             <span onClick={() => deleteEndereco(e.id)} className="text-red-600 text-xl cursor-pointer">Excluir</span>
                         </div>
                     </div>

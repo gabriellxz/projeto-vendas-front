@@ -11,7 +11,7 @@ interface PropsProduto {
 
 export default function CardProduct(props: PropsProduto) {
 
-    const { handleAddCart, loadingCart } = useCart();
+    const { handleAddCart, loadingAddCart } = useCart();
 
     return (
         <div className={`text-center`}>
@@ -22,7 +22,7 @@ export default function CardProduct(props: PropsProduto) {
             <p className={`font-bold ${props.iProduto.oferta ? "text-green-600" : ""}`}>{Moeda.formatar(props.iProduto.preco)}</p>
             <div className='flex justify-center'>
                 {
-                    loadingCart ? <Loading /> : <button className="p-2 border border-1 border-black w-full" onClick={() => handleAddCart(props.iProduto.id_produto)}>Adicionar ao carrinho</button>
+                    loadingAddCart ? <Loading /> : <button className="p-2 border border-1 border-black w-full" onClick={() => handleAddCart(props.iProduto.id_produto)}>Adicionar ao carrinho</button>
                 }
             </div>
         </div>

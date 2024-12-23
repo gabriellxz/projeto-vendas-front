@@ -92,7 +92,7 @@ export default function SumarioCompras(props: PropsSumario) {
                             endereco.length < 1 ? (
                                 <>
                                     <span className="text-red-600">Você não tem endereço</span>
-                                    <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/home/criar-endereço") }} />
+                                    <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/criar-endereço") }} />
                                 </>
                             )
                                 :
@@ -119,7 +119,7 @@ export default function SumarioCompras(props: PropsSumario) {
                                             </FormControl>
                                         )
                                     }
-                                    <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/home/criar-endereço") }} />
+                                    <ButtonDark text="Novo endereço" propsBtn={() => { navigate("/criar-endereço") }} />
                                 </div>
                         }
                     </div>

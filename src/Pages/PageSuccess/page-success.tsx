@@ -26,7 +26,7 @@ export default function PageSuccess() {
     }
 
     function redirect() {
-        navigate("/home")
+        navigate("/")
     }
 
     async function sendSessionId(sessionId: string) {
