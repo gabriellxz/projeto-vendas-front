@@ -6,9 +6,9 @@ import Catalog from "../../../components/Catalog/catalog"
 import { useState, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from "framer-motion"
 import "./style.css"
-import InstaIcon from '../../../svg/insta-icon';
-import WhatsIcon from '../../../svg/whats-icon';
-import GmailIcon from '../../../svg/gmail-icon';
+// import InstaIcon from '../../../svg/insta-icon';
+// import WhatsIcon from '../../../svg/whats-icon';
+// import GmailIcon from '../../../svg/gmail-icon';
 // import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card"; 
 
 export default function ListProduct() {
