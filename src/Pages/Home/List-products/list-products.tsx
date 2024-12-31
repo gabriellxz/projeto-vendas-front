@@ -70,7 +70,7 @@ export default function ListProduct() {
             <footer className='flex justify-center bg-greenEco-300 text-white p-5'>
                 <div>
                     <div className='flex gap-3 mb-4'>
-                        <a href="https://www.instagram.com/yeshua_professional/" target='_blank'>
+                        {/* <a href="https://www.instagram.com/yeshua_professional/" target='_blank'>
                             <InstaIcon />
                         </a>
                         <a href="https://wa.me/5585992537575" target='_blank'>
@@ -78,7 +78,7 @@ export default function ListProduct() {
                         </a>
                         <a href="mailto:mailto:yeshuaprofessional9@gmail.com" target='_blank'>
                             <GmailIcon />
-                        </a>
+                        </a> */}
                     </div>
                     <p className='text-justify'>
                         © Copyright 2024 Yeshuá Professional - Todos os direitos reservados.
