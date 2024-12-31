@@ -67,22 +67,35 @@ export default function ListProduct() {
                     </div>
                 </div>
             </div>
-            <footer className='flex justify-center bg-greenEco-300 text-white p-5'>
-                <div>
-                    <div className='flex gap-3 mb-4'>
-                        <a href="https://www.instagram.com/yeshua_professional/" target='_blank'>
-                            <InstaIcon />
-                        </a>
-                        <a href="https://wa.me/5585992537575" target='_blank'>
-                            <WhatsIcon />
-                        </a>
-                        <a href="mailto:mailto:yeshuaprofessional9@gmail.com" target='_blank'>
-                            <GmailIcon />
-                        </a>
+            <footer className='bg-greenEco-300 text-white'>
+                <div className='flex justify-center gap-7 p-5'>
+                    <div className='flex flex-col gap-3 text-justify'>
+                        <p className='uppercase font-bold'>ajuda</p>
+                        <div>
+                            <a href='#'>Política de privacidade</a>
+                        </div>
+                        <div>
+                            <a href='mailto:yeshuaprofessional9@gmail.com' className='flex gap-4' target='_blank'>
+                                <GmailIcon /> yeshuaprofessional9@gmail.com
+                            </a>
+                            <a href="https://wa.me/5585992537575" className='flex gap-4' target='_blank'>
+                                <WhatsIcon /> (85) 99253-7575
+                            </a>
+                        </div>
                     </div>
-                    <p className='text-justify'>
+                    <div className='flex flex-col gap-3'>
+                        <p className='uppercase font-bold'>nossas redes sociais</p>
+                        <div className='flex justify-center'>
+                            <a href="https://www.instagram.com/yeshua_professional/">
+                                <InstaIcon />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div className='bg-greenEco-200'>
+                    <p className='text-center'>
                         © Copyright 2024 Yeshuá Professional - Todos os direitos reservados.
-                        CPNPJ/000000000000 - Sede: Rua 7, 1213, Passare, Fortaleza CE, 60743-680, Brasil.
+                        CPNPJ/54.266.654/0001-90 - Sede: Rua 7, 1213, Passare, Fortaleza CE, 60743-680, Brasil.
                     </p>
                 </div>
             </footer>
