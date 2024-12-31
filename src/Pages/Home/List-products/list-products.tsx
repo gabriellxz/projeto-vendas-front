@@ -5,6 +5,10 @@ import Catalog from "../../../components/Catalog/catalog"
 // import SlidesMiniCard from '../../../components/Slides-mini-card/slides-mini-card';
 import { useState, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from "framer-motion"
+import "./style.css"
+import InstaIcon from '../../../svg/insta-icon';
+import WhatsIcon from '../../../svg/whats-icon';
+import GmailIcon from '../../../svg/gmail-icon';
 // import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card"; 
 
 export default function ListProduct() {
@@ -30,24 +34,7 @@ export default function ListProduct() {
                 <div className={`
                     flex flex-col
                 `}>
-                    <div className={`
-                        flex flex-col items-center justify-center
-                        lg:flex lg:flex-row
-                        w-full bg-[#fae0a7] p-10 gap-[100px] mt-7
-                    `}>
-                        <div className="flex justify-center items-center flex-col max-w-[260px] gap-7">
-                            <div className="flex justify-center flex-col gap-2">
-                                <h1 className="text-5xl">Oferta!</h1>
-                                <p className="text-black text-[20px] text-justify">
-                                    Confira nosso incriveis kits para cabelos - a combinação perfeita de cuidados para realçar sua beleza.
-                                </p>
-                            </div>
-                            <div className="flex justify-start w-full">
-                                <button className="bg-greenEco-100 text-white max-w-[185px] w-full p-3">Ver mais</button>
-                            </div>
-                        </div>
-                        {/* <SlidesMiniCard /> */}
-                    </div>
+                    <div className="banner_catalog w-full bg-cover bg-no-repeat h-[45vh]"></div>
                     <div className="flex justify-center flex-col">
                         <div className='w-full text-center mt-[40px]'>
                             <span className='uppercase text-2xl'>nossos produtos</span>
@@ -75,11 +62,30 @@ export default function ListProduct() {
                             </AnimatePresence>
                         </div>
                         <div className='flex justify-center'>
-                            <Catalog searchItem={search}/>
+                            <Catalog searchItem={search} />
                         </div>
                     </div>
                 </div>
             </div>
+            <footer className='flex justify-center bg-greenEco-300 text-white p-5'>
+                <div>
+                    <div className='flex gap-3 mb-4'>
+                        <a href="https://www.instagram.com/yeshua_professional/" target='_blank'>
+                            <InstaIcon />
+                        </a>
+                        <a href="https://wa.me/5585992537575" target='_blank'>
+                            <WhatsIcon />
+                        </a>
+                        <a href="mailto:mailto:yeshuaprofessional9@gmail.com" target='_blank'>
+                            <GmailIcon />
+                        </a>
+                    </div>
+                    <p className='text-justify'>
+                        © Copyright 2024 Yeshuá Professional - Todos os direitos reservados.
+                        CPNPJ/000000000000 - Sede: Rua 7, 1213, Passare, Fortaleza CE, 60743-680, Brasil.
+                    </p>
+                </div>
+            </footer>
         </div>
     )
 }
