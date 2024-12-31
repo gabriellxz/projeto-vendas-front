@@ -8,8 +8,8 @@ import { useState, useContext } from "react"
 import { UserAutenticado } from "../../../context/authContext"
 import IconEdit from "../../../svg/icon-edit"
 import FormEditProduct from "../../../components/Form-edit-product/form-edit-product"
-import Category from "../../../types/category"
-import useCategory from "../../../hook/useCategory"
+// import Category from "../../../types/category"
+// import useCategory from "../../../hook/useCategory"
 import api from "../../../config/config"
 import TrashIcon from "../../../svg/trash-icon"
 import { toast } from "react-toastify"
@@ -20,8 +20,8 @@ import useListProduct from "../../../hook/useListProduct"
 export default function ProdutoEstoque() {
 
     // const { product } = useListProduct()
-    const { categoria, setCategoria } = useCategory()
-    const { product } = useListProduct()
+    // const { categoria, setCategoria } = useCategory()
+    const { product, setProduct } = useListProduct()
     const { token } = useContext(UserAutenticado)
     const navigate = useNavigate()
     const [openButton, setOpenButton] = useState<boolean>(false)
@@ -53,7 +53,7 @@ export default function ProdutoEstoque() {
             product.map((product: ProdutosDTO) => (
                 <tr className={`w-full flex justify-between items-center mt-5`} key={product.id_produto}>
                     <td className="w-full text-left">{product.nome_produto}</td>
-                    <td className="w-full text-center">{product.nome_produto}</td>
+                    <td className="w-full text-center">{product.categoryId}</td>
                     <td className="w-full text-center">{product.estoque}</td>
                     <td className="px-1 cursor-pointer">{
                         openButton &&
@@ -93,7 +93,7 @@ export default function ProdutoEstoque() {
 
                     setLoadingDelete(false)
 
-                    setCategoria(categoria.filter((c: Category) => c.id_produto !== id))
+                    setProduct(product.filter((c: ProdutosDTO) => c.id_produto !== id))
                 }).catch(() => {
                     toast.error("Não foi possivel excluir o produto.", {
                         position: "bottom-center",

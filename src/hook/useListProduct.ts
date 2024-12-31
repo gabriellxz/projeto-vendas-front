@@ -27,6 +27,7 @@ export default function useListProduct() {
 
     return {
         product,
-        loading
+        loading,
+        setProduct
     }
 }
