@@ -9,6 +9,7 @@ import "./style.css"
 import InstaIcon from '../../../svg/insta-icon';
 import WhatsIcon from '../../../svg/whats-icon';
 import GmailIcon from '../../../svg/gmail-icon';
+import whatsappContact from "../../../assets/wtsicon.webp"
 // import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card"; 
 
 export default function ListProduct() {
@@ -99,6 +100,11 @@ export default function ListProduct() {
                     </p>
                 </div>
             </footer>
+            <button className='w-[60px] h-[60px] fixed bottom-1 right-1'>
+                <a href="https://wa.me/5585992537575" target='_blank'>
+                    <img src={whatsappContact} />
+                </a>
+            </button>
         </div>
     )
 }
