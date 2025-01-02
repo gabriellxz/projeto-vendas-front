@@ -10,6 +10,7 @@ import iconWts from "../../../assets/iconWts.png"
 import emailIcon from "../../../assets/emailIcon.png"
 import bannerCatalog from "../../../assets/banner_catalog.png"
 import bannerMobile from "../../../assets/banner_mobile.png"
+import mastercardLogo from "../../../assets/mc_vrt_opt_pos_46_3x.png"
 
 export default function ListProduct() {
 
@@ -107,6 +108,12 @@ export default function ListProduct() {
                             </a>
                         </div>
                     </div>
+                    <div>
+                        <p className='uppercase font-bold'>formas de pagemento</p>
+                        <div>
+                            <img src={mastercardLogo} alt="" className='max-w-[80px] w-full'/>
+                        </div>
+                    </div>
                     <div className='flex flex-col gap-3'>
                         <p className='uppercase font-bold'>nossas redes sociais</p>
                         <div className='flex justify-center'>
@@ -118,7 +125,7 @@ export default function ListProduct() {
                 </div>
                 <div className='bg-greenEco-200'>
                     <p className='text-center'>
-                        © Copyright 2024 Yeshuá Professional - Todos os direitos reservados.
+                        © Copyright 2025 Yeshuá Professional - Todos os direitos reservados.
                         CPNPJ/54.266.654/0001-90 - Sede: Rua 7, 1213, Passare, Fortaleza CE, 60743-680, Brasil.
                     </p>
                 </div>
