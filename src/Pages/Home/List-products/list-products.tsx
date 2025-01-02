@@ -2,15 +2,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SlidesHome from "../../../components/Slides-home/slides-home"
 import Catalog from "../../../components/Catalog/catalog"
-// import SlidesMiniCard from '../../../components/Slides-mini-card/slides-mini-card';
 import { useState, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from "framer-motion"
-import "./style.css"
-import InstaIcon from '../../../svg/insta-icon';
-import WhatsIcon from '../../../svg/whats-icon';
-import GmailIcon from '../../../svg/gmail-icon';
 import whatsappContact from "../../../assets/wtsicon.webp"
-// import SlidesMiniCard from "../../../components/Slides-mini-card/slides-mini-card"; 
+import instaICon from "../../../assets/instaIcon.png"
+import iconWts from "../../../assets/iconWts.png"
+import emailIcon from "../../../assets/emailIcon.png"
+import bannerCatalog from "../../../assets/banner_catalog.png"
+import bannerMobile from "../../../assets/banner_mobile.png"
 
 export default function ListProduct() {
 
@@ -35,7 +34,12 @@ export default function ListProduct() {
                 <div className={`
                     flex flex-col
                 `}>
-                    <div className="banner_catalog w-full bg-cover bg-no-repeat h-[45vh]"></div>
+                    <div className="hidden sm:flex w-full h-[45vh]">
+                        <img src={bannerCatalog} alt="" className='w-full'/>
+                    </div>
+                    <div className="flex sm:hidden w-full h-[45vh]">
+                        <img src={bannerMobile} alt="" className='w-full'/>
+                    </div>
                     <div className="flex justify-center flex-col">
                         <div className='w-full text-center mt-[40px]'>
                             <span className='uppercase text-2xl'>nossos produtos</span>
@@ -69,18 +73,37 @@ export default function ListProduct() {
                 </div>
             </div>
             <footer className='bg-greenEco-300 text-white'>
-                <div className='flex justify-center gap-7 p-5'>
+                <div className='grid grid-cols-2 gap-5 sm:flex sm:flex-row sm:justify-around p-5'>
+                    <div className='flex flex-col gap-3'>
+                        <p className='uppercase font-bold'>institucional</p>
+                        <div>
+                            <ul>
+                                <li>
+                                    <a href="#">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#">Sobre nós</a>
+                                </li>
+                                <li>
+                                    <a href="#">Todos os produtos</a>
+                                </li>
+                                <li>
+                                    <a href="#">Contato</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <div className='flex flex-col gap-3 text-justify'>
                         <p className='uppercase font-bold'>ajuda</p>
                         <div>
                             <a href='#'>Política de privacidade</a>
                         </div>
                         <div>
-                            <a href='mailto:yeshuaprofessional9@gmail.com' className='flex gap-4' target='_blank'>
-                                <GmailIcon /> yeshuaprofessional9@gmail.com
+                            <a href='mailto:yeshuaprofessional9@gmail.com' className='flex gap-4 overflow-hidden' target='_blank'>
+                                <img src={emailIcon} className='w-[20px]' alt="" /> yeshuaprofessional9@gmail.com
                             </a>
                             <a href="https://wa.me/5585992537575" className='flex gap-4' target='_blank'>
-                                <WhatsIcon /> (85) 99253-7575
+                                <img src={iconWts} className='w-[20px]' alt="" /> (85) 99253-7575
                             </a>
                         </div>
                     </div>
@@ -88,7 +111,7 @@ export default function ListProduct() {
                         <p className='uppercase font-bold'>nossas redes sociais</p>
                         <div className='flex justify-center'>
                             <a href="https://www.instagram.com/yeshua_professional/">
-                                <InstaIcon />
+                                <img src={instaICon} className='w-[20px]' alt="" />
                             </a>
                         </div>
                     </div>
