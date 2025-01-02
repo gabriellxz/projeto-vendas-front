@@ -1,5 +1,5 @@
-import background_mobile from "../../assets/background_mobile.png"
-import background_pc from "../../assets/background_pc.png"
+import background_mobile from "../../assets/background_mobile.webp"
+import background_pc from "../../assets/background_pc.webp"
 
 export default function SlidesHome() {
     return (

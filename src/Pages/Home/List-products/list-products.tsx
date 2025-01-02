@@ -8,8 +8,8 @@ import whatsappContact from "../../../assets/wtsicon.webp"
 import instaICon from "../../../assets/instaIcon.png"
 import iconWts from "../../../assets/iconWts.png"
 import emailIcon from "../../../assets/emailIcon.png"
-import bannerCatalog from "../../../assets/banner_catalog.png"
-import bannerMobile from "../../../assets/banner_mobile.png"
+import bannerCatalog from "../../../assets/banner_catalog.webp"
+import bannerMobile from "../../../assets/banner_mobile.webp"
 import mastercardLogo from "../../../assets/mc_vrt_opt_pos_46_3x.png"
 
 export default function ListProduct() {
