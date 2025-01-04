@@ -109,7 +109,7 @@ export default function ListProduct() {
                         </div>
                     </div>
                     <div>
-                        <p className='uppercase font-bold'>formas de pagemento</p>
+                        <p className='uppercase font-bold'>formas de pagamento</p>
                         <div>
                             <img src={mastercardLogo} alt="" className='max-w-[80px] w-full'/>
                         </div>
