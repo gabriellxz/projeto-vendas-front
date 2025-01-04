@@ -165,6 +165,9 @@ export default function FormCadastroProdutos() {
                                 {...register("preco", {
                                     setValueAs: (value) => value == "" ? undefined : Number(value)
                                 })}
+                                inputProps={{
+                                    step: "any"
+                                }}
                             />
                             {
                                 errors.preco && errors.preco.message && (
