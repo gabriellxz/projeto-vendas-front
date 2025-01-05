@@ -298,6 +298,9 @@ export default function FormEditProduct(props: PropsForm) {
                                         {...register("preco", {
                                             setValueAs: (value) => value == "" ? undefined : Number(value)
                                         })}
+                                        inputProps={{
+                                            step: "any"
+                                        }}
                                     />
                                     {
                                         errors.preco && errors.preco.message && (
