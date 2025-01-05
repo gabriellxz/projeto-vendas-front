@@ -17,7 +17,6 @@ export default function DetailsProductPage(props: Props) {
     const { handleAddCart, loadingCart } = useCart();
     const params = useParams();
 
-
     return (
         <div className={`
             m-[30px]
