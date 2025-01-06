@@ -23,7 +23,7 @@ export default function Catalog(props: Props) {
         filterProduct
 
     return (
-        <div className="sm:grid sm:grid-cols-2 sm:gap-7 lg:grid-cols-4 grid grid-cols-2 gap-5 mt-5 pt-10 p-10 card-item">
+        <div className="sm:grid sm:grid-cols-3 sm:gap-7 lg:grid-cols-4 grid grid-cols-2 gap-5 mt-5 pt-10 p-10 card-item">
 
             {loading ? (
                 <Loading />
