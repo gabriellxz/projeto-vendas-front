@@ -1,29 +1,25 @@
 import BagIcon from "../../svg/bag-icon";
 import UserIcon from "../../svg/user-icon";
 import Logo_yeshua from "../../assets/yeshua_white.png"
-import ButtonLogout from "../../svg/button-logout";
-import NavBarIcon from "../../svg/navbar-icon";
+import SearchIcon from "../../svg/search-icon";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import "./style.css"
+import { Box, Divider, Drawer, Menu, MenuItem } from "@mui/material";
 import { UserAutenticado } from "../../context/authContext";
-import IconPlus from "../../svg/plus-icon";
-import IconHome from "../../svg/icon-home";
-import { CartOrderUser } from "../../types/cart";
-import api from "../../config/config";
-import { Avatar, Button, Divider, Drawer, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
-import { UserCircleIcon } from "@heroicons/react/16/solid";
+import { Bars3Icon } from "@heroicons/react/16/solid";
+// import useCategory from "../../hook/useCategory";
 
 export default function Header() {
 
-    const { user, logout } = useContext(UserAutenticado)
     const token = localStorage.getItem('tokenUser')
-    // const token = localStorage.getItem("tokenUser")
-    const [open, setOpen] = useState<boolean>(false)
-    const [amount, setAmount] = useState<number>();
-    const [cart, setCart] = useState<CartOrderUser[]>([]);
-
+    const { logout } = useContext(UserAutenticado)
+    const [openDropDown, setOpenDropDown] = useState<boolean>(false)
+    const [timeId, setTimeId] = useState<NodeJS.Timeout | null>(null)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const openMenu = Boolean(anchorEl)
+    const [openMenu, setOpenMenu] = useState(false)
+
+    const open = Boolean(anchorEl)
 
     function handleClick(event: React.MouseEvent<HTMLElement>) {
         setAnchorEl(event.currentTarget)
@@ -33,227 +29,205 @@ export default function Header() {
         setAnchorEl(null)
     }
 
-    async function getAmount() {
-        try {
-            if (token) {
-                const response = await api.get("/cart/find", {
-                    headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
-                    }
-                })
+    function handleMouseEnter() {
+        if (timeId) clearTimeout(timeId)
 
-                setCart(response.data.carrinho);
+        // console.log(timeId)
+        setOpenDropDown(true)
+    }
 
-                const totalAmount = cart.reduce((accumulator, item) => {
-                    return accumulator + item.amount;
-                }, 0);
+    function handleMouseLeave() {
+        const id = setTimeout(() => {
+            setOpenDropDown(false)
+        }, 400)
 
-                setAmount(totalAmount);
-            }
-        } catch (error) {
-            // console.log(error);
-            // setLoadingCart(false);
-        } finally {
-            // setLoadingCart(false);
+        // console.log(timeId)
+        setTimeId(id)
+    }
+
+    function handleClickCategories(option: string) {
+        if (option === "Linhas") {
+            setOpenDropDown(!openDropDown)
+            setOpenMenu(true)
         }
     }
 
-    useEffect(() => {
-        getAmount();
-    }, [])
+    // const { categoria } = useCategory()
+    // console.log(categoria)
 
+    // MENU MOBILE
+    const DrawerList = (
+        <Box
+            sx={{ width: 250 }}
+            onClick={(e) => {
+                const target = e.target as HTMLElement
 
+                if (!target.closest(".no-close")) {
+                    setOpenMenu(false)
+                }
+            }}
+        >
+            <ul className="text-xl p-5 space-y-5">
+                <li className="cursor-pointer">
+                    <Link to={"/perfil"}>
+                        Minha conta
+                    </Link>
+                </li>
+                <Divider />
+                <li className="cursor-pointer">
+                    <Link to={"/carrinho"}>
+                        Carrinho
+                    </Link>
+                </li>
+                <Divider />
+                <li className="cursor-pointer no-close" onClick={() => handleClickCategories("Linhas")}>Linhas +</li>
+                {openDropDown &&
+
+                    <ul className="ml-5 text-lg space-y-3">
+                        <li className="cursor-pointer">Categoria</li>
+                        <li className="cursor-pointer">Categoria</li>
+                        <li className="cursor-pointer">Categoria</li>
+                    </ul>
+                }
+                <Divider />
+                <li className="cursor-pointer">Sobre nós</li>
+                <Divider />
+                <li className="cursor-pointer">Seja um distribuidor</li>
+                <Divider />
+                <li className="cursor-pointer" onClick={logout}>Sair</li>
+            </ul>
+        </Box>
+    )
     return (
         <>
-            <div className="bg-greenEco-300">
-                {/* VISÍVEL PARA TELAS GRANDES */}
-                <header className={`
-                hidden p-5
-                sm:flex lg:flex lg:items-center lg:justify-end
-                `}>
-                    <div className="flex items-center justify-between max-w-[100%] w-full">
-                        <Link to={"/"} className="">
-                            <img src={Logo_yeshua} className="max-w-[100px] w-full" alt="logo_yeshuá" />
+            <header className="bg-greenEco-300 flex sm:justify-center items-center py-1 w-full select-none">
+                <div>
+                    <div className="flex items-center sm:space-x-5">
+                        <Link to={"/"}>
+                            <img src={Logo_yeshua} alt="logo_yeshua" className="w-[100px]" />
                         </Link>
-                        <div className="flex items-center gap-3">
-                            {!token &&
-                                <div className="flex gap-2">
-                                    <Link to={"/login"}>
-                                        <Button variant="outlined" sx={{ color: "white" }}>Entrar</Button>
-                                    </Link>
-                                    <Link to={"/cadastro"}>
-                                        <Button variant="outlined" sx={{ color: "white" }}>Registrar-se</Button>
-                                    </Link>
-                                </div>
-                            }
-                            <div>
-                                <Tooltip title="Menu do usuário">
-                                    <IconButton
-                                        onClick={handleClick}
-                                        size="small"
-                                        aria-controls={openMenu ? "menu-do-usuario" : undefined}
-                                        aria-haspopup="true"
-                                        aria-expanded={openMenu ? "true" : undefined}
-                                    >
-                                        <UserCircleIcon className="w-[50px]" color="white" />
-                                    </IconButton>
-                                </Tooltip>
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    id="menu-do-usuario"
+                        {token &&
+                            <>
+                                {/* TELA PEQUENAS */}
+                                <Bars3Icon onClick={() => setOpenMenu(!openMenu)} className="w-[30px] sm:hidden absolute right-1 text-white" />
+
+                                <Drawer
+                                    anchor="right"
                                     open={openMenu}
-                                    onClose={handleClose}
-                                    onClick={handleClose}
-                                    slotProps={{
-                                        paper: {
-                                            elevation: 0,
-                                            sx: {
-                                                overflow: 'visible',
-                                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                                mt: 1.5,
-                                                '& .MuiAvatar-root': {
-                                                    width: 32,
-                                                    height: 32,
-                                                    ml: -0.5,
-                                                    mr: 1,
-                                                },
-                                                '&::before': {
-                                                    content: '""',
-                                                    display: 'block',
-                                                    position: 'absolute',
-                                                    top: 0,
-                                                    right: 14,
-                                                    width: 10,
-                                                    height: 10,
-                                                    bgcolor: 'background.paper',
-                                                    transform: 'translateY(-50%) rotate(45deg)',
-                                                    zIndex: 0,
-                                                },
-                                            },
-                                        },
-                                    }}
-                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                    onClose={() => setOpenMenu(!openMenu)}
                                 >
-                                    <Link to={"/perfil"} className="flex items-center">
-                                        <MenuItem onClick={handleClose}>
-                                            <Avatar /> Perfil
-                                        </MenuItem>
-                                    </Link>
-                                    <Divider />
-                                    <Link to={"/carrinho"}>
-                                        <MenuItem onClick={handleClose}>
-                                            Carrinho
-                                        </MenuItem>
-                                    </Link>
-                                    <Link to={"/"}>
-                                        <MenuItem onClick={handleClose}>
-                                            Início
-                                        </MenuItem>
-                                    </Link>
-                                    {token && (
-                                        user?.role == 2 && <Link to={"/dashboard/registro-de-pedidos"}>
-                                            <MenuItem onClick={handleClose}>
-                                                Dashboard
-                                            </MenuItem>
-                                        </Link>
-                                    )}
-                                    {token && <Link to={"/"} onClick={logout}>
-                                        <MenuItem onClick={handleClose}>
-                                            Sair
-                                        </MenuItem>
-                                    </Link>}
-                                </Menu>
-                            </div>
-                        </div>
+                                    {DrawerList}
+                                </Drawer>
 
-                    </div>
-                </header>
-
-                {/* VISÍVEL PARA TELAS PEQUENAS */}
-                <header className={`
-                flex items-center justify-between p-5
-                sm:hidden lg:hidden
-            `}>
-                    <div className="flex items-center w-full">
-                        <Link to={"/"} className="w-full flex justify-center">
-                            <img src={Logo_yeshua} className="w-[100px]" alt="logo_yeshuá" />
-                        </Link>
-                        <div className="flex justify-end">
-                            <button>
-                                <NavBarIcon handleNavBar={() => setOpen(!open)} />
-                            </button>
-                            <Drawer className="sm:hidden" open={open} onClose={() => setOpen(false)}>
-
-
-                                <div className={`
-                                                flex flex-col items-end gap-5 mt-5 px-[37px]
-                                            `}>
-                                    <ul className="flex flex-col">
-                                        <Link to={"/perfil"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                            <UserIcon />
-                                            <span className="flex justify-start w-full" onClick={() => setOpen(!open)}>
-                                                usuário
-                                            </span>
-                                        </Link>
-                                        <li className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                            <div>
-                                                {
-                                                    amount ? (
-                                                        amount > 0 ? (
-                                                            <span className={`
-                                                            flex justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                            h-[10px] cursor-pointer
-                                                        `}>{amount}</span>
-                                                        ) : (
-                                                            <span className={`
-                                                            justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                            h-[10px] cursor-pointer hidden
-                                                        `}>{amount}</span>
-                                                        )
-                                                    ) : (
-                                                        <span className={`
-                                                        justify-center items-center p-2 text-white absolute bg-red-600 rounded-full w-[10px] 
-                                                        h-[10px] cursor-pointer hidden
-                                                    `}>{amount}</span>
-                                                    )
-                                                }
-                                                <BagIcon />
-                                            </div>
-                                            <Link to={"/carrinho"} className="flex justify-start w-full" onClick={() => setOpen(!open)}>
-                                                carrinho
-                                            </Link>
-                                        </li>
-                                        <Link to={"/"} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" onClick={() => setOpen(!open)}>
-                                            <IconHome />
-                                            <span>
-                                                Início
-                                            </span>
-                                        </Link>
-                                        {token && (
-                                            user?.role == 2 && <Link to={"/dashboard/registro-de-pedidos"} className={`${user?.role == 2 ? "flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500" : "hidden"} `}>
-                                                <IconPlus />
-                                                <span>
-                                                    Dashboard
-                                                </span>
-                                            </Link>
-                                        )}
-                                        {token && <Link to={"/"} onClick={logout} className="flex items-center uppercase text-xl py-[19px] gap-[26px] border-b border-zinc-500">
-                                            <ButtonLogout />
-                                            <span className="flex justify-start w-full">
-                                                sair
-                                            </span>
-                                        </Link>}
-                                    </ul>
+                                {/* TELAS GRANDES */}
+                                <div>
+                                    <nav className="hidden sm:flex text-xl text-whiteEco-200 space-x-5">
+                                        <span
+                                            className="cursor-pointer"
+                                            onMouseEnter={handleMouseEnter}
+                                            onMouseLeave={handleMouseLeave}
+                                        >Linhas</span>
+                                        <span className="cursor-pointer">Sobre nós</span>
+                                        <span className="cursor-pointer">Seja um distribuidor</span>
+                                    </nav>
                                 </div>
-                            </Drawer>
+                                <div className="hidden sm:flex space-x-3">
+                                    <div className="flex items-center bg-white rounded-xl px-2">
+                                        <input type="text" placeholder="Buscar" className="rounded-xl outline-none px-2 text-xl" />
+                                        <SearchIcon />
+                                    </div>
+                                    <div className="flex items-center gap-5">
+                                        <div className="relative">
+                                            <span onClick={handleClick} className="cursor-pointer">
+                                                <UserIcon />
+                                            </span>
 
-
-                        </div>
-
+                                            <Menu
+                                                anchorEl={anchorEl}
+                                                open={open}
+                                                onClose={handleClose}
+                                                slotProps={{
+                                                    paper: {
+                                                        elevation: 0,
+                                                        sx: {
+                                                            overflow: 'visible',
+                                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                            mt: 1.5,
+                                                            '& .MuiAvatar-root': {
+                                                                width: 32,
+                                                                height: 32,
+                                                                ml: -0.5,
+                                                                mr: 1,
+                                                            },
+                                                            '&::before': {
+                                                                content: '""',
+                                                                display: 'block',
+                                                                position: 'absolute',
+                                                                top: 0,
+                                                                right: 14,
+                                                                width: 10,
+                                                                height: 10,
+                                                                bgcolor: 'background.paper',
+                                                                transform: 'translateY(-50%) rotate(45deg)',
+                                                                zIndex: 0,
+                                                            },
+                                                        },
+                                                    },
+                                                }}
+                                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                            >
+                                                <Link to={"/perfil"}>
+                                                    <MenuItem onClick={handleClose}>
+                                                        Minha conta
+                                                    </MenuItem>
+                                                </Link>
+                                                <span onClick={logout}>
+                                                    <MenuItem onClick={handleClose}>Sair</MenuItem>
+                                                </span>
+                                            </Menu>
+                                        </div>
+                                        <BagIcon />
+                                    </div>
+                                </div>
+                            </>
+                        }
+                        {
+                            !token &&
+                            <div className="flex items-center gap-5 absolute right-2">
+                                <Link to={"/cadastro"}>
+                                    <button className="btn-signUp">
+                                        Cadastrar
+                                    </button>
+                                </Link>
+                                <Link to={"/login"}>
+                                    <button className="btn-signIn">
+                                        Entrar
+                                    </button>
+                                </Link>
+                            </div>
+                        }
                     </div>
-                </header>
-            </div>
+                </div>
+            </header>
+            {
+                openDropDown &&
+                <div
+                    className="w-[50%] bg-whiteEco-100 p-5 absolute shadow-xl left-1/2 transform -translate-x-1/2 z-10 hidden sm:block"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    <ul className="text-lg space-y-5 font-jura">
+                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                    </ul>
+                </div>
+            }
         </>
     )
 }

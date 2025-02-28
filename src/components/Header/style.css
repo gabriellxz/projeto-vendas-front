@@ -1,0 +1,48 @@
+.btn-signIn {
+    background-image: linear-gradient(to right, #4b6cb7 0%, #182848 51%, #4b6cb7 100%)
+}
+
+.btn-signIn {
+    /* margin: 10px; */
+    padding: 10px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+}
+
+
+.btn-signUp {
+    background-image: linear-gradient(to right, #ECE9E6 0%, #FFFFFF 51%, #ECE9E6 100%)
+}
+
+.btn-signUp {
+    padding: 10px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: #182848;
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+}
+
+/* .btn-signIn:hover {
+    background-position: right center;
+    change the direction of the change here
+    color: #fff;
+    text-decoration: none;
+} */
+
+
+/* .btn-signUp:hover {
+    background-position: right center;
+    change the direction of the change here
+    color: #fff;
+    text-decoration: none;
+} */
