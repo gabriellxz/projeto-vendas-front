@@ -8,11 +8,13 @@ import "./style.css"
 import { Box, Divider, Drawer, Menu, MenuItem } from "@mui/material";
 import { UserAutenticado } from "../../context/authContext";
 import { Bars3Icon } from "@heroicons/react/16/solid";
+import useCategory from "../../hook/useCategory";
 // import useCategory from "../../hook/useCategory";
 
 export default function Header() {
 
     const token = localStorage.getItem('tokenUser')
+    const { categoria } = useCategory()
     const { logout } = useContext(UserAutenticado)
     const [openDropDown, setOpenDropDown] = useState<boolean>(false)
     const [timeId, setTimeId] = useState<NodeJS.Timeout | null>(null)
@@ -84,9 +86,11 @@ export default function Header() {
                 {openDropDown &&
 
                     <ul className="ml-5 text-lg space-y-3">
-                        <li className="cursor-pointer">Categoria</li>
-                        <li className="cursor-pointer">Categoria</li>
-                        <li className="cursor-pointer">Categoria</li>
+                        {categoria.map(category => (
+                            <li>
+                                <Link to={`produto/${category.nome}/${category.id}`} className="cursor-pointer" key={category.id}>{category.nome}</Link>
+                            </li>
+                        ))}
                     </ul>
                 }
                 <Divider />
@@ -218,13 +222,11 @@ export default function Header() {
                     onMouseLeave={handleMouseLeave}
                 >
                     <ul className="text-lg space-y-5 font-jura">
-                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
-                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
-                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
-                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
-                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
-                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
-                        <li className="cursor-pointer hover:text-greenEco-300 hover:text-xl transition-all">Categoria</li>
+                        {categoria.map(category => (
+                            <li>
+                                <Link to={`produto/${category.nome}/${category.id}`} className="cursor-pointer" key={category.id}>{category.nome}</Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             }
