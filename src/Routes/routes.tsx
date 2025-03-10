@@ -25,6 +25,7 @@ import Enderecos from "../Pages/Home/Enderecos/enderecos";
 import EditEndereco from "../Pages/Home/EditEndereco/editEndereco";
 import PageSuccess from "../Pages/PageSuccess/page-success";
 import PageErrorPayment from "../Pages/PageError/page-error";
+import CategoriesId from "../Pages/Home/CategoriesId/categoriesId";
 
 export default function RoutesApp() {
     return (
@@ -42,6 +43,11 @@ export default function RoutesApp() {
                             <Route index element={<ListProduct />} />
                             <Route path="catalogo-produtos" element={<ListProduct />} />
                             <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
+                            <Route path="produto/:categoria/:categoriaId" element={
+                                <CustomRoutes>
+                                    <CategoriesId />
+                                </CustomRoutes>
+                            } />
                             <Route path="carrinho" element={
                                 <CustomRoutes>
                                     <Cart />
