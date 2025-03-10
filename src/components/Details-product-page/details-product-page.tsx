@@ -78,7 +78,6 @@ export default function DetailsProductPage(props: Props) {
             <div className="flex justify-center">
                 <Catalog />
             </div>
-            <Footer />
         </div>
     )
 }

@@ -1,4 +1,3 @@
-import { ToastContainer } from "react-toastify";
 import CardCart from "../../../components/Card-cart/card-cart";
 import Catalog from "../../../components/Catalog/catalog";
 import Loading from "../../../components/Loading/loading";
@@ -7,6 +6,7 @@ import useCart from "../../../hook/useCart";
 import TrashIcon from "../../../svg/trash-icon";
 import { CartOrderUser } from "../../../types/cart";
 import { motion } from "framer-motion"
+import Footer from "../../../components/Footer/footer";
 
 export default function Cart() {
 
@@ -62,7 +62,7 @@ export default function Cart() {
                     </span>
                 </div>
             )}
-            <ToastContainer />
+            <Footer/>
         </motion.div>
 
     )

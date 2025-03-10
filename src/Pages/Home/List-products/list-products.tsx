@@ -7,8 +7,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import whatsappContact from "../../../assets/wtsicon.webp"
 import bannerCatalog from "../../../assets/banner_catalog.webp"
 import bannerMobile from "../../../assets/banner_mobile.webp"
-import Footer from '../../../components/Footer/footer';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../../../components/Footer/footer';
 
 
 export default function ListProduct() {
