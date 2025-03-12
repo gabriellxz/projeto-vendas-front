@@ -107,9 +107,9 @@ export default function Header() {
                 <Divider />
                 <li className="cursor-pointer">Sobre nós</li>
                 <Divider />
-                <a href="https://wa.me/5585992537575" target='_blank'>
-                    <li className="cursor-pointer">Seja um distribuidor</li>
-                </a>
+                <li>
+                    <a href="https://wa.me/5585992537575" target='_blank' className="cursor-pointer">Seja um distribuidor</a>
+                </li>
                 <Divider />
                 <li className="cursor-pointer" onClick={logout}>Sair</li>
             </ul>

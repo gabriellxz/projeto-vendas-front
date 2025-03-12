@@ -41,7 +41,6 @@ export default function RoutesApp() {
                                 <UserAutenticadoProvider>
                                     <Home />
                                 </UserAutenticadoProvider>
-
                             }>
                                 <Route index element={<ListProduct />} />
                                 <Route path="catalogo-produtos" element={<ListProduct />} />
