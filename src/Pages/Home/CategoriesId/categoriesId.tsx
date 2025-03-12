@@ -22,11 +22,11 @@ export default function CategoriesId() {
             <div className="flex justify-center">
                 <div className="bg-whiteEco-100 p-5 max-w-[1300px] w-full">
                     <span className="text-2xl font-bold uppercase">
-                        <span>{searchTerm}</span>
+                        <span>{searchTerm ? searchTerm : params.categoria}</span>
                     </span>
                 </div>
             </div>
-            <div className="flex justify-center h-screen">
+            <div className="flex justify-center sm:h-screen">
                 <div>
                     {
                         filteredSearchProduct.length < 1 ? (
@@ -34,7 +34,7 @@ export default function CategoriesId() {
                                 <span className="text-2xl text-center">Não existem produtos nesta categoria</span>
                             </div>
                         ) : (
-                            <div className="sm:grid sm:grid-cols-3 lg:grid-cols-3 grid grid-cols-2 my-5 card-item gap-1">
+                            <div className="sm:grid sm:grid-cols-3 lg:grid-cols-3 grid grid-cols-1 my-5 card-item gap-1">
                                 {filteredSearchProduct.map(product => (
                                     <CardProduct iProduto={product} key={product.id_produto} />
                                 ))}

@@ -98,8 +98,8 @@ export default function Header() {
 
                     <ul className="ml-5 text-lg space-y-3">
                         {categoria.map(category => (
-                            <li>
-                                <Link to={`produto/${category.nome}/${category.id}`} className="cursor-pointer" key={category.id}>{category.nome}</Link>
+                            <li onClick={() => redirectCategoryProduct(category.nome, category.id)} className="cursor-pointer" key={category.id}>
+                                {category.nome}
                             </li>
                         ))}
                     </ul>
