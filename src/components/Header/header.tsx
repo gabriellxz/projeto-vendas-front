@@ -3,23 +3,37 @@ import UserIcon from "../../svg/user-icon";
 import Logo_yeshua from "../../assets/yeshua_white.png"
 import SearchIcon from "../../svg/search-icon";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.css"
 import { Box, Divider, Drawer, Menu, MenuItem } from "@mui/material";
 import { UserAutenticado } from "../../context/authContext";
-import { Bars3Icon } from "@heroicons/react/16/solid";
+import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import useCategory from "../../hook/useCategory";
+import { useSearch } from "../../context/searchContext";
 // import useCategory from "../../hook/useCategory";
 
 export default function Header() {
 
+    const navigate = useNavigate()
     const token = localStorage.getItem('tokenUser')
+    const { setSearchTerm, searchTerm } = useSearch()
     const { categoria } = useCategory()
     const { logout } = useContext(UserAutenticado)
     const [openDropDown, setOpenDropDown] = useState<boolean>(false)
     const [timeId, setTimeId] = useState<NodeJS.Timeout | null>(null)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [openMenu, setOpenMenu] = useState(false)
+    const [openSearchBarMobile, setSearchBarMobile] = useState(false)
+
+    function searchProducts(value: string) {
+        navigate(`produto/${value}`)
+        setSearchTerm(value)
+    }
+
+    function redirectCategoryProduct(categoria: string, id: number) {
+        setSearchTerm("")
+        navigate(`produto/${categoria}/${id}`)
+    }
 
     const open = Boolean(anchorEl)
 
@@ -53,9 +67,6 @@ export default function Header() {
             setOpenMenu(true)
         }
     }
-
-    // const { categoria } = useCategory()
-    // console.log(categoria)
 
     // MENU MOBILE
     const DrawerList = (
@@ -96,7 +107,9 @@ export default function Header() {
                 <Divider />
                 <li className="cursor-pointer">Sobre nós</li>
                 <Divider />
-                <li className="cursor-pointer">Seja um distribuidor</li>
+                <a href="https://wa.me/5585992537575" target='_blank'>
+                    <li className="cursor-pointer">Seja um distribuidor</li>
+                </a>
                 <Divider />
                 <li className="cursor-pointer" onClick={logout}>Sair</li>
             </ul>
@@ -123,6 +136,11 @@ export default function Header() {
                                     {DrawerList}
                                 </Drawer>
 
+                                <MagnifyingGlassIcon
+                                    onClick={() => setSearchBarMobile(!openSearchBarMobile)}
+                                    className="sm:hidden w-[30px] text-white absolute right-[50px] cursor-pointer"
+                                />
+
                                 {/* TELAS GRANDES */}
                                 <div>
                                     <nav className="hidden sm:flex text-xl text-whiteEco-200 space-x-5">
@@ -132,13 +150,29 @@ export default function Header() {
                                             onMouseLeave={handleMouseLeave}
                                         >Linhas</span>
                                         <span className="cursor-pointer">Sobre nós</span>
-                                        <span className="cursor-pointer">Seja um distribuidor</span>
+                                        <a href="https://wa.me/5585992537575" target='_blank'>
+                                            <span className="cursor-pointer">
+                                                Seja um distribuidor
+                                            </span>
+                                        </a>
                                     </nav>
                                 </div>
                                 <div className="hidden sm:flex space-x-3">
                                     <div className="flex items-center bg-white rounded-xl px-2">
-                                        <input type="text" placeholder="Buscar" className="rounded-xl outline-none px-2 text-xl" />
-                                        <SearchIcon />
+                                        <input
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            onKeyDown={(e: any) => {
+                                                if (e.key == "Enter") {
+                                                    searchProducts(e.target.value)
+                                                }
+                                            }}
+                                            type="text"
+                                            placeholder="Buscar"
+                                            className="rounded-xl outline-none px-2 text-xl"
+                                        />
+                                        <button onClick={() => searchProducts(searchTerm)}>
+                                            <SearchIcon />
+                                        </button>
                                     </div>
                                     <div className="flex items-center gap-5">
                                         <div className="relative">
@@ -223,11 +257,30 @@ export default function Header() {
                 >
                     <ul className="text-lg space-y-5 font-jura">
                         {categoria.map(category => (
-                            <li>
-                                <Link to={`produto/${category.nome}/${category.id}`} className="cursor-pointer" key={category.id}>{category.nome}</Link>
+                            <li onClick={() => redirectCategoryProduct(category.nome, category.id)} className="cursor-pointer" key={category.id}>
+                                {category.nome}
                             </li>
                         ))}
                     </ul>
+                </div>
+            }
+            {
+                openSearchBarMobile &&
+                <div className="flex items-center bg-white rounded-xl px-2 sm:hidden">
+                    <input
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={(e: any) => {
+                            if (e.key == "Enter") {
+                                searchProducts(e.target.value)
+                            }
+                        }}
+                        type="text"
+                        placeholder="Buscar"
+                        className="rounded-xl outline-none px-2 text-xl w-full"
+                    />
+                    <button onClick={() => searchProducts(searchTerm)}>
+                        <SearchIcon />
+                    </button>
                 </div>
             }
         </>
