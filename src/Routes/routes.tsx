@@ -26,101 +26,105 @@ import EditEndereco from "../Pages/Home/EditEndereco/editEndereco";
 import PageSuccess from "../Pages/PageSuccess/page-success";
 import PageErrorPayment from "../Pages/PageError/page-error";
 import CategoriesId from "../Pages/Home/CategoriesId/categoriesId";
+import { SearchProvider } from "../context/searchContext";
 
 export default function RoutesApp() {
     return (
         <AnimatePresence>
-            <BrowserRouter>
-                <UserAutenticadoProvider>
-                    <Routes>
-                        <Route path="login" element={<Login />} />
-                        <Route path="cadastro" element={<Cadastro />} />
-                        <Route path="/" element={
-                            <UserAutenticadoProvider>
-                                <Home />
-                            </UserAutenticadoProvider>
-                        }>
-                            <Route index element={<ListProduct />} />
-                            <Route path="catalogo-produtos" element={<ListProduct />} />
-                            <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
-                            <Route path="produto/:categoria/:categoriaId" element={
+            <SearchProvider>
+                <BrowserRouter>
+                    <UserAutenticadoProvider>
+                        <Routes>
+                            <Route path="login" element={<Login />} />
+                            <Route path="cadastro" element={<Cadastro />} />
+                            <Route path="/" element={
+                                <UserAutenticadoProvider>
+                                    <Home />
+                                </UserAutenticadoProvider>
+
+                            }>
+                                <Route index element={<ListProduct />} />
+                                <Route path="catalogo-produtos" element={<ListProduct />} />
+                                <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
+                                <Route path="produto/:categoria?/:categoriaId?" element={
+                                    <CustomRoutes>
+                                        <CategoriesId />
+                                    </CustomRoutes>
+                                } />
+                                <Route path="carrinho" element={
+                                    <CustomRoutes>
+                                        <Cart />
+                                    </CustomRoutes>
+                                } />
+                                <Route path="criar-endereço" element={
+                                    <CustomRoutes>
+                                        <FormEndereco />
+                                    </CustomRoutes>
+                                } />
+                                <Route path="perfil" element={
+                                    <CustomRoutes>
+                                        <Perfil />
+                                    </CustomRoutes>
+                                } />
+                                <Route path="meus-pedidos" element={
+                                    <CustomRoutes>
+                                        <OrderUser />
+                                    </CustomRoutes>
+                                } />
+                                <Route path="meus-endereços" element={
+                                    <CustomRoutes>
+                                        <Enderecos />
+                                    </CustomRoutes>
+                                } />
+                                <Route path="editar-endereço/:idEndereco" element={
+                                    <CustomRoutes>
+                                        <EditEndereco />
+                                    </CustomRoutes>
+                                } />
+                            </Route>
+                            <Route path="cadastro-produtos" element={
+                                <UserAutenticadoProvider>
+                                    <CustomRoutes>
+                                        <NivelAccess>
+                                            <CadastroProdutos />
+                                        </NivelAccess>
+                                    </CustomRoutes>
+                                </UserAutenticadoProvider>
+                            } />
+                            <Route path="forget" element={<Forget />} />
+                            <Route path="changePass" element={
                                 <CustomRoutes>
-                                    <CategoriesId />
+                                    <ChangePass />
                                 </CustomRoutes>
                             } />
-                            <Route path="carrinho" element={
-                                <CustomRoutes>
-                                    <Cart />
-                                </CustomRoutes>
+                            <Route path="dashboard" element={
+                                <UserAutenticadoProvider>
+                                    <CustomRoutes>
+                                        <NivelAccess>
+                                            <HeaderDashboard />
+                                        </NivelAccess>
+                                    </CustomRoutes>
+                                </UserAutenticadoProvider>
+                            }>
+                                <Route index element={<RegistroDePedidos />} />
+                                <Route path="registro-de-pedidos" element={<RegistroDePedidos />} />
+                                <Route path="detalhes-de-pedidos/:userId" element={<DetalhesDePedidos />} />
+                                <Route path="produto-e-estoque" element={<ProdutoEstoque />} />
+                                <Route path="painel-administrativo" element={<PainelAdministrativo />} />
+                            </Route>
+                            <Route path="acesso-negado" element={<PageError />} />
+                            <Route path="pagamento-efetuado" element={
+                                <UserAutenticadoProvider>
+                                    <AccessPaymentSucces>
+                                        <PageSuccess />
+                                    </AccessPaymentSucces>
+                                </UserAutenticadoProvider>
                             } />
-                            <Route path="criar-endereço" element={
-                                <CustomRoutes>
-                                    <FormEndereco />
-                                </CustomRoutes>
-                            } />
-                            <Route path="perfil" element={
-                                <CustomRoutes>
-                                    <Perfil />
-                                </CustomRoutes>
-                            } />
-                            <Route path="meus-pedidos" element={
-                                <CustomRoutes>
-                                    <OrderUser />
-                                </CustomRoutes>
-                            } />
-                            <Route path="meus-endereços" element={
-                                <CustomRoutes>
-                                    <Enderecos />
-                                </CustomRoutes>
-                            } />
-                            <Route path="editar-endereço/:idEndereco" element={
-                                <CustomRoutes>
-                                    <EditEndereco />
-                                </CustomRoutes>
-                            } />
-                        </Route>
-                        <Route path="cadastro-produtos" element={
-                            <UserAutenticadoProvider>
-                                <CustomRoutes>
-                                    <NivelAccess>
-                                        <CadastroProdutos />
-                                    </NivelAccess>
-                                </CustomRoutes>
-                            </UserAutenticadoProvider>
-                        } />
-                        <Route path="forget" element={<Forget />} />
-                        <Route path="changePass" element={
-                            <CustomRoutes>
-                                <ChangePass />
-                            </CustomRoutes>
-                        } />
-                        <Route path="dashboard" element={
-                            <UserAutenticadoProvider>
-                                <CustomRoutes>
-                                    <NivelAccess>
-                                        <HeaderDashboard />
-                                    </NivelAccess>
-                                </CustomRoutes>
-                            </UserAutenticadoProvider>
-                        }>
-                            <Route index element={<RegistroDePedidos />} />
-                            <Route path="registro-de-pedidos" element={<RegistroDePedidos />} />
-                            <Route path="detalhes-de-pedidos/:userId" element={<DetalhesDePedidos />} />
-                            <Route path="produto-e-estoque" element={<ProdutoEstoque />} />
-                            <Route path="painel-administrativo" element={<PainelAdministrativo />} />
-                        </Route>
-                        <Route path="acesso-negado" element={<PageError />} />
-                        <Route path="pagamento-efetuado" element={
-                            <UserAutenticadoProvider>
-                                <AccessPaymentSucces>
-                                    <PageSuccess />
-                                </AccessPaymentSucces>
-                            </UserAutenticadoProvider>
-                        } />
-                        <Route path="pagamento-erro" element={<PageErrorPayment />} />
-                    </Routes>
-                </UserAutenticadoProvider >
-            </BrowserRouter>
-        </AnimatePresence>
+                            <Route path="pagamento-erro" element={<PageErrorPayment />} />
+                        </Routes>
+                    </UserAutenticadoProvider >
+                </BrowserRouter>
+            </SearchProvider>
+        </AnimatePresence >
     )
 }
