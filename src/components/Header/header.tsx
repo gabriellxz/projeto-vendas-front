@@ -1,5 +1,3 @@
-import BagIcon from "../../svg/bag-icon";
-import UserIcon from "../../svg/user-icon";
 import Logo_yeshua from "../../assets/yeshua_white.png"
 import SearchIcon from "../../svg/search-icon";
 import React, { useContext, useState } from "react";
@@ -8,6 +6,7 @@ import "./style.css"
 import { Box, Divider, Drawer, Menu, MenuItem } from "@mui/material";
 import { UserAutenticado } from "../../context/authContext";
 import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/16/solid";
+import { ChevronDownIcon, ChevronUpIcon, ShoppingBagIcon, UserCircleIcon } from "@heroicons/react/24/outline"
 import useCategory from "../../hook/useCategory";
 import { useSearch } from "../../context/searchContext";
 // import useCategory from "../../hook/useCategory";
@@ -80,8 +79,8 @@ export default function Header() {
                 }
             }}
         >
-            <ul className="text-xl p-5 space-y-5">
-                <li className="cursor-pointer">
+            <ul className="text-xl font-jura font-semibold">
+                {/* <li className="cursor-pointer">
                     <Link to={"/perfil"}>
                         Minha conta
                     </Link>
@@ -91,12 +90,13 @@ export default function Header() {
                     <Link to={"/carrinho"}>
                         Carrinho
                     </Link>
+                </li> */}
+                <li className={`${openDropDown && "bg-greenEco-200 text-white"} cursor-pointer no-close p-5 flex items-center gap-5`} onClick={() => handleClickCategories("Linhas")}>
+                    Linhas {openDropDown ? <ChevronUpIcon className="w-[20px]" /> : <ChevronDownIcon className="w-[20px]" />}
                 </li>
-                <Divider />
-                <li className="cursor-pointer no-close" onClick={() => handleClickCategories("Linhas")}>Linhas +</li>
                 {openDropDown &&
 
-                    <ul className="ml-5 text-lg space-y-3">
+                    <ul className="ml-[50px] py-1 text-lg space-y-3">
                         {categoria.map(category => (
                             <li onClick={() => redirectCategoryProduct(category.nome, category.id)} className="cursor-pointer" key={category.id}>
                                 {category.nome}
@@ -105,153 +105,135 @@ export default function Header() {
                     </ul>
                 }
                 <Divider />
-                <li className="cursor-pointer">Sobre nós</li>
+                <li className="cursor-pointer p-5">Sobre nós</li>
                 <Divider />
-                <li>
+                <li className="p-5">
                     <a href="https://wa.me/5585992537575" target='_blank' className="cursor-pointer">Seja um distribuidor</a>
                 </li>
                 <Divider />
-                <li className="cursor-pointer" onClick={logout}>Sair</li>
+                {token && <li className="cursor-pointer" onClick={logout}>Sair</li>}
             </ul>
         </Box>
     )
     return (
         <>
-            <header className="bg-greenEco-300 flex sm:justify-center items-center py-1 w-full select-none">
+            <header className="bg-greenEco-300 flex lg:justify-center items-center py-1 w-full select-none">
                 <div>
-                    <div className="flex items-center sm:space-x-5">
-                        <Link to={"/"}>
-                            <img src={Logo_yeshua} alt="logo_yeshua" className="w-[100px]" />
-                        </Link>
-                        {token &&
-                            <>
-                                {/* TELA PEQUENAS */}
-                                <Bars3Icon onClick={() => setOpenMenu(!openMenu)} className="w-[30px] sm:hidden absolute right-1 text-white" />
-
-                                <Drawer
-                                    anchor="right"
-                                    open={openMenu}
-                                    onClose={() => setOpenMenu(!openMenu)}
-                                >
-                                    {DrawerList}
-                                </Drawer>
-
-                                <MagnifyingGlassIcon
-                                    onClick={() => setSearchBarMobile(!openSearchBarMobile)}
-                                    className="sm:hidden w-[30px] text-white absolute right-[50px] cursor-pointer"
-                                />
-
-                                {/* TELAS GRANDES */}
-                                <div>
-                                    <nav className="hidden sm:flex text-xl text-whiteEco-200 space-x-5">
-                                        <span
-                                            className="cursor-pointer"
-                                            onMouseEnter={handleMouseEnter}
-                                            onMouseLeave={handleMouseLeave}
-                                        >Linhas</span>
-                                        <span className="cursor-pointer">Sobre nós</span>
-                                        <a href="https://wa.me/5585992537575" target='_blank'>
-                                            <span className="cursor-pointer">
-                                                Seja um distribuidor
-                                            </span>
-                                        </a>
-                                    </nav>
-                                </div>
-                                <div className="hidden sm:flex space-x-3">
-                                    <div className="flex items-center bg-white rounded-xl px-2">
-                                        <input
-                                            onChange={(e) => setSearchTerm(e.target.value)}
-                                            onKeyDown={(e: any) => {
-                                                if (e.key == "Enter") {
-                                                    searchProducts(e.target.value)
-                                                }
-                                            }}
-                                            type="text"
-                                            placeholder="Buscar"
-                                            className="rounded-xl outline-none px-2 text-xl"
-                                        />
-                                        <button onClick={() => searchProducts(searchTerm)}>
-                                            <SearchIcon />
-                                        </button>
-                                    </div>
-                                    <div className="flex items-center gap-5">
-                                        <div className="relative">
-                                            <span onClick={handleClick} className="cursor-pointer">
-                                                <UserIcon />
-                                            </span>
-
-                                            <Menu
-                                                anchorEl={anchorEl}
-                                                open={open}
-                                                onClose={handleClose}
-                                                slotProps={{
-                                                    paper: {
-                                                        elevation: 0,
-                                                        sx: {
-                                                            overflow: 'visible',
-                                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                                            mt: 1.5,
-                                                            '& .MuiAvatar-root': {
-                                                                width: 32,
-                                                                height: 32,
-                                                                ml: -0.5,
-                                                                mr: 1,
-                                                            },
-                                                            '&::before': {
-                                                                content: '""',
-                                                                display: 'block',
-                                                                position: 'absolute',
-                                                                top: 0,
-                                                                right: 14,
-                                                                width: 10,
-                                                                height: 10,
-                                                                bgcolor: 'background.paper',
-                                                                transform: 'translateY(-50%) rotate(45deg)',
-                                                                zIndex: 0,
-                                                            },
-                                                        },
-                                                    },
-                                                }}
-                                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                            >
-                                                <Link to={"/perfil"}>
-                                                    <MenuItem onClick={handleClose}>
-                                                        Minha conta
-                                                    </MenuItem>
-                                                </Link>
-                                                <span onClick={logout}>
-                                                    <MenuItem onClick={handleClose}>Sair</MenuItem>
-                                                </span>
-                                            </Menu>
-                                        </div>
-                                        <BagIcon />
-                                    </div>
-                                </div>
-                            </>
-                        }
-                        {
-                            !token &&
-                            <div className="flex items-center gap-5 absolute right-2">
-                                <Link to={"/cadastro"}>
-                                    <button className="btn-signUp">
-                                        Cadastrar
-                                    </button>
-                                </Link>
-                                <Link to={"/login"}>
-                                    <button className="btn-signIn">
-                                        Entrar
-                                    </button>
+                    <div className="flex items-center lg:space-x-5 px-5">
+                        <div className="flex items-center">
+                            <div className="flex items-center gap-[50px]">
+                                <Bars3Icon onClick={() => setOpenMenu(!openMenu)} className="w-[30px] lg:hidden text-white" />
+                                <Link to={"/"}>
+                                    <img src={Logo_yeshua} alt="logo_yeshua" className="w-[100px]" />
                                 </Link>
                             </div>
-                        }
+                            <div className="flex items-center absolute right-5 gap-5">
+                                <button onClick={handleClick}>
+                                    <UserCircleIcon className="text-white w-[30px] cursor-pointer" />
+                                </button>
+
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    slotProps={{
+                                        paper: {
+                                            elevation: 0,
+                                            sx: {
+                                                overflow: 'visible',
+                                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                mt: 1.5,
+                                                '& .MuiAvatar-root': {
+                                                    width: 32,
+                                                    height: 32,
+                                                    ml: -0.5,
+                                                    mr: 1,
+                                                },
+                                                '&::before': {
+                                                    content: '""',
+                                                    display: 'block',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    right: 14,
+                                                    width: 10,
+                                                    height: 10,
+                                                    bgcolor: 'background.paper',
+                                                    transform: 'translateY(-50%) rotate(45deg)',
+                                                    zIndex: 0,
+                                                },
+                                            },
+                                        },
+                                    }}
+                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                    <Link to={"/perfil"}>
+                                        <MenuItem onClick={handleClose}>
+                                            Minha conta
+                                        </MenuItem>
+                                    </Link>
+                                    <span onClick={logout}>
+                                        <MenuItem onClick={handleClose}>Sair</MenuItem>
+                                    </span>
+                                </Menu>
+                                <MagnifyingGlassIcon
+                                    onClick={() => setSearchBarMobile(!openSearchBarMobile)}
+                                    className="lg:hidden w-[30px] text-white cursor-pointer"
+                                />
+                                <Link to={"/carrinho"}>
+                                    <ShoppingBagIcon className="text-white w-[30px] cursor-pointer" />
+                                </Link>
+                            </div>
+                        </div>
+                        <Drawer
+                            anchor="left"
+                            open={openMenu}
+                            onClose={() => setOpenMenu(!openMenu)}
+                        >
+                            {DrawerList}
+                        </Drawer>
+                        {/* TELAS GRANDES */}
+                        <nav className="hidden lg:flex text-xl text-white items-center gap-[35px]">
+                            <div className="flex gap-[35px]">
+                                <span
+                                    className="cursor-pointer"
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                >
+                                    Linhas
+                                </span>
+                                <span className="cursor-pointer">Sobre nós</span>
+                                <a href="https://wa.me/5585992537575" target='_blank'>
+                                    <span className="cursor-pointer">
+                                        Seja um distribuidor
+                                    </span>
+                                </a>
+                            </div>
+                            <div className="bg-white rounded-xl flex items-center px-1">
+                                <input
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onKeyDown={(e: any) => {
+                                        if (e.key == "Enter") {
+                                            searchProducts(e.target.value)
+                                        }
+                                    }}
+                                    type="text"
+                                    placeholder="Buscar"
+                                    className="rounded-xl outline-none px-1 text-[16px] max-w-[200px] w-full text-black"
+                                />
+                                <button onClick={() => searchProducts(searchTerm)}>
+                                    <MagnifyingGlassIcon className="w-[20px] text-black" />
+                                </button>
+                            </div>
+                        </nav>
+
                     </div>
                 </div>
             </header>
             {
                 openDropDown &&
                 <div
-                    className="w-[50%] bg-whiteEco-100 p-5 absolute shadow-xl left-1/2 transform -translate-x-1/2 z-10 hidden sm:block"
+                    className="w-[50%] bg-whiteEco-100 p-5 absolute shadow-xl left-1/2 transform -translate-x-1/2 z-10 hidden lg:block"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
@@ -266,7 +248,7 @@ export default function Header() {
             }
             {
                 openSearchBarMobile &&
-                <div className="flex items-center bg-white rounded-xl px-2 sm:hidden">
+                <div className="flex items-center bg-white rounded-xl px-2 py-1 lg:hidden">
                     <input
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onKeyDown={(e: any) => {

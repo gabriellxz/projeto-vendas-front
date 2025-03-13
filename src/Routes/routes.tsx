@@ -46,9 +46,7 @@ export default function RoutesApp() {
                                 <Route path="catalogo-produtos" element={<ListProduct />} />
                                 <Route path="detalhes-produtos/:idProduto" element={<DetailsProduct />} />
                                 <Route path="produto/:categoria?/:categoriaId?" element={
-                                    <CustomRoutes>
-                                        <CategoriesId />
-                                    </CustomRoutes>
+                                    <CategoriesId />
                                 } />
                                 <Route path="carrinho" element={
                                     <CustomRoutes>
