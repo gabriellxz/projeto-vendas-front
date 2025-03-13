@@ -172,9 +172,11 @@ export default function Header() {
                                             Minha conta
                                         </MenuItem>
                                     </Link>
-                                    <span onClick={logout}>
-                                        <MenuItem onClick={handleClose}>Sair</MenuItem>
-                                    </span>
+                                    {token &&
+                                        <span onClick={logout}>
+                                            <MenuItem onClick={handleClose}>Sair</MenuItem>
+                                        </span>
+                                    }
                                 </Menu>
                                 <MagnifyingGlassIcon
                                     onClick={() => setSearchBarMobile(!openSearchBarMobile)}
