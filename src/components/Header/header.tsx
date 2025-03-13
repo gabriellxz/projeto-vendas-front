@@ -111,7 +111,6 @@ export default function Header() {
                     <a href="https://wa.me/5585992537575" target='_blank' className="cursor-pointer">Seja um distribuidor</a>
                 </li>
                 <Divider />
-                {token && <li className="cursor-pointer" onClick={logout}>Sair</li>}
             </ul>
         </Box>
     )
