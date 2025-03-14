@@ -10,7 +10,9 @@ export default function CategoriesId() {
     const { product } = useListProduct()
     const { searchTerm } = useSearch()
 
-    const filteredProducts = product.filter(p => p.categoryId == Number(params.categoriaId))
+    const filteredProducts = params.categoria
+        ? product.filter(p => p.categoryId == Number(params.categoriaId))
+        : product;
 
     const filterCondition = searchTerm ? product : filteredProducts
     const filteredSearchProduct = filterCondition.filter(p =>
@@ -22,7 +24,15 @@ export default function CategoriesId() {
             <div className="flex justify-center">
                 <div className="bg-whiteEco-100 p-5 max-w-[1300px] w-full">
                     <span className="text-2xl font-bold uppercase">
-                        <span>{searchTerm ? searchTerm : params.categoria}</span>
+                        <span>
+                            {
+                                params.categoria ? (
+                                    <span>{searchTerm ? searchTerm : params.categoria}</span>
+                                ) : (
+                                    <span>Todos os produtos</span>
+                                )
+                            }
+                        </span>
                     </span>
                 </div>
             </div>

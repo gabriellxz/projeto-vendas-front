@@ -22,10 +22,10 @@ export default function CardProduct(props: PropsProduto) {
                 props.iProduto.imagem[0] &&
                 props.iProduto.imagem[0].url
             }
-                className='w-full max-w-[300px] h-[300px]'
+                className='w-full h-[300px]'
                 alt={props.iProduto.nome_produto}
             />
-            <div className='px-3'>
+            <div className='px-3 py-5'>
                 <div>
                     <span className='font-bold font-jura text-xl'>{props.iProduto.nome_produto}</span>
                 </div>

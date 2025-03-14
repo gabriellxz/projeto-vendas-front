@@ -1,5 +1,3 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import SlidesHome from "../../../components/Slides-home/slides-home"
 import Catalog from "../../../components/Catalog/catalog"
 import whatsappContact from "../../../assets/wtsicon.webp"
