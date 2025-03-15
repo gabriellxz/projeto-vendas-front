@@ -2,8 +2,16 @@ import mastercardLogo from "../../assets/mc_vrt_opt_pos_46_3x.png"
 import visaLogo from "../../assets/Visa_Brandmark_White_RGB_2021.png"
 import instaICon from "../../assets/instaIcon.png"
 import yeshuaLogo from "../../assets/yeshuaPNG.png"
+import { useNavigate } from "react-router-dom"
 
 export default function Footer() {
+
+    const navigate = useNavigate()
+
+    function redirectProducts() {
+        navigate("produto")
+    }
+
     return (
         <footer className='text-black bg-whiteEco-100'>
             <div className="md:flex md:justify-around px-5 py-8">
@@ -19,13 +27,13 @@ export default function Footer() {
                         <p className="font-jura text-2xl text-greenEco-300 font-bold mb-3">Como podemos ajudar?</p>
                         <ul className="space-y-2">
                             <li>
-                                <a href="#">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
                                 <a href="#">Sobre nós</a>
                             </li>
                             <li>
-                                <a href="#">Todos os produtos</a>
+                                <a onClick={redirectProducts} href="#">Todos os produtos</a>
                             </li>
                             <li>
                                 <a href="#">Contato</a>
