@@ -1,17 +1,23 @@
 import mastercardLogo from "../../assets/mc_vrt_opt_pos_46_3x.png"
 import visaLogo from "../../assets/Visa_Brandmark_White_RGB_2021.png"
 import instaICon from "../../assets/instaIcon.png"
-import iconWts from "../../assets/iconWts.png"
-import emailIcon from "../../assets/emailIcon.png"
+import yeshuaLogo from "../../assets/yeshuaPNG.png"
 
 export default function Footer() {
     return (
-        <footer className='bg-greenEco-300 text-white'>
-            <div className='grid grid-cols-2 gap-5 sm:flex sm:flex-row sm:justify-around p-5'>
-                <div className='flex flex-col gap-3'>
-                    <p className='uppercase font-bold'>institucional</p>
+        <footer className='text-black bg-whiteEco-100'>
+            <div className="md:flex md:justify-around px-5 py-8">
+                <div className="md:flex md:justify-around sm:gap-[50px] md:gap-[100px] mb-[50px] md:mb-0">
+                    <div className="mb-[50px]">
+                        <img
+                            src={yeshuaLogo}
+                            alt="logo_yeshua"
+                            className="w-[200px]"
+                        />
+                    </div>
                     <div>
-                        <ul>
+                        <p className="font-jura text-2xl text-greenEco-300 font-bold mb-3">Como podemos ajudar?</p>
+                        <ul className="space-y-2">
                             <li>
                                 <a href="#">Home</a>
                             </li>
@@ -27,41 +33,22 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className='flex flex-col gap-3 text-justify'>
-                    <p className='uppercase font-bold'>ajuda</p>
-                    <div>
-                        <a href='#'>Política de privacidade</a>
-                    </div>
-                    <div>
-                        <a href='mailto:yeshuaprofessional9@gmail.com' className='flex gap-4 overflow-hidden' target='_blank'>
-                            <img src={emailIcon} className='w-[20px]' alt="" /> yeshuaprofessional9@gmail.com
-                        </a>
-                        <a href="https://wa.me/5585992537575" className='flex gap-4' target='_blank'>
-                            <img src={iconWts} className='w-[20px]' alt="" /> (85) 99253-7575
-                        </a>
-                    </div>
-                </div>
                 <div>
-                    <p className='uppercase font-bold'>formas de pagamento</p>
-                    <div className='flex items-center'>
-                        <img src={mastercardLogo} alt="" className='max-w-[80px] w-full' />
-                        <img src={visaLogo} alt="" className='max-w-[80px] w-full' />
-                    </div>
-                </div>
-                <div className='flex flex-col gap-3'>
-                    <p className='uppercase font-bold'>nossas redes sociais</p>
-                    <div className='flex justify-center'>
-                        <a href="https://www.instagram.com/yeshua_professional/">
-                            <img src={instaICon} className='w-[20px]' alt="" />
-                        </a>
-                    </div>
+                    <p className="font-jura text-2xl text-greenEco-300 font-bold mb-3">Siga nas redes sociais</p>
+                    <img src={instaICon} alt="instagram_icon" className="w-[25px]" />
                 </div>
             </div>
-            <div className='bg-greenEco-200'>
-                <p className='text-center'>
-                    © Copyright 2025 Yeshuá Professional - Todos os direitos reservados.
-                    CPNPJ/54.266.654/0001-90 - Sede: Rua 7, 1213, Passare, Fortaleza CE, 60743-680, Brasil.
-                </p>
+            <div className="bg-zinc-400 px-5 py-8 md:flex md:justify-center md:items-center">
+                <div className="md:flex md:justify-between w-full max-w-[900px]">
+                    <p className='text-justify text-sm max-w-[600px] w-full'>
+                        © Copyright 2025 Yeshuá Professional - Todos os direitos reservados.
+                        CPNPJ/54.266.654/0001-90 - Sede: Rua 7, 1213, Passare, Fortaleza CE, 60743-680, Brasil.
+                    </p>
+                    <div className="flex items-center">
+                        <img src={mastercardLogo} alt="mastercard_logo" className="w-[50px]" />
+                        <img src={visaLogo} alt="mastercard_logo" className="w-[50px]" />
+                    </div>
+                </div>
             </div>
         </footer>
     )
