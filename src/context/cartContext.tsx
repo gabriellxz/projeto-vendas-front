@@ -11,8 +11,9 @@ interface ContextTypeCart {
     updateQuantity: (productId: number, amount: number) => void;
     handleIncrement: (produtoId: number, amount: number) => void;
     handleDecrease: (produtoId: number, amount: number) => void;
-    setBagIsOpen: React.Dispatch<React.SetStateAction<boolean | undefined>>
-    bagIsOpen: boolean | undefined
+    setBagIsOpen: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+    bagIsOpen: boolean | undefined;
+    loadingCart: boolean | undefined
 }
 
 const CartContext = createContext<ContextTypeCart | undefined>(undefined)
@@ -22,6 +23,7 @@ export function CartProvider({ children }: any) {
     const { token } = useContext(UserAutenticado)
     const [cart, setCart] = useState<CartOrderUser[]>([])
     const [bagIsOpen, setBagIsOpen] = useState<boolean | undefined>(false)
+    const [loadingCart, setLoadingCart] = useState<boolean | undefined>(undefined)
 
     async function loadCart() {
         try {
@@ -39,6 +41,8 @@ export function CartProvider({ children }: any) {
     }
 
     async function addToCart(produtoId: number, amount: number) {
+        setLoadingCart(true)
+
         try {
             if (token) {
                 const response = await api.post("/cart/insert", { amount, produtoId }, {
@@ -46,11 +50,14 @@ export function CartProvider({ children }: any) {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 })
+
+                setLoadingCart(false)
                 setBagIsOpen(true)
                 setCart(response.data.carrinho)
                 console.log(response.data)
             }
         } catch (error) {
+            setLoadingCart(false)
             console.log(error)
         }
     }
@@ -131,7 +138,8 @@ export function CartProvider({ children }: any) {
                 handleIncrement,
                 cart,
                 bagIsOpen,
-                setBagIsOpen
+                setBagIsOpen,
+                loadingCart
             }}
         >
             {children}

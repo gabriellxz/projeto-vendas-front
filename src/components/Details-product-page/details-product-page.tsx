@@ -1,11 +1,12 @@
 import ProdutosDTO from "../../types/produto"
 // import imgProduct from '../../assets/produto.webp'
 import Moeda from "../../utils/moeda"
-import useCart from "../../hook/useCart"
+import { useCart } from "../../context/cartContext"
 import Catalog from "../Catalog/catalog"
 import { useParams } from "react-router-dom"
 import { Button, Divider } from "@mui/material"
 import Footer from "../Footer/footer"
+import usePayment from "../../hook/usePayment"
 
 
 interface Props {
@@ -14,7 +15,8 @@ interface Props {
 
 export default function DetailsProductPage(props: Props) {
 
-    const { handleAddCart, loadingAddCart } = useCart();
+    const { addToCart, loadingCart } = useCart();
+    const { make } = usePayment()
     const params = useParams();
 
     return (
@@ -50,10 +52,10 @@ export default function DetailsProductPage(props: Props) {
                             </div>
                             <div className="mt-5 flex gap-2">
                                 {
-                                    loadingAddCart ? (
+                                    loadingCart ? (
                                         <Button
                                             variant="contained"
-                                            onClick={() => handleAddCart(Number(params.idProduto))}
+                                            onClick={() => addToCart(Number(params.idProduto), 1)}
                                             sx={{ width: "100%" }}
                                             disabled
                                         >
@@ -62,14 +64,14 @@ export default function DetailsProductPage(props: Props) {
                                     ) : (
                                         <Button
                                             variant="contained"
-                                            onClick={() => handleAddCart(Number(params.idProduto))}
+                                            onClick={() => addToCart(Number(params.idProduto), 1)}
                                             sx={{ width: "100%" }}
                                         >
                                             Adicionar ao carrinho
                                         </Button>
                                     )
                                 }
-                                <Button variant="outlined" sx={{ width: "100%" }}>Comprar</Button>
+                                <Button variant="outlined" sx={{ width: "100%" }} onClick={make}>Comprar</Button>
                             </div>
                         </div>
                     </div>
@@ -78,7 +80,7 @@ export default function DetailsProductPage(props: Props) {
             <div className="flex justify-center">
                 <Catalog />
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

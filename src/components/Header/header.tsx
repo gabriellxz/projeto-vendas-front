@@ -189,9 +189,9 @@ export default function Header() {
                                     onClick={() => setSearchBarMobile(!openSearchBarMobile)}
                                     className="lg:hidden w-[30px] text-white cursor-pointer"
                                 />
-                                <div className="relative">
+                                <div className="relative" onClick={() => setBagIsOpen(true)}>
                                     <span className="flex justify-center items-center bg-red-600 absolute text-white rounded-full w-[20px] h-[20px]">{calAmount()}</span>
-                                    <ShoppingBagIcon className="text-white w-[30px] cursor-pointer" onClick={() => setBagIsOpen(true)} />
+                                    <ShoppingBagIcon className="text-white w-[30px] cursor-pointer" />
                                 </div>
                             </div>
                         </div>

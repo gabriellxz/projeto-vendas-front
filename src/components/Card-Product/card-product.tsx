@@ -11,7 +11,7 @@ interface PropsProduto {
 
 export default function CardProduct(props: PropsProduto) {
 
-    const { addToCart } = useCart();
+    const { addToCart, loadingCart } = useCart();
 
     return (
         <div className='w-full border border-1 border-zinc-500 mb-5'>
@@ -40,9 +40,15 @@ export default function CardProduct(props: PropsProduto) {
                     <button className='text-[20px] bg-greenEco-200 w-full text-white p-1 font-jura'>Ver produto</button>
                 </Link>
 
-                <button onClick={() => addToCart(props.iProduto.id_produto, 1)} className='text-[20px] bg-zinc-800 w-[50%] flex justify-center items-center'>
-                    <ShoppingBagIcon className='w-[30px] text-white'/>
-                </button>
+                {loadingCart ? (
+                    <button disabled onClick={() => addToCart(props.iProduto.id_produto, 1)} className='text-[20px] bg-zinc-500 w-[50%] flex justify-center items-center'>
+                        <ShoppingBagIcon className='w-[30px] text-white' />
+                    </button>
+                ) : (
+                    <button onClick={() => addToCart(props.iProduto.id_produto, 1)} className='text-[20px] bg-zinc-800 w-[50%] flex justify-center items-center'>
+                        <ShoppingBagIcon className='w-[30px] text-white' />
+                    </button>
+                )}
 
             </div>
         </div>
