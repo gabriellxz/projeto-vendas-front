@@ -1,11 +1,7 @@
 // import imgproduto from '../../assets/produto.webp'
-import TrashIcon from '../../svg/trash-icon'
+import { useCart } from '../../context/cartContext'
 import { CartOrderUser } from '../../types/cart'
 import Moeda from '../../utils/moeda'
-import useCart from '../../hook/useCart'
-import { useContext, useState } from 'react'
-import api from '../../config/config'
-import { UserAutenticado } from '../../context/authContext'
 
 interface PropsCart {
     iCart: CartOrderUser
@@ -13,94 +9,36 @@ interface PropsCart {
 
 export default function CardCart(props: PropsCart) {
 
-    const { token } = useContext(UserAutenticado);
-    const [amount, setAmount] = useState<number>(props.iCart.amount);
-    const { deleteCartProduct } = useCart();
-
-    async function incrementCart(produtoId: number) {
-        const updatedAmount = amount + 1; // Use o valor atualizado diretamente
-
-        // setAmount(amount + 1)
-
-        const cartUpdate = {
-            amount: updatedAmount,
-            produtoId: produtoId
-        };
-
-        try {
-            if (token) {
-                await api.patch("/cart/update", cartUpdate, {
-                    headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
-                    }
-                });
-                setAmount(updatedAmount);
-                // console.log("amount: " + updatedAmount);
-                // console.log(response.data)
-
-            }
-        } catch (err) {
-            // console.log(err);
-        }
-    }
-
-    async function decreaseCart(produtoId: number) {
-        const updatedAmount = amount - 1;
-
-        // setAmount(amount - 1)
-
-        if (updatedAmount < 1) {
-            deleteCartProduct(produtoId)
-        }
-
-        const cartUpdate = {
-            amount: updatedAmount,
-            produtoId: produtoId
-        };
-
-        try {
-            if (token) {
-                await api.patch("/cart/update", cartUpdate, {
-                    headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
-                    }
-                });
-                setAmount(updatedAmount);
-                // console.log("amount: " + updatedAmount);
-                // console.log(response.data)
-            }
-        } catch (err) {
-            // console.log(err);
-        }
-    }
+    const { handleDecrease, handleIncrement } = useCart()
 
     return (
-        <>
-            <div className='flex mt-[40px] pt-[20px] border-solid border-t-2 border-black'>
-                <div>
-                    <img src={props.iCart.produtos.imagem && props.iCart.produtos.imagem[0] && props.iCart.produtos.imagem[0].url} alt="img" className='max-w-[175px] h-[215px] w-full' />
-                </div>
-                <div className='ml-[58px] w-full'>
-                    <div className='flex flex-col'>
-                        <span className='text-xl uppercase flex items-center justify-between'>
-                            {props.iCart.produtos.nome_produto}
-                            <span onClick={() => deleteCartProduct(props.iCart.produtoId)}>
-                                <TrashIcon />
-                            </span>
+        <div className='flex justify-between'>
+            <div className='flex gap-4'>
+                <img
+                    src={props.iCart && props.iCart.produtos && props.iCart.produtos.imagem && props.iCart.produtos.imagem[0] && props.iCart.produtos.imagem[0].url}
+                    alt=""
+                    className='w-[50px]'
+                />
+                <div className='flex flex-col items-start'>
+                    <p className='font-extrabold'>{props.iCart.produtos.nome_produto}</p>
+                    <div className="flex items-center bg-white rounded-lg shadow-md p-1 max-w-[130px] w-full">
+                        <button onClick={() => handleDecrease(props.iCart.produtoId, props.iCart.amount)} id="decrementar" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
+                            -
+                        </button>
+
+                        <span id="contador" className="mx-4 text-xl font-semibold">
+                            {props.iCart.amount}
                         </span>
-                        <span className='text-zinc-400'>{props.iCart.produtos.descricao}</span>
+
+                        <button onClick={() => handleIncrement(props.iCart.produtoId, props.iCart.amount)} id="incrementar" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
+                            +
+                        </button>
                     </div>
-                    <div className='flex flex-col mt-[27px]'>
-                        <div className='flex gap-3'>
-                            <span className='cursor-pointer select-none' onClick={() => decreaseCart(props.iCart.produtoId)}>-</span>
-                            <span className='select-none'>{amount}</span>
-                            <span className='cursor-pointer select-none' onClick={() => incrementCart(props.iCart.produtoId)}>+</span>
-                    </div>
-                    {/* <span className='text-zinc-400'>300ml</span> */}
-                    <span className='font-bold select-none'>{Moeda.formatar(props.iCart.produtos.preco)}</span>
                 </div>
             </div>
-        </div >
-        </>
+            <div className='font-bold'>
+                <p>{Moeda.formatar(props.iCart.produtos.preco * props.iCart.amount)}</p>
+            </div>
+        </div>
     )
 }
