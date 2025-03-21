@@ -24,7 +24,10 @@ export default function Catalog() {
     const templateProduct = (p: ProdutosDTO) => (
         <div className="p-2 flex justify-center">
             <div className="max-w-xs w-full">
-                <CardProduct iProduto={p} key={p.id_produto} />
+                <CardProduct
+                    iProduto={p}
+                    key={p.id_produto}
+                />
             </div>
         </div>
     )

@@ -14,43 +14,58 @@ export default function CardProduct(props: PropsProduto) {
     const { addToCart, loadingCart } = useCart();
 
     return (
-        <div className='w-full border border-1 border-zinc-500 mb-5'>
-            <img src={
-                props.iProduto &&
-                props.iProduto.imagem &&
-                props.iProduto.imagem[0] &&
-                props.iProduto.imagem[0].url
-            }
-                className='w-full h-[300px]'
-                alt={props.iProduto.nome_produto}
-            />
-            <div className='px-3 py-5'>
-                <div>
-                    <span className='font-bold font-jura text-xl'>{props.iProduto.nome_produto}</span>
-                </div>
-                <div>
-                    {
-                        props.iProduto.oferta ? <span className='text-2xl font-bold text-green-500'>{Moeda.formatar(props.iProduto.preco)}</span> :
-                            <span className='text-2xl font-bold'>{Moeda.formatar(props.iProduto.preco)}</span>
+        <div className={`border border-1 border-zinc-500 font-jura overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300`}>
+            {/* Container da imagem */}
+            <div className='relative pb-[100%] border-b border-1 border-zinc-500'>
+                <img
+                    src={
+                        props.iProduto &&
+                        props.iProduto.imagem &&
+                        props.iProduto.imagem[0] &&
+                        props.iProduto.imagem[0].url
                     }
+                    alt={props.iProduto.nome_produto}
+                    className='absolute top-0 left-0 w-full h-full object-cover'
+                />
+            </div>
+
+            {/* Detalhes do produto */}
+            <div className='p-3'>
+                {/* Nome do produto */}
+                <p className='text-center font-bold text-lg md:text-xl lg:text-2xl'>
+                    {props.iProduto.nome_produto}
+                </p>
+
+                {/* Preço do produto */}
+                <div className='p-3 text-xl md:text-2xl lg:text-3xl font-bold'>
+                    {Moeda.formatar(props.iProduto.preco)}
                 </div>
             </div>
-            <div className='flex'>
-                <Link to={`/detalhes-produtos/${props.iProduto.id_produto}`} className='w-full'>
-                    <button className='text-[20px] bg-greenEco-200 w-full text-white p-1 font-jura'>Ver produto</button>
+
+            {/* Botões */}
+            <div className='flex w-full'>
+                {/* Botão "Ver produto" */}
+                <Link
+                    to={`/detalhes-produtos/${props.iProduto.id_produto}`}
+                    className='bg-zinc-800 w-full p-2 md:p-3 text-white text-base md:text-lg lg:text-xl text-center button hover:bg-zinc-700 transition-colors duration-300'
+                >
+                    <button>Ver produto</button>
                 </Link>
 
+                {/* Botão do carrinho */}
                 {loadingCart ? (
-                    <button disabled onClick={() => addToCart(props.iProduto.id_produto, 1)} className='text-[20px] bg-zinc-500 w-[50%] flex justify-center items-center'>
-                        <ShoppingBagIcon className='w-[30px] text-white' />
+                    <button className='bg-zinc-400 w-[30%] p-2 md:p-3 text-white text-base md:text-lg lg:text-xl flex justify-center items-center'>
+                        <ShoppingBagIcon className='w-5 h-5' />
                     </button>
                 ) : (
-                    <button onClick={() => addToCart(props.iProduto.id_produto, 1)} className='text-[20px] bg-zinc-800 w-[50%] flex justify-center items-center'>
-                        <ShoppingBagIcon className='w-[30px] text-white' />
+                    <button
+                        className='bg-blue-500 w-[30%] p-2 md:p-3 text-white text-base md:text-lg lg:text-xl flex justify-center items-center hover:bg-blue-600 transition-colors duration-300'
+                        onClick={() => addToCart(props.iProduto.id_produto, 1)}
+                    >
+                        <ShoppingBagIcon className='w-5 h-5' />
                     </button>
                 )}
-
             </div>
         </div>
-    )
+    );
 }

@@ -44,9 +44,12 @@ export default function CategoriesId() {
                                 <span className="text-2xl text-center">Não existem produtos nesta categoria</span>
                             </div>
                         ) : (
-                            <div className="sm:grid sm:grid-cols-3 lg:grid-cols-3 grid grid-cols-1 my-5 card-item gap-1">
+                            <div className="sm:grid sm:grid-cols-3 lg:grid-cols-3 grid grid-cols-2 my-5 card-item gap-1">
                                 {filteredSearchProduct.map(product => (
-                                    <CardProduct iProduto={product} key={product.id_produto} />
+                                    <CardProduct
+                                        iProduto={product}
+                                        key={product.id_produto}
+                                    />
                                 ))}
                             </div>
                         )
