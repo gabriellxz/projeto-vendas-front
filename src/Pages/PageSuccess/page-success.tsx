@@ -38,6 +38,7 @@ export default function PageSuccess() {
                     }
                 })
 
+                // console.log(token)
                 console.log(response.data)
                 setInforPayment(response.data)
             }

@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 // import api from "../config/config";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 interface ContextType {
     autenticado: boolean;
@@ -29,7 +29,7 @@ const UserAutenticado = createContext<ContextType>({} as ContextType)
 
 function UserAutenticadoProvider({ children }: any) {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const [autenticado, setAutenticado] = useState<boolean>(false)
     // const [loading, setLoading] = useState<boolean>(true)
     const [token, setToken] = useState<string | null>(localStorage.getItem("tokenUser"))
@@ -42,19 +42,13 @@ function UserAutenticadoProvider({ children }: any) {
         if (token) {
             try {
                 const userDecoded: dataUser = jwtDecode(token)
-                const currentTime = Date.now() / 1000
+                // const currentTime = Date.now() / 1000
                 setUser(userDecoded)
                 localStorage.setItem("@userY", JSON.stringify(userDecoded))
 
-                if (userDecoded.exp) {
-                    if (userDecoded.exp > currentTime) {
-                        setAutenticado(true)
-                    } else {
-                        setAutenticado(false)
-                        localStorage.removeItem("tokenUser")
-                        setToken(null)
-                        navigate("/")
-                    }
+                if (userDecoded) {
+                    setAutenticado(true)
+
                 }
             } catch (error) {
                 // console.log(error)
@@ -66,10 +60,10 @@ function UserAutenticadoProvider({ children }: any) {
     }, [token])
 
     useEffect(() => {
-        if(user) {
+        if (user) {
             localStorage.setItem("@userY", JSON.stringify(user))
         }
-    },[user])
+    }, [user])
 
     function login(token: string | null) {
         localStorage.setItem("tokenUser", JSON.stringify(token))
