@@ -15,7 +15,6 @@ export default function CardProduct(props: PropsProduto) {
 
     return (
         <div className={`border border-1 border-zinc-500 font-jura overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300`}>
-            {/* Container da imagem */}
             <div className='relative pb-[100%] border-b border-1 border-zinc-500'>
                 <img
                     src={
@@ -29,22 +28,17 @@ export default function CardProduct(props: PropsProduto) {
                 />
             </div>
 
-            {/* Detalhes do produto */}
             <div className='p-3'>
-                {/* Nome do produto */}
-                <p className='text-center font-bold text-lg md:text-xl lg:text-2xl'>
+                <p className='text-center font-bold text-sm md:text-xl lg:text-xl'>
                     {props.iProduto.nome_produto}
                 </p>
 
-                {/* Preço do produto */}
                 <div className='p-3 text-xl md:text-2xl lg:text-3xl font-bold'>
                     {Moeda.formatar(props.iProduto.preco)}
                 </div>
             </div>
 
-            {/* Botões */}
             <div className='flex w-full'>
-                {/* Botão "Ver produto" */}
                 <Link
                     to={`/detalhes-produtos/${props.iProduto.id_produto}`}
                     className='bg-zinc-800 w-full p-2 md:p-3 text-white text-base md:text-lg lg:text-xl text-center button hover:bg-zinc-700 transition-colors duration-300'
@@ -52,7 +46,6 @@ export default function CardProduct(props: PropsProduto) {
                     <button>Ver produto</button>
                 </Link>
 
-                {/* Botão do carrinho */}
                 {loadingCart ? (
                     <button className='bg-zinc-400 w-[30%] p-2 md:p-3 text-white text-base md:text-lg lg:text-xl flex justify-center items-center'>
                         <ShoppingBagIcon className='w-5 h-5' />
