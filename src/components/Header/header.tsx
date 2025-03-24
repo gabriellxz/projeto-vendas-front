@@ -6,7 +6,7 @@ import "./style.css"
 import { Box, Divider, Drawer, Menu, MenuItem } from "@mui/material";
 import { UserAutenticado } from "../../context/authContext";
 import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/16/solid";
-import { ChevronDownIcon, ChevronUpIcon, ShoppingBagIcon, UserCircleIcon } from "@heroicons/react/24/outline"
+import { ChartPieIcon, ChevronDownIcon, ChevronUpIcon, ShoppingBagIcon, UserCircleIcon } from "@heroicons/react/24/outline"
 import useCategory from "../../hook/useCategory";
 import { useSearch } from "../../context/searchContext";
 import { useCart } from "../../context/cartContext";
@@ -15,10 +15,9 @@ import { useCart } from "../../context/cartContext";
 export default function Header() {
 
     const navigate = useNavigate()
-    const token = localStorage.getItem('tokenUser')
     const { setSearchTerm, searchTerm } = useSearch()
     const { categoria } = useCategory()
-    const { logout } = useContext(UserAutenticado)
+    const { logout, token, user } = useContext(UserAutenticado)
     const { setBagIsOpen, cart } = useCart()
     const [openDropDown, setOpenDropDown] = useState<boolean>(false)
     const [timeId, setTimeId] = useState<NodeJS.Timeout | null>(null)
@@ -193,6 +192,11 @@ export default function Header() {
                                     <span className="flex justify-center items-center bg-red-600 absolute text-white rounded-full w-[20px] h-[20px]">{calAmount()}</span>
                                     <ShoppingBagIcon className="text-white w-[30px] cursor-pointer" />
                                 </div>
+                                {user?.role === 2 ? (
+                                    <Link to={"/dashboard"}>
+                                        <ChartPieIcon className="w-[30px] text-white" />
+                                    </Link>
+                                ) : ""}
                             </div>
                         </div>
                         <Drawer
