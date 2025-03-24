@@ -1,18 +1,13 @@
-import ButtonDark from "../../../components/Button-dark/button-dark";
 import { useContext, useState } from "react";
 import { UserAutenticado } from "../../../context/authContext";
-import IconEdit from "../../../svg/icon-edit";
 import { motion } from "framer-motion"
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../../../config/config";
-import { Button, FormControlLabel, FormGroup, Radio, RadioGroup, TextField } from "@mui/material";
-import Loading from "../../../components/Loading/loading";
-import { Controller, useForm } from "react-hook-form";
-import InputMask from "react-input-mask";
+import { useForm } from "react-hook-form";
 import { userSchema } from "./schemaProfile";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AxiosResponse } from "axios";
-import { toast } from "react-toastify";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import Footer from "../../../components/Footer/footer";
 
 interface UserFormData {
     name: string
@@ -24,52 +19,52 @@ interface UserFormData {
 
 export default function Perfil() {
 
+    const navigate = useNavigate()
     const { user, token, setUser } = useContext(UserAutenticado);
 
-    const [isEditTable, setIsEditTable] = useState(false)
+    const [isEditTable, setIsEditTable] = useState(true)
     const [loading, setLoading] = useState(false)
 
-    const { register, control, handleSubmit, watch } = useForm<UserFormData>({
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<UserFormData>({
         resolver: zodResolver(userSchema),
         defaultValues: {
             name: user?.name,
             email: user?.email,
             phone: user?.telefone,
             cpf: user?.CPF,
-            genero: user?.genero
+            genero: user?.genero || "genero"
         }
     })
 
-    function toggleEdit() {
-        setIsEditTable((prevState) => !prevState)
-    }
-
     const generoSelected = watch("genero")
+    // console.log(errors)
 
-    async function editProfile(data: UserFormData) {
-
-
-        const dataUser = {
-            nome: data.name,
-            email: data.email,
-            Telefone: data.phone,
-            CPF: data.cpf,
-            genero: generoSelected
-        }
+    const editUser = async (data: UserFormData) => {
+        // console.log(data)
+        console.log(loading)
 
         setLoading(true)
 
+        const dataUser = {
+            nome: data.name,
+            Telefone: data.phone,
+            genero: data.genero,
+            CPF: data.cpf,
+            email: data.email
+        }
+
+        // console.log(data.genero)
+
         try {
             if (token) {
-                const response: AxiosResponse = await api.put(`/users/${user?.id}`, dataUser, {
+                const response = await api.put(`/users/${user?.id}`, dataUser, {
                     headers: {
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 })
 
-                // console.log(data)
                 setLoading(false)
-                // console.log(response)
+                setIsEditTable(!isEditTable)
 
                 if (response.data) {
                     setUser({
@@ -81,174 +76,196 @@ export default function Perfil() {
                         telefone: data.phone
                     })
 
-                    toast.success("Informações editadas com sucesso!", {
-                        position: "bottom-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
-
-                    setIsEditTable(!isEditTable)
+                    console.log(response)
                 }
-            }
-        } catch (e) {
-            console.log(e)
-            setLoading(false)
 
-            toast.error("Houve um erro ao editar as suas informações", {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            })
+            }
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
         }
     }
 
     return (
-        <motion.div className="px-[55px] pt-[30px]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-        >
-            <div className="flex flex-col items-center justify-between sm:flex-row gap-5">
-                <span className="text-3xl uppercase font-bold">Minha conta</span>
-                <div className="flex flex-col sm:flex-row gap-2">
-                    <Link to={"/meus-endereços"}>
-                        <ButtonDark text="Meus endereços" />
-                    </Link>
-                    <Link to={"/meus-pedidos"}>
-                        <ButtonDark text="Verificar meus pedidos" />
-                    </Link>
+        <>
+            <motion.div className="p-5 w-full"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+            >
+                <div>
+                    {
+                        isEditTable ? (
+                            <button className="flex items-center gap-5 uppercase" onClick={() => navigate("/")}>
+                                <ArrowLeftIcon className="w-[18px]" />
+                                Voltar
+                            </button>
+                        ) : (
+                            <button className="flex items-center gap-5 uppercase" onClick={() => setIsEditTable(!isEditTable)}>
+                                <ArrowLeftIcon className="w-[18px]" />
+                                Dados pessoais
+                            </button>
+                        )
+                    }
                 </div>
-            </div>
-            <form className="mt-[50px] border border-zinc-500 rounded-[10px] shadow-md shadow-zinc-300">
-                <div className="flex items-center justify-between border border-b-zinc-500 px-[50px] py-2">
-                    <span className="uppercase text-2xl">Dados pessoais</span>
-                    <button type="button" className="bg-greenEco-200 p-2 rounded-[5px]" onClick={toggleEdit}>
-                        <IconEdit style="text-white w-[30px] h-[30px]" />
-                    </button>
-                </div>
-                <div className="px-[40px] py-8">
-                    <div className="w-full flex gap-3 mb-5">
-                        <TextField
-                            variant="outlined"
-                            {...register("name")}
-                            label="Nome"
-                            sx={{ width: "100%" }}
-                            disabled={!isEditTable}
-                        />
+                <div className="mt-[30px] flex w-full">
+                    <div className="w-[25%] hidden sm:flex">
+                        <p>Olá, {user?.name}</p>
+                        <ul>
 
-                        <TextField
-                            variant="outlined"
-                            {...register("email")}
-                            label="Email"
-                            sx={{ width: "100%" }}
-                            disabled={!isEditTable}
-                        />
+                        </ul>
                     </div>
-                    <div className="w-full flex gap-3 mb-5">
-                        <Controller
-                            name="cpf"
-                            control={control}
-                            defaultValue={user?.CPF}
-                            render={({ field }) => (
-                                <InputMask
-                                    disabled={!isEditTable}
-                                    mask="999.999.999-99"
-                                    {...field}
-                                    value={field.value || ""}
-                                    onChange={(e) => {
-                                        const rawValue = e.target.value.replace(/\D/g, ""); // Remove máscara
-                                        field.onChange(rawValue); // Atualiza o valor sem máscara
-                                    }}
+                    <div className="w-full">
+                        <div className="flex items-center justify-between sm:max-w-[800px]">
+                            <h1 className="text-3xl font-jura">
+                                {isEditTable ? <h1>Dados pessoais</h1> : <h1>Editar dados pessoais</h1>}
+                            </h1>
+                            {
+                                isEditTable && <button
+                                    onClick={() => setIsEditTable(!isEditTable)}
+                                    className="bg-greenEco-300 px-5 p-1 max-w-[200px] w-full text-white font-semibold"
+                                    type="button"
                                 >
-                                    {(inputProps) => (
-                                        <TextField
-                                            variant="outlined"
-                                            {...inputProps}
-                                            label="CPF"
-                                            type="text"
-                                            sx={{ width: "100%" }}
-                                        />
-                                    )}
-                                </InputMask>
-                            )}
-                        />
-                        <Controller
-                            name="phone"
-                            control={control}
-                            defaultValue={user?.telefone}
-                            render={({ field }) => (
-                                <InputMask
-                                    disabled={!isEditTable}
-                                    mask="99 999999999"
-                                    {...field}
-                                    value={field.value || ""}
-                                    onChange={(e) => {
-                                        const rawValue = e.target.value.replace(/\D/g, "");
-                                        field.onChange(rawValue);
-                                    }}
-                                >
-                                    {(inputProps) => (
-                                        <TextField
-                                            variant="outlined"
-                                            {...inputProps}
-                                            label="Telefone"
-                                            type="text"
-                                            sx={{ width: "100%" }}
-                                        />
-                                    )}
-                                </InputMask>
-                            )}
-                        />
-                    </div>
-                    <div className="w-full flex gap-3 mb-5">
-                        <FormGroup>
-                            <RadioGroup
-                                row
-                                defaultValue={user?.genero || ""}
-                                {...register("genero")}
-                            >
-                                <FormControlLabel
-                                    control={<Radio />}
-                                    label="Feminino"
-                                    value="feminino"
-                                    {...register("genero")}
-                                    disabled={!isEditTable}
-                                />
-                                <FormControlLabel
-                                    control={<Radio />}
-                                    label="Masculino"
-                                    value="masculino"
-                                    {...register("genero")}
-                                    disabled={!isEditTable}
-                                />
-                                <FormControlLabel
-                                    control={<Radio />}
-                                    label="Outro"
-                                    value="outro"
-                                    {...register("genero")}
-                                    disabled={!isEditTable}
-                                />
-                            </RadioGroup>
-                        </FormGroup>
+                                    Editar
+                                </button>
+                            }
+                        </div>
+                        <form onSubmit={handleSubmit(editUser)} className="border border-1 border-zinc-300 p-5 space-y-[50px] sm:space-y-0 sm:gap-[50px] mt-5 sm:grid sm:grid-cols-2 sm:max-w-[800px] w-full">
+                            <div>
+                                <span className={`${!isEditTable && "text-greenEco-200 uppercase text-sm"} font-bold`}>Nome</span>
+                                {
+                                    isEditTable ? (
+                                        <p className="text-zinc-400 px-2">{user?.name}</p>
+                                    ) : (
+                                        <div>
+                                            <input
+                                                type="text"
+                                                className={`${errors.name ? "border border-1 border-red-600" : "border border-1 border-zinc-400"}  w-full p-1 outline-none`}
+                                                {...register("name")}
+                                            />
+                                            {
+                                                errors.name && errors.name.message && (
+                                                    <p className="text-red-600">
+                                                        {
+                                                            typeof errors.name.message === "string" && errors.name.message
+                                                        }
+                                                    </p>
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <span className={`${!isEditTable && "text-greenEco-200 uppercase text-sm"} font-bold`}>Email</span>
+                                {
+                                    isEditTable ? (
+                                        <p className="text-zinc-400 px-2">{user?.email}</p>
+                                    ) : (
+                                        <div>
+                                            <input
+                                                type="text"
+                                                className={`${errors.email ? "border border-1 border-red-600" : "border border-1 border-zinc-400"}  w-full p-1 outline-none`}
+                                                {...register("email")}
+                                            />
+                                            {
+                                                errors.email && errors.email.message && (
+                                                    <p className="text-red-600">
+                                                        {
+                                                            typeof errors.email.message === "string" && errors.email.message
+                                                        }
+                                                    </p>
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <span className={`${!isEditTable && "text-greenEco-200 uppercase text-sm"} font-bold`}>CPF</span>
+                                {
+                                    isEditTable ? (
+                                        <p className="text-zinc-400 px-2">{user?.CPF}</p>
+                                    ) : (
+                                        <div>
+                                            <input
+                                                type="text"
+                                                className={`${errors.cpf ? "border border-1 border-red-600" : "border border-1 border-zinc-400"}  w-full p-1 outline-none`}
+                                                {...register("cpf")}
+                                            />
+                                            {
+                                                errors.cpf && errors.cpf.message && (
+                                                    <p className="text-red-600">
+                                                        {
+                                                            typeof errors.cpf.message === "string" && errors.cpf.message
+                                                        }
+                                                    </p>
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <span className={`${!isEditTable && "text-greenEco-200 uppercase text-sm"} font-bold`}>Genêro</span>
+                                {
+                                    isEditTable ? (
+                                        <p className="text-zinc-400 px-2">{user?.genero}</p>
+                                    ) : (
+                                        <div>
+                                            <select
+                                                className={`${errors.genero ? "border border-1 border-red-600" : "border border-1 border-zinc-400"}  w-full p-1 outline-none`}
+                                                {...register("genero")}
+                                            >
+                                                <option value="genero" disabled>Genêro</option>
+                                                <option value="masculino">Masculino</option>
+                                                <option value="feminino">Feminino</option>
+                                                <option value="outro">Outro</option>
+                                            </select>
+                                            {
+                                                errors.genero && errors.genero.message && (
+                                                    <p className="text-red-600">
+                                                        {
+                                                            typeof errors.genero.message === "string" && errors.genero.message
+                                                        }
+                                                    </p>
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <span className={`${!isEditTable && "text-greenEco-200 uppercase text-sm"} font-bold`}>Telefone</span>
+                                {
+                                    isEditTable ? (
+                                        <p className="text-zinc-400 px-2">{user?.telefone}</p>
+                                    ) : (
+                                        <div>
+                                            <input
+                                                type="text"
+                                                className={`${errors.name ? "border border-1 border-red-600" : "border border-1 border-zinc-400"}  w-full p-1 outline-none`}
+                                                {...register("phone")}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div className="flex justify-end">
+                                {
+                                    !isEditTable && <button
+                                        className="bg-greenEco-300 px-5 p-1 max-w-[200px] w-full text-white font-semibold"
+                                        type="submit"
+                                    >
+                                        Salvar alterações
+                                    </button>
+                                }
+                            </div>
+                        </form>
                     </div>
                 </div>
-                {
-                    loading ? <Loading /> : (
-                        <div className="flex justify-end p-3">
-                            {isEditTable && <Button variant="outlined" type="submit" onClick={handleSubmit(editProfile)}>Salvar</Button>}
-                        </div>
-                    )
-                }
-            </form>
-        </motion.div>
+
+            </motion.div>
+            <Footer />
+        </>
     )
 }
