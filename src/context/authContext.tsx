@@ -42,13 +42,13 @@ function UserAutenticadoProvider({ children }: any) {
         if (token) {
             try {
                 const userDecoded: dataUser = jwtDecode(token)
-                // const currentTime = Date.now() / 1000
+                const currentTime = Date.now() / 1000
                 setUser(userDecoded)
                 localStorage.setItem("@userY", JSON.stringify(userDecoded))
 
-                if (userDecoded) {
+                if (userDecoded.exp && userDecoded.exp < currentTime) {
+                    logout()
                     setAutenticado(true)
-
                 }
             } catch (error) {
                 // console.log(error)
