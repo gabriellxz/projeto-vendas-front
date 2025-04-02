@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { UserAutenticado } from "../context/authContext";
 import api from "../config/config";
-import useCart from "./useCart";
+import {useCart} from "../context/cartContext";
 import { toast } from "react-toastify";
 
 export default function useCalculateDelivered() {
