@@ -8,6 +8,7 @@ import { userSchema } from "./schemaProfile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Footer from "../../../components/Footer/footer";
+import { toast } from "react-toastify";
 
 interface UserFormData {
     name: string
@@ -59,6 +60,7 @@ export default function Perfil() {
             if (token) {
                 const response = await api.put(`/users/${user?.id}`, dataUser, {
                     headers: {
+                        "Content-Type": "application/json",
                         "Authorization": "Bearer " + JSON.parse(token)
                     }
                 })
@@ -67,14 +69,19 @@ export default function Perfil() {
                 setIsEditTable(!isEditTable)
 
                 if (response.data) {
-                    setUser({
+
+                    const updateUser = {
                         ...user,
                         name: data.name,
                         CPF: data.cpf,
                         email: data.email,
                         genero: generoSelected,
                         telefone: data.phone
-                    })
+                    }
+
+                    setUser(updateUser)
+
+                    localStorage.setItem("@userY", JSON.stringify(updateUser))
 
                     console.log(response)
                 }
@@ -83,6 +90,17 @@ export default function Perfil() {
         } catch (error) {
             setLoading(false)
             console.log(error)
+
+            toast.error('Ocorreu algo de errado ao atulizar seus dados', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+            });
         }
     }
 
