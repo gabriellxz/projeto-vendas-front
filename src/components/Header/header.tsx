@@ -193,7 +193,7 @@ export default function Header() {
                                     <ShoppingBagIcon className="text-white w-[30px] cursor-pointer" />
                                 </div>
                                 {user?.role === 2 ? (
-                                    <Link to={"/dashboard"}>
+                                    token && <Link to={"/dashboard"}>
                                         <ChartPieIcon className="w-[30px] text-white" />
                                     </Link>
                                 ) : ""}
