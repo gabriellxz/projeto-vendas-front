@@ -8,12 +8,17 @@ import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import MyDocument from "./components/MyDocument";
 import api from "../../config/config";
 import { CompleteOrder } from "./typePayment";
+import { parseToken } from "../../utils/parseToken";
 
 export default function PageSuccess() {
+    
+    const { user, token } = useContext(UserAutenticado)
+    const parsedToken = parseToken(token)
+
+    console.log(token)
 
     const location = useLocation()
     const navigate = useNavigate()
-    const { user, token } = useContext(UserAutenticado)
     const [open, setOpen] = useState<boolean>(false)
     const [inforPayment, setInforPayment] = useState<CompleteOrder>()
 
@@ -34,7 +39,7 @@ export default function PageSuccess() {
             if (token) {
                 const response = await api.get(`/Order/by-session/${sessionId}`, {
                     headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
+                        "Authorization": `Bearer ${parsedToken}`
                     }
                 })
 
