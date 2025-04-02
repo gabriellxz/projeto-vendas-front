@@ -1,5 +1,5 @@
 import { loadStripe } from "@stripe/stripe-js";
-import useCart from "./useCart";
+import {useCart} from "../context/cartContext";
 import { useContext, useState } from "react";
 import { UserAutenticado } from "../context/authContext";
 import { useSelector } from "react-redux";
