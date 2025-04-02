@@ -1,7 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { CartOrderUser } from "../types/cart";
 import api from "../config/config";
 import { UserAutenticado } from "./authContext";
+import { parseToken } from "../utils/parseToken";
+import { useNavigate } from "react-router-dom";
 
 interface ContextTypeCart {
     cart: CartOrderUser[];
@@ -13,7 +15,8 @@ interface ContextTypeCart {
     handleDecrease: (produtoId: number, amount: number) => void;
     setBagIsOpen: React.Dispatch<React.SetStateAction<boolean | undefined>>;
     bagIsOpen: boolean | undefined;
-    loadingCart: boolean | undefined
+    loadingCart: boolean | undefined;
+    produtoId: number | undefined;
 }
 
 const CartContext = createContext<ContextTypeCart | undefined>(undefined)
@@ -21,24 +24,33 @@ const CartContext = createContext<ContextTypeCart | undefined>(undefined)
 export function CartProvider({ children }: any) {
 
     const { token } = useContext(UserAutenticado)
+    const parsedToken = parseToken(token)
+
+    const navigate = useNavigate()
     const [cart, setCart] = useState<CartOrderUser[]>([])
     const [bagIsOpen, setBagIsOpen] = useState<boolean | undefined>(false)
     const [loadingCart, setLoadingCart] = useState<boolean | undefined>(undefined)
+    const [produtoId, setProdutoId] = useState<number | undefined>(undefined)
 
-    async function loadCart() {
+
+    const loadCart = useCallback(async () => {
         try {
             if (token) {
                 const response = await api.get("/cart/find", {
                     headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
+                        "Authorization": `Bearer ${parsedToken}`
                     }
                 })
                 setCart(response.data.carrinho)
+
+                if (response.data.carrinho.length > 0) {
+                    setProdutoId(response.data.carrinho[0].produtoId);
+                }
             }
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [parsedToken])
 
     async function addToCart(produtoId: number, amount: number) {
         setLoadingCart(true)
@@ -47,7 +59,7 @@ export function CartProvider({ children }: any) {
             if (token) {
                 const response = await api.post("/cart/insert", { amount, produtoId }, {
                     headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
+                        "Authorization": `Bearer ${parsedToken}`
                     }
                 })
 
@@ -55,6 +67,8 @@ export function CartProvider({ children }: any) {
                 setBagIsOpen(true)
                 setCart(response.data.carrinho)
                 console.log(response.data)
+            } else {
+                navigate("/login")
             }
         } catch (error) {
             setLoadingCart(false)
@@ -67,7 +81,7 @@ export function CartProvider({ children }: any) {
             if (token) {
                 await api.delete(`/cart/${productId}`, {
                     headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
+                        "Authorization": `Bearer ${parsedToken}`
                     }
                 })
                 setCart(cart.filter(c => c.produtoId !== productId))
@@ -82,7 +96,7 @@ export function CartProvider({ children }: any) {
             if (token) {
                 await api.delete("/cart/clear", {
                     headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
+                        "Authorization": `Bearer ${parsedToken}`
                     }
                 })
                 setCart([])
@@ -97,7 +111,7 @@ export function CartProvider({ children }: any) {
             if (token) {
                 const response = await api.patch("/cart/update", { produtoId, amount }, {
                     headers: {
-                        "Authorization": "Bearer " + JSON.parse(token)
+                        "Authorization": `Bearer ${parsedToken}`
                     }
                 })
                 // console.log(response.data.carrinho[produtoId])
@@ -123,9 +137,13 @@ export function CartProvider({ children }: any) {
     }
 
     useEffect(() => {
-        loadCart()
+        if(token) {
+            loadCart()
+        } else {
+            setCart([])
+        }
         // console.log("carrinho foi chamado")
-    }, [cart])
+    }, [parsedToken])
 
     return (
         <CartContext.Provider
@@ -139,7 +157,8 @@ export function CartProvider({ children }: any) {
                 cart,
                 bagIsOpen,
                 setBagIsOpen,
-                loadingCart
+                loadingCart,
+                produtoId
             }}
         >
             {children}
