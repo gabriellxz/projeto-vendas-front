@@ -39,9 +39,7 @@ export default function RoutesApp() {
                                 <Route path="login" element={<Login />} />
                                 <Route path="cadastro" element={<Cadastro />} />
                                 <Route path="/" element={
-                                    <UserAutenticadoProvider>
-                                        <Home />
-                                    </UserAutenticadoProvider>
+                                    <Home />
                                 }>
                                     <Route index element={<ListProduct />} />
                                     <Route path="catalogo-produtos" element={<ListProduct />} />
